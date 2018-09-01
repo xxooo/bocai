@@ -1,28 +1,32 @@
-import Vue from 'vue'
-import App from './App'
-import router from './router'
-import store from './vuex/store'
+import Vue from 'vue';
+import App from './App';
+import router from './router.js';
+import store from './vuex/store';
 
 import _ from 'lodash';
-import axios from 'axios'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+import axios from 'axios';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
-import config from './common/config.js'
-Vue.use(config)
-import util from './common/util.js'
-Vue.use(util)
-import cookie from './common/cookie'
-import request from './common/request.js'
-Vue.use(request)
+import '../theme/index.css';
+import ElementUI from 'element-ui';
+Vue.use(ElementUI);
+import config from './common/config.js';
+Vue.use(config);
+import util from './common/util.js';
+Vue.use(util);
+import cookie from './common/cookie';
+import request from './common/request.js';
+Vue.use(request);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 window.router = router;
 window.store = store;
 window.axios = axios;
 window._ = _;
 window.cookie = cookie;
+window.ENV = ENV;
 
 (async function () {
 

@@ -3,6 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+var webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 function resolve (dir) {
@@ -33,6 +34,11 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   plugins: [
+    new webpack.DefinePlugin({
+      ENV: process.env.NODE_ENV === 'production' ? "'pro'" : "'dev'",
+      assetsPublicPath: "\"" + (process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath) + "\"",
+      // currentVersion: process.env.NODE_ENV === 'production' ? new Date().getTime() : "''",//每次打包加入版本号
+    }),
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, '../bocai.ico'),
     }])
