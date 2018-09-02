@@ -13,7 +13,7 @@
         mode="horizontal"
         @select="handleSelect"
         background-color="#3C256D"
-        text-color="#fff"
+        text-color="#ffd04b"
         active-text-color="#ffd04b">
         <el-menu-item index="1">重庆时时彩</el-menu-item>
         <el-menu-item index="2">幸运飞艇</el-menu-item>

@@ -2,8 +2,10 @@
   <div id="main">
     <page-header ></page-header>
     <div id="content">
-      <left-panel  ></left-panel>
-      <router-view>wfwefawefwef</router-view>
+      <left-panel></left-panel>
+      <div id="routerMain">
+        <router-view></router-view>
+      </div>
     </div>
     <page-footer></page-footer>
   </div>
@@ -41,6 +43,17 @@ export default {
   }
 };
 </script>
+<style scoped>
+  #content {
+    width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    background-color: #3c256d;
+  }
+  #routerMain {
+    height: 100%;
+  }
+</style>
 <style lang="less">
 #main {
     width: 100%;

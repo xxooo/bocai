@@ -11,8 +11,8 @@
 	      <a href="javascript:;">常见问题</a>
 	      <a href="javascript:;">责任博彩</a>
 	    </p> 
-	    <p>比特娱乐城所提供的产品和服务，是由澳门政府 Macau,China Special Economic Zone. 授权和监管</p>
-	    <p>Copyright © 比特娱乐城 Reserved</p>
+	    <p class="golden">比特娱乐城所提供的产品和服务，是由澳门政府 Macau,China Special Economic Zone. 授权和监管</p>
+	    <p class="golden">Copyright © 比特娱乐城 Reserved</p>
     </div>
   </footer>
 </template>
@@ -37,7 +37,6 @@ footer p {
     height: 24px;
     line-height: 24px;
     padding-bottom: 5px;
-    color: #ffd04b;
 }
 footer p a {
     color: #fff;

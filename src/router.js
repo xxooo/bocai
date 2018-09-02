@@ -8,10 +8,14 @@ export default new Router({
       path: '/', name: 'login', component: resolve => require(['@/components/login'],resolve)
     },
     {
-      path: '/toindex', name: 'userAgreement', component: resolve => require(['@/components/userAgreement'],resolve)
+      path: '/togambling', name: 'userAgreement', component: resolve => require(['@/components/userAgreement'],resolve)
     },
     {
-      path: '/index', name: 'index', component: resolve => require(['@/components/index'],resolve)
+      path: '/gambling', name: 'gambling', component: resolve => require(['@/components/gambling'],resolve),
+      children: [
+      { path: '/gambling/chongqindubo', name: 'chongqindubo',
+        component: resolve => require(['@/components/apps/bocai/chongqindubo'],resolve), meta: { requiresAuth: true }},
+      ]
     }
   ]
 })
