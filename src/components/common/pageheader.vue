@@ -12,8 +12,8 @@
         class="el-menu-demo"
         mode="horizontal"
         @select="handleSelect"
-        background-color="#3C256D"
-        text-color="#ffd04b"
+        background-color="#6c3092"
+        text-color="#fff"
         active-text-color="#ffd04b">
         <el-menu-item index="1">重庆时时彩</el-menu-item>
         <el-menu-item index="2">幸运飞艇</el-menu-item>
@@ -102,7 +102,7 @@ header {
     background-size: 100% 100%;
     color: #ffea00;
     cursor: default;
-    border-bottom: 0px solid #3C256D;
+    border-bottom: 0px solid #6c3092;
   }
 
 }

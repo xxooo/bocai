@@ -94,7 +94,7 @@ export default {
     position: relative;
     text-align: center;
     overflow: hidden;
-    background: #53200f;
+    background: #9b63b7;
 }
 
 #leftpanel .leftList .userInfo .title {
@@ -102,12 +102,12 @@ export default {
     line-height: 36px;
     font-size: 14px;
     font-weight: 700;
-    color: #511e02;
+    color: #ffd04b;
     position: relative;
 }
 
 #leftpanel .leftList .userInfo .info {
-    background: #f9f8f7;
+    background: #ae70d4;
     background-size: 100% 100%;
     padding: 15px 5px;
     font-size: 13px;
@@ -115,14 +115,13 @@ export default {
     overflow-x: hidden;
     word-break: break-all;
     text-align: center;
-    border: 1px solid #ffdf70;
 }
 
 #leftpanel .leftList .userInfo .info .info-box {
     width: 80%;
     text-align: left;
     margin: 0 auto;
-    background-color: #310f80;
+    background-color: #9b63b7;
     border-radius: 5px;
     color: #d6cebf;
     font-weight: 700;

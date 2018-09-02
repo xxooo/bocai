@@ -1,5 +1,4 @@
 <template>
-  <footer>
   	<div>
 	  	<p>
 	  	  <a href="javascript:;">游戏规则</a>
@@ -14,7 +13,6 @@
 	    <p class="golden">比特娱乐城所提供的产品和服务，是由澳门政府 Macau,China Special Economic Zone. 授权和监管</p>
 	    <p class="golden">Copyright © 比特娱乐城 Reserved</p>
     </div>
-  </footer>
 </template>
 <script>
 export default {
