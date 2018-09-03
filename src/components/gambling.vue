@@ -115,6 +115,31 @@ export default {
 
   #header {
     border-bottom: solid 2px #ffd04b;
+
+    .el-menu--horizontal {
+      background-color: rgb(60, 37, 109);
+      font-size: 14px;
+      width: 1100px;
+      margin: 0 auto;
+      border-bottom: solid 0px #ffd04b;
+    }
+
+    .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
+      border-bottom: 0px solid #6C3092;
+    }
+
+    .el-menu-item.is-active {
+      background: url(./../../static/img/gold-light-btn-shading.png) bottom no-repeat transparent;
+      background-size: 100% 100%;
+      color: #ffea00;
+      cursor: default;
+      border-bottom: 0px solid #6c3092;
+    }
+
+    .el-menu-item {
+      padding: 0 32px;
+    }
+
   }
     
     header {
@@ -129,32 +154,9 @@ export default {
       padding: 0px;
     }
 
-  .el-menu-item {
-    padding: 0 32px;
-  }
-
-  .el-menu--horizontal {
-    background-color: rgb(60, 37, 109);
-    font-size: 14px;
-    width: 1100px;
-    margin: 0 auto;
-    border-bottom: solid 0px #ffd04b;
-  }
-
-  .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
-    border-bottom: 0px solid #6C3092;
-  }
-
-  .el-menu-item.is-active {
-    background: url(./../../static/img/gold-light-btn-shading.png) bottom no-repeat transparent;
-    background-size: 100% 100%;
-    color: #ffea00;
-    cursor: default;
-    border-bottom: 0px solid #6c3092;
-  }
 
   footer {
-    background-color: #372c4c;
+    background-color: #361d3d;
     color: #fff;
     font-size: 12px;
     padding-bottom: 10px;

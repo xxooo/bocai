@@ -10,13 +10,13 @@
               class="el-menu-subnav"
               mode="horizontal"
               @select="handleSelect"
-              background-color="#6c3092"
+              background-color="#572f5f"
               text-color="#ffd04b"
               active-text-color="#ffd04b">
-              <el-menu-item index="1">重庆时时彩</el-menu-item>
-              <el-menu-item index="2">幸运飞艇</el-menu-item>
-              <el-menu-item index="3">北京PK拾</el-menu-item>
-              <el-menu-item index="4">北京快乐8</el-menu-item>
+              <el-menu-item index="1">两面盘</el-menu-item>
+              <el-menu-item index="2">1-20名</el-menu-item>
+              <el-menu-item index="3">冠亚组合</el-menu-item>
+              <!-- <el-menu-item index="4">北京快乐8</el-menu-item>
               <el-menu-item index="5">六合彩</el-menu-item>
               <el-menu-item index="6">广东快乐十分</el-menu-item>
               <el-menu-item index="7">广东11选5</el-menu-item>
@@ -32,16 +32,26 @@
                 <el-menu-item index="2-3">江西11选5</el-menu-item>
                 <el-menu-item index="2-3">重庆幸运农场</el-menu-item>
                 <el-menu-item index="2-3">新疆时时彩</el-menu-item>
-              </el-submenu>
+              </el-submenu> -->
             </el-menu>
           </div>
           <div class="title-content">
-            <el-button type="primary" size="mini">玩法规则</el-button>
-            <div class="win">
-              <span>当前彩种输赢</span>
+            <div class="wanfaBtn">
+              <el-button type="primary" size="mini">玩法规则</el-button>
+            </div>
+            <div class="winCurrent">
+              <span>当前彩种输赢:</span>
               <span class="red">0.00</span>
             </div>
-            <div class="remaining"></div>
+            <div class="kaipangTime">
+              <div class="qiciDiv">
+                <p>第<span class="qiciSpan">123456</span>期</p>
+                <p>距离下期开盘</p>
+              </div>
+              <div class="shengyuTime">
+                
+              </div>
+            </div>
           </div>
         </div>
         <div class="bet_box">
@@ -160,10 +170,4 @@ export default {
     overflow-x: hidden;
 }
 
-.title-content {
-    padding: 8px 0;
-    border-radius: 8px 8px 0 0;
-    height: 66px;
-    background-size: 100% 100%;
-}
 </style>

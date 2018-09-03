@@ -1,63 +1,47 @@
 <template>
   <div id="leftpanel">
-    <div data-v-1c2d87c0="" class="leftList">
-      <div data-v-1c2d87c0="" id="userInfo" class="userInfo">
-        <p data-v-1c2d87c0="" class="title">
+    <div class="leftList">
+      <div id="userInfo" class="userInfo">
+        <p class="title">
           账户信息
-          <a data-v-1c2d87c0="" title="刷新" class="refresh">
-          <i data-v-1c2d87c0="" class="icon-refresh"></i>
+          <a title="刷新" class="refresh">
+            <i class="icon-refresh"></i>
           </a>
         </p> 
-        <div data-v-1c2d87c0="" class="info">
-        <div data-v-1c2d87c0="" class="info-box">
-        <p data-v-1c2d87c0="">
-        <label data-v-1c2d87c0="">账户：</label>
-        <span data-v-1c2d87c0="">as3</span>
-              (A盘)</p> 
-              <p data-v-1c2d87c0="">
-              <label data-v-1c2d87c0="">现金余额：</label>4</p> 
-              <p data-v-1c2d87c0=""><label data-v-1c2d87c0="">锁定金额：</label><span data-v-1c2d87c0="" style="color: rgb(225, 123, 52);">0</span></p> 
-              <p data-v-1c2d87c0=""><label data-v-1c2d87c0="">已下金额：</label><span data-v-1c2d87c0="" style="color: rgb(225, 123, 52);">0</span></p>
+        <div class="info">
+          <div class="info-box">
+            <p><label>账户：</label><span>as3</span>(A盘)</p> 
+            <p><label>现金余额：</label>4</p> 
+            <p><label>锁定金额：</label><span style="color: rgb(225, 123, 52);">0</span></p> 
+            <p><label>已下金额：</label><span style="color: rgb(225, 123, 52);">0</span></p>
+          </div> 
+          <p class="login-out"><el-button type="primary" size="mini">登出</el-button></p>
+        </div>
+        <div id="subnav">
+          <ul>
+            <li><a href="#">即时注单</a></li>
+            <li><a href="#">下注历史</a></li>
+            <li><a href="#">个人资讯</a></li>
+            <li><a href="#">财务管理</a></li>
+          </ul> 
+        </div>
+      </div> 
+      <div class="long-dragon">
+        <div class="tabmenu">
+          <a>最新结果</a>
+          <a>最近注单</a>
+        </div>
+        <div class="tabmenu">
+          <a>公告</a>
+          <a>长龙排行榜</a>
         </div> 
-          <p data-v-1c2d87c0="" class="login-out">  
-            <el-button type="primary" size="mini">登出</el-button>
-          </p>
+        <div class="cont">
+          <div class="sum">
+           
+          </div>
+        </div>
       </div>
-      <div id="subnav">
-        <ul>
-          <li><a href="#">即时注单</a></li>
-          <li><a href="#">下注历史</a></li>
-          <li><a href="#">个人资讯</a></li>
-          <li><a href="#">财务管理</a></li>
-        </ul> 
-      </div>
-    </div> 
-    <div data-v-1c2d87c0="" class="long-dragon">
-    <div data-v-1c2d87c0="" class="tab">
-      <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
-        <el-tab-pane label="用户管理" name="first">用户管理333</el-tab-pane>
-        <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-        <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
-      </el-tabs>
-    </div> 
-    <div data-v-1c2d87c0="" class="cont">
-    <ul data-v-1c2d87c0="">
-    <li data-v-1c2d87c0="" class="active">连续开奖</li> 
-    <li data-v-1c2d87c0="" class="">连续未开</li>
-     <li data-v-1c2d87c0="">更多长龙</li>
-     </ul> 
-     <div data-v-1c2d87c0="" class="sum">
-     <h2 data-v-1c2d87c0="">
-     <span data-v-1c2d87c0="">￥</span>长龙投注GO</h2> 
-     <p data-v-1c2d87c0="">统计至<span data-v-1c2d87c0="">701671期</span></p>
-     </div>
-      <div data-v-1c2d87c0="" class="table">
-      <table data-v-1c2d87c0=""></table>
-      </div>
-      </div>
-      </div>
-      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -89,6 +73,7 @@ export default {
     background-size: 100% auto;
     width: 240px;
     float: left;
+    margin-top: 40px;
 }
 
 #leftpanel .leftList .long-dragon {
@@ -119,7 +104,7 @@ export default {
     background-size: 100% 100%;
     padding: 15px 5px;
     font-size: 13px;
-    color: #544a47;
+    color: #fff;
     overflow-x: hidden;
     word-break: break-all;
     text-align: center;
@@ -129,7 +114,7 @@ export default {
     width: 80%;
     text-align: left;
     margin: 0 auto;
-    background-color: #9b63b7;
+    background-color: #cb87f7;
     border-radius: 5px;
     color: #d6cebf;
     font-weight: 700;

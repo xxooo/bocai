@@ -35,7 +35,7 @@ li {
     width: 830px;
     margin-left: 10px;
     padding: 0px 10px 10px;
-    background-color: #f9f8f7;
+    background-color: #572f5f;
 }
 
 .el-tabs__header {
@@ -47,7 +47,9 @@ li {
     margin: 10px 0px;
     height: 20px;
 }
-  #subnav ul{ width: 240px; padding:0; margin:0 auto; list-style-type:none; font-size: 12px;}
+  #subnav ul{ 
+    width: 240px; padding:0; margin:0 auto; list-style-type:none; font-size: 12px;
+  }
   #subnav ul li{ 
     float: left;
     border-left: 1px solid #ffd04b;
@@ -65,3 +67,120 @@ li {
 .el-aside, .el-main {
     overflow: -webkit-paged-y;
 }
+
+#submenu {
+
+    .el-menu--horizontal {
+      background-color: rgb(60, 37, 109);
+      border-bottom: solid 0px #ffd04b;
+    }
+
+    .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
+      border-bottom: 0px solid #6C3092;
+    }
+
+    .el-menu-item.is-active {
+      background-size: 100% 100%;
+      color: #ffea00;
+      cursor: default;
+      border-bottom: 0px solid #6c3092;
+    }
+
+    .el-menu-item,.el-submenu {
+      padding: 0 8.5px;
+    }
+
+    .el-header {
+      padding: 0px;
+    }
+
+    .el-menu--horizontal>.el-menu-item, .el-menu--horizontal>.el-submenu {
+        float: left;
+        height: 20px;
+        line-height: 20px;
+        margin: 0;
+        border-bottom: 0px solid transparent; 
+        color: #909399;
+    }
+
+    .el-menu--horizontal>.el-submenu .el-submenu__title {
+        height: 20px;
+        line-height: 20px;
+        border-bottom: 0px solid transparent;
+    }
+
+    .el-submenu__title {
+        font-size: 12px;
+        padding: 0 0px;
+    }
+
+    .el-menu--horizontal > .el-menu-item, .el-menu--horizontal > .el-submenu {
+        font-size: 12px;
+    }
+
+}
+
+#submenu{ 
+    width: 830px;
+    margin: 10px 0px;
+    height: 20px;
+}
+#submenu ul{ 
+    padding:0; margin:0 auto; list-style-type:none; font-size: 12px;
+}
+#submenu ul li{ 
+    float: left;
+    border-left: 1px solid #ffd04b;
+}
+#submenu ul li:first-child {
+    border-left: 0px solid #fff;
+}
+#submenu ul li a{ 
+    display: block;
+    padding: 0px 5.5px;
+    height: 20px;
+    line-height: 20px;
+    color: #ffd04b;
+    text-shadow: 0px -1px 0px rgba(30, 30, 30, 0.6);
+}
+
+.title-content div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.title-content {
+    padding: 8px 0;
+    border-radius: 8px;
+    height: 50px;
+    border: 1px solid #ccb0da;
+    background-color: #ccb0da;
+
+    .wanfaBtn {
+        float: left;
+        margin: 10px 20px;
+    }
+
+    .winCurrent {
+        float: left;
+        margin: 11px 20px;
+        font-size: 18px;
+        color: #fff;
+    }
+
+    .kaipangTime{
+        float: left;
+        margin: 5px 100px;
+        padding: 0px 50px;
+        color: #fbf1e7;
+        border-left: 2px solid #8a7f96;
+    }
+
+    .qiciSpan {
+        color: #ffd04b;
+        margin: 0px 4px;
+    }
+}
+
+
+
