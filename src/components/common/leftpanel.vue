@@ -1,28 +1,36 @@
 <template>
   <div id="leftpanel">
     <div data-v-1c2d87c0="" class="leftList">
-    <div data-v-1c2d87c0="" id="userInfo" class="userInfo">
-      <p data-v-1c2d87c0="" class="title">
-        账户信息
-        <a data-v-1c2d87c0="" title="刷新" class="refresh">
-        <i data-v-1c2d87c0="" class="icon-refresh"></i>
-        </a>
-      </p> 
-      <div data-v-1c2d87c0="" class="info">
-      <div data-v-1c2d87c0="" class="info-box">
-      <p data-v-1c2d87c0="">
-      <label data-v-1c2d87c0="">账户：</label>
-      <span data-v-1c2d87c0="">as3</span>
-            (A盘)</p> 
-            <p data-v-1c2d87c0="">
-            <label data-v-1c2d87c0="">现金余额：</label>4</p> 
-            <p data-v-1c2d87c0=""><label data-v-1c2d87c0="">锁定金额：</label><span data-v-1c2d87c0="" style="color: rgb(225, 123, 52);">0</span></p> 
-            <p data-v-1c2d87c0=""><label data-v-1c2d87c0="">已下金额：</label><span data-v-1c2d87c0="" style="color: rgb(225, 123, 52);">0</span></p>
-      </div> 
-        <p data-v-1c2d87c0="" class="login-out">  
-          <el-button type="primary" size="mini">登出</el-button>
-        </p>
-    </div>
+      <div data-v-1c2d87c0="" id="userInfo" class="userInfo">
+        <p data-v-1c2d87c0="" class="title">
+          账户信息
+          <a data-v-1c2d87c0="" title="刷新" class="refresh">
+          <i data-v-1c2d87c0="" class="icon-refresh"></i>
+          </a>
+        </p> 
+        <div data-v-1c2d87c0="" class="info">
+        <div data-v-1c2d87c0="" class="info-box">
+        <p data-v-1c2d87c0="">
+        <label data-v-1c2d87c0="">账户：</label>
+        <span data-v-1c2d87c0="">as3</span>
+              (A盘)</p> 
+              <p data-v-1c2d87c0="">
+              <label data-v-1c2d87c0="">现金余额：</label>4</p> 
+              <p data-v-1c2d87c0=""><label data-v-1c2d87c0="">锁定金额：</label><span data-v-1c2d87c0="" style="color: rgb(225, 123, 52);">0</span></p> 
+              <p data-v-1c2d87c0=""><label data-v-1c2d87c0="">已下金额：</label><span data-v-1c2d87c0="" style="color: rgb(225, 123, 52);">0</span></p>
+        </div> 
+          <p data-v-1c2d87c0="" class="login-out">  
+            <el-button type="primary" size="mini">登出</el-button>
+          </p>
+      </div>
+      <div id="subnav">
+        <ul>
+          <li><a href="#">即时注单</a></li>
+          <li><a href="#">下注历史</a></li>
+          <li><a href="#">个人资讯</a></li>
+          <li><a href="#">财务管理</a></li>
+        </ul> 
+      </div>
     </div> 
     <div data-v-1c2d87c0="" class="long-dragon">
     <div data-v-1c2d87c0="" class="tab">
