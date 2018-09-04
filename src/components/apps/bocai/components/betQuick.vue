@@ -2,12 +2,12 @@
 	<div class="betQuick">
     <div class="beishu"></div>
     <div class="betRight">
-      <div class="betRTop">
+      <div class="betRTop" :class="istype ? '' : 'onlybet' ">
         <el-input v-model="money" size="mini" placeholder="请输入金额"></el-input>
         <el-button type="primary"size="mini" plain>下 注</el-button>
         <el-button type="danger" size="mini">重 置</el-button>
       </div>
-      <div class="betRBottom">
+      <div class="betRBottom" v-if="istype">
         <label>投注类型:</label>
         <el-radio-group v-model="radio10" size="mini">
           <el-radio label="1" border>快捷</el-radio>
@@ -24,7 +24,9 @@
 
 	export default {
 		props: {
-      isbetType: true
+      istype: {
+        type: Boolean
+      }
 		},
 		data() {
 			return {
@@ -96,6 +98,10 @@
 
   .el-radio.is-bordered.is-checked {
     background-color: #ffd04b;
+  }
+
+  .betRTop.onlybet {
+    margin-top: 20px;
   }
 }
 
