@@ -29,15 +29,71 @@
       <div class="long-dragon">
         <div class="tabmenu">
           <a>最新结果</a>
+        </div>
+        <div class="tabmenu">
           <a>最近注单</a>
         </div>
         <div class="tabmenu">
           <a>公告</a>
+        </div>
+        <div class="tabmenu">
           <a>长龙排行榜</a>
         </div> 
         <div class="cont">
           <div class="sum">
-           
+            <div data-v-1c2d87c0="" class="table">
+              <table data-v-1c2d87c0="">
+                <tr data-v-1c2d87c0="">
+                  <td data-v-1c2d87c0="" class="type"></td> 
+                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">第四名 龙</a></td> 
+                  <td data-v-1c2d87c0="" class="period">5 期</td>
+                </tr>
+                <tr data-v-1c2d87c0="">
+                  <td data-v-1c2d87c0="" class="type"></td> 
+                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">第五名 双</a></td> 
+                  <td data-v-1c2d87c0="" class="period">3 期</td>
+                </tr>
+                <tr data-v-1c2d87c0="">
+                  <td data-v-1c2d87c0="" class="type"></td> 
+                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">第七名 小</a></td> 
+                  <td data-v-1c2d87c0="" class="period">3 期</td>
+                </tr>
+                <tr data-v-1c2d87c0="">
+                  <td data-v-1c2d87c0="" class="type"></td> 
+                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">第八名 单</a></td>
+                  <td data-v-1c2d87c0="" class="period">3 期</td>
+                </tr>
+                <tr data-v-1c2d87c0="">
+                  <td data-v-1c2d87c0="" class="type"></td> 
+                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">冠亚军和 大</a></td> 
+                  <td data-v-1c2d87c0="" class="period">3 期</td>
+                </tr>
+                <tr data-v-1c2d87c0="">
+                  <td data-v-1c2d87c0="" class="type"></td> 
+                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">冠军 大</a></td> 
+                  <td data-v-1c2d87c0="" class="period">2 期</td>
+                </tr>
+                <tr data-v-1c2d87c0=""><td data-v-1c2d87c0="" class="type"></td> 
+                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">冠军 龙</a></td> 
+                  <td data-v-1c2d87c0="" class="period">2 期</td>
+                </tr>
+                <tr data-v-1c2d87c0="">
+                  <td data-v-1c2d87c0="" class="type"></td> 
+                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">亚军 单</a></td> 
+                  <td data-v-1c2d87c0="" class="period">2 期</td>
+                </tr>
+                <tr data-v-1c2d87c0="">
+                  <td data-v-1c2d87c0="" class="type"></td> 
+                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">亚军 虎</a></td> 
+                  <td data-v-1c2d87c0="" class="period">2 期</td>
+                </tr>
+                <tr data-v-1c2d87c0="">
+                  <td data-v-1c2d87c0="" class="type"></td> 
+                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">第三名 双</a></td> 
+                  <td data-v-1c2d87c0="" class="period">2 期</td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -74,6 +130,7 @@ export default {
     width: 240px;
     float: left;
     margin-top: 40px;
+    margin-left: 10px;
 }
 
 #leftpanel .leftList .long-dragon {
@@ -135,6 +192,68 @@ export default {
 #leftpanel .leftList .long-dragon .cont {
     width: 240px;
     background-color: #ffe37e;
+}
+
+.tabmenu {
+  display: inline-block;
+  float: left;
+  width: 120px;
+  height: 32px;
+  color: #944e03;
+  background: url(./../../../static/img/gold-btn-spirit_mo.png);
+}
+
+.tabmenu:hover {
+  background: url(./../../../static/img/gold-btn-spirit_hover.png);
+  color: #fff;
+}
+
+.tabmenu a {
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+}
+
+#leftpanel .leftList .long-dragon .cont .table {
+    background: #f8f8f8;
+    margin: 8px 0;
+    padding-bottom: 1px;
+}
+
+#leftpanel .leftList .long-dragon .cont .table table {
+    width: 100%;
+    line-height: 26px;
+}
+
+#leftpanel .leftList .long-dragon .cont .table table tr {
+    border-top: 1px solid #eee;
+}
+
+#leftpanel.leftList .long-dragon .cont .table table tr td {
+    padding: 1px 0;
+    font-size: 13px;
+}
+
+#leftpanel .leftList .long-dragon .cont .table table tr td.type {
+    width: 6px;
+}
+
+#leftpanel .leftList .long-dragon .cont .table table tr td.name {
+    width: 130px;
+    padding-left: 6px;
+}
+
+#leftpanel .leftList .long-dragon .cont .table table tr td.name a {
+    color: #694909;
+    text-decoration: none;
+    float: left;
+}
+
+#leftpanel .leftList .long-dragon .cont .table table tr td.period {
+    width: 80px;
+    padding-right: 12px;
+    text-align: right;
+    color: #f42222;
 }
 
 </style>

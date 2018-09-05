@@ -1,6 +1,13 @@
 <template>
 	<div class="betQuick">
-    <div class="beishu"></div>
+    <div class="beishu">
+      <div class="beishuBtn"><a>10</a></div>
+      <div class="beishuBtn"><a>50</a></div>
+      <div class="beishuBtn"><a>100</a></div>
+      <div class="beishuBtn"><a>500</a></div>
+      <div class="beishuBtn"><a>1000</a></div>
+      <div class="beishuBtn"><a>5000</a></div>
+    </div>
     <div class="betRight">
       <div class="betRTop" :class="istype ? '' : 'onlybet' ">
         <el-input v-model="money" size="mini" placeholder="请输入金额"></el-input>
@@ -84,6 +91,30 @@
 
 .betRBottom {
   margin-top: 10px;
+}
+
+.beishuBtn {
+    width: 66.1px;
+    height: 67px;
+    margin: 0px !important;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.beishuBtn a {
+  height: 66px;
+  line-height: 66px;
+  font-weight: bold;
+  padding-left: 2px;
+}
+
+.beishuBtn a:hover {
+  color: #ffd04b;
+}
+
+.beishuBtn:last-child
+{ 
+  width: 68.8px;
 }
 
 </style>

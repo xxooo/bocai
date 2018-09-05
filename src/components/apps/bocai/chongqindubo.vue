@@ -812,7 +812,7 @@ caption, th {
 
 .order-table th {
     line-height: 1.8;
-    background-color: #c9d0dd;
+    background-color: #ffd04b;
     text-align: center;
     border-bottom: none;
     color: #511e02;
@@ -928,7 +928,7 @@ table {
     color: #511e02;
     font-size: 13px;
     font-weight: 700;
-    background-color: #c8c6e5;
+    background-color: #ffd04b;
 }
 
 .bead-table .bead-ball th:first-child {
@@ -938,7 +938,7 @@ table {
 .bead-table .bead-ball th.active {
     color: #fdfcfa;
     cursor: default;
-    background-color: #8e53c4;
+    background-color: #ff9800;
 }
 .bead-table .bead-ball th+th {
     border-left: 1px solid #b299d8;
@@ -961,6 +961,11 @@ table {
 }
 .bead-table table td.bead-list:nth-child(2n+1) {
     background-color: #f8f8fd;
+}
+
+.bead-table .bead-ball th:last-child {
+    border-top-right-radius: 5px;
+    border-right: none;
 }
 
 </style>
