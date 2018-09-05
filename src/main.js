@@ -32,11 +32,21 @@ window.ENV = ENV;
 
     router.beforeEach((to, from, next) => {
 
-    	// let token = cookie.getCookie('token');
+    	let token = cookie.getCookie('token');
 
-	    // if(!token) {
-	    //     window.location.href = `${window.login}/index.html?redirect_url=${window.location.href}`;
-	    // }
+      console.log(token);
+
+      let uurl = window.location.href;
+
+      console.log(uurl);
+
+	    if(!token) {
+        console.log('no token');
+        cookie.setCookie("accesstoken", '65cc1b03448644588546841861f3fe40');
+        // router.push({
+        //   name: 'login',
+        // });
+	    }
 	    // let opts = { headers: {token} };
 
 	    // // access_token 每次都会写入
