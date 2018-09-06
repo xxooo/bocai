@@ -56,7 +56,6 @@ window.ENV = ENV;
         next();
     });
 
-    
 
     router.afterEach(transition => {
       NProgress.done()
