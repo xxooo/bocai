@@ -27,20 +27,12 @@ export default {
             };
             let res = await axios.get(url, opts);
 
-            if (res.data.code == '1') {
-                if(res.data.msg == '') {
-                    if(language == 'en-US') {
-                        this.$warning('No Data');
-                    } else {
-                        this.$warning('没有数据');
-                    }
-                } else {
-                    this.$warning(res.data.msg);
-                }
+            if (res.data.code === 200) {
+                this.$success(res.msg);
+            } else {
+                this.$error(res.msg);
                 
-            } else if(res.data.code == -1) {
-                this.$error(res.data.msg);
-            }
+            } 
 
             return res.data; // {code: 0, result: {count: 0, rows: []}}
         };
@@ -119,20 +111,11 @@ export default {
             let res = await axios.post(url, data, opts);
 
 
-            if (res.data.code == '1') {
-                if(res.data.msg == '') {
-                    if(language == 'en-US') {
-                        this.$warning('No Data');
-                    } else {
-                        this.$warning('没有数据');
-                    }
-                } else {
-                    this.$warning(res.data.msg);
-                }
-                
-            } else if(res.data.code == -1) {
-                this.$error(res.data.msg);
-            }
+            if (res.data.code === 200) {
+                this.$success(res.msg);
+            } else {
+                this.$error(res.msg);
+            } 
 
             return res.data; // {code: 0, result: {count: 0, rows: []}}
         };

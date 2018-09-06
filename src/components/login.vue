@@ -55,7 +55,7 @@
             </p>
 
             <p class="btn">
-              <el-button type="primary" @click="$router.push({name: 'userAgreement'})">登 录</el-button>
+              <el-button type="primary" @click="login()">登 录</el-button>
               <a class="reg" href="javascript:;" >立即注册</a>
               <a class="test" href="javascript:;" >免费试用</a>
             </p>
@@ -228,6 +228,8 @@
 </template>
 
 <script>
+import cookieParser from './../assets/js/cookie';
+
 export default {
   data () {
     return {
@@ -235,81 +237,30 @@ export default {
     }
   },
   created() {
-    //研发自动登录
 
     if (window.ENV == 'dev') {
 
-      console.log('fjkk');
-
-      // this.$router.push({
-      //      name: 'userAgreement'
-      // })
-
-      // this.$router.push('/alarm/alarmBoard');
-
-      // let url = document.location.protocol + '//121.15.130.190:5000/user-org/public/login'
-      // var params = new URLSearchParams();
-      // let users = [{
-      //     account: 'tom',
-      //     password: '123456',
-      //   }, {
-      //     account: 'enter@qq.com',
-      //     password: '666666',
-      //   }, {
-      //     account: 'violet.yan@jwis.cn',
-      //     password: '123456',
-      //   }, {
-      //     account: '1443341689@qq.com',
-      //     password: '123456',
-      //   }, {
-      //     account: '664968008@qq.com',
-      //     password: 'Syq@7788',
-      //   }, {
-      //     account: '278147759@qq.com',
-      //     password: 'Mark123456',
-      //   }, {
-      //     account: 'peter',
-      //     password: 'wirirawirir',
-      //   }, {
-      //     account: 'dz_zhusu@jwis.cn',
-      //     password: '666666',
-      //   }, {
-      //     account: '1154057960@qq.com',
-      //     password: '123456',
-      //   }, {//9
-      //     account: 'devenc.cai@jwis.cn',
-      //     password: '666666',
-      //   }, {//10
-      //     account: 'violet.yan@jwis.cn',
-      //     password: '123456',
-      //   },
-      // ]
-      // params.append('account', users[1].account);
-      // params.append('password', users[1].password);
-      // axios.post(url, params, {
-      //     headers: {
-      //       'Content-Type': 'application/x-www-form-urlencoded'
-      //     }
-      //   }).then(function(response) {
-      //     let data = response.data.result
-      //     // console.log(222, response.data.result);
-      //     if (data && data.token) {
-      //       let token = data.token
-      //       Lockr.set('token', token)
-      //       Cookies('token', token)
-      //       store.dispatch('setToken', token)
-      //       router.push({
-      //         name: 'callback',
-      //       });
-      //     }
-      //   })
-      //   .catch(function(error) {
-      //     console.log(error);
-      //   });
+      console.log('研发自动登录');
 
     } else {
       //普通用户登录
-      // window.location.href = `/portal/login/login.html`;
+       //this.$router.push({name: 'login'});
+    }
+  },
+  methods: {
+    async login() {
+
+      let obj = {
+        password: 'a111111',
+        username: 'aydwhuiyuan1'
+      };
+
+      let ret = await this.$post(`${window.url}/api/login`, obj);
+      if(ret.code === 200) {
+        cookieParser.setCookie("accesstoken", ret.token);
+        this.$router.push({name: 'userAgreement'});
+      }
+
     }
   }
 }

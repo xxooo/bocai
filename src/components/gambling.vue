@@ -80,15 +80,14 @@ export default {
       activeIndex: '1',
       activeIndex2: '1',
       icons:[
-            require('@/assets/img/report/1.png'),
-            require('@/assets/img/report/2.png'),
-            require('@/assets/img/report/3.png')
+            // require('@/assets/img/report/1.png'),
+            // require('@/assets/img/report/2.png'),
+            // require('@/assets/img/report/3.png')
           ]
     }
   },
   async created() {
     this.getBocai();
-    this.login();
   },
   computed: {
     ...mapGetters({
@@ -112,65 +111,7 @@ export default {
           if(prjData.code===200){
             console.log('ok');
           }
-    },
-    async login() {
-
-      let obj = {
-        password: 'a111111',
-        username: 'aydwhuiyuan1'
-      };
-
-
-              let subdata = JSON.stringify(obj);
-              let ret = await this.$post(`${window.url}/api/login`, obj);
-              if(ret.code === 200) {
-                    console.log('ok');
-                  } else {
-              }
-
     }
-
-
-//     advanceTime
-// :
-// null
-// bocaiId
-// :
-// "1"
-// bocaiName
-// :
-// "重庆时时彩"
-// closetime
-// :
-// null
-// createDate
-// :
-// null
-// highestPayout
-// :
-// null
-// id
-// :
-// null
-// isOpen
-// :
-// null
-// minimumBet
-// :
-// null
-// opentime
-// :
-// null
-// sort
-// :
-// 1
-// updateDate
-// :
-// null
-// userId
-// :
-// "159"
-
   },
   mounted() {
   },

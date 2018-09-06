@@ -20,7 +20,7 @@
           <li class="user_winbu">
             <div>
               <el-button type="primary" @click="$router.push({name: 'chongqindubo'})">同  意</el-button>
-              <el-button type="primary">不同意</el-button>
+              <el-button type="primary" @click="$router.push({name: 'login'})">不同意</el-button>
             </div>
           </li>
         </ul>
@@ -35,11 +35,9 @@
 export default {
   data () {
     return {
-
     }
   },
   created() {
-    console.log(this.$route);
   },
   methods: {
   }
