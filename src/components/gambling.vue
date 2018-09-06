@@ -2,6 +2,10 @@
   <div id="main">
     <div id="header">
       <el-header height="216">
+        <div class="head-div">
+          <img :src="icons[1]">
+          <span>kkkkk</span>
+        </div>
       </el-header>
       <el-menu
           :default-active="activeIndex2"
@@ -11,7 +15,7 @@
           background-color="#6c3092"
           text-color="#ffd04b"
           active-text-color="#ffd04b">
-          <el-menu-item index="1">重庆时时彩</el-menu-item>
+          <el-menu-item index="1" @click="getOdds(1)">重庆时时彩</el-menu-item>
           <el-menu-item index="2">幸运飞艇</el-menu-item>
           <el-menu-item index="3">北京PK拾</el-menu-item>
           <el-menu-item index="4">北京快乐8</el-menu-item>
@@ -74,10 +78,17 @@ export default {
   data() {
     return {
       activeIndex: '1',
-      activeIndex2: '1'
+      activeIndex2: '1',
+      icons:[
+            require('@/assets/img/report/1.png'),
+            require('@/assets/img/report/2.png'),
+            require('@/assets/img/report/3.png')
+          ]
     }
   },
   async created() {
+    this.getBocai();
+    this.login();
   },
   computed: {
     ...mapGetters({
@@ -85,8 +96,81 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      }
+      console.log(key, keyPath);
+    },
+    async getBocai() {
+      let prjData = await this.$get(`${window.url}/api/getBocai`);
+
+          if(prjData.code===200){
+            console.log('ok');
+          }
+    },
+    async getOdds(id) {
+
+      let prjData = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id);
+
+          if(prjData.code===200){
+            console.log('ok');
+          }
+    },
+    async login() {
+
+      let obj = {
+        password: 'a111111',
+        username: 'aydwhuiyuan1'
+      };
+
+
+              let subdata = JSON.stringify(obj);
+              let ret = await this.$post(`${window.url}/api/login`, obj);
+              if(ret.code === 200) {
+                    console.log('ok');
+                  } else {
+              }
+
+    }
+
+
+//     advanceTime
+// :
+// null
+// bocaiId
+// :
+// "1"
+// bocaiName
+// :
+// "重庆时时彩"
+// closetime
+// :
+// null
+// createDate
+// :
+// null
+// highestPayout
+// :
+// null
+// id
+// :
+// null
+// isOpen
+// :
+// null
+// minimumBet
+// :
+// null
+// opentime
+// :
+// null
+// sort
+// :
+// 1
+// updateDate
+// :
+// null
+// userId
+// :
+// "159"
+
   },
   mounted() {
   },

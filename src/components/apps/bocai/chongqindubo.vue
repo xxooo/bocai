@@ -14,7 +14,7 @@
               text-color="#ffd04b"
               active-text-color="#ffd04b">
               <el-menu-item index="1">两面盘</el-menu-item>
-              <el-menu-item index="2">1-20名</el-menu-item>
+              <el-menu-item index="2" @click="getOddsCategory(3)">1-5</el-menu-item>
               <el-menu-item index="3">冠亚组合</el-menu-item>
               <!-- <el-menu-item index="4">北京快乐8</el-menu-item>
               <el-menu-item index="5">六合彩</el-menu-item>
@@ -760,7 +760,14 @@ export default {
     },
     handleSelect(key, keyPath) {
         console.log(key, keyPath);
-      }
+    },
+    async getOddsCategory(id) {
+      let prjData = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+1+`&bocaiCategoryId=`+id);
+
+          if(prjData.code===200){
+            console.log('ok');
+          }
+    }
   }
 }
 </script>
