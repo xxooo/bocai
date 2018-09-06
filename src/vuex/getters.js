@@ -1,9 +1,7 @@
 const getters = {
-  getMenus: state => state.menus,
-  getShowLeftMenu: state => state.showLeftMenu,
-  getboradFullTitle: state => state.boradFullTitle,
-  getUntreated: state => state.untreated,
-  getavatarVuex: state => state.avatarVuex
+	getbocaiCategoryList: state => state.bocaiCategoryList,
+	getoddsList: state => state.oddsList,
+	gettest: state => state.test
 }
 
 export default getters

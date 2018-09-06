@@ -1,21 +1,12 @@
 const mutations = {
-  setMenus(state, menus) {
-    state.menus = menus;
+  updatebocaiCategoryList(state,v){
+    state.bocaiCategoryList = v;
   },
-  updateShowLeftMenu(state,v) {
-  	state.showLeftMenu = v;
+  updateoddsList(state,v){
+    state.oddsList = v;
   },
-  showLoading(state, status) {
-    state.globalLoading = status
-  },
-  updateboradFullTitle(state,v) {
-  	state.boradFullTitle = v;
-  },
-  updateUntreated(state,v){
-    state.untreated = v;
-  },
-  updateavatarVuex(state,v) {
-    state.avatarVuex = v;
+  updatetest(state,v) {
+    state.test =v;
   }
 }
 

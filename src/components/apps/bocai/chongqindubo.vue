@@ -6,16 +6,14 @@
         <div>
           <div id="submenu">
             <el-menu
-              :default-active="activeIndex2"
+              :default-active="activeIndex"
               class="el-menu-subnav"
               mode="horizontal"
               @select="handleSelect"
               background-color="#572f5f"
               text-color="#ffd04b"
-              active-text-color="#ffd04b">
-              <el-menu-item index="1">两面盘</el-menu-item>
-              <el-menu-item index="2" @click="getOddsCategory(3)">1-5</el-menu-item>
-              <el-menu-item index="3">冠亚组合</el-menu-item>
+              active-text-color="#fff">
+              <el-menu-item v-for="(item,index) in bocaiCategoryList" :key="index" :index="item.name" @click="getOddsCategory(item.id)">{{item.name}}</el-menu-item>
               <!-- <el-menu-item index="4">北京快乐8</el-menu-item>
               <el-menu-item index="5">六合彩</el-menu-item>
               <el-menu-item index="6">广东快乐十分</el-menu-item>
@@ -737,6 +735,7 @@
 <script>
 import ClockTimes from '@/components/apps/bocai/components/clockTimes';
 import BetQuick from '@/components/apps/bocai/components/betQuick';
+import {mapState,mapGetters} from 'vuex';
 
 export default {
   components: {
@@ -746,13 +745,20 @@ export default {
   data () {
     return {
       activeName: 'second',
-      activeIndex: '1',
-      activeIndex2: '1',
       botbet: false,
-      topbet: true
+      topbet: true,
+      bocaiCategoryList: [],
+      oddsList: [],
+      activeIndex: ''
     }
   },
+  computed: {
+    ...mapGetters({
+    })
+  },
   created() {
+    console.log('bocaiCategoryList',this.bocaiCategoryList);
+    this.getOdds(1);
   },
   methods: {
     handleClick(tab, event) {
@@ -766,6 +772,22 @@ export default {
 
           if(prjData.code===200){
             console.log('ok');
+          }
+    },
+    async getOdds(id) {
+
+      let res = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id);
+
+          if(res.code===200){
+
+            this.bocaiCategoryList = res.bocaiCategoryList;
+            this.oddsList = res.oddsList;
+
+            //this.activeIndex = this.bocaiCategoryList[0].name;
+
+
+            // store.commit('updatebocaiCategoryList', res.bocaiCategoryList);
+            // store.commit('updateoddsList', res.oddsList);
           }
     }
   }

@@ -8,15 +8,16 @@
         </div>
       </el-header>
       <el-menu
-          :default-active="activeIndex2"
+          :default-active="activeIndex"
           class="el-menu-demo"
           mode="horizontal"
           @select="handleSelect"
           background-color="#6c3092"
           text-color="#ffd04b"
           active-text-color="#ffd04b">
-          <el-menu-item index="1" @click="getOdds(1)">重庆时时彩</el-menu-item>
-          <el-menu-item index="2">幸运飞艇</el-menu-item>
+
+          <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item.id)">{{item.bocaiName}}</el-menu-item>
+          <!-- <el-menu-item index="2">幸运飞艇</el-menu-item>
           <el-menu-item index="3">北京PK拾</el-menu-item>
           <el-menu-item index="4">北京快乐8</el-menu-item>
           <el-menu-item index="5">六合彩</el-menu-item>
@@ -32,7 +33,7 @@
           <el-menu-item index="2-3">江西11选5</el-menu-item>
           <el-menu-item index="2-3">重庆幸运农场</el-menu-item>
           <el-menu-item index="2-3">新疆时时彩</el-menu-item>
-        </el-submenu>
+        </el-submenu> -->
       </el-menu>
     </div>
     
@@ -77,8 +78,8 @@ export default {
   },
   data() {
     return {
-      activeIndex: '1',
-      activeIndex2: '1',
+      activeIndex: '重庆时时彩',
+      bocaiTypeList: [],
       icons:[
             // require('@/assets/img/report/1.png'),
             // require('@/assets/img/report/2.png'),
@@ -98,19 +99,27 @@ export default {
       console.log(key, keyPath);
     },
     async getBocai() {
-      let prjData = await this.$get(`${window.url}/api/getBocai`);
+      let res = await this.$get(`${window.url}/api/getBocai`);
 
-          if(prjData.code===200){
-            console.log('ok');
+          if(res.code===200){
+            this.bocaiTypeList = res.bocaiTypeList;
           }
     },
     async getOdds(id) {
 
-      let prjData = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id);
+      this.$router.push({name: id});
 
-          if(prjData.code===200){
-            console.log('ok');
-          }
+      this.$router.push({name: 'login'});
+
+      // let res = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id);
+
+      //     if(res.code===200){
+
+      //       //console.log('res.bocaiCategoryList',res.bocaiCategoryList);
+
+      //       //store.commit('updatebocaiCategoryList', res.bocaiCategoryList);
+      //       //store.commit('updateoddsList', res.oddsList);
+      //     }
     }
   },
   mounted() {
@@ -157,8 +166,12 @@ export default {
       background: url(./../../static/img/gold-light-btn-shading.png) bottom no-repeat transparent;
       background-size: 100% 100%;
       color: #ffea00;
-      cursor: default;
+      cursor: point;
       border-bottom: 0px solid #6c3092;
+    }
+
+    .el-menu-item:hover {
+      color: #fff !important;
     }
 
     .el-menu-item {
