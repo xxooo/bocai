@@ -13,7 +13,7 @@
               background-color="#572f5f"
               text-color="#ffd04b"
               active-text-color="#fff">
-              <el-menu-item v-for="(item,index) in bocaiCategoryList" :key="index" :index="item.name" @click="getOddsCategory(item.id)">{{item.name}}</el-menu-item>
+              <el-menu-item v-for="(item,index) in bocaiCategoryList" :key="index" :index="item.name" @click="getOddsCategory(item)">{{item.name}}</el-menu-item>
               <!-- <el-menu-item index="4">北京快乐8</el-menu-item>
               <el-menu-item index="5">六合彩</el-menu-item>
               <el-menu-item index="6">广东快乐十分</el-menu-item>
@@ -56,149 +56,57 @@
               <bet-quick :istype="topbet"></bet-quick>
             </div>
 
-            <div>
-              <!-- 表格类型1 -->
-              <div class="order-table">
-                  <table>
-                    <tr>
-                      <th colspan="8">总和-龙虎和</th>
-                    </tr>
-                    <tr>
-                      <td class="tdLeft" width="8%">总和大</td>
-                      <td class="tdRight">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" width="8%">总和大</td>
-                      <td class="tdRight">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" width="8%">总和大</td>
-                      <td class="tdRight">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" width="8%">总和大</td>
-                      <td class="tdRight">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="tdLeft" width="8%">总和大</td>
-                      <td class="tdRight">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" width="8%">总和大</td>
-                      <td class="tdRight">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" width="8%">总和大</td>
-                      <td class="tdRight">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" width="8%">总和大</td>
-                      <td class="tdRight">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                  </table>
-              </div>
-            </div>
 
-            <div>
-              <!-- 表格类型2 -->
+
+            <template v-if="showOdds == '两面盘'">
+
+              <div>
+                <div class="order-table">
+                    <table>
+                      <tr>
+                        <th colspan="8">{{longhuhe_lmp.name}}</th>
+                      </tr>
+                        <tr>
+                          <template v-for="(item,index) in longhuhe_lmp.list" v-if="index*1 < 4">
+                            <td class="tdLeft" width="8%">{{item.oddsName}}</td>
+                            <td class="tdRight">
+                              <ul>
+                                <li>
+                                  <span class="odds-font">{{item.odds}}</span>
+                                </li>
+                              </ul>
+                            </td>
+                          </template>
+                        </tr>
+                        <tr>
+                          <template v-for="(item,index) in longhuhe_lmp.list" v-if="index*1 > 3">
+                            <td class="tdLeft" width="8%">{{item.oddsName}}</td>
+                            <td class="tdRight"> 
+                              <ul>
+                                <li>
+                                  <span class="odds-font">{{item.odds}}</span>
+                                </li>
+                              </ul>
+                            </td>
+                          </template>
+                        </tr>
+                    </table>
+                </div>
+              </div>
+
+            <div class="qiu15_body">
               <div class="eball">
                   <div class="order-table">
                     <table>
                       <tr>
-                        <th colspan="2">第一球</th>
+                        <th colspan="2">{{diyiqiu_lmp.name}}</th>
                       </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
+                      <tr v-for="(item,index) in diyiqiu_lmp.list">
+                        <td class="tdLeft">{{item.oddsName}}</td>
                         <td class="tdRight">
                           <ul>
                             <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
+                              <span class="odds-font">{{item.odds}}</span>
                             </li>
                           </ul>
                         </td>
@@ -210,64 +118,14 @@
                   <div class="order-table">
                     <table>
                       <tr>
-                        <th colspan="2">第一球</th>
+                        <th colspan="2">{{dierqiu_lmp.name}}</th>
                       </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
+                      <tr v-for="(item,index) in dierqiu_lmp.list">
+                        <td class="tdLeft">{{item.oddsName}}</td>
                         <td class="tdRight">
                           <ul>
                             <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
+                              <span class="odds-font">{{item.odds}}</span>
                             </li>
                           </ul>
                         </td>
@@ -279,64 +137,14 @@
                   <div class="order-table">
                     <table>
                       <tr>
-                        <th colspan="2">第一球</th>
+                        <th colspan="2">{{disanqiu_lmp.name}}</th>
                       </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
+                      <tr v-for="(item,index) in disanqiu_lmp.list">
+                        <td class="tdLeft">{{item.oddsName}}</td>
                         <td class="tdRight">
                           <ul>
                             <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
+                              <span class="odds-font">{{item.odds}}</span>
                             </li>
                           </ul>
                         </td>
@@ -348,64 +156,14 @@
                   <div class="order-table">
                     <table>
                       <tr>
-                        <th colspan="2">第一球</th>
+                        <th colspan="2">{{disiqiu_lmp.name}}</th>
                       </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
+                      <tr v-for="(item,index) in disiqiu_lmp.list">
+                        <td class="tdLeft">{{item.oddsName}}</td>
                         <td class="tdRight">
                           <ul>
                             <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
+                              <span class="odds-font">{{item.odds}}</span>
                             </li>
                           </ul>
                         </td>
@@ -417,64 +175,14 @@
                   <div class="order-table">
                     <table>
                       <tr>
-                        <th colspan="2">第一球</th>
+                        <th colspan="2">{{diwuqiu_lmp.name}}</th>
                       </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
+                      <tr v-for="(item,index) in diwuqiu_lmp.list">
+                        <td class="tdLeft">{{item.oddsName}}</td>
                         <td class="tdRight">
                           <ul>
                             <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="tdLeft">大</td>
-                        <td class="tdRight">
-                          <ul>
-                            <li>
-                              <span class="odds-font">1.99</span>
+                              <span class="odds-font">{{item.odds}}</span>
                             </li>
                           </ul>
                         </td>
@@ -485,155 +193,86 @@
             </div>
 
             <div>
-              <!-- 表格类型3 -->
               <div class="order-table">
                   <table>
                     <tr>
-                      <th colspan="10">前三</th>
+                      <th colspan="10">{{qiansan_lmp.name}}</th>
                     </tr>
                     <tr>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
+                      <template v-for="(item,index) in qiansan_lmp.list">
+                        <td class="tdLeft" style="width: 10%;">{{item.oddsName}}</td>
+                        <td class="tdRight" style="width: 10%;">
+                          <ul>
+                            <li>
+                              <span class="odds-font">{{item.odds}}</span>
+                            </li>
+                          </ul>
+                        </td>
+                      </template>
                     </tr>
                   </table>
               </div>
               <div class="order-table">
                   <table>
                     <tr>
-                      <th colspan="10">前三</th>
+                      <th colspan="10">{{zhongsan_lmp.name}}</th>
                     </tr>
                     <tr>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
+                      <template v-for="(item,index) in zhongsan_lmp.list">
+                        <td class="tdLeft" style="width: 10%;">{{item.oddsName}}</td>
+                        <td class="tdRight" style="width: 10%;">
+                          <ul>
+                            <li>
+                              <span class="odds-font">{{item.odds}}</span>
+                            </li>
+                          </ul>
+                        </td>
+                      </template>
                     </tr>
                   </table>
               </div>
               <div class="order-table">
                   <table>
                     <tr>
-                      <th colspan="10">前三</th>
+                      <th colspan="10">{{housan_lmp.name}}</th>
                     </tr>
                     <tr>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
-                      <td class="tdLeft" style="width: 10%;">总和大</td>
-                      <td class="tdRight" style="width: 10%;">
-                        <ul>
-                          <li>
-                            <span class="odds-font">1.99</span>
-                          </li>
-                        </ul>
-                      </td>
+                      <template v-for="(item,index) in housan_lmp.list">
+                        <td class="tdLeft" style="width: 10%;">{{item.oddsName}}</td>
+                        <td class="tdRight" style="width: 10%;">
+                          <ul>
+                            <li>
+                              <span class="odds-font">{{item.odds}}</span>
+                            </li>
+                          </ul>
+                        </td>
+                      </template>
                     </tr>
                   </table>
               </div>
             </div>
+
+          </template>
+
+          <template v-if="showOdds == '1~5'">
+            <div>
+              <div class="qiu15_body">
+                <div class="nball" v-for="(itemPa,indexPa) in oddsList">
+                  <div class="order-table">
+                    <table>
+                      <tr><th colspan="2">{{itemPa.name}}</th></tr>
+                      <tr v-for="(item,index) in itemPa.list">
+                          <td v-if="isNaN(item.oddsName*1)" class="oddsNtd tdLeft">{{item.oddsName}}</td>
+                          <td v-else class="oddsNtd tdLeft"><div class="ball-icon">{{item.oddsName}}</div></td> 
+                          <td class="oddsUltd"><ul><li><span class="odds-font">{{item.odds}}</span></li></ul></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div> 
+          </template>
+
 
             <div class="order-info">
               <bet-quick :istype="botbet"></bet-quick>
@@ -749,7 +388,17 @@ export default {
       topbet: true,
       bocaiCategoryList: [],
       oddsList: [],
-      activeIndex: ''
+      activeIndex: '',
+      showOdds: '',
+      longhuhe_lmp: {},
+      diyiqiu_lmp: {},
+      dierqiu_lmp: {},
+      disanqiu_lmp: {},
+      disiqiu_lmp: {},
+      diwuqiu_lmp: {},
+      qiansan_lmp: {},
+      zhongsan_lmp: {},
+      housan_lmp:{}
     }
   },
   computed: {
@@ -757,7 +406,6 @@ export default {
     })
   },
   created() {
-    console.log('bocaiCategoryList',this.bocaiCategoryList);
     this.getOdds(1);
   },
   methods: {
@@ -767,11 +415,12 @@ export default {
     handleSelect(key, keyPath) {
         console.log(key, keyPath);
     },
-    async getOddsCategory(id) {
-      let prjData = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+1+`&bocaiCategoryId=`+id);
-
-          if(prjData.code===200){
-            console.log('ok');
+    async getOddsCategory(item) {
+      let res = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+1+`&bocaiCategoryId=`+item.id);
+          this.showOdds = item.name;
+          if(res.code===200){
+            this.oddsList = res.oddsList;
+            this.shuaiXuanDatas(res.oddsList);
           }
     },
     async getOdds(id) {
@@ -779,17 +428,39 @@ export default {
       let res = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id);
 
           if(res.code===200){
-
             this.bocaiCategoryList = res.bocaiCategoryList;
             this.oddsList = res.oddsList;
-
-            //this.activeIndex = this.bocaiCategoryList[0].name;
-
-
-            // store.commit('updatebocaiCategoryList', res.bocaiCategoryList);
-            // store.commit('updateoddsList', res.oddsList);
+            this.showOdds = '两面盘';
+            this.activeIndex = this.bocaiCategoryList[0].name;
+            this.shuaiXuanDatas(res.oddsList);
           }
+    },
+    shuaiXuanDatas(dataList) {
+      for(let n in dataList) {
+        if(this.showOdds == '两面盘') {
+          if(dataList[n].name == '总和-龙虎和') {
+            this.longhuhe_lmp = dataList[n];
+          } else if(dataList[n].name == '第一球') {
+            this.diyiqiu_lmp = dataList[n];
+          } else if(dataList[n].name == '第二球') {
+            this.dierqiu_lmp = dataList[n];
+          } else if(dataList[n].name == '第三球') {
+            this.disanqiu_lmp = dataList[n];
+          } else if(dataList[n].name == '第四球') {
+            this.disiqiu_lmp = dataList[n];
+          } else if(dataList[n].name == '第五球') {
+            this.diwuqiu_lmp = dataList[n];
+          } else if(dataList[n].name == '前三') {
+            this.qiansan_lmp = dataList[n];
+          } else if(dataList[n].name == '中三') {
+            this.zhongsan_lmp = dataList[n];
+          } else if(dataList[n].name == '后三') {
+            this.housan_lmp = dataList[n];
+          }
+        }
+      }
     }
+
   }
 }
 </script>
@@ -873,7 +544,7 @@ td.tdLeft {
   font-weight: 700;
 }
 
-.eball td.tdLeft:nth-child(1) {
+.qiu15_body td.tdLeft:nth-child(1) {
     width: 40px;
 }
 
@@ -991,10 +662,57 @@ table {
 .bead-table table td.bead-list:nth-child(2n+1) {
     background-color: #f8f8fd;
 }
-
 .bead-table .bead-ball th:last-child {
     border-top-right-radius: 5px;
     border-right: none;
+}
+.nball .order-table .ball-icon {
+    background-color: #0433de;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    margin: 2.5px 7.5px;
+    line-height: 27.5px;
+    border-radius: 30px;
+}
+.nball {
+    display: inline-block;
+    width: 162px;
+    margin-right: 4px;
+}
+.nball .order-table td.oddsNtd{
+    cursor: pointer;
+}
+.nball .order-table td.oddsNtd{
+    color: #511e02;
+    font-weight: 700;
+}
+.nball .order-table td.oddsUltd{
+    cursor: pointer;
+    position: relative;
+}
+.nball .order-table ul {
+    height: 100%;
+    overflow: hidden;
+}
+.nball .order-table ul li {
+    padding: 7px 0;
+    display: inline-block;
+    width: 40%;
+    margin: 0;
+}
+.nball .order-table ul li {
+    padding: 7px 0;
+    display: inline-block;
+    width: 40%;
+    margin: 0;
+}
+.nball .order-table ul li:only-child {
+    width: 100%;
+}
+.nball .order-table span {
+    cursor: pointer;
+    display: inline-block;
 }
 
 </style>

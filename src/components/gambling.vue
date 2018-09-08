@@ -109,7 +109,6 @@ export default {
 
       this.$router.push({name: id});
 
-      this.$router.push({name: 'login'});
 
       // let res = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id);
 
