@@ -53,7 +53,7 @@
         <div class="bet_box">
           <div class="orders">
             <div class="order-info">
-              <bet-quick :istype="topbet"></bet-quick>
+              <bet-quick :istype="topbet" :orderDatas='orderDatas'></bet-quick>
             </div>
 
 
@@ -68,8 +68,8 @@
                       </tr>
                         <tr>
                           <template v-for="(item,index) in longhuhe_lmp.list" v-if="index*1 < 4">
-                            <td class="tdLeft" width="8%">{{item.oddsName}}</td>
-                            <td class="tdRight">
+                            <td class="tdLeft ordersTdOver" width="8%" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">{{item.oddsName}}</td>
+                            <td class="tdRight" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">
                               <ul>
                                 <li>
                                   <span class="odds-font">{{item.odds}}</span>
@@ -80,8 +80,8 @@
                         </tr>
                         <tr>
                           <template v-for="(item,index) in longhuhe_lmp.list" v-if="index*1 > 3">
-                            <td class="tdLeft" width="8%">{{item.oddsName}}</td>
-                            <td class="tdRight"> 
+                            <td class="tdLeft" width="8%" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">{{item.oddsName}}</td>
+                            <td class="tdRight" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')"> 
                               <ul>
                                 <li>
                                   <span class="odds-font">{{item.odds}}</span>
@@ -102,8 +102,8 @@
                         <th colspan="2">{{diyiqiu_lmp.name}}</th>
                       </tr>
                       <tr v-for="(item,index) in diyiqiu_lmp.list">
-                        <td class="tdLeft">{{item.oddsName}}</td>
-                        <td class="tdRight">
+                        <td class="tdLeft" :class="'diyiqiu_lmp'+item.oddsId" @click="orderTd(diyiqiu_lmp,item,'diyiqiu_lmp')" @mouseenter="overShow(item,'diyiqiu_lmp')" @mouseleave="outHide(item,'diyiqiu_lmp')">{{item.oddsName}}</td>
+                        <td class="tdRight" :class="'diyiqiu_lmp'+item.oddsId" @click="orderTd(diyiqiu_lmp,item,'diyiqiu_lmp')" @mouseenter="overShow(item,'diyiqiu_lmp')" @mouseleave="outHide(item,'diyiqiu_lmp')">
                           <ul>
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
@@ -121,8 +121,8 @@
                         <th colspan="2">{{dierqiu_lmp.name}}</th>
                       </tr>
                       <tr v-for="(item,index) in dierqiu_lmp.list">
-                        <td class="tdLeft">{{item.oddsName}}</td>
-                        <td class="tdRight">
+                        <td class="tdLeft" :class="'dierqiu_lmp'+item.oddsId" @click="orderTd(dierqiu_lmp,item,'dierqiu_lmp')" @mouseenter="overShow(item,'dierqiu_lmp')" @mouseleave="outHide(item,'dierqiu_lmp')">{{item.oddsName}}</td>
+                        <td class="tdRight" :class="'dierqiu_lmp'+item.oddsId" @click="orderTd(dierqiu_lmp,item,'dierqiu_lmp')" @mouseenter="overShow(item,'dierqiu_lmp')" @mouseleave="outHide(item,'dierqiu_lmp')">
                           <ul>
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
@@ -140,8 +140,8 @@
                         <th colspan="2">{{disanqiu_lmp.name}}</th>
                       </tr>
                       <tr v-for="(item,index) in disanqiu_lmp.list">
-                        <td class="tdLeft">{{item.oddsName}}</td>
-                        <td class="tdRight">
+                        <td class="tdLeft" :class="'disanqiu_lmp'+item.oddsId" @click="orderTd(disanqiu_lmp,item,'disanqiu_lmp')" @mouseenter="overShow(item,'disanqiu_lmp')" @mouseleave="outHide(item,'disanqiu_lmp')">{{item.oddsName}}</td>
+                        <td class="tdRight" :class="'disanqiu_lmp'+item.oddsId" @click="orderTd(disanqiu_lmp,item,'disanqiu_lmp')" @mouseenter="overShow(item,'disanqiu_lmp')" @mouseleave="outHide(item,'disanqiu_lmp')">
                           <ul>
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
@@ -159,8 +159,8 @@
                         <th colspan="2">{{disiqiu_lmp.name}}</th>
                       </tr>
                       <tr v-for="(item,index) in disiqiu_lmp.list">
-                        <td class="tdLeft">{{item.oddsName}}</td>
-                        <td class="tdRight">
+                        <td class="tdLeft" :class="'disiqiu_lmp'+item.oddsId" @click="orderTd(disiqiu_lmp,item,'disiqiu_lmp')" @mouseenter="overShow(item,'disiqiu_lmp')" @mouseleave="outHide(item,'disiqiu_lmp')">{{item.oddsName}}</td>
+                        <td class="tdRight" :class="'disiqiu_lmp'+item.oddsId" @click="orderTd(disiqiu_lmp,item,'disiqiu_lmp')" @mouseenter="overShow(item,'disiqiu_lmp')" @mouseleave="outHide(item,'disiqiu_lmp')">
                           <ul>
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
@@ -178,8 +178,8 @@
                         <th colspan="2">{{diwuqiu_lmp.name}}</th>
                       </tr>
                       <tr v-for="(item,index) in diwuqiu_lmp.list">
-                        <td class="tdLeft">{{item.oddsName}}</td>
-                        <td class="tdRight">
+                        <td class="tdLeft" :class="'diwuqiu_lmp'+item.oddsId" @click="orderTd(diwuqiu_lmp,item,'diwuqiu_lmp')" @mouseenter="overShow(item,'diwuqiu_lmp')" @mouseleave="outHide(item,'diwuqiu_lmp')">{{item.oddsName}}</td>
+                        <td class="tdRight" :class="'diwuqiu_lmp'+item.oddsId" @click="orderTd(diwuqiu_lmp,item,'diwuqiu_lmp')" @mouseenter="overShow(item,'diwuqiu_lmp')" @mouseleave="outHide(item,'diwuqiu_lmp')">
                           <ul>
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
@@ -200,8 +200,8 @@
                     </tr>
                     <tr>
                       <template v-for="(item,index) in qiansan_lmp.list">
-                        <td class="tdLeft" style="width: 10%;">{{item.oddsName}}</td>
-                        <td class="tdRight" style="width: 10%;">
+                        <td class="tdLeft" style="width: 10%;" :class="'qiansan_lmp'+item.oddsId" @click="orderTd(qiansan_lmp,item,'qiansan_lmp')" @mouseenter="overShow(item,'qiansan_lmp')" @mouseleave="outHide(item,'qiansan_lmp')">{{item.oddsName}}</td>
+                        <td class="tdRight" style="width: 10%;" :class="'qiansan_lmp'+item.oddsId" @click="orderTd(qiansan_lmp,item,'qiansan_lmp')" @mouseenter="overShow(item,'qiansan_lmp')" @mouseleave="outHide(item,'qiansan_lmp')">
                           <ul>
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
@@ -219,8 +219,8 @@
                     </tr>
                     <tr>
                       <template v-for="(item,index) in zhongsan_lmp.list">
-                        <td class="tdLeft" style="width: 10%;">{{item.oddsName}}</td>
-                        <td class="tdRight" style="width: 10%;">
+                        <td class="tdLeft" style="width: 10%;" :class="'zhongsan_lmp'+item.oddsId" @click="orderTd(zhongsan_lmp,item,'zhongsan_lmp')" @mouseenter="overShow(item,'zhongsan_lmp')" @mouseleave="outHide(item,'zhongsan_lmp')">{{item.oddsName}}</td>
+                        <td class="tdRight" style="width: 10%;" :class="'zhongsan_lmp'+item.oddsId" @click="orderTd(zhongsan_lmp,item,'zhongsan_lmp')" @mouseenter="overShow(item,'zhongsan_lmp')" @mouseleave="outHide(item,'zhongsan_lmp')">
                           <ul>
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
@@ -238,8 +238,8 @@
                     </tr>
                     <tr>
                       <template v-for="(item,index) in housan_lmp.list">
-                        <td class="tdLeft" style="width: 10%;">{{item.oddsName}}</td>
-                        <td class="tdRight" style="width: 10%;">
+                        <td class="tdLeft" style="width: 10%;" :class="'housan_lmp'+item.oddsId" @click="orderTd(housan_lmp,item,'housan_lmp')" @mouseenter="overShow(item,'housan_lmp')" @mouseleave="outHide(item,'housan_lmp')">{{item.oddsName}}</td>
+                        <td class="tdRight" style="width: 10%;" :class="'housan_lmp'+item.oddsId" @click="orderTd(housan_lmp,item,'housan_lmp')" @mouseenter="overShow(item,'housan_lmp')" @mouseleave="outHide(item,'housan_lmp')">
                           <ul>
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
@@ -257,14 +257,14 @@
           <template v-if="showOdds == '1~5'">
             <div>
               <div class="qiu15_body">
-                <div class="nball" v-for="(itemPa,indexPa) in oddsList">
+                <div class="nball" v-for="(item_yiwu,index_yiwu) in oddsList">
                   <div class="order-table">
                     <table>
-                      <tr><th colspan="2">{{itemPa.name}}</th></tr>
-                      <tr v-for="(item,index) in itemPa.list">
-                          <td v-if="isNaN(item.oddsName*1)" class="oddsNtd tdLeft">{{item.oddsName}}</td>
-                          <td v-else class="oddsNtd tdLeft"><div class="ball-icon">{{item.oddsName}}</div></td> 
-                          <td class="oddsUltd"><ul><li><span class="odds-font">{{item.odds}}</span></li></ul></td>
+                      <tr><th colspan="2">{{item_yiwu.name}}</th></tr>
+                      <tr v-for="(item,index) in item_yiwu.list">
+                          <td v-if="isNaN(item.oddsName*1)" class="oddsNtd tdLeft" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')">{{item.oddsName}}</td>
+                          <td v-else class="oddsNtd tdLeft" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')"><div class="ball-icon" >{{item.oddsName}}</div></td> 
+                          <td class="oddsUltd" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')"><ul><li><span class="odds-font" >{{item.odds}}</span></li></ul></td>
                       </tr>
                     </table>
                   </div>
@@ -375,6 +375,8 @@
 import ClockTimes from '@/components/apps/bocai/components/clockTimes';
 import BetQuick from '@/components/apps/bocai/components/betQuick';
 import {mapState,mapGetters} from 'vuex';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 export default {
   components: {
@@ -398,7 +400,17 @@ export default {
       diwuqiu_lmp: {},
       qiansan_lmp: {},
       zhongsan_lmp: {},
-      housan_lmp:{}
+      housan_lmp:{},
+      orderDatas: {
+        periodsId:0,//53,//投注期数ID
+        bocaiTypeId:0,//8223,//投注博彩ID
+        bocaiTypeName:'',//"PC蛋蛋",//投注博彩名称
+        bocaiCategory1Id:0,//8224,//投注博彩分类1ID
+        bocaiCategory1Name:'',//"PC蛋蛋",//投注博彩分类1名称
+        orderBetMoneySum:0,//10000,//投注总和
+        cuserId:0,//51,//当前登录ID
+        list:[]
+      }
     }
   },
   computed: {
@@ -409,11 +421,38 @@ export default {
     this.getOdds(1);
   },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
+    outHide(item,ids) {
+      $('.'+ids+item.oddsId).removeClass('overTd');
+    },
+    overShow(item,ids) {
+      $('.'+ids+item.oddsId).addClass('overTd');
+    },
+    orderTd(oddsObj,item,ids) {
+
+      if($('.'+ids+item.oddsId).hasClass('selected')){
+        $('.'+ids+item.oddsId).removeClass('selected');
+
+        _.remove(this.orderDatas.list, function(n) {
+          return n.bocaiOddName == item.oddsName;
+        });
+
+      } else {
+        $('.'+ids+item.oddsId).addClass('selected');
+        let obj = {
+          bocaiCategory2Id: oddsObj.id,//8225,//投注博彩分类2ID
+          bocaiCategory2Name: oddsObj.name,//"混合",//投注博彩分类2名称
+          bocaiOddId: item.oddsId,//5543,//投注博彩赔率ID
+          bocaiOddName: item.oddsName,//"大",//投注博彩赔率名称
+          bocaiValue:"",//投注内容,六合彩连肖/连尾
+          betsMoney:0,//10000,//当前赔率投注金额
+          bocaiOdds: item.odds//1.90//赔率
+        };
+
+        this.orderDatas.list.push(obj);
+      }
     },
     handleSelect(key, keyPath) {
-        console.log(key, keyPath);
+        //console.log(key, keyPath);
     },
     async getOddsCategory(item) {
       let res = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+1+`&bocaiCategoryId=`+item.id);
@@ -463,6 +502,7 @@ export default {
 
   }
 }
+
 </script>
 
 <style scoped>
@@ -477,6 +517,13 @@ export default {
 
 .orders {
     padding: 6px 0;
+}
+
+.bet_box .orders td.overTd {
+  background-color: #ffe59b;
+}
+.bet_box .orders td.selected {
+  background-color: #ffd04b;
 }
 
 table {
@@ -512,7 +559,7 @@ caption, th {
 
 .order-table th {
     line-height: 1.8;
-    background-color: #ffd04b;
+    background-color: #ccb0da;
     text-align: center;
     border-bottom: none;
     color: #511e02;

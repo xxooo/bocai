@@ -11,7 +11,7 @@
     <div class="betRight">
       <div class="betRTop" :class="istype ? '' : 'onlybet' ">
         <el-input v-model="money" size="mini" placeholder="请输入金额"></el-input>
-        <el-button type="primary"size="mini" plain>下 注</el-button>
+        <el-button type="primary"size="mini" plain @click="orderOdds()">下 注</el-button>
         <el-button type="danger" size="mini">重 置</el-button>
       </div>
       <div class="betRBottom" v-if="istype">
@@ -33,6 +33,9 @@
 		props: {
       istype: {
         type: Boolean
+      },
+      orderDatas:{
+        type: Object
       }
 		},
 		data() {
@@ -52,6 +55,9 @@
     mounted(){
     },
 		methods: {
+      orderOdds() {
+        console.log('orderDatas',this.orderDatas);
+      }
 		}
 	}
 

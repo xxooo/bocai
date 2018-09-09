@@ -178,7 +178,11 @@ export default {
     }
 
   }
-    
+
+  .el-menu--horizontal>.el-menu-item {
+    border-bottom: 0px solid transparent;
+  }
+      
     header {
         top: 0;
         left: 0;

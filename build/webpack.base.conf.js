@@ -34,6 +34,11 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery',
+      jquery: 'jquery'
+    }),
     new webpack.DefinePlugin({
       ENV: process.env.NODE_ENV === 'production' ? "'pro'" : "'dev'",
       assetsPublicPath: "\"" + (process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath) + "\"",

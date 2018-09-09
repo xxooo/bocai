@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App';
 import router from './router.js';
 import store from './vuex/store';
-
+import $ from 'jquery'
 import _ from 'lodash';
 import axios from 'axios';
 
