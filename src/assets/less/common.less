@@ -176,7 +176,7 @@ li {
 
     .kaipangTime{
         float: left;
-        margin: 5px 70px;
+        margin: 5px 60px;
         padding: 0px 30px;
         color: #fbf1e7;
         border-left: 2px solid #8a7f96;
@@ -204,5 +204,48 @@ td, th {
     margin: 0 auto;
     position: relative;
     background-color: #572f5f;
+}
+
+#clock {
+  font: bold 24pt sans;
+  background-color: #f5f5f5;
+  padding: 0px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0px 0px 0px 40px;
+  color: #130e0e;
+
+  div.dig, div.hour, div.min, div.sec
+    {
+      position:absolute;
+    }
+  div.hour, div.min, div.sec
+    {
+    width:2px;
+    height:2px;
+    font-size:2px;
+    }
+    div.dig
+    {
+    width:30px;
+    height:30px;
+    font-family:arial,verdana,sans-serif;
+    font-size:10px;
+    color:#000000;
+    text-align:center;
+    padding-top:10px
+    }
+    div.min
+    {
+    background:#0000FF;
+    }
+    div.hour
+    {
+    background:#000000;
+    }
+    div.sec
+    {
+    background:#FF0000;
+    }
 }
 

@@ -46,14 +46,19 @@
                 <p>第<span class="qiciSpan">{{bocaiInfoData.bocaiPeriods}}</span>期</p>
                 <p>距离下期开盘</p>
               </div>
-              <clock-times :timeLeft="bocaiInfoData.bocaiPeriods" v-on:childByTime="childByTime"></clock-times>
+              <!-- <clock-times :bocaiInfoData='bocaiInfoData' v-on:childByTime="childByTime"></clock-times> -->
+              <div id="clockTimes">
+                <center>
+                <span id="clock">{{timeLeft}}</span>
+                </center>
+              </div>
             </div>
           </div>
         </div>
         <div class="bet_box">
           <div class="orders">
             <div class="order-info">
-              <bet-quick :istype="topbet" :orderDatas='orderDatas' :bocaiInfoData='bocaiInfoData'></bet-quick>
+              <bet-quick :istype="topbet" :orderDatas="orderDatas" :bocaiInfoDatass="bocaiInfoData" :isTop="'isTop'"></bet-quick>
             </div>
 
             <template v-if="showOdds == '两面盘'">
@@ -273,7 +278,7 @@
 
 
             <div class="order-info">
-              <bet-quick :istype="topbet" :orderDatas='orderDatas' :bocaiInfo='bocaiInfo'></bet-quick>
+              <bet-quick :istype="topbet" :orderDatas="orderDatas" :bocaiInfo="bocaiInfo" :isTop="'isbottom'"></bet-quick>
             </div>
           </div>
 
@@ -411,7 +416,8 @@ export default {
         cuserId:0,//51,//当前登录ID
         list:[]
       },
-      bocaiInfoData: {}
+      bocaiInfoData: {},
+      timeLeft:'',
     }
   },
   computed: {
@@ -421,8 +427,39 @@ export default {
   created() {
     this.getOdds(this.curBocaiTypeId);
     this.bocaiInfo(this.curBocaiTypeId);
+    //this.gettimeLeft();
   },
   methods: {
+    gettimeLeft() {
+        var hourtime="24:00:00";
+        var endTime =new Date(new Date().toLocaleDateString()+" "+hourtime);
+
+        var now = new Date();
+
+        var nowYear=now.getFullYear();
+        var nowMonth=now.getMonth()+1;
+        var nowDay=now.getDate();
+
+        //var leftTime = endTime.getTime() - now.getTime();
+        //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
+       // console.log('now.getTime()',now.getTime());
+
+        var leftTime = now.getTime() - this.bocaiInfoData.openPrizeTime;
+
+        //onsole.log('leftTime',leftTime);
+        var ms = parseInt(leftTime % 1000).toString();
+        leftTime = parseInt(leftTime / 1000);
+        var o = Math.floor(leftTime / 3600);
+        var d = Math.floor(o / 24);
+        var m = Math.floor(leftTime / 60 % 60);
+        var s = leftTime % 60;
+
+        this.timeLeft = o + ":" + m + ":" + s;
+
+        setTimeout(this.gettimeLeft, 100);
+
+        //openPrizeTime
+    },
     childByTime(childByTime) {
       console.log('childByTime',childByTime);
     },
@@ -480,10 +517,10 @@ export default {
 
       let that = this;
 
-          NProgress.start();
+          //NProgress.start();
           await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id).then((res) => {
             that.$handelResponse(res, (result) => {
-              NProgress.done();
+              //NProgress.done();
               if(result.code===200){
                 that.bocaiCategoryList = result.bocaiCategoryList;
                 that.oddsList = result.oddsList;
@@ -501,6 +538,8 @@ export default {
 
           if(res.code===200){
             this.bocaiInfoData = res.data;
+            console.log('this.bocaiInfoData',this.bocaiInfoData);
+            this.gettimeLeft();
           }
 
     },

@@ -1,12 +1,12 @@
 <template>
 	<div class="betQuick">
     <div class="beishu">
-      <div class="beishuBtn" @click="orderMul(10)"><a>10</a></div>
-      <div class="beishuBtn" @click="orderMul(50)"><a>50</a></div>
-      <div class="beishuBtn" @click="orderMul(100)"><a>100</a></div>
-      <div class="beishuBtn" @click="orderMul(500)"><a>500</a></div>
-      <div class="beishuBtn" @click="orderMul(1000)"><a>1000</a></div>
-      <div class="beishuBtn" @click="orderMul(5000)"><a>5000</a></div>
+      <div class="beishuBtn" :class="isTop+'10'" @click="orderMul(isTop,10)"><a>10</a></div>
+      <div class="beishuBtn" :class="isTop+'50'" @click="orderMul(isTop,50)"><a>50</a></div>
+      <div class="beishuBtn" :class="isTop+'100'" @click="orderMul(isTop,100)"><a>100</a></div>
+      <div class="beishuBtn" :class="isTop+'500'" @click="orderMul(isTop,500)"><a>500</a></div>
+      <div class="beishuBtn" :class="isTop+'1000'" @click="orderMul(isTop,1000)"><a>1000</a></div>
+      <div class="beishuBtn" :class="isTop+'5000'" @click="orderMul(isTop,5000)"><a>5000</a></div>
     </div>
     <div class="betRight">
       <div class="betRTop" :class="istype ? '' : 'onlybet' ">
@@ -39,6 +39,9 @@
       },
       bocaiInfoData: {
         type: Object
+      },
+      isTop: {
+        type: String
       }
 		},
 		data() {
@@ -89,8 +92,9 @@
 
 
       },
-      orderMul(mul) {
+      orderMul(isTop,mul) {
         this.mul = mul;
+        $('.'+isTop+mul).addClass('selected');
       }
 		}
 	}
@@ -149,6 +153,10 @@
 }
 
 .beishuBtn:hover {
+  color: #ff9800;
+}
+
+.beishuBtn.selected {
   color: #ff9800;
 }
 

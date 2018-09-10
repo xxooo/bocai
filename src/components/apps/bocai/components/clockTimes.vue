@@ -12,6 +12,9 @@
 
 	export default {
 		props: {
+      bocaiInfoData: {
+        type: Object
+      }
 		},
 		data() {
 			return {
@@ -23,6 +26,7 @@
 		},
 		async created() {
       this.gettimeLeft();
+      console.log('bocaiInfoDatagettimeLeft',this.bocaiInfoData);
     },
     computed:{
           ...mapGetters({
