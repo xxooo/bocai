@@ -15,7 +15,8 @@
 		},
 		data() {
 			return {
-        timeLeft:''
+        timeLeft:'',
+        childByTime: ''
 			}
 		},
     components: {
@@ -30,6 +31,11 @@
     mounted(){
      },
 		methods: {
+      childClick () {
+        // childByValue是在父组件on监听的方法
+        // 第二个参数this.childValue是需要传的值
+        this.$emit('childByTime', this.childByTime)
+      },
       gettimeLeft() {
         var hourtime="24:00:00";
         var endTime =new Date(new Date().toLocaleDateString()+" "+hourtime);

@@ -25,11 +25,18 @@ const router = new Router({
     {
       path: '/gambling', name: 'gambling', component: resolve => require(['@/components/gambling'],resolve),
       children: [
-      { path: '/gambling/chongqindubo', name: 'chongqindubo',
-        meta: {
-            requireAuth: true,
+        { path: '/gambling/chongqindubo', name: 'chongqindubo',
+          meta: {
+              requireAuth: true,
+          },
+          component: resolve => require(['@/components/apps/bocai/chongqindubo'],resolve), meta: { requiresAuth: true }
         },
-        component: resolve => require(['@/components/apps/bocai/chongqindubo'],resolve), meta: { requiresAuth: true }},
+        { path: '/gambling/luckyairship', name: 'luckyairship',
+          meta: {
+              requireAuth: true,
+          },
+          component: resolve => require(['@/components/apps/bocai/luckyairship'],resolve), meta: { requiresAuth: true }
+        }
       ]
     }
   ]

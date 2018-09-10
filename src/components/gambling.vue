@@ -16,7 +16,7 @@
           text-color="#ffd04b"
           active-text-color="#ffd04b">
 
-          <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item.id)">{{item.bocaiName}}</el-menu-item>
+          <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item.bocaiName)">{{item.bocaiName}}</el-menu-item>
           <!-- <el-menu-item index="2">幸运飞艇</el-menu-item>
           <el-menu-item index="3">北京PK拾</el-menu-item>
           <el-menu-item index="4">北京快乐8</el-menu-item>
@@ -96,7 +96,7 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      //console.log(key, keyPath);
     },
     async getBocai() {
       let res = await this.$get(`${window.url}/api/getBocai`);
@@ -105,20 +105,19 @@ export default {
             this.bocaiTypeList = res.bocaiTypeList;
           }
     },
-    async getOdds(id) {
+    async getOdds(bocaiName) {
 
-      this.$router.push({name: id});
+      let path = '';
+        switch (bocaiName) {
+          case '重庆时时彩':
+            path = 'chongqindubo';
+            break;
+          case '幸运飞艇':
+            path = 'luckyairship';
+            break;
+        }
 
-
-      // let res = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id);
-
-      //     if(res.code===200){
-
-      //       //console.log('res.bocaiCategoryList',res.bocaiCategoryList);
-
-      //       //store.commit('updatebocaiCategoryList', res.bocaiCategoryList);
-      //       //store.commit('updateoddsList', res.oddsList);
-      //     }
+      this.$router.push({name: path});
     }
   },
   mounted() {

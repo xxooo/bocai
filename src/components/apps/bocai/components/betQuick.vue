@@ -1,12 +1,12 @@
 <template>
 	<div class="betQuick">
     <div class="beishu">
-      <div class="beishuBtn"><a>10</a></div>
-      <div class="beishuBtn"><a>50</a></div>
-      <div class="beishuBtn"><a>100</a></div>
-      <div class="beishuBtn"><a>500</a></div>
-      <div class="beishuBtn"><a>1000</a></div>
-      <div class="beishuBtn"><a>5000</a></div>
+      <div class="beishuBtn" @click="orderMul(10)"><a>10</a></div>
+      <div class="beishuBtn" @click="orderMul(50)"><a>50</a></div>
+      <div class="beishuBtn" @click="orderMul(100)"><a>100</a></div>
+      <div class="beishuBtn" @click="orderMul(500)"><a>500</a></div>
+      <div class="beishuBtn" @click="orderMul(1000)"><a>1000</a></div>
+      <div class="beishuBtn" @click="orderMul(5000)"><a>5000</a></div>
     </div>
     <div class="betRight">
       <div class="betRTop" :class="istype ? '' : 'onlybet' ">
@@ -34,14 +34,18 @@
       istype: {
         type: Boolean
       },
-      orderDatas:{
+      orderDatas: {
+        type: Object
+      },
+      bocaiInfoData: {
         type: Object
       }
 		},
 		data() {
 			return {
         money: '',
-        radio10: '1'
+        radio10: '1',
+        mul: 1
 			}
 		},
     components: {
@@ -57,6 +61,36 @@
 		methods: {
       orderOdds() {
         console.log('orderDatas',this.orderDatas);
+        console.log('bocaiInfoData',this.bocaiInfoData);
+        // companyIsOpenSet: "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。
+            // bocaiPeriodsId: "1480",//该博彩期数ID
+            // preOpenPrizeTime: 1535094708000,//上一期开奖时间
+            // isOpenSet: "",//管理员对于当期博彩的开关设置
+            // preBocaiPeriods": "30763817",//上期博彩期数
+            // closetime: null,//当期关盘时间
+            // preClosetime: null,//上一期关盘时间
+            // bocaiPeriods: "30763818",//当期博彩期数
+            // advanceTimeSet: "",//提前多少分钟开盘，只用于六合彩
+            // openTimeSet: "",//该博彩的每天开盘时间，到时候才开始博彩投注
+            // openPrizeTime": 1535094708000,//当期开奖时间
+            // openTime: 1535094633000,//当期的开盘时间
+            // preResult: "07,02,04,10,01,03,08,09,05,06",//上一期结果
+            // closeTimeSet: ""//提前多少秒封盘
+
+        // let orderPaData = {
+        //       periodsId: bocaiPeriodsId,
+        //       bocaiTypeId: id,
+        //       bocaiTypeName: this.curBocaiName,
+        //       bocaiCategory1Id: 0,
+        //       bocaiCategory1Name: '',
+        //       orderBetMoneySum: '',
+        //       cuserId: 
+        //     }
+
+
+      },
+      orderMul(mul) {
+        this.mul = mul;
       }
 		}
 	}
@@ -114,8 +148,8 @@
   padding-left: 2px;
 }
 
-.beishuBtn a:hover {
-  color: #ffd04b;
+.beishuBtn:hover {
+  color: #ff9800;
 }
 
 .beishuBtn:last-child

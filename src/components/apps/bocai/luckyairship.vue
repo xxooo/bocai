@@ -43,18 +43,20 @@
             </div>
             <div class="kaipangTime">
               <div class="qiciDiv">
-                <p>第<span class="qiciSpan">{{bocaiInfoData.bocaiPeriods}}</span>期</p>
+                <p>第<span class="qiciSpan">123456</span>期</p>
                 <p>距离下期开盘</p>
               </div>
-              <clock-times :timeLeft="bocaiInfoData.bocaiPeriods" v-on:childByTime="childByTime"></clock-times>
+              <clock-times></clock-times>
             </div>
           </div>
         </div>
         <div class="bet_box">
           <div class="orders">
             <div class="order-info">
-              <bet-quick :istype="topbet" :orderDatas='orderDatas' :bocaiInfoData='bocaiInfoData'></bet-quick>
+              <bet-quick :istype="topbet" :orderDatas='orderDatas'></bet-quick>
             </div>
+
+
 
             <template v-if="showOdds == '两面盘'">
 
@@ -273,7 +275,7 @@
 
 
             <div class="order-info">
-              <bet-quick :istype="topbet" :orderDatas='orderDatas' :bocaiInfo='bocaiInfo'></bet-quick>
+              <bet-quick :istype="botbet"></bet-quick>
             </div>
           </div>
 
@@ -383,8 +385,6 @@ export default {
   },
   data () {
     return {
-      curBocaiTypeId: 1,
-      curBocaiName: '重庆时时彩',
       activeName: 'second',
       botbet: false,
       topbet: true,
@@ -410,8 +410,7 @@ export default {
         orderBetMoneySum:0,//10000,//投注总和
         cuserId:0,//51,//当前登录ID
         list:[]
-      },
-      bocaiInfoData: {}
+      }
     }
   },
   computed: {
@@ -419,13 +418,9 @@ export default {
     })
   },
   created() {
-    this.getOdds(this.curBocaiTypeId);
-    this.bocaiInfo(this.curBocaiTypeId);
+    this.getOdds(8555);
   },
   methods: {
-    childByTime(childByTime) {
-      console.log('childByTime',childByTime);
-    },
     outHide(item,ids) {
       $('.'+ids+item.oddsId).removeClass('overTd');
     },
@@ -460,49 +455,24 @@ export default {
         //console.log(key, keyPath);
     },
     async getOddsCategory(item) {
-
-      let that = this;
-
-          NProgress.start();
-          await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+1+`&bocaiCategoryId=`+item.id).then((res) => {
-            that.$handelResponse(res, (result) => {
-              NProgress.done();
-              that.showOdds = item.name;
-              if(result.code===200){
-                that.oddsList = result.oddsList;
-                that.shuaiXuanDatas(result.oddsList);
-              }
-
-            })
-          });
+      let res = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+1+`&bocaiCategoryId=`+item.id);
+          this.showOdds = item.name;
+          if(res.code===200){
+            this.oddsList = res.oddsList;
+            this.shuaiXuanDatas(res.oddsList);
+          }
     },
     async getOdds(id) {
 
-      let that = this;
-
-          NProgress.start();
-          await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id).then((res) => {
-            that.$handelResponse(res, (result) => {
-              NProgress.done();
-              if(result.code===200){
-                that.bocaiCategoryList = result.bocaiCategoryList;
-                that.oddsList = result.oddsList;
-                that.showOdds = '两面盘';
-                that.activeIndex = that.bocaiCategoryList[0].name;
-                that.shuaiXuanDatas(result.oddsList);
-              }
-
-            })
-          });
-
-    },
-    async bocaiInfo(id) {
-      let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+id);
+      let res = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id);
 
           if(res.code===200){
-            this.bocaiInfoData = res.data;
+            this.bocaiCategoryList = res.bocaiCategoryList;
+            this.oddsList = res.oddsList;
+            this.showOdds = '两面盘';
+            this.activeIndex = this.bocaiCategoryList[0].name;
+            this.shuaiXuanDatas(res.oddsList);
           }
-
     },
     shuaiXuanDatas(dataList) {
       for(let n in dataList) {
