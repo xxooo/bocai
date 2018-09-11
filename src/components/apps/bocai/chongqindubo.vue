@@ -58,7 +58,7 @@
         <div class="bet_box">
           <div class="orders">
             <div class="order-info">
-              <bet-quick :istype="topbet" :orderDatas="orderDatas" :bocaiInfoDatass="bocaiInfoData" :isTop="'isTop'"></bet-quick>
+              <bet-quick :istype="topbet" :orderDatas="orderDatas" :bocaiInfoData="bocaiInfoData" :isTop="'isTop'"></bet-quick>
             </div>
 
             <template v-if="showOdds == '两面盘'">
@@ -375,7 +375,6 @@
 </template>
 
 <script>
-import ClockTimes from '@/components/apps/bocai/components/clockTimes';
 import BetQuick from '@/components/apps/bocai/components/betQuick';
 import {mapState,mapGetters} from 'vuex';
 import NProgress from 'nprogress';
@@ -383,7 +382,6 @@ import 'nprogress/nprogress.css';
 
 export default {
   components: {
-    ClockTimes,
     BetQuick
   },
   data () {

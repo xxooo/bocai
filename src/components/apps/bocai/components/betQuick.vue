@@ -1,12 +1,12 @@
 <template>
 	<div class="betQuick">
     <div class="beishu">
-      <div class="beishuBtn" :class="isTop+'10'" @click="orderMul(isTop,10)"><a>10</a></div>
-      <div class="beishuBtn" :class="isTop+'50'" @click="orderMul(isTop,50)"><a>50</a></div>
-      <div class="beishuBtn" :class="isTop+'100'" @click="orderMul(isTop,100)"><a>100</a></div>
-      <div class="beishuBtn" :class="isTop+'500'" @click="orderMul(isTop,500)"><a>500</a></div>
-      <div class="beishuBtn" :class="isTop+'1000'" @click="orderMul(isTop,1000)"><a>1000</a></div>
-      <div class="beishuBtn" :class="isTop+'5000'" @click="orderMul(isTop,5000)"><a>5000</a></div>
+      <div class="beishuBtn" :class="[isTop+'10',isTop]" @click="orderMul(isTop,10)"><a>10</a></div>
+      <div class="beishuBtn" :class="[isTop+'50',isTop]" @click="orderMul(isTop,50)"><a>50</a></div>
+      <div class="beishuBtn" :class="[isTop+'100',isTop]" @click="orderMul(isTop,100)"><a>100</a></div>
+      <div class="beishuBtn" :class="[isTop+'500',isTop]" @click="orderMul(isTop,500)"><a>500</a></div>
+      <div class="beishuBtn" :class="[isTop+'1000',isTop]" @click="orderMul(isTop,1000)"><a>1000</a></div>
+      <div class="beishuBtn" :class="[isTop+'5000',isTop]" @click="orderMul(isTop,5000)"><a>5000</a></div>
     </div>
     <div class="betRight">
       <div class="betRTop" :class="istype ? '' : 'onlybet' ">
@@ -22,6 +22,44 @@
         </el-radio-group>
       </div>
     </div>
+
+
+    <el-dialog
+      title="提示"
+      :visible.sync="orderOddsVisible"
+      width="30%"
+      center>
+
+      <div class="popup-body" style="max-height: 300px;">
+        <div class="default-list">
+          <table>
+            <thead>
+              <th>号码</th> 
+              <th width="20%">赔率</th> 
+              <th width="20%">金额</th> 
+              <th width="15%">操作</th>
+            </thead> 
+            <tr>
+              <td class="combine-td"><p>龙虎和 虎</p></td> 
+              <td class="odds-font">1.983</td> 
+              <td><input type="text" class="betValue"></td> 
+              <td><button class="btn-delete">删除</button></td>
+            </tr>
+            <tr class="tab-footer">
+              <td>组数：<span>2</span></td> 
+              <td colspan="3">总金额：<span>246</span></td>
+            </tr>
+          </table>
+        </div>
+      </div> 
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
+
+
   </div>
 </template>
 
@@ -48,7 +86,8 @@
 			return {
         money: '',
         radio10: '1',
-        mul: 1
+        mul: 1,
+        orderOddsVisible: false
 			}
 		},
     components: {
@@ -65,6 +104,8 @@
       orderOdds() {
         console.log('orderDatas',this.orderDatas);
         console.log('bocaiInfoData',this.bocaiInfoData);
+
+        this.orderOddsVisible = true;
         // companyIsOpenSet: "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。
             // bocaiPeriodsId: "1480",//该博彩期数ID
             // preOpenPrizeTime: 1535094708000,//上一期开奖时间
@@ -93,8 +134,44 @@
 
       },
       orderMul(isTop,mul) {
-        this.mul = mul;
-        $('.'+isTop+mul).addClass('selected');
+        
+        if($('.'+isTop+mul).hasClass('selected')) {
+          $('.'+isTop+mul).removeClass('selected');
+          this.mul = 1;
+        } else {
+          $(".beishuBtn."+isTop).removeClass('selected');
+          $('.'+isTop+mul).addClass('selected');
+          this.mul = mul;
+        }
+        
+
+
+      //   $("div.content *").not(".keep"); // 表示content类的div下除keep类以外的所有元素；另外，注意*表示所有元素
+
+
+      //   if($('.'+ids+item.oddsId).hasClass('selected')){
+      //   $('.'+ids+item.oddsId).removeClass('selected');
+
+      //   _.remove(this.orderDatas.list, function(n) {
+      //     return n.bocaiOddName == item.oddsName;
+      //   });
+
+      // } else {
+      //   $('.'+ids+item.oddsId).addClass('selected');
+      //   let obj = {
+      //     bocaiCategory2Id: oddsObj.id,//8225,//投注博彩分类2ID
+      //     bocaiCategory2Name: oddsObj.name,//"混合",//投注博彩分类2名称
+      //     bocaiOddId: item.oddsId,//5543,//投注博彩赔率ID
+      //     bocaiOddName: item.oddsName,//"大",//投注博彩赔率名称
+      //     bocaiValue:"",//投注内容,六合彩连肖/连尾
+      //     betsMoney:0,//10000,//当前赔率投注金额
+      //     bocaiOdds: item.odds//1.90//赔率
+      //   };
+
+      //   this.orderDatas.list.push(obj);
+      // }
+
+
       }
 		}
 	}

@@ -46,7 +46,6 @@
                 <p>第<span class="qiciSpan">123456</span>期</p>
                 <p>距离下期开盘</p>
               </div>
-              <clock-times></clock-times>
             </div>
           </div>
         </div>
@@ -372,7 +371,6 @@
 </template>
 
 <script>
-import ClockTimes from '@/components/apps/bocai/components/clockTimes';
 import BetQuick from '@/components/apps/bocai/components/betQuick';
 import {mapState,mapGetters} from 'vuex';
 import NProgress from 'nprogress';
@@ -380,7 +378,6 @@ import 'nprogress/nprogress.css';
 
 export default {
   components: {
-    ClockTimes,
     BetQuick
   },
   data () {
