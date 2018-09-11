@@ -25,9 +25,8 @@
 
 
     <el-dialog
-      title="提示"
+      title="下注明细(请确认注单)"
       :visible.sync="orderOddsVisible"
-      width="30%"
       center>
 
       <div class="popup-body" style="max-height: 300px;">
@@ -54,8 +53,8 @@
       </div> 
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="centerDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+        <el-button @click="centerDialogVisible = false" size="medium">取 消</el-button>
+        <el-button type="primary" @click="centerDialogVisible = false" size="medium">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -242,6 +241,67 @@
   width: 68.8px;
 }
 
+.popup-body {
+    overflow-y: auto;
+    margin-left: 0px !important;
+}
+
+.default-list {
+    padding: 8px 10px;
+    margin-left: 0px !important;
+}
+
+.default-list table {
+    margin-top: 5px;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.default-list table thead {
+    background-color: #d6d4de;
+    font-weight: 700;
+    color: #261238;
+}
+.default-list table td, .default-list table th {
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid #aca6c2;
+    padding: 0 6px;
+    position: relative;
+}
+.default-list table td p, .default-list table th p {
+    line-height: 18px;
+}
+.odds-font {
+    color: #d63e35;
+    font-weight: 700;
+}
+.betValue {
+    height: 16px;
+    width: 60px;
+    padding: 0 3px;
+    line-height: 16px;
+}
+button.btn-delete {
+    margin-left: 8px;
+    width: 50px;
+    height: 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    outline: none;
+}
+button.btn-delete {
+    line-height: 16px;
+    background: #d63e35;
+}
+.default-list table tr.tab-footer {
+    background-color: #d6d4de;
+    font-weight: 700;
+    color: #261238;
+}
 </style>
 
 <style lang="less">
@@ -258,6 +318,24 @@
 
   .betRTop.onlybet {
     margin-top: 20px;
+  }
+
+  .el-dialog__header {
+    padding: 20px 20px 10px;
+    background-color: #ccb0da;
+    border-radius: 5px 5px 0 0;
+  }
+  .el-dialog.el-dialog--center {
+    width: 500px;
+    color: #450400 !important;
+    background-color: #fcfcfa;
+    box-shadow: 0 2px 8px rgba(0,0,0,.33);
+    font-family: Helvetica,Arial,sans-serif;
+    border-radius: 5px;
+  }
+  .el-dialog--center .el-dialog__body {
+    text-align: center;
+    padding: 0px;
   }
 }
 
