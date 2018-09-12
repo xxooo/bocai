@@ -1,7 +1,7 @@
 const getters = {
 	getbocaiCategoryList: state => state.bocaiCategoryList,
 	getoddsList: state => state.oddsList,
-	gettest: state => state.test
+	getcashBalance: state => state.cashBalance
 }
 
 export default getters

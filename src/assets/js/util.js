@@ -46,6 +46,15 @@ export default {
             }).catch(() => {});
         };
 
+        Vue.prototype.$alertMessage = function(content,title){
+            this.$alert(content, title, {
+            confirmButtonText: '确定',
+            callback: action => {
+
+            }
+          });
+        };
+
         Vue.prototype.$currUser = async function(){
             currUser = currUser || JSON.parse(cookie.get('currUser'));
             if(currUser) return currUser;

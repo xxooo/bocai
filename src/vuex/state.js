@@ -1,7 +1,7 @@
 const state = {
   bocaiCategoryList: [],
   oddsList: [],
-  test: 'test'
+  cashBalance: 0
 }
 
 export default state

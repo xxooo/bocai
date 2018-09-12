@@ -17,6 +17,8 @@ import cookie from './assets/js/cookie';
 import _g from './assets/js/global';
 import request from './assets/js/request.js';
 Vue.use(request);
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 Vue.config.productionTip = false;
 
@@ -27,6 +29,7 @@ window._ = _;
 window._g = _g;
 window.cookie = cookie;
 window.ENV = ENV;
+window.NProgress = NProgress;
 
 (async function () {
 

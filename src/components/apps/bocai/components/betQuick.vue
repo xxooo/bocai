@@ -1,20 +1,20 @@
 <template>
 	<div class="betQuick">
     <div class="beishu">
-      <div class="beishuBtn" :class="[isTop+'10',isTop]" @click="orderMul(isTop,10)"><a>10</a></div>
-      <div class="beishuBtn" :class="[isTop+'50',isTop]" @click="orderMul(isTop,50)"><a>50</a></div>
-      <div class="beishuBtn" :class="[isTop+'100',isTop]" @click="orderMul(isTop,100)"><a>100</a></div>
-      <div class="beishuBtn" :class="[isTop+'500',isTop]" @click="orderMul(isTop,500)"><a>500</a></div>
-      <div class="beishuBtn" :class="[isTop+'1000',isTop]" @click="orderMul(isTop,1000)"><a>1000</a></div>
-      <div class="beishuBtn" :class="[isTop+'5000',isTop]" @click="orderMul(isTop,5000)"><a>5000</a></div>
+      <div class="beishuBtn beishuBtn10" @click="orderMul(10)"><a>10</a></div>
+      <div class="beishuBtn beishuBtn50" @click="orderMul(50)"><a>50</a></div>
+      <div class="beishuBtn beishuBtn100" @click="orderMul(100)"><a>100</a></div>
+      <div class="beishuBtn beishuBtn500" @click="orderMul(500)"><a>500</a></div>
+      <div class="beishuBtn beishuBtn1000" @click="orderMul(1000)"><a>1000</a></div>
+      <div class="beishuBtn beishuBtn5000" @click="orderMul(5000)"><a>5000</a></div>
     </div>
     <div class="betRight">
-      <div class="betRTop" :class="istype ? '' : 'onlybet' ">
-        <el-input v-model="money" size="mini" placeholder="请输入金额"></el-input>
+      <div class="betRTop">
+        <el-input v-model.number="moneyOrder" size="mini" placeholder="请输入金额" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></el-input>
         <el-button type="primary"size="mini" plain @click="orderOdds()">下 注</el-button>
-        <el-button type="danger" size="mini">重 置</el-button>
+        <el-button type="danger" size="mini" @click="orderOdds()">重 置</el-button>
       </div>
-      <div class="betRBottom" v-if="istype">
+      <div class="betRBottom">
         <label>投注类型:</label>
         <el-radio-group v-model="radio10" size="mini">
           <el-radio label="1" border>快捷</el-radio>
@@ -38,23 +38,23 @@
               <th width="20%">金额</th> 
               <th width="15%">操作</th>
             </thead> 
-            <tr>
-              <td class="combine-td"><p>龙虎和 虎</p></td> 
-              <td class="odds-font">1.983</td> 
-              <td><input type="text" class="betValue"></td> 
-              <td><button class="btn-delete">删除</button></td>
+            <tr v-for="(item,index) in orderList">
+              <td class="combine-td"><p>{{item.oddNames}}</p></td> 
+              <td class="odds-font">{{item.bocaiOdds}}</td> 
+              <td><input type="text" class="betValue" v-model="item.betsMoney"></td> 
+              <td><button class="btn-delete" @click="deleteOdd(index)">删除</button></td>
             </tr>
             <tr class="tab-footer">
-              <td>组数：<span>2</span></td> 
-              <td colspan="3">总金额：<span>246</span></td>
+              <td>组数：<span>{{orderList.length}}</span></td> 
+              <td colspan="3">总金额：<span>{{totalMoney}}</span></td>
             </tr>
           </table>
         </div>
       </div> 
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="centerDialogVisible = false" size="medium">取 消</el-button>
-        <el-button type="primary" @click="centerDialogVisible = false" size="medium">确 定</el-button>
+        <el-button @click="orderOddsVisible = false" size="medium">取 消</el-button>
+        <el-button type="primary" @click="orderSub()" size="medium">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -68,25 +68,20 @@
 
 	export default {
 		props: {
-      istype: {
-        type: Boolean
-      },
       orderDatas: {
         type: Object
       },
       bocaiInfoData: {
         type: Object
-      },
-      isTop: {
-        type: String
       }
 		},
 		data() {
 			return {
-        money: '',
+        moneyOrder: '',
         radio10: '1',
         mul: 1,
-        orderOddsVisible: false
+        orderOddsVisible: false,
+        orderList: []
 			}
 		},
     components: {
@@ -95,16 +90,68 @@
     },
     computed:{
       ...mapGetters({
-      })
+        cashBalance: 'getcashBalance'
+      }),
+      totalMoney() {
+        let totalMoney = 0;
+        for(let n in this.orderList) {
+          totalMoney += this.orderList[n].betsMoney*1;
+        }
+        return totalMoney;
+      }
     },
     mounted(){
     },
 		methods: {
       orderOdds() {
-        console.log('orderDatas',this.orderDatas);
-        console.log('bocaiInfoData',this.bocaiInfoData);
 
-        this.orderOddsVisible = true;
+      },
+      deleteOdd(index) {
+        this.orderList.splice(index,1);
+      },
+      async orderSub() {
+        if(this.totalMoney > this.cashBalance) {
+          this.$alertMessage('您的余额不足!', '温馨提示');
+        } else {
+          let that = this;
+
+          NProgress.start();
+          await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+1+`&bocaiCategoryId=`+item.id).then((res) => {
+            that.$handelResponse(res, (result) => {
+              NProgress.done();
+              that.showOdds = item.name;
+              if(result.code===200){
+                that.oddsList = result.oddsList;
+                that.shuaiXuanDatas(result.oddsList);
+             
+                }
+            })
+          });
+        }
+      },
+      orderOdds() {
+
+        this.orderList = [];
+
+        if(this.orderDatas.list.length == 0) {
+          this.$alertMessage('请确认注单!', '温馨提示');
+        } else if(this.moneyOrder == ''){
+          this.$alertMessage('请输入金额!', '温馨提示');
+        } else {
+          for(let n in this.orderDatas.list) {
+          let obj = {
+              oddNames: this.orderDatas.list[n].bocaiCategory2Name + '  ' + this.orderDatas.list[n].bocaiOddName,
+              bocaiOdds: this.orderDatas.list[n].bocaiOdds,
+              betsMoney: this.orderDatas.list[n].betsMoney == 0 ? this.moneyOrder*this.mul : this.orderDatas.list[n].betsMoney*this.mu
+            }
+            this.orderList.push(obj);
+          }
+          this.orderOddsVisible = true;
+        }
+
+        
+
+
         // companyIsOpenSet: "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。
             // bocaiPeriodsId: "1480",//该博彩期数ID
             // preOpenPrizeTime: 1535094708000,//上一期开奖时间
@@ -132,45 +179,16 @@
 
 
       },
-      orderMul(isTop,mul) {
+      orderMul(mul) {
         
-        if($('.'+isTop+mul).hasClass('selected')) {
-          $('.'+isTop+mul).removeClass('selected');
+        if($('.beishuBtn'+mul).hasClass('selected')) {
+          $('.beishuBtn'+mul).removeClass('selected');
           this.mul = 1;
         } else {
-          $(".beishuBtn."+isTop).removeClass('selected');
-          $('.'+isTop+mul).addClass('selected');
+          $(".beishuBtn").removeClass('selected');
+          $('.beishuBtn'+mul).addClass('selected');
           this.mul = mul;
         }
-        
-
-
-      //   $("div.content *").not(".keep"); // 表示content类的div下除keep类以外的所有元素；另外，注意*表示所有元素
-
-
-      //   if($('.'+ids+item.oddsId).hasClass('selected')){
-      //   $('.'+ids+item.oddsId).removeClass('selected');
-
-      //   _.remove(this.orderDatas.list, function(n) {
-      //     return n.bocaiOddName == item.oddsName;
-      //   });
-
-      // } else {
-      //   $('.'+ids+item.oddsId).addClass('selected');
-      //   let obj = {
-      //     bocaiCategory2Id: oddsObj.id,//8225,//投注博彩分类2ID
-      //     bocaiCategory2Name: oddsObj.name,//"混合",//投注博彩分类2名称
-      //     bocaiOddId: item.oddsId,//5543,//投注博彩赔率ID
-      //     bocaiOddName: item.oddsName,//"大",//投注博彩赔率名称
-      //     bocaiValue:"",//投注内容,六合彩连肖/连尾
-      //     betsMoney:0,//10000,//当前赔率投注金额
-      //     bocaiOdds: item.odds//1.90//赔率
-      //   };
-
-      //   this.orderDatas.list.push(obj);
-      // }
-
-
       }
 		}
 	}
@@ -234,6 +252,7 @@
 
 .beishuBtn.selected {
   color: #ff9800;
+  font-size: 16px;
 }
 
 .beishuBtn:last-child

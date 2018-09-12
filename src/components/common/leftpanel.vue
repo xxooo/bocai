@@ -4,18 +4,21 @@
       <div id="userInfo" class="userInfo">
         <p class="title">
           账户信息
-          <a title="刷新" class="refresh">
+          <a title="刷新" class="refresh" @click="getcUserInfo()">
             <i class="icon-refresh"></i>
           </a>
         </p> 
         <div class="info">
           <div class="info-box">
-            <p><label>账户：</label><span>as3</span>(A盘)</p> 
-            <p><label>现金余额：</label>4</p> 
-            <p><label>锁定金额：</label><span style="color: rgb(225, 123, 52);">0</span></p> 
-            <p><label>已下金额：</label><span style="color: rgb(225, 123, 52);">0</span></p>
+            <p><label>账户：</label><span>{{userInfo.username}}</span>({{userInfo.handicap}}盘)</p> 
+            <p><label>现金余额：</label>{{userInfo.cashBalance}}</p> 
+            <p><label>锁定金额：</label><span style="color: #f42222;">{{userInfo.lockBalance}}</span></p> 
+            <p><label>已下金额：</label><span style="color: #f42222;">{{userInfo.alreadyBalance}}</span></p>
           </div> 
-          <p class="login-out"><el-button type="primary" size="mini">登出</el-button></p>
+          <p class="login-out">
+            <el-button type="primary" size="mini">登出</el-button>
+            <el-button type="primary" size="mini">修改密码</el-button>
+          </p>
         </div>
         <div id="subnav">
           <ul>
@@ -106,7 +109,7 @@ import {mapGetters} from 'vuex';
 export default {
   data() {
     return {
-      activeName2: 'first'
+      userInfo: {}
     };
   },
   computed: {
@@ -114,11 +117,74 @@ export default {
     })
   },
   async created() {
-
+    this.getcUserInfo();
   },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
+    },
+    async getcUserInfo() {
+      let res = await this.$get(`${window.url}/api/cUserInfo`);
+
+      if(res.code===200){
+        store.commit('updatecashBalance',res.data.cashBalance);
+
+        this.userInfo = res.data;
+
+        // "currentPage": 0,
+        // "pageSize": 10,
+        // "startDate": null,
+        // "endDate": null,
+        // "id": "51",//用户ID
+        // "username": "aydwhuiyuan1",//用户注册名称
+        // "nickname": "ydwhuiyuan1",//用户昵称
+        // "password": "",
+        // "cashBalance": 20421200,//可用金额
+        // "lockBalance": 0,//锁定金额
+        // "alreadyBalance": 800,//已下注金额
+        // "ruleId": 13,
+        // "bankName": "1111",
+        // "bankNum": "1111",
+        // "bankUserName": "1111",
+        // "phone": "1111",
+        // "weixin": "1111",
+        // "zhifubao": "1111",
+        // "putForwardPassword": "1234",
+        // "cashCredit": 0,
+        // "creditType": null,
+        // "quota": 0,
+        // "handicap": "a",//用户盘口：a,b,c,d
+        // "companyid": "159",
+        // "pid": "164",
+        // "userClass": "1-2-159-160-163-164-51",
+        // "isFrozen": 0,
+        // "tingyaShouya": 0,
+        // "userType": 1,
+        // "status": 1,
+        // "createDate": 1532001115000,
+        // "updateDate": 1534748779000,
+        // "lockingQuota": null,
+        // "isOnline": 1,
+        // "quotaInfo": null,
+        // "aUserOccupied": null,
+        // "isHide": 1,
+        // "bindingIp": "192.168.1.75",
+        // "loginIp": "0:0:0:0:0:0:0:1",
+        // "loginWebsite": null,
+        // "teamId": 1,
+        // "loginTime": 1533883022000,
+        // "systemStr": null,
+        // "phandicapA": null,
+        // "phandicapB": null,
+        // "phandicapC": null,
+        // "phandicapD": null,
+        // "pAllotOccupied": null,
+        // "pCashCredit": null,
+        // "pnickname": null,
+        // "pusername": null,
+        // "pquota": null
+
+      }
     }
   }
 };
@@ -168,12 +234,12 @@ export default {
 }
 
 #leftpanel .leftList .userInfo .info .info-box {
-    width: 80%;
+    width: 94%;
     text-align: left;
-    margin: 0 auto;
+    margin: 0 auto 10px;
     background-color: #cb87f7;
     border-radius: 5px;
-    color: #d6cebf;
+    color: #ffd04b;
     font-weight: 700;
     padding: 5px 0;
 }

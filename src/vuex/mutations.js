@@ -5,8 +5,8 @@ const mutations = {
   updateoddsList(state,v){
     state.oddsList = v;
   },
-  updatetest(state,v) {
-    state.test =v;
+  updatecashBalance(state,v) {
+  	state.cashBalance = v;
   }
 }
 

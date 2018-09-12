@@ -58,7 +58,7 @@
         <div class="bet_box">
           <div class="orders">
             <div class="order-info">
-              <bet-quick :istype="topbet" :orderDatas="orderDatas" :bocaiInfoData="bocaiInfoData" :isTop="'isTop'"></bet-quick>
+              <bet-quick :istype="topbet" :orderDatas="orderDatas" :bocaiInfoData="bocaiInfoData"></bet-quick>
             </div>
 
             <template v-if="showOdds == '两面盘'">
@@ -276,10 +276,6 @@
             </div> 
           </template>
 
-
-            <div class="order-info">
-              <bet-quick :istype="topbet" :orderDatas="orderDatas" :bocaiInfo="bocaiInfo" :isTop="'isbottom'"></bet-quick>
-            </div>
           </div>
 
           <div>
@@ -377,8 +373,6 @@
 <script>
 import BetQuick from '@/components/apps/bocai/components/betQuick';
 import {mapState,mapGetters} from 'vuex';
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
 
 export default {
   components: {
@@ -515,10 +509,10 @@ export default {
 
       let that = this;
 
-          //NProgress.start();
+          NProgress.start();
           await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id).then((res) => {
             that.$handelResponse(res, (result) => {
-              //NProgress.done();
+              NProgress.done();
               if(result.code===200){
                 that.bocaiCategoryList = result.bocaiCategoryList;
                 that.oddsList = result.oddsList;
@@ -536,7 +530,7 @@ export default {
 
           if(res.code===200){
             this.bocaiInfoData = res.data;
-            console.log('this.bocaiInfoData',this.bocaiInfoData);
+            //console.log('this.bocaiInfoData',this.bocaiInfoData);
             this.gettimeLeft();
           }
 
