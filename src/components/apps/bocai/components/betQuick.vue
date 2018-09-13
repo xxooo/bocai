@@ -68,10 +68,13 @@
 
 	export default {
 		props: {
-      orderDatas: {
-        type: Object
+      orderDataList: {
+        type: Array
       },
       bocaiInfoData: {
+        type: Object
+      },
+      bocaiCategory: {
         type: Object
       }
 		},
@@ -81,7 +84,20 @@
         radio10: '1',
         mul: 1,
         orderOddsVisible: false,
-        orderList: []
+        orderList: [],
+        bocaiTypeId: '',
+        bocaiTypeName: '',
+        cuserId: '',
+        orderDatas: {
+          periodsId:'',//投注期数ID
+          bocaiTypeId:'',//投注博彩ID
+          bocaiTypeName:'',//投注博彩名称
+          bocaiCategory1Id:'',//投注博彩分类1ID
+          bocaiCategory1Name:'',//投注博彩分类1名称
+          orderBetMoneySum:0,//投注总和
+          cuserId:'',//当前登录ID
+          list:[]
+        }
 			}
 		},
     components: {
@@ -101,6 +117,15 @@
       }
     },
     mounted(){
+      bus.$on('getbocaiTypeId', (data) => {
+        this.bocaiTypeId = data;
+      });
+      bus.$on('getbocaiTypeName', (data) => {
+        this.bocaiTypeName = data;
+      });
+      bus.$on('getcuserId', (data) => {
+        this.cuserId = data;
+      });
     },
 		methods: {
       orderOdds() {
@@ -116,70 +141,53 @@
         if(this.totalMoney > this.cashBalance) {
           this.$alertMessage('您的余额不足!', '温馨提示');
         } else {
-          let that = this;
 
+          console.log('orderDataList',this.orderDataList);
+          console.log('bocaiInfoData',this.bocaiInfoData);
+
+          this.orderDatas.periodsId = this.bocaiInfoData.bocaiPeriodsId;
+          this.orderDatas.bocaiTypeId = this.bocaiTypeId;
+          this.orderDatas.bocaiTypeName = this.bocaiTypeName;
+          this.orderDatas.bocaiCategory1Id = this.bocaiCategory.id;
+          this.orderDatas.bocaiCategory1Name = this.bocaiCategory.name;
+          this.orderDatas.orderBetMoneySum = this.totalMoney;
+          this.orderDatas.cuserId = this.cuserId;
+          this.orderDatas.list = this.orderDataList;
+
+          this.orderOddsVisible = false;
+          
+          let that = this;
           NProgress.start();
-          await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+1+`&bocaiCategoryId=`+item.id).then((res) => {
+          await that.$post(`${window.url}/api/orderSub`,this.orderDatas).then((res) => {
             that.$handelResponse(res, (result) => {
               NProgress.done();
-              that.showOdds = item.name;
               if(result.code===200){
-                that.oddsList = result.oddsList;
-                that.shuaiXuanDatas(result.oddsList);
              
-                }
+              }
             })
           });
+
         }
       },
       orderOdds() {
 
         this.orderList = [];
 
-        if(this.orderDatas.list.length == 0) {
+        if(this.orderDataList.length == 0) {
           this.$alertMessage('请确认注单!', '温馨提示');
         } else if(this.moneyOrder == ''){
           this.$alertMessage('请输入金额!', '温馨提示');
         } else {
-          for(let n in this.orderDatas.list) {
+          for(let n in this.orderDataList) {
           let obj = {
-              oddNames: this.orderDatas.list[n].bocaiCategory2Name + '  ' + this.orderDatas.list[n].bocaiOddName,
-              bocaiOdds: this.orderDatas.list[n].bocaiOdds,
-              betsMoney: this.orderDatas.list[n].betsMoney == 0 ? this.moneyOrder*this.mul : this.orderDatas.list[n].betsMoney*this.mu
+              oddNames: this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
+              bocaiOdds: this.orderDataList[n].bocaiOdds,
+              betsMoney: this.orderDataList[n].betsMoney == 0 ? this.moneyOrder*this.mul : this.orderDataList[n].betsMoney*this.mu
             }
             this.orderList.push(obj);
           }
           this.orderOddsVisible = true;
         }
-
-        
-
-
-        // companyIsOpenSet: "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。
-            // bocaiPeriodsId: "1480",//该博彩期数ID
-            // preOpenPrizeTime: 1535094708000,//上一期开奖时间
-            // isOpenSet: "",//管理员对于当期博彩的开关设置
-            // preBocaiPeriods": "30763817",//上期博彩期数
-            // closetime: null,//当期关盘时间
-            // preClosetime: null,//上一期关盘时间
-            // bocaiPeriods: "30763818",//当期博彩期数
-            // advanceTimeSet: "",//提前多少分钟开盘，只用于六合彩
-            // openTimeSet: "",//该博彩的每天开盘时间，到时候才开始博彩投注
-            // openPrizeTime": 1535094708000,//当期开奖时间
-            // openTime: 1535094633000,//当期的开盘时间
-            // preResult: "07,02,04,10,01,03,08,09,05,06",//上一期结果
-            // closeTimeSet: ""//提前多少秒封盘
-
-        // let orderPaData = {
-        //       periodsId: bocaiPeriodsId,
-        //       bocaiTypeId: id,
-        //       bocaiTypeName: this.curBocaiName,
-        //       bocaiCategory1Id: 0,
-        //       bocaiCategory1Name: '',
-        //       orderBetMoneySum: '',
-        //       cuserId: 
-        //     }
-
 
       },
       orderMul(mul) {

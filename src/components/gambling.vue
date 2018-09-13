@@ -3,9 +3,17 @@
     <div id="header">
       <el-header height="216">
         <div class="head-div">
-          <img :src="icons[1]">
-          <span>{{preResult}}</span>
-        </div>
+          <div class="headImg"><img :src="icons[imgUrl]"></div>
+          <div class="headLabel">
+            <div class="activeIndex"><h3>{{activeIndex}}</h3></div>
+            <!-- <div class="preResult"><span>{{preResult}}</span></div> -->
+            <div class="preResult">
+              <ul class="result-list">
+                <li v-for="(item,index) in preResult" class="bjpk-ran bjpk-ranNo-5 orangeShishiC">{{item}}</li>
+              </ul>
+            </div>
+            <div class="preBocaiPeriods"><p class="qicip">第 <span>{{preBocaiPeriods}}</span> 期</p></div>
+          </div>        </div>
       </el-header>
       <el-menu
           :default-active="activeIndex"
@@ -16,7 +24,7 @@
           text-color="#ffd04b"
           active-text-color="#ffd04b">
 
-          <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item.bocaiName)">{{item.bocaiName}}</el-menu-item>
+          <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item)">{{item.bocaiName}}</el-menu-item>
           <!-- <el-menu-item index="2">幸运飞艇</el-menu-item>
           <el-menu-item index="3">北京PK拾</el-menu-item>
           <el-menu-item index="4">北京快乐8</el-menu-item>
@@ -78,13 +86,15 @@ export default {
   },
   data() {
     return {
+      imgUrl: 0,
       activeIndex: '重庆时时彩',
+      preBocaiPeriods: '',
+      preResult: '',
       bocaiTypeList: [],
       preResult: '',
       icons:[
-            // require('@/assets/img/report/1.png'),
-            // require('@/assets/img/report/2.png'),
-            // require('@/assets/img/report/3.png')
+            require('@/assets/img/chongqindubo.png'),
+            require('@/assets/img/luckyairship.png')
           ]
     }
   },
@@ -97,7 +107,7 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      //console.log(key, keyPath);
+      this.activeIndex = key;
     },
     async getBocai() {
       let res = await this.$get(`${window.url}/api/getBocai`);
@@ -106,28 +116,39 @@ export default {
             this.bocaiTypeList = res.bocaiTypeList;
           }
     },
-    async getOdds(bocaiName) {
-
+    async getOdds(item) {
       let path = '';
-        switch (bocaiName) {
+        switch (item.bocaiName) {
           case '重庆时时彩':
             path = 'chongqindubo';
+            this.imgUrl = 0;
             break;
           case '幸运飞艇':
             path = 'luckyairship';
+            this.imgUrl = 1;
             break;
         }
-
+      bus.$emit('getbocaiTypeId', item.bocaiId); 
+      bus.$emit('getbocaiTypeName', item.bocaiName); 
       this.$router.push({name: path});
     }
   },
   mounted() {
+<<<<<<< .mine
       var vm = this;
       // 用$on事件来接收参数
       bus.$on('val', (data) => {
         console.log(data);
         vm.preResult = data;
       })
+=======
+      bus.$on('getpreResult', (data) => {
+        this.preResult = data;
+      });
+      bus.$on('getpreBocaiPeriods', (data) => {
+        this.preBocaiPeriods = data;
+      })
+>>>>>>> .theirs
   },
   updated() {
   }
@@ -144,6 +165,66 @@ export default {
     height: 100%;
   }
 
+  .head-div >div {
+    float: left;
+    height: 120px;
+  }
+  .headLabel {
+    color: #fff;
+    width: 420px;
+  }
+  .headLabel h3 {
+    color: #ff5722;
+  }
+  .headLabel .activeIndex,.headLabel .preBocaiPeriods {
+    margin: 10px 0px 10px -20px;
+  }
+  .headLabel .preResult {
+    margin: 15px 0px 15px 20px;
+  }
+  .head-div {
+    padding: 1% 37%;
+  }
+  .headImg >img {
+    height: 70px;
+    margin-top: 23px;
+  }
+  .game-result ul {
+    margin: 10px 10px 0;
+  }
+  .bjpk-ran {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    margin: 0px 5px;
+  }
+  .bjpk-ran, .bjpk-ran-s {
+    display: inline-block;
+    color: #fff;
+    border-radius: 50px;
+    font-family: Microsoft YaHei,Verdana,SimSun,Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    text-shadow: #555 1px 0 0, #555 0 1px 0, #555 -1px 0 0, #555 0 -1px 0;
+  }
+  .bjpk-ranNo-1 {
+    background-color: #ffd64c;
+  }
+  .orangeShishiC {
+    background-color: #f96a2a;
+  }
+  .game-result li {
+    width: 24px;
+    height: 26px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    margin-left: 8px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .preBocaiPeriods .qicip {
+    color: #6c3092;
+  }
 </style>
 <style lang="less">
 #main {
