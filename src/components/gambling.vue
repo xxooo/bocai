@@ -134,21 +134,12 @@ export default {
     }
   },
   mounted() {
-<<<<<<< .mine
-      var vm = this;
-      // 用$on事件来接收参数
-      bus.$on('val', (data) => {
-        console.log(data);
-        vm.preResult = data;
-      })
-=======
       bus.$on('getpreResult', (data) => {
         this.preResult = data;
       });
       bus.$on('getpreBocaiPeriods', (data) => {
         this.preBocaiPeriods = data;
       })
->>>>>>> .theirs
   },
   updated() {
   }
@@ -167,7 +158,7 @@ export default {
 
   .head-div >div {
     float: left;
-    height: 120px;
+    height: 116px;
   }
   .headLabel {
     color: #fff;
@@ -183,11 +174,16 @@ export default {
     margin: 15px 0px 15px 20px;
   }
   .head-div {
-    padding: 1% 37%;
+    padding: 1.5% 27.7%;
+    width: 600px;
+    height: 116px;
   }
   .headImg >img {
     height: 70px;
     margin-top: 23px;
+  }
+  .headImg {
+    margin-left: 40px;
   }
   .game-result ul {
     margin: 10px 10px 0;

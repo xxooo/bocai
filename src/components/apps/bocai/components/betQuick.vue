@@ -12,7 +12,7 @@
       <div class="betRTop">
         <el-input v-model.number="moneyOrder" size="mini" placeholder="请输入金额" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></el-input>
         <el-button type="primary"size="mini" plain @click="orderOdds()">下 注</el-button>
-        <el-button type="danger" size="mini" @click="orderOdds()">重 置</el-button>
+        <el-button type="danger" size="mini" @click="reset()">重 置</el-button>
       </div>
       <div class="betRBottom">
         <label>投注类型:</label>
@@ -128,7 +128,11 @@
       });
     },
 		methods: {
-      orderOdds() {
+      reset() {
+        $('.bet_box .orders td').removeClass('selected');
+        $(".beishuBtn").removeClass('selected');
+        this.moneyOrder = '';
+        this.$emit('childByValue', 'reset');
       },
       deleteOdd(index) {
         this.orderList.splice(index,1);
@@ -141,9 +145,10 @@
         if(this.totalMoney > this.cashBalance) {
           this.$alertMessage('您的余额不足!', '温馨提示');
         } else {
+          this.orderDatas.list = [];
 
+          console.log('bocaiTypeId',this.bocaiTypeId);
           console.log('orderDataList',this.orderDataList);
-          console.log('bocaiInfoData',this.bocaiInfoData);
 
           this.orderDatas.periodsId = this.bocaiInfoData.bocaiPeriodsId;
           this.orderDatas.bocaiTypeId = this.bocaiTypeId;
@@ -152,7 +157,19 @@
           this.orderDatas.bocaiCategory1Name = this.bocaiCategory.name;
           this.orderDatas.orderBetMoneySum = this.totalMoney;
           this.orderDatas.cuserId = this.cuserId;
-          this.orderDatas.list = this.orderDataList;
+
+          for(let n in this.orderList) {
+            let obj = {
+              bocaiCategory2Id: this.orderDataList[n].bocaiCategory2Id,//8225,//投注博彩分类2ID
+              bocaiCategory2Name: this.orderDataList[n].bocaiCategory2Name,//"混合",//投注博彩分类2名称
+              bocaiOddId: this.orderDataList[n].bocaiOddId,//5543,//投注博彩赔率ID
+              bocaiOddName: this.orderDataList[n].bocaiOddName,//"大",//投注博彩赔率名称
+              bocaiValue: this.orderDataList[n].bocaiValue,//投注内容,六合彩连肖/连尾
+              betsMoney: this.orderList[n].betsMoney,//10000,//一般模式下，选择的金额
+              bocaiOdds: this.orderDataList[n].bocaiOdds//1.90//赔率
+            }
+            this.orderDatas.list.push(obj);
+          }
 
           this.orderOddsVisible = false;
           
@@ -162,10 +179,12 @@
             that.$handelResponse(res, (result) => {
               NProgress.done();
               if(result.code===200){
-             
+                
               }
             })
           });
+
+          console.log('this.orderDataList',this.orderDataList);
 
         }
       },
@@ -178,12 +197,15 @@
         } else if(this.moneyOrder == ''){
           this.$alertMessage('请输入金额!', '温馨提示');
         } else {
+
+          console.log('this.orderDataList',this.orderDataList);
           for(let n in this.orderDataList) {
-          let obj = {
+            let obj = {
               oddNames: this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
               bocaiOdds: this.orderDataList[n].bocaiOdds,
-              betsMoney: this.orderDataList[n].betsMoney == 0 ? this.moneyOrder*this.mul : this.orderDataList[n].betsMoney*this.mu
+              betsMoney: this.orderDataList[n].orderNormal ? this.orderDataList[n].normalMoney*this.mul : this.moneyOrder*this.mul
             }
+
             this.orderList.push(obj);
           }
           this.orderOddsVisible = true;

@@ -58,7 +58,7 @@
         <div class="bet_box">
           <div class="orders">
             <div class="order-info">
-              <bet-quick :istype="topbet" :orderDataList="orderDataList" :bocaiInfoData="bocaiInfoData" :bocaiCategory="bocaiCategory"></bet-quick>
+              <bet-quick :istype="topbet" :orderDataList="orderDataList" :bocaiInfoData="bocaiInfoData" :bocaiCategory="bocaiCategory" v-on:childByValue="childByValue2"></bet-quick>
             </div>
 
             <template v-if="showOdds == '两面盘'">
@@ -414,6 +414,33 @@ export default {
     //this.gettimeLeft();
   },
   methods: {
+    childByValue2(data) {
+      this.orderDataList = [];
+    },
+    getNowFormatDate() {
+        var date = new Date();
+
+       // console.log('date',date);
+
+
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                + " " + date.getHours() + seperator2 + date.getMinutes()
+                + seperator2 + date.getSeconds();
+        return currentdate;
+    },
+    getLocalTime(nS) {     
+       return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');     
+    },
     gettimeLeft() {
         var hourtime="24:00:00";
         var endTime =new Date(new Date().toLocaleDateString()+" "+hourtime);
@@ -426,9 +453,13 @@ export default {
 
         //var leftTime = endTime.getTime() - now.getTime();
         //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
-       // console.log('now.getTime()',now.getTime());
+        let timessss = this.getNowFormatDate();
+        //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
+        //console.log('this.bocaiInfoData.openPrizeTime',this.getLocalTime(this.bocaiInfoData.openPrizeTime));
+        //console.log('timessss',timessss);
+        //console.log('now.getTime()',now.getTime());
 
-        var leftTime = now.getTime() - this.bocaiInfoData.openPrizeTime;
+        var leftTime = this.bocaiInfoData.openPrizeTime - now.getTime();
 
         //onsole.log('leftTime',leftTime);
         var ms = parseInt(leftTime % 1000).toString();
@@ -470,7 +501,8 @@ export default {
           bocaiOddId: item.oddsId,//5543,//投注博彩赔率ID
           bocaiOddName: item.oddsName,//"大",//投注博彩赔率名称
           bocaiValue:"",//投注内容,六合彩连肖/连尾
-          betsMoney:0,//10000,//当前赔率投注金额
+          normalMoney:0,//10000,//一般模式下，选择的金额
+          orderNormal: false,   //是快捷，还是一般投注
           bocaiOdds: item.odds//1.90//赔率
         };
 
@@ -513,6 +545,10 @@ export default {
                 that.bocaiCategory = result.bocaiCategoryList[0];
                 that.activeIndex = that.bocaiCategoryList[0].name;
                 that.shuaiXuanDatas(result.oddsList);
+
+                bus.$emit('getbocaiTypeId', this.curBocaiTypeId); 
+                bus.$emit('getbocaiTypeName', this.curBocaiName); 
+
               }
 
             })
@@ -524,9 +560,12 @@ export default {
 
           if(res.code===200){
             this.bocaiInfoData = res.data;
- 			let str = "07,02,04,10,01,03,08,09,05,06";
-            bus.$emit('getpreResult', str.split(','));   //"preResult": "07,02,04,10,01,03,08,09,05,06",//上一期结果
-            bus.$emit('getpreBocaiPeriods', "30763817");   //"preBocaiPeriods": "30763817",//上期博彩期数            this.gettimeLeft();
+ 			      let str = "07,02,04,10,01,03,08,09,05,06";
+            // bus.$emit('getpreResult', str.split(','));   //"preResult": "07,02,04,10,01,03,08,09,05,06",//上一期结果
+            // bus.$emit('getpreBocaiPeriods', "30763817");   //"preBocaiPeriods": "30763817",//上期博彩期数  
+            bus.$emit('getpreResult', res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(','));   //"preResult": "07,02,04,10,01,03,08,09,05,06",//上一期结果
+            bus.$emit('getpreBocaiPeriods', res.data.preBocaiPeriods);   //"preBocaiPeriods": "30763817",//上期博彩期数            
+            this.gettimeLeft();
           }
 
     },
