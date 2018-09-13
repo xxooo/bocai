@@ -131,6 +131,8 @@ export default {
 
         this.userInfo = res.data;
 
+        bus.$emit('getcuserId', res.data.id);
+
         // "currentPage": 0,
         // "pageSize": 10,
         // "startDate": null,

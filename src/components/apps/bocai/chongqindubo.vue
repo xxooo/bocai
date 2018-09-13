@@ -43,7 +43,7 @@
             </div>
             <div class="kaipangTime">
               <div class="qiciDiv">
-                <p>第<span class="qiciSpan">{{bocaiInfoData.bocaiPeriods}}</span>期</p>
+                <p>第 <span class="qiciSpan">{{bocaiInfoData.bocaiPeriods}}</span> 期</p>
                 <p>距离下期开盘</p>
               </div>
               <!-- <clock-times :bocaiInfoData='bocaiInfoData' v-on:childByTime="childByTime"></clock-times> -->
@@ -58,7 +58,7 @@
         <div class="bet_box">
           <div class="orders">
             <div class="order-info">
-              <bet-quick :istype="topbet" :orderDatas="orderDatas" :bocaiInfoData="bocaiInfoData"></bet-quick>
+              <bet-quick :istype="topbet" :orderDataList="orderDataList" :bocaiInfoData="bocaiInfoData" :bocaiCategory="bocaiCategory"></bet-quick>
             </div>
 
             <template v-if="showOdds == '两面盘'">
@@ -398,18 +398,10 @@ export default {
       qiansan_lmp: {},
       zhongsan_lmp: {},
       housan_lmp:{},
-      orderDatas: {
-        periodsId:0,//53,//投注期数ID
-        bocaiTypeId:0,//8223,//投注博彩ID
-        bocaiTypeName:'',//"PC蛋蛋",//投注博彩名称
-        bocaiCategory1Id:0,//8224,//投注博彩分类1ID
-        bocaiCategory1Name:'',//"PC蛋蛋",//投注博彩分类1名称
-        orderBetMoneySum:0,//10000,//投注总和
-        cuserId:0,//51,//当前登录ID
-        list:[]
-      },
+      orderDataList: [],
       bocaiInfoData: {},
       timeLeft:'',
+      bocaiCategory: {}
     }
   },
   computed: {
@@ -466,7 +458,7 @@ export default {
       if($('.'+ids+item.oddsId).hasClass('selected')){
         $('.'+ids+item.oddsId).removeClass('selected');
 
-        _.remove(this.orderDatas.list, function(n) {
+        _.remove(this.orderDataList, function(n) {
           return n.bocaiOddName == item.oddsName;
         });
 
@@ -482,7 +474,7 @@ export default {
           bocaiOdds: item.odds//1.90//赔率
         };
 
-        this.orderDatas.list.push(obj);
+        this.orderDataList.push(obj);
       }
     },
     handleSelect(key, keyPath) {
@@ -497,6 +489,7 @@ export default {
             that.$handelResponse(res, (result) => {
               NProgress.done();
               that.showOdds = item.name;
+              that.bocaiCategory = item;
               if(result.code===200){
                 that.oddsList = result.oddsList;
                 that.shuaiXuanDatas(result.oddsList);
@@ -516,7 +509,8 @@ export default {
               if(result.code===200){
                 that.bocaiCategoryList = result.bocaiCategoryList;
                 that.oddsList = result.oddsList;
-                that.showOdds = '两面盘';
+                that.showOdds = result.bocaiCategoryList[0].name;
+                that.bocaiCategory = result.bocaiCategoryList[0];
                 that.activeIndex = that.bocaiCategoryList[0].name;
                 that.shuaiXuanDatas(result.oddsList);
               }
@@ -530,7 +524,9 @@ export default {
 
           if(res.code===200){
             this.bocaiInfoData = res.data;
-            //console.log('this.bocaiInfoData',this.bocaiInfoData);
+            let str = "07,02,04,10,01,03,08,09,05,06";
+            bus.$emit('getpreResult', str.split(','));   //"preResult": "07,02,04,10,01,03,08,09,05,06",//上一期结果
+            bus.$emit('getpreBocaiPeriods', "30763817");   //"preBocaiPeriods": "30763817",//上期博彩期数
             this.gettimeLeft();
           }
 

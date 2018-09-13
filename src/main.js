@@ -30,6 +30,8 @@ window._g = _g;
 window.cookie = cookie;
 window.ENV = ENV;
 window.NProgress = NProgress;
+const bus = new Vue();
+window.bus = bus;
 
 (async function () {
 
