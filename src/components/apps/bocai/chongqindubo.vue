@@ -530,6 +530,9 @@ export default {
 
           if(res.code===200){
             this.bocaiInfoData = res.data;
+            bus.$emit('val', res.data.openTimeSet);
+            //bus.$emit('val', res.data.preResult);
+            //store.commit('updatepreResult',res.data.preResult);
             //console.log('this.bocaiInfoData',this.bocaiInfoData);
             this.gettimeLeft();
           }

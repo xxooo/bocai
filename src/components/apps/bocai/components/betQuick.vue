@@ -104,10 +104,13 @@
     },
 		methods: {
       orderOdds() {
-
       },
       deleteOdd(index) {
         this.orderList.splice(index,1);
+        console.log('orderList.length',this.orderList.length);
+        if(this.orderList.length == 0) {
+          this.orderOddsVisible = false;
+        }
       },
       async orderSub() {
         if(this.totalMoney > this.cashBalance) {

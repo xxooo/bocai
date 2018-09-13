@@ -4,7 +4,7 @@
       <el-header height="216">
         <div class="head-div">
           <img :src="icons[1]">
-          <span>kkkkk</span>
+          <span>{{preResult}}</span>
         </div>
       </el-header>
       <el-menu
@@ -80,6 +80,7 @@ export default {
     return {
       activeIndex: '重庆时时彩',
       bocaiTypeList: [],
+      preResult: '',
       icons:[
             // require('@/assets/img/report/1.png'),
             // require('@/assets/img/report/2.png'),
@@ -121,6 +122,12 @@ export default {
     }
   },
   mounted() {
+      var vm = this;
+      // 用$on事件来接收参数
+      bus.$on('val', (data) => {
+        console.log(data);
+        vm.preResult = data;
+      })
   },
   updated() {
   }

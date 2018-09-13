@@ -7,6 +7,9 @@ const mutations = {
   },
   updatecashBalance(state,v) {
   	state.cashBalance = v;
+  },
+  updatepreResult(state,v){
+  	state.preResult = v;
   }
 }
 
