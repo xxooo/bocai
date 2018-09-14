@@ -39,7 +39,7 @@
         <div class="bet_box">
           <div class="orders">
             <div class="order-info">
-              <bet-quick :istype="topbet" :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:reset="reset"></bet-quick>
+              <bet-quick :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:reset="reset"></bet-quick>
             </div>
 
             <template v-if="showOdds == '两面盘'">
@@ -365,9 +365,6 @@ export default {
     return {
       curBocaiTypeId: '',
       curBocaiName: '',
-      activeName: 'second',
-      botbet: false,
-      topbet: true,
       bocaiCategoryList: [],
       oddsList: [],
       activeIndex: '',
