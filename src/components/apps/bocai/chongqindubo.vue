@@ -33,32 +33,13 @@
               </el-submenu> -->
             </el-menu>
           </div>
-          <div class="title-content">
-            <div class="wanfaBtn">
-              <el-button type="primary" size="mini">玩法规则</el-button>
-            </div>
-            <div class="winCurrent">
-              <span>当前彩种输赢:</span>
-              <span class="red">0.00</span>
-            </div>
-            <div class="kaipangTime">
-              <div class="qiciDiv">
-                <p>第 <span class="qiciSpan">{{bocaiInfoData.bocaiPeriods}}</span> 期</p>
-                <p>距离下期开盘</p>
-              </div>
-              <!-- <clock-times :bocaiInfoData='bocaiInfoData' v-on:childByTime="childByTime"></clock-times> -->
-              <div id="clockTimes">
-                <center>
-                <span id="clock">{{timeLeft}}</span>
-                </center>
-              </div>
-            </div>
-          </div>
+          
+          <clock-time v-on:clockTime="clockTime"></clock-time>
         </div>
         <div class="bet_box">
           <div class="orders">
             <div class="order-info">
-              <bet-quick :istype="topbet" :orderDataList="orderDataList" :bocaiInfoData="bocaiInfoData" :bocaiCategory="bocaiCategory" v-on:childByValue="childByValue2"></bet-quick>
+              <bet-quick :istype="topbet" :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:reset="reset"></bet-quick>
             </div>
 
             <template v-if="showOdds == '两面盘'">
@@ -372,16 +353,18 @@
 
 <script>
 import BetQuick from '@/components/apps/bocai/components/betQuick';
+import ClockTime from '@/components/apps/bocai/components/clockTime';
 import {mapState,mapGetters} from 'vuex';
 
 export default {
   components: {
+    ClockTime,
     BetQuick
   },
   data () {
     return {
-      curBocaiTypeId: 1,
-      curBocaiName: '重庆时时彩',
+      curBocaiTypeId: '',
+      curBocaiName: '',
       activeName: 'second',
       botbet: false,
       topbet: true,
@@ -399,8 +382,6 @@ export default {
       zhongsan_lmp: {},
       housan_lmp:{},
       orderDataList: [],
-      bocaiInfoData: {},
-      timeLeft:'',
       bocaiCategory: {}
     }
   },
@@ -409,74 +390,22 @@ export default {
     })
   },
   created() {
-    this.getOdds(this.curBocaiTypeId);
-    this.bocaiInfo(this.curBocaiTypeId);
-    //this.gettimeLeft();
+    
+  },
+  mounted(){
+      bus.$on('getbocaiTypeList', (data) => {
+        console.log('this.curBocaiTypeId',data);
+        this.curBocaiTypeId = data[0].bocaiId,
+        this.curBocaiName = data[0].bocaiName,
+        this.getOdds(this.curBocaiTypeId);
+      });
   },
   methods: {
-    childByValue2(data) {
+    clockTime(data) {
+
+    },
+    reset(data) {
       this.orderDataList = [];
-    },
-    getNowFormatDate() {
-        var date = new Date();
-
-       // console.log('date',date);
-
-
-        var seperator1 = "-";
-        var seperator2 = ":";
-        var month = date.getMonth() + 1;
-        var strDate = date.getDate();
-        if (month >= 1 && month <= 9) {
-            month = "0" + month;
-        }
-        if (strDate >= 0 && strDate <= 9) {
-            strDate = "0" + strDate;
-        }
-        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-                + " " + date.getHours() + seperator2 + date.getMinutes()
-                + seperator2 + date.getSeconds();
-        return currentdate;
-    },
-    getLocalTime(nS) {     
-       return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');     
-    },
-    gettimeLeft() {
-        var hourtime="24:00:00";
-        var endTime =new Date(new Date().toLocaleDateString()+" "+hourtime);
-
-        var now = new Date();
-
-        var nowYear=now.getFullYear();
-        var nowMonth=now.getMonth()+1;
-        var nowDay=now.getDate();
-
-        //var leftTime = endTime.getTime() - now.getTime();
-        //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
-        let timessss = this.getNowFormatDate();
-        //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
-        //console.log('this.bocaiInfoData.openPrizeTime',this.getLocalTime(this.bocaiInfoData.openPrizeTime));
-        //console.log('timessss',timessss);
-        //console.log('now.getTime()',now.getTime());
-
-        var leftTime = this.bocaiInfoData.openPrizeTime - now.getTime();
-
-        //onsole.log('leftTime',leftTime);
-        var ms = parseInt(leftTime % 1000).toString();
-        leftTime = parseInt(leftTime / 1000);
-        var o = Math.floor(leftTime / 3600);
-        var d = Math.floor(o / 24);
-        var m = Math.floor(leftTime / 60 % 60);
-        var s = leftTime % 60;
-
-        this.timeLeft = o + ":" + m + ":" + s;
-
-        setTimeout(this.gettimeLeft, 100);
-
-        //openPrizeTime
-    },
-    childByTime(childByTime) {
-      console.log('childByTime',childByTime);
     },
     outHide(item,ids) {
       $('.'+ids+item.oddsId).removeClass('overTd');
@@ -553,20 +482,6 @@ export default {
 
             })
           });
-
-    },
-    async bocaiInfo(id) {
-      let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+id);
-
-          if(res.code===200){
-            this.bocaiInfoData = res.data;
- 			      let str = "07,02,04,10,01,03,08,09,05,06";
-            // bus.$emit('getpreResult', str.split(','));   //"preResult": "07,02,04,10,01,03,08,09,05,06",//上一期结果
-            // bus.$emit('getpreBocaiPeriods', "30763817");   //"preBocaiPeriods": "30763817",//上期博彩期数  
-            bus.$emit('getpreResult', res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(','));   //"preResult": "07,02,04,10,01,03,08,09,05,06",//上一期结果
-            bus.$emit('getpreBocaiPeriods', res.data.preBocaiPeriods);   //"preBocaiPeriods": "30763817",//上期博彩期数            
-            this.gettimeLeft();
-          }
 
     },
     shuaiXuanDatas(dataList) {

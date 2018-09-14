@@ -119,6 +119,11 @@ export default {
   async created() {
     this.getcUserInfo();
   },
+  mounted(){
+      bus.$on('getcUserInfo', (data) => {
+        this.getcUserInfo();
+      });
+  },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);

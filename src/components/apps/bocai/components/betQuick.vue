@@ -71,9 +71,6 @@
       orderDataList: {
         type: Array
       },
-      bocaiInfoData: {
-        type: Object
-      },
       bocaiCategory: {
         type: Object
       }
@@ -88,6 +85,7 @@
         bocaiTypeId: '',
         bocaiTypeName: '',
         cuserId: '',
+        bocaiInfoData: {},
         orderDatas: {
           periodsId:'',//投注期数ID
           bocaiTypeId:'',//投注博彩ID
@@ -125,6 +123,9 @@
       });
       bus.$on('getcuserId', (data) => {
         this.cuserId = data;
+      });
+      bus.$on('getbocaiInfoData', (data) => {
+        this.bocaiInfoData = data;
       });
     },
 		methods: {
@@ -179,7 +180,8 @@
             that.$handelResponse(res, (result) => {
               NProgress.done();
               if(result.code===200){
-                
+                //更新用户信息
+                bus.$emit('getcUserInfo', ''); 
               }
             })
           });

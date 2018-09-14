@@ -114,6 +114,7 @@ export default {
 
           if(res.code===200){
             this.bocaiTypeList = res.bocaiTypeList;
+            bus.$emit('getbocaiTypeList', res.bocaiTypeList); 
           }
     },
     async getOdds(item) {
@@ -174,9 +175,11 @@ export default {
     margin: 15px 0px 15px 20px;
   }
   .head-div {
-    padding: 1.5% 27.7%;
-    width: 600px;
     height: 116px;
+    width: 600px;
+    margin: 0 auto;
+    padding-top: 1.1%;
+    position: relative;
   }
   .headImg >img {
     height: 70px;
