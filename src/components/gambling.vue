@@ -24,24 +24,12 @@
           text-color="#ffd04b"
           active-text-color="#ffd04b">
 
-          <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item)">{{item.bocaiName}}</el-menu-item>
-          <!-- <el-menu-item index="2">幸运飞艇</el-menu-item>
-          <el-menu-item index="3">北京PK拾</el-menu-item>
-          <el-menu-item index="4">北京快乐8</el-menu-item>
-          <el-menu-item index="5">六合彩</el-menu-item>
-          <el-menu-item index="6">广东快乐十分</el-menu-item>
-          <el-menu-item index="7">广东11选5</el-menu-item>
-          <el-menu-item index="8">PC蛋蛋</el-menu-item>
-        <el-submenu index="9">
-          <template slot="title">更多</template>
-          <el-menu-item index="2-1">天津时时彩</el-menu-item>
-          <el-menu-item index="2-2">安徽快3</el-menu-item>
-          <el-menu-item index="2-3">山东11选5</el-menu-item>
-          <el-menu-item index="2-3">江苏快3</el-menu-item>
-          <el-menu-item index="2-3">江西11选5</el-menu-item>
-          <el-menu-item index="2-3">重庆幸运农场</el-menu-item>
-          <el-menu-item index="2-3">新疆时时彩</el-menu-item>
-        </el-submenu> -->
+          <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item,index)" v-if="index*1 < 8">{{item.bocaiName}}</el-menu-item>
+          <el-submenu v-if="bocaiTypeList.length*1 > 8" key="submenu" index="submenu">
+            <template slot="title">{{submenu}}</template>
+            <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item,index)" v-if="index*1 > 7">{{item.bocaiName}}</el-menu-item>
+          </el-submenu>
+
       </el-menu>
     </div>
     
@@ -91,6 +79,7 @@ export default {
       preBocaiPeriods: '',
       preResult: '',
       bocaiTypeList: [],
+      submenu: '更多',
       preResult: '',
       icons:[
             require('@/assets/img/chongqindubo.png'),
@@ -114,10 +103,17 @@ export default {
 
           if(res.code===200){
             this.bocaiTypeList = res.bocaiTypeList;
-            bus.$emit('getbocaiTypeList', res.bocaiTypeList); 
+            bus.$emit('getbocaiTypeList', res.bocaiTypeList[0]); 
           }
     },
-    async getOdds(item) {
+    async getOdds(item,index) {
+
+      if(index*1 > 7) {
+        this.submenu = item.name;
+      } else {
+        this.submenu = '更多';
+      }
+
       let path = '';
         switch (item.bocaiName) {
           case '重庆时时彩':
@@ -131,6 +127,7 @@ export default {
         }
       bus.$emit('getbocaiTypeId', item.bocaiId); 
       bus.$emit('getbocaiTypeName', item.bocaiName); 
+      bus.$emit('getbocaiTypeList', item); 
       this.$router.push({name: path});
     }
   },

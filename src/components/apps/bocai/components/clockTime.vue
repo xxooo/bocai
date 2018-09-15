@@ -61,7 +61,7 @@
         this.gettimeLeft();
       });
       bus.$on('getbocaiTypeList', (data) => {
-        this.bocaiInfo(data[0].bocaiId);
+        this.bocaiInfo(data.bocaiId);
       });
     },
 		methods: {

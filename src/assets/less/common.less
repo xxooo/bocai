@@ -76,7 +76,13 @@ li {
     }
 
     .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
-      border-bottom: 0px solid #6C3092;
+        border-bottom: 0px solid #6C3092;
+        background-size: 100% 100%;
+        color: #ffea00;
+        cursor: point;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: #ffd04b !important;
     }
 
     .el-menu-item.is-active {
@@ -93,7 +99,7 @@ li {
     }
 
     .el-menu-item,.el-submenu {
-      padding: 0 8.5px;
+      padding: 0 15px;
     }
 
     .el-header {
@@ -176,8 +182,8 @@ li {
 
     .kaipangTime{
         float: left;
-        margin: 5px 30px;
-        padding: 0px 30px;
+        margin: 5px 20px;
+        padding: 0px 20px;
         color: #fbf1e7;
         border-left: 2px solid #8a7f96;
     }
@@ -249,3 +255,276 @@ td, th {
     }
 }
 
+
+
+
+.duboBodyClass {
+  .right {
+    position: relative;
+    }
+
+    .bet_box {
+        width: 830px;
+        overflow-x: hidden;
+    }
+
+    .orders {
+        padding: 6px 0;
+    }
+
+    .bet_box .orders td.overTd {
+      background-color: #ffe59b;
+    }
+    .bet_box .orders td.selected {
+      background-color: #ffd04b;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .order-table table {
+        font-size: 12px;
+        width: 100%;
+        border-collapse: collapse;
+        border-top: none;
+        margin-bottom: 10px;
+    }
+
+    tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+    }
+
+    table > tr {
+        vertical-align: middle;
+    }
+
+    address, button, caption, cite, code, dfn, em, input, optgroup, option, select, strong, textarea, th, var {
+        font: inherit;
+    }
+
+    caption, th {
+        text-align: left;
+    }
+
+    .order-table th {
+        line-height: 1.8;
+        background-color: #ccb0da;
+        text-align: center;
+        border-bottom: none;
+        color: #511e02;
+        font-weight: 700;
+        height: 30px;
+        font-size: 14px;
+        border: 1px solid #b2b1b9;
+    }
+
+    .order-table td {
+        position: relative;
+        overflow: hidden;
+        background-clip: padding-box;
+        color: #511e02;
+        height: 30px;
+        min-width: 24px;
+        box-sizing: border-box;
+        text-align: center;
+        border: 1px solid #bbb;
+        background-color: #f9f8f9;
+    }
+
+    td.tdLeft {
+      cursor: pointer;
+    }
+
+    td.tdLeft {
+      color: #511e02;
+      font-weight: 700;
+    }
+
+    .qiu15_body td.tdLeft:nth-child(1) {
+        width: 40px;
+    }
+
+    td.tdRight {
+        cursor: pointer;
+        position: relative;
+    }
+
+    .tdRight ul {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .tdRight ul li {
+        padding: 7px 0;
+        display: inline-block;
+        width: 40%;
+        margin: 0;
+    }
+
+    .bet_box ul li+li {
+        width: 48%;
+    }
+
+    .tdRight ul li:only-child {
+        width: 100%;
+    }
+
+
+    .bet_box .oodsBodyDiv input {
+        width: 45px;
+        border-radius: 3px;
+        border: 1px solid #bbb;
+        color: #455964;
+        box-sizing: border-box;
+    }
+
+    .odds-font {
+        color: #d63e35;
+        font-weight: 700;
+    }
+
+    .tdRight span {
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .tdHover {
+      background: #fcf1b4;
+    }
+
+    .tdClick {
+      background: #faf014;
+    }
+
+    .eball {
+        display: inline-block;
+        width: 162px;
+        margin-right: 0px;
+    }
+
+    .bead-table {
+        padding: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .bead-table table {
+        border-radius: 5px 5px 0 0;
+        background-color: #fefdfc;
+    }
+
+    .bead-table table {
+        width: 100%;
+        border-collapse: collapse;
+        border-top: none;
+        margin-bottom: 10px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 12px;
+    }
+
+    .bead-table .bead-ball {
+        margin-bottom: 0;
+        margin-top: 5px;
+    }
+
+    .bead-table .bead-ball th {
+        text-align: center;
+        cursor: pointer;
+        color: #511e02;
+        font-size: 13px;
+        font-weight: 700;
+        background-color: #ffd04b;
+    }
+
+    .bead-table .bead-ball th:first-child {
+        border-top-left-radius: 5px;
+    }
+
+    .bead-table .bead-ball th.active {
+        color: #fdfcfa;
+        cursor: default;
+        background-color: #ff9800;
+    }
+    .bead-table .bead-ball th+th {
+        border-left: 1px solid #b299d8;
+    }
+    .bead-table table td {
+        text-align: center;
+        border: 1px solid #bbb;
+    }
+    .td-head td {
+        width: 10%;
+    }
+    .bead-table table .td-head td {
+        color: #35406d;
+        font-weight: 700;
+    }
+    .bead-table table td.bead-list {
+        vertical-align: top;
+        line-height: 20px;
+        width: 4%;
+    }
+    .bead-table table td.bead-list:nth-child(2n+1) {
+        background-color: #f8f8fd;
+    }
+    .bead-table .bead-ball th:last-child {
+        border-top-right-radius: 5px;
+        border-right: none;
+    }
+    .nball .order-table .ball-icon {
+        background-color: #0433de;
+        color: #fff;
+        width: 25px;
+        height: 25px;
+        margin: 2.5px 7.5px;
+        line-height: 27.5px;
+        border-radius: 30px;
+    }
+    .nball {
+        display: inline-block;
+        width: 162px;
+        margin-right: 4px;
+    }
+    .nball .order-table td.oddsNtd{
+        cursor: pointer;
+    }
+    .nball .order-table td.oddsNtd{
+        color: #511e02;
+        font-weight: 700;
+    }
+    .nball .order-table td.oddsUltd{
+        cursor: pointer;
+        position: relative;
+    }
+    .nball .order-table ul {
+        height: 100%;
+        overflow: hidden;
+    }
+    .nball .order-table ul li {
+        padding: 7px 0;
+        display: inline-block;
+        width: 40%;
+        margin: 0;
+    }
+    .nball .order-table ul li {
+        padding: 7px 0;
+        display: inline-block;
+        width: 40%;
+        margin: 0;
+    }
+    .nball .order-table ul li:only-child {
+        width: 100%;
+    }
+    .nball .order-table span {
+        cursor: pointer;
+        display: inline-block;
+    }
+}

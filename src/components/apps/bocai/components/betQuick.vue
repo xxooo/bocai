@@ -16,9 +16,9 @@
       </div>
       <div class="betRBottom">
         <label>投注类型:</label>
-        <el-radio-group v-model="radio10" size="mini">
-          <el-radio label="1" border>快捷</el-radio>
-          <el-radio label="2" border>一般</el-radio>
+        <el-radio-group v-model="normalPay" size="mini" @change="changePay">
+          <el-radio :label="false" border>快捷</el-radio>
+          <el-radio :label="true" border>一般</el-radio>
         </el-radio-group>
       </div>
     </div>
@@ -86,6 +86,7 @@
         bocaiTypeName: '',
         cuserId: '',
         bocaiInfoData: {},
+        normalPay: false,
         orderDatas: {
           periodsId:'',//投注期数ID
           bocaiTypeId:'',//投注博彩ID
@@ -129,11 +130,14 @@
       });
     },
 		methods: {
+      changePay(data) {
+        this.$emit('childByChangePay', data);
+      },
       reset() {
         $('.bet_box .orders td').removeClass('selected');
         $(".beishuBtn").removeClass('selected');
         this.moneyOrder = '';
-        this.$emit('childByValue', 'reset');
+        this.$emit('childByReset', 'reset');
       },
       deleteOdd(index) {
         this.orderList.splice(index,1);
