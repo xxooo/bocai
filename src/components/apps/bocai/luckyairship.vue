@@ -1,5 +1,5 @@
 <template>
-  <div id="chongqindubo" class="content-main">
+  <div id="chongqindubo" class="content-main duboBodyClass">
     
     <div class="right">
       <div>
@@ -13,53 +13,25 @@
               background-color="#572f5f"
               text-color="#ffd04b"
               active-text-color="#fff">
-              <el-menu-item v-for="(item,index) in bocaiCategoryList" :key="index" :index="item.name" @click="getOddsCategory(item)">{{item.name}}</el-menu-item>
-              <!-- <el-menu-item index="4">北京快乐8</el-menu-item>
-              <el-menu-item index="5">六合彩</el-menu-item>
-              <el-menu-item index="6">广东快乐十分</el-menu-item>
-              <el-menu-item index="7">广东11选5</el-menu-item>
-              <el-menu-item index="8">PC蛋蛋</el-menu-item>
-              <el-menu-item index="8">PC蛋蛋</el-menu-item>
-              <el-menu-item index="8">PC蛋蛋</el-menu-item>
-              <el-submenu index="9">
-                <template slot="title">更多</template>
-                <el-menu-item index="2-1">天津时时彩</el-menu-item>
-                <el-menu-item index="2-2">安徽快3</el-menu-item>
-                <el-menu-item index="2-3">山东11选5</el-menu-item>
-                <el-menu-item index="2-3">江苏快3</el-menu-item>
-                <el-menu-item index="2-3">江西11选5</el-menu-item>
-                <el-menu-item index="2-3">重庆幸运农场</el-menu-item>
-                <el-menu-item index="2-3">新疆时时彩</el-menu-item>
-              </el-submenu> -->
+              <el-menu-item v-for="(item,index) in bocaiCategoryList" :key="index" :index="item.name" @click="getOddsCategory(item,index)" v-if="index*1 < 10">{{item.name}}</el-menu-item>
+              <el-submenu v-if="bocaiCategoryList.length*1 > 10" key="submenu" index="submenu">
+                <template slot="title">{{submenu}}</template>
+                <el-menu-item v-for="(item,index) in bocaiCategoryList" :key="index" :index="item.name" @click="getOddsCategory(item,index)" v-if="index*1 > 9">{{item.name}}</el-menu-item>
+              </el-submenu>
             </el-menu>
           </div>
-          <div class="title-content">
-            <div class="wanfaBtn">
-              <el-button type="primary" size="mini">玩法规则</el-button>
-            </div>
-            <div class="winCurrent">
-              <span>当前彩种输赢:</span>
-              <span class="red">0.00</span>
-            </div>
-            <div class="kaipangTime">
-              <div class="qiciDiv">
-                <p>第<span class="qiciSpan">123456</span>期</p>
-                <p>距离下期开盘</p>
-              </div>
-            </div>
-          </div>
+          
+          <clock-time></clock-time>
         </div>
         <div class="bet_box">
           <div class="orders">
             <div class="order-info">
-              <bet-quick :istype="topbet" :orderDatas='orderDatas'></bet-quick>
+              <bet-quick :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
             </div>
-
-
 
             <template v-if="showOdds == '两面盘'">
 
-              <div>
+              <div class="oodsBodyDiv">
                 <div class="order-table">
                     <table>
                       <tr>
@@ -70,9 +42,8 @@
                             <td class="tdLeft ordersTdOver" width="8%" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">{{item.oddsName}}</td>
                             <td class="tdRight" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">
                               <ul>
-                                <li>
-                                  <span class="odds-font">{{item.odds}}</span>
-                                </li>
+                                <li ><span class="odds-font">{{item.odds}}</span></li>
+                                <li v-if="normalPay" class=""><input type="text"></li>
                               </ul>
                             </td>
                           </template>
@@ -93,7 +64,7 @@
                 </div>
               </div>
 
-            <div class="qiu15_body">
+            <div class="qiu15_body oodsBodyDiv">
               <div class="eball">
                   <div class="order-table">
                     <table>
@@ -272,10 +243,6 @@
             </div> 
           </template>
 
-
-            <div class="order-info">
-              <bet-quick :istype="botbet"></bet-quick>
-            </div>
           </div>
 
           <div>
@@ -372,23 +339,24 @@
 
 <script>
 import BetQuick from '@/components/apps/bocai/components/betQuick';
+import ClockTime from '@/components/apps/bocai/components/clockTime';
 import {mapState,mapGetters} from 'vuex';
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
 
 export default {
   components: {
+    ClockTime,
     BetQuick
   },
   data () {
     return {
-      activeName: 'second',
-      botbet: false,
-      topbet: true,
+      curBocaiTypeId: '8555',
+      curBocaiName: '幸运飞艇',
       bocaiCategoryList: [],
       oddsList: [],
       activeIndex: '',
       showOdds: '',
+      submenu: '更多',
+      isOpenOdds: true,
       longhuhe_lmp: {},
       diyiqiu_lmp: {},
       dierqiu_lmp: {},
@@ -398,16 +366,9 @@ export default {
       qiansan_lmp: {},
       zhongsan_lmp: {},
       housan_lmp:{},
-      orderDatas: {
-        periodsId:0,//53,//投注期数ID
-        bocaiTypeId:0,//8223,//投注博彩ID
-        bocaiTypeName:'',//"PC蛋蛋",//投注博彩名称
-        bocaiCategory1Id:0,//8224,//投注博彩分类1ID
-        bocaiCategory1Name:'',//"PC蛋蛋",//投注博彩分类1名称
-        orderBetMoneySum:0,//10000,//投注总和
-        cuserId:0,//51,//当前登录ID
-        list:[]
-      }
+      orderDataList: [],
+      normalPay: false,
+      bocaiCategory: {}
     }
   },
   computed: {
@@ -417,7 +378,18 @@ export default {
   created() {
     this.getOdds(8555);
   },
+  mounted(){
+      bus.$on('isOpenOdds', (data) => {
+        this.isOpenOdds = data;
+      });
+  },
   methods: {
+    childByChangePay(data) {
+      this.normalPay = data;
+    },
+    childByReset(data) {
+      this.orderDataList = [];
+    },
     outHide(item,ids) {
       $('.'+ids+item.oddsId).removeClass('overTd');
     },
@@ -426,50 +398,80 @@ export default {
     },
     orderTd(oddsObj,item,ids) {
 
-      if($('.'+ids+item.oddsId).hasClass('selected')){
-        $('.'+ids+item.oddsId).removeClass('selected');
+      if(this.isOpenOdds) {
+        if($('.'+ids+item.oddsId).hasClass('selected')){
+          $('.'+ids+item.oddsId).removeClass('selected');
 
-        _.remove(this.orderDatas.list, function(n) {
-          return n.bocaiOddName == item.oddsName;
-        });
+          _.remove(this.orderDataList, function(n) {
+            return n.bocaiOddName == item.oddsName;
+          });
 
-      } else {
-        $('.'+ids+item.oddsId).addClass('selected');
-        let obj = {
-          bocaiCategory2Id: oddsObj.id,//8225,//投注博彩分类2ID
-          bocaiCategory2Name: oddsObj.name,//"混合",//投注博彩分类2名称
-          bocaiOddId: item.oddsId,//5543,//投注博彩赔率ID
-          bocaiOddName: item.oddsName,//"大",//投注博彩赔率名称
-          bocaiValue:"",//投注内容,六合彩连肖/连尾
-          betsMoney:0,//10000,//当前赔率投注金额
-          bocaiOdds: item.odds//1.90//赔率
-        };
+        } else {
+          $('.'+ids+item.oddsId).addClass('selected');
+          let obj = {
+            bocaiCategory2Id: oddsObj.id,//8225,//投注博彩分类2ID
+            bocaiCategory2Name: oddsObj.name,//"混合",//投注博彩分类2名称
+            bocaiOddId: item.oddsId,//5543,//投注博彩赔率ID
+            bocaiOddName: item.oddsName,//"大",//投注博彩赔率名称
+            bocaiValue:"",//投注内容,六合彩连肖/连尾
+            normalMoney:0,//10000,//一般模式下，选择的金额
+            orderNormal: false,   //是快捷，还是一般投注
+            bocaiOdds: item.odds//1.90//赔率
+          };
 
-        this.orderDatas.list.push(obj);
+          this.orderDataList.push(obj);
+        }
       }
+      
     },
     handleSelect(key, keyPath) {
         //console.log(key, keyPath);
     },
-    async getOddsCategory(item) {
-      let res = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+1+`&bocaiCategoryId=`+item.id);
-          this.showOdds = item.name;
-          if(res.code===200){
-            this.oddsList = res.oddsList;
-            this.shuaiXuanDatas(res.oddsList);
-          }
+    async getOddsCategory(item,index) {
+
+      if(index*1 > 9) {
+        this.submenu = item.name;
+      } else {
+        this.submenu = '更多';
+      }
+
+      let that = this;
+
+          NProgress.start();
+          await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+1+`&bocaiCategoryId=`+item.id).then((res) => {
+            that.$handelResponse(res, (result) => {
+              NProgress.done();
+              that.showOdds = item.name;
+              that.bocaiCategory = item;
+              if(result.code===200){
+                that.oddsList = result.oddsList;
+                that.shuaiXuanDatas(result.oddsList);
+              }
+
+            })
+          });
     },
     async getOdds(id) {
 
-      let res = await this.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id);
+      let that = this;
+          NProgress.start();
+          await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id).then((res) => {
+            that.$handelResponse(res, (result) => {
+              NProgress.done();
+              if(result.code===200){
 
-          if(res.code===200){
-            this.bocaiCategoryList = res.bocaiCategoryList;
-            this.oddsList = res.oddsList;
-            this.showOdds = '两面盘';
-            this.activeIndex = this.bocaiCategoryList[0].name;
-            this.shuaiXuanDatas(res.oddsList);
-          }
+                that.bocaiCategoryList = result.bocaiCategoryList;
+                that.oddsList = result.oddsList;
+                that.showOdds = result.bocaiCategoryList[0].name;
+                that.bocaiCategory = result.bocaiCategoryList[0];
+                that.activeIndex = that.bocaiCategoryList[0].name;
+                that.shuaiXuanDatas(result.oddsList);
+
+              }
+
+            })
+          });
+
     },
     shuaiXuanDatas(dataList) {
       for(let n in dataList) {
@@ -503,260 +505,6 @@ export default {
 </script>
 
 <style scoped>
-.right {
-    position: relative;
-}
 
-.bet_box {
-    width: 830px;
-    overflow-x: hidden;
-}
-
-.orders {
-    padding: 6px 0;
-}
-
-.bet_box .orders td.overTd {
-  background-color: #ffe59b;
-}
-.bet_box .orders td.selected {
-  background-color: #ffd04b;
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-.order-table table {
-    font-size: 12px;
-    width: 100%;
-    border-collapse: collapse;
-    border-top: none;
-    margin-bottom: 10px;
-}
-
-tr {
-    display: table-row;
-    vertical-align: inherit;
-    border-color: inherit;
-}
-
-table > tr {
-    vertical-align: middle;
-}
-
-address, button, caption, cite, code, dfn, em, input, optgroup, option, select, strong, textarea, th, var {
-    font: inherit;
-}
-
-caption, th {
-    text-align: left;
-}
-
-.order-table th {
-    line-height: 1.8;
-    background-color: #ccb0da;
-    text-align: center;
-    border-bottom: none;
-    color: #511e02;
-    font-weight: 700;
-    height: 30px;
-    font-size: 14px;
-    border: 1px solid #b2b1b9;
-}
-
-.order-table td {
-    position: relative;
-    overflow: hidden;
-    background-clip: padding-box;
-    color: #511e02;
-    height: 30px;
-    min-width: 24px;
-    box-sizing: border-box;
-    text-align: center;
-    border: 1px solid #bbb;
-    background-color: #f9f8f9;
-}
-
-td.tdLeft {
-  cursor: pointer;
-}
-
-td.tdLeft {
-  color: #511e02;
-  font-weight: 700;
-}
-
-.qiu15_body td.tdLeft:nth-child(1) {
-    width: 40px;
-}
-
-td.tdRight {
-    cursor: pointer;
-    position: relative;
-}
-
-.tdRight ul {
-    height: 100%;
-    overflow: hidden;
-}
-
-.tdRight ul li {
-    padding: 7px 0;
-    display: inline-block;
-    width: 40%;
-    margin: 0;
-}
-
-.tdRight ul li:only-child {
-    width: 100%;
-}
-
-.odds-font {
-    color: #d63e35;
-    font-weight: 700;
-}
-
-.tdRight span {
-    cursor: pointer;
-    display: inline-block;
-}
-
-.tdHover {
-  background: #fcf1b4;
-}
-
-.tdClick {
-  background: #faf014;
-}
-
-.eball {
-    display: inline-block;
-    width: 162px;
-    margin-right: 0px;
-}
-
-.bead-table {
-    padding: 0;
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-.bead-table table {
-    border-radius: 5px 5px 0 0;
-    background-color: #fefdfc;
-}
-
-.bead-table table {
-    width: 100%;
-    border-collapse: collapse;
-    border-top: none;
-    margin-bottom: 10px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 12px;
-}
-
-.bead-table .bead-ball {
-    margin-bottom: 0;
-    margin-top: 5px;
-}
-
-.bead-table .bead-ball th {
-    text-align: center;
-    cursor: pointer;
-    color: #511e02;
-    font-size: 13px;
-    font-weight: 700;
-    background-color: #ffd04b;
-}
-
-.bead-table .bead-ball th:first-child {
-    border-top-left-radius: 5px;
-}
-
-.bead-table .bead-ball th.active {
-    color: #fdfcfa;
-    cursor: default;
-    background-color: #ff9800;
-}
-.bead-table .bead-ball th+th {
-    border-left: 1px solid #b299d8;
-}
-.bead-table table td {
-    text-align: center;
-    border: 1px solid #bbb;
-}
-.td-head td {
-    width: 10%;
-}
-.bead-table table .td-head td {
-    color: #35406d;
-    font-weight: 700;
-}
-.bead-table table td.bead-list {
-    vertical-align: top;
-    line-height: 20px;
-    width: 4%;
-}
-.bead-table table td.bead-list:nth-child(2n+1) {
-    background-color: #f8f8fd;
-}
-.bead-table .bead-ball th:last-child {
-    border-top-right-radius: 5px;
-    border-right: none;
-}
-.nball .order-table .ball-icon {
-    background-color: #0433de;
-    color: #fff;
-    width: 25px;
-    height: 25px;
-    margin: 2.5px 7.5px;
-    line-height: 27.5px;
-    border-radius: 30px;
-}
-.nball {
-    display: inline-block;
-    width: 162px;
-    margin-right: 4px;
-}
-.nball .order-table td.oddsNtd{
-    cursor: pointer;
-}
-.nball .order-table td.oddsNtd{
-    color: #511e02;
-    font-weight: 700;
-}
-.nball .order-table td.oddsUltd{
-    cursor: pointer;
-    position: relative;
-}
-.nball .order-table ul {
-    height: 100%;
-    overflow: hidden;
-}
-.nball .order-table ul li {
-    padding: 7px 0;
-    display: inline-block;
-    width: 40%;
-    margin: 0;
-}
-.nball .order-table ul li {
-    padding: 7px 0;
-    display: inline-block;
-    width: 40%;
-    margin: 0;
-}
-.nball .order-table ul li:only-child {
-    width: 100%;
-}
-.nball .order-table span {
-    cursor: pointer;
-    display: inline-block;
-}
 
 </style>

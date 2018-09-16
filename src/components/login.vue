@@ -47,17 +47,17 @@
         </div> -->
         <div class="box">
           <form action="" method="post" enctype="application/x-www-form-urlencoded">
-            <p><label id="label1" for="name">帐　号：</label><input id="name" class="name" name="name" type="text" placeholder="请输入帐号"></p>
-            <p><label id="label2" for="password">密　码：</label><input id="password" name="password" type="password" placeholder="请输入密码"></p>
-            <p class="code">
+            <p><label id="label1" for="name">帐　号：</label><input id="name" class="name" v-model="username"  type="text" placeholder="请输入帐号"></p>
+            <p><label id="label2" for="password">密　码：</label><input id="password" v-model="password" type="password" placeholder="请输入密码"></p>
+            <!-- <p class="code">
               <label id="label3" for="code">验证码：</label><input id="code" name="code" type="text" placeholder="验证码">
-              <!-- <img src="/code?0.03919337389555588" id="codeImg" alt="验证码" onclick="this.src='/code?'+Math.random()" title="点击更新验证码"> -->
-            </p>
+              <img src="/code?0.03919337389555588" id="codeImg" alt="验证码" onclick="this.src='/code?'+Math.random()" title="点击更新验证码"> 
+            </p> -->
 
             <p class="btn">
               <el-button type="primary" @click="login()">登 录</el-button>
-              <a class="reg" href="javascript:;" >立即注册</a>
-              <a class="test" href="javascript:;" >免费试用</a>
+              <!-- <a class="reg" href="javascript:;" >立即注册</a>
+              <a class="test" href="javascript:;" >免费试用</a> -->
             </p>
           </form>
         </div>
@@ -233,7 +233,8 @@ import cookieParser from './../assets/js/cookie';
 export default {
   data () {
     return {
-
+      password: '',
+      username: ''
     }
   },
   created() {
@@ -245,15 +246,22 @@ export default {
     } else {
       //普通用户登录
        //this.$router.push({name: 'login'});
+
+
     }
   },
   methods: {
     async login() {
 
       let obj = {
-        password: 'a111111',
-        username: 'aydwhuiyuan1'
+        username: this.username,
+        password: this.password
       };
+
+      // let obj = {
+      //   password: 'a111111',
+      //   username: 'aydwhuiyuan1'
+      // };
 
       let ret = await this.$post(`${window.url}/api/login`, obj);
       if(ret.code === 200) {
@@ -267,4 +275,20 @@ export default {
 </script>
 
 <style scoped>
+#login_box {
+    z-index: 3;
+    width: 320px;
+    position: absolute;
+    top: 50%;
+    left: 56%;
+    margin: -180px 0 0 -250px;
+    box-shadow: 0 0px 10px 0 rgba(12, 12, 12, 0.63);
+    border-radius: 7px;
+}
+#login_box .box {
+    width: 250px;
+    margin: 24px auto;
+}
+#login_box .box input {
+}
 </style>

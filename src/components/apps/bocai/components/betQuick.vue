@@ -11,7 +11,7 @@
     <div class="betRight">
       <div class="betRTop">
         <el-input v-model.number="moneyOrder" size="mini" placeholder="请输入金额" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></el-input>
-        <el-button type="primary"size="mini" plain @click="orderOdds()">下 注</el-button>
+        <el-button type="primary"size="mini" plain @click="orderOdds()" :disabled="!isOpenOdds">下 注</el-button>
         <el-button type="danger" size="mini" @click="reset()">重 置</el-button>
       </div>
       <div class="betRBottom">
@@ -87,6 +87,7 @@
         cuserId: '',
         bocaiInfoData: {},
         normalPay: false,
+        isOpenOdds: true,
         orderDatas: {
           periodsId:'',//投注期数ID
           bocaiTypeId:'',//投注博彩ID
@@ -128,6 +129,12 @@
       bus.$on('getbocaiInfoData', (data) => {
         this.bocaiInfoData = data;
       });
+      bus.$on('isOpenOdds', (data) => {
+        this.isOpenOdds = data;
+      });
+      bus.$on('getnormalPay', (data) => {
+        this.normalPay = data;
+      });
     },
 		methods: {
       changePay(data) {
@@ -152,8 +159,8 @@
         } else {
           this.orderDatas.list = [];
 
-          console.log('bocaiTypeId',this.bocaiTypeId);
-          console.log('orderDataList',this.orderDataList);
+          //console.log('bocaiTypeId',this.bocaiTypeId);
+          //console.log('orderDataList',this.orderDataList);
 
           this.orderDatas.periodsId = this.bocaiInfoData.bocaiPeriodsId;
           this.orderDatas.bocaiTypeId = this.bocaiTypeId;
@@ -186,6 +193,8 @@
               if(result.code===200){
                 //更新用户信息
                 bus.$emit('getcUserInfo', ''); 
+                that.orderDatas.list = [];
+                that.$success(result.msg);
               }
             })
           });
@@ -214,6 +223,7 @@
 
             this.orderList.push(obj);
           }
+          console.log('this.this.orderList',this.orderList);
           this.orderOddsVisible = true;
         }
 

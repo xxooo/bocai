@@ -16,7 +16,7 @@
             <p><label>已下金额：</label><span style="color: #f42222;">{{userInfo.alreadyBalance}}</span></p>
           </div> 
           <p class="login-out">
-            <el-button type="primary" size="mini">登出</el-button>
+            <el-button type="primary" size="mini" @click="$router.push({name: 'login'})">登出</el-button>
             <el-button type="primary" size="mini">修改密码</el-button>
           </p>
         </div>

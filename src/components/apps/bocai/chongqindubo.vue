@@ -21,12 +21,12 @@
             </el-menu>
           </div>
           
-          <clock-time v-on:clockTime="clockTime"></clock-time>
+          <clock-time></clock-time>
         </div>
         <div class="bet_box">
           <div class="orders">
             <div class="order-info">
-              <bet-quick :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" ></bet-quick>
+              <bet-quick :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
             </div>
 
             <template v-if="showOdds == '两面盘'">
@@ -42,10 +42,8 @@
                             <td class="tdLeft ordersTdOver" width="8%" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">{{item.oddsName}}</td>
                             <td class="tdRight" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">
                               <ul>
-                                <li>
-                                  <span class="odds-font">{{item.odds}}</span>
-                                </li>
-                                <li class=""><input type="text"></li>
+                                <li ><span class="odds-font">{{item.odds}}</span></li>
+                                <li v-if="normalPay" class=""><input type="text"></li>
                               </ul>
                             </td>
                           </template>
@@ -351,13 +349,14 @@ export default {
   },
   data () {
     return {
-      curBocaiTypeId: '',
-      curBocaiName: '',
+      curBocaiTypeId: '1',
+      curBocaiName: '重庆时时彩',
       bocaiCategoryList: [],
       oddsList: [],
       activeIndex: '',
       showOdds: '',
       submenu: '更多',
+      isOpenOdds: true,
       longhuhe_lmp: {},
       diyiqiu_lmp: {},
       dierqiu_lmp: {},
@@ -368,6 +367,7 @@ export default {
       zhongsan_lmp: {},
       housan_lmp:{},
       orderDataList: [],
+      normalPay: false,
       bocaiCategory: {}
     }
   },
@@ -376,22 +376,18 @@ export default {
     })
   },
   created() {
-    //this.getOdds(1);
+    this.getOdds(1);
   },
   mounted(){
-      bus.$on('getbocaiTypeList', (data) => {
-        console.log('getbocaiTypeList',data);
-        this.curBocaiTypeId = data.bocaiId,
-        this.curBocaiName = data.bocaiName,
-        this.getOdds(this.curBocaiTypeId);
+      bus.$on('isOpenOdds', (data) => {
+        this.isOpenOdds = data;
       });
   },
   methods: {
-    clockTime(data) {
-
+    childByChangePay(data) {
+      this.normalPay = data;
     },
     childByReset(data) {
-      console.log('kkkkhkkj');
       this.orderDataList = [];
     },
     outHide(item,ids) {
@@ -402,28 +398,31 @@ export default {
     },
     orderTd(oddsObj,item,ids) {
 
-      if($('.'+ids+item.oddsId).hasClass('selected')){
-        $('.'+ids+item.oddsId).removeClass('selected');
+      if(this.isOpenOdds) {
+        if($('.'+ids+item.oddsId).hasClass('selected')){
+          $('.'+ids+item.oddsId).removeClass('selected');
 
-        _.remove(this.orderDataList, function(n) {
-          return n.bocaiOddName == item.oddsName;
-        });
+          _.remove(this.orderDataList, function(n) {
+            return n.bocaiOddName == item.oddsName;
+          });
 
-      } else {
-        $('.'+ids+item.oddsId).addClass('selected');
-        let obj = {
-          bocaiCategory2Id: oddsObj.id,//8225,//投注博彩分类2ID
-          bocaiCategory2Name: oddsObj.name,//"混合",//投注博彩分类2名称
-          bocaiOddId: item.oddsId,//5543,//投注博彩赔率ID
-          bocaiOddName: item.oddsName,//"大",//投注博彩赔率名称
-          bocaiValue:"",//投注内容,六合彩连肖/连尾
-          normalMoney:0,//10000,//一般模式下，选择的金额
-          orderNormal: false,   //是快捷，还是一般投注
-          bocaiOdds: item.odds//1.90//赔率
-        };
+        } else {
+          $('.'+ids+item.oddsId).addClass('selected');
+          let obj = {
+            bocaiCategory2Id: oddsObj.id,//8225,//投注博彩分类2ID
+            bocaiCategory2Name: oddsObj.name,//"混合",//投注博彩分类2名称
+            bocaiOddId: item.oddsId,//5543,//投注博彩赔率ID
+            bocaiOddName: item.oddsName,//"大",//投注博彩赔率名称
+            bocaiValue:"",//投注内容,六合彩连肖/连尾
+            normalMoney:0,//10000,//一般模式下，选择的金额
+            orderNormal: false,   //是快捷，还是一般投注
+            bocaiOdds: item.odds//1.90//赔率
+          };
 
-        this.orderDataList.push(obj);
+          this.orderDataList.push(obj);
+        }
       }
+      
     },
     handleSelect(key, keyPath) {
         //console.log(key, keyPath);
@@ -447,6 +446,9 @@ export default {
               if(result.code===200){
                 that.oddsList = result.oddsList;
                 that.shuaiXuanDatas(result.oddsList);
+                that.orderDataList = [];
+                that.normalPay = false;
+                bus.$emit('getnormalPay', false); 
               }
 
             })
@@ -467,9 +469,6 @@ export default {
                 that.bocaiCategory = result.bocaiCategoryList[0];
                 that.activeIndex = that.bocaiCategoryList[0].name;
                 that.shuaiXuanDatas(result.oddsList);
-
-                bus.$emit('getbocaiTypeId', that.curBocaiTypeId); 
-                bus.$emit('getbocaiTypeName', that.curBocaiName); 
 
               }
 

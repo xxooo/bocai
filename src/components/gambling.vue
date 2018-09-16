@@ -78,6 +78,7 @@ export default {
       activeIndex: '重庆时时彩',
       preBocaiPeriods: '',
       preResult: '',
+      bocaiTypeId: '1',
       bocaiTypeList: [],
       submenu: '更多',
       preResult: '',
@@ -89,12 +90,48 @@ export default {
   },
   async created() {
     this.getBocai();
+    this.refreshTime();
   },
   computed: {
     ...mapGetters({
     })
   },
   methods: {
+    async refreshTime() {
+      let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
+
+            if(res.code===200){
+
+              //if("companyIsOpenSet": "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。)
+               //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
+
+              bus.$emit('getbocaiInfoData', res.data);
+
+              this.preResult = res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(',');   //"preResult": 
+              this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
+
+            }
+
+            //console.log('refreshbocaiInfo',window.refreshTime);
+            setTimeout(this.refreshTime, window.refreshTime);
+    },
+    async bocaiInfo() {
+
+        let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
+
+            if(res.code===200){
+
+              //if("companyIsOpenSet": "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。)
+               //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
+
+              bus.$emit('getbocaiInfoData', res.data);
+
+              this.preResult = res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(',');   //"preResult": 
+              this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
+
+            }
+
+    },
     handleSelect(key, keyPath) {
       this.activeIndex = key;
     },
@@ -103,7 +140,8 @@ export default {
 
           if(res.code===200){
             this.bocaiTypeList = res.bocaiTypeList;
-            bus.$emit('getbocaiTypeList', res.bocaiTypeList[0]); 
+            bus.$emit('getbocaiTypeId', res.bocaiTypeList[0].bocaiId); 
+            bus.$emit('getbocaiTypeName', res.bocaiTypeList[0].bocaiName); 
           }
     },
     async getOdds(item,index) {
@@ -127,17 +165,12 @@ export default {
         }
       bus.$emit('getbocaiTypeId', item.bocaiId); 
       bus.$emit('getbocaiTypeName', item.bocaiName); 
-      bus.$emit('getbocaiTypeList', item); 
+      this.bocaiTypeId = item.bocaiId;
+      this.bocaiInfo();
       this.$router.push({name: path});
     }
   },
   mounted() {
-      bus.$on('getpreResult', (data) => {
-        this.preResult = data;
-      });
-      bus.$on('getpreBocaiPeriods', (data) => {
-        this.preBocaiPeriods = data;
-      })
   },
   updated() {
   }
@@ -169,7 +202,7 @@ export default {
     margin: 10px 0px 10px -20px;
   }
   .headLabel .preResult {
-    margin: 15px 0px 15px 20px;
+    margin: 15px 7%;
   }
   .head-div {
     height: 116px;

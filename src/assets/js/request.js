@@ -28,7 +28,7 @@ export default {
             let res = await axios.get(url, opts);
 
             if (res.data.code == 200) {
-                this.$success(res.data.msg);
+                //this.$success(res.data.msg);
             } else {
                 this.$error(res.data.msg);
                 
@@ -111,7 +111,7 @@ export default {
             let res = await axios.post(url, data, opts);
 
             if (res.data.code == 200) {
-                this.$success(res.data.msg);
+                //this.$success(res.data.msg);
             } else {
                 this.$error(res.data.msg);
             } 

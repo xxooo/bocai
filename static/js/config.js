@@ -10,15 +10,12 @@ conf = {
 window.globalConfig = conf;
 
 //window.url = 'http://47.106.13.12:8008';
-window.url = ''; 						
 //window.url = 'http://192.168.0.105:8888';
 
-// window.login = 'http://login.jwis.cn';
-// window.gateway = 'http://gateway.jwis.cn';
+window.url = ''; 	
+//获取博彩信息刷新频率					
+window.refreshTime = 20000;
 
-// window.gatewayspc = window.gateway+'/smartspc';		//云
-//window.gatewayspc = '' 							//201跨域
-//window.gatewayspc = 'http://192.168.1.201:8000';	//本地
 
 
 

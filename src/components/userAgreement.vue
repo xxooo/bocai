@@ -44,9 +44,41 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped >
 
+.box {
+    width: 800px;
+    margin: 0px auto;
+    border-radius: 10px;
+    box-shadow: 0px -2px 1px #24243c, 8px 8px 5px #160b2d;
+}
+.win_title {
+    text-align: center;
+    background-color: #4f4580;
+    border-bottom: 1px solid #4c2c75;
+    border-radius: 10px 10px 0 0;
+    line-height: 50px;
+    font-size: 14px;
+    color: #fff;
+    font-weight: bold;
+    border-bottom: 1px solid #cfb898;
+}
+.win_info {
+    padding: 30px;
+    background-color: #e4e5ff;
+    border-radius: 0 0 10px 10px;
+    color: #511E02;
+}
 li {
     list-style: none;
 }
+</style>
+<style lang="less">
+  #login {
+    background-color: #6c3092;
+    height: 100%;
+    width: 100%;
+    background-size: 100% 120px;
+    padding-top: 20px;
+  }
 </style>

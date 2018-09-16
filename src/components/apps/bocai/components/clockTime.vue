@@ -42,7 +42,8 @@
 		},
     components: {
 		},
-		async created() {
+		created() {
+      //this.refreshBocaiInfo();
     },
     computed:{
       ...mapGetters({
@@ -57,56 +58,37 @@
       }
     },
     mounted(){
-      bus.$on('getclockTime', (data) => {
+      bus.$on('getbocaiInfoData', (data) => {
+        this.bocaiInfoData = data;
         this.gettimeLeft();
-      });
-      bus.$on('getbocaiTypeList', (data) => {
-        this.bocaiInfo(data.bocaiId);
       });
     },
 		methods: {
-      async bocaiInfo(id) {
-        let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+id);
-
-            if(res.code===200){
-              this.bocaiInfoData = res.data;
-              bus.$emit('getbocaiInfoData', res.data); 
-
-              bus.$emit('getpreResult', res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(','));   //"preResult": 
-              bus.$emit('getpreBocaiPeriods', res.data.preBocaiPeriods);   //"preBocaiPeriods": "30763817",//上期博彩期数    
-
-              bus.$emit('getclockTime', res.data.openPrizeTime); 
-              //this.gettimeLeft();
-            }
-
-      },
-      clockTime() {
-        this.$emit('clockTime', '');
-      },
-      gettimeLeft(priTime) {
-        var hourtime="24:00:00";
-        var endTime =new Date(new Date().toLocaleDateString()+" "+hourtime);
+      gettimeLeft() {
 
         var now = new Date();
 
-        var nowYear=now.getFullYear();
-        var nowMonth=now.getMonth()+1;
-        var nowDay=now.getDate();
-
         var leftTime = this.bocaiInfoData.openPrizeTime - now.getTime();
 
-        var ms = parseInt(leftTime % 1000).toString();
-        leftTime = parseInt(leftTime / 1000);
-        var o = Math.floor(leftTime / 3600);
-        var d = Math.floor(o / 24);
-        var m = Math.floor(leftTime / 60 % 60);
-        var s = leftTime % 60;
+        if(leftTime<=0) {
+          console.log('到期封盘');
+          this.timeLeft = '00' + ":" + '00' + ":" + '00';
 
-        this.timeLeft = o + ":" + m + ":" + s;
+          bus.$emit('isOpenOdds', false);
 
-        setTimeout(this.gettimeLeft, 100);
+        } else {
+          var ms = parseInt(leftTime % 1000).toString();
+          leftTime = parseInt(leftTime / 1000); 
+          var o = Math.floor(leftTime / 3600);
+          var d = Math.floor(o / 24);
+          var m = Math.floor(leftTime / 60 % 60);
+          var s = leftTime % 60;
 
-        //openPrizeTime
+          this.timeLeft = (o*1> 9 ? o : '0'+ o) + ":" + (m*1> 9 ? m : '0'+ m) + ":" + (s*1 > 9 ? s : '0'+ s);
+        }
+
+        setTimeout(this.gettimeLeft, 1000);
+
       }
 		}
 	}
