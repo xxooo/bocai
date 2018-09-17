@@ -205,28 +205,48 @@
       },
       orderOdds() {
 
+        console.log('this.orderDataList',this.orderDataList);
+
         this.orderList = [];
 
-        if(this.orderDataList.length == 0) {
-          this.$alertMessage('请确认注单!', '温馨提示');
-        } else if(this.moneyOrder == ''){
-          this.$alertMessage('请输入金额!', '温馨提示');
-        } else {
-
-          console.log('this.orderDataList',this.orderDataList);
+        if(this.normalPay) {
           for(let n in this.orderDataList) {
-            let obj = {
-              oddNames: this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
-              bocaiOdds: this.orderDataList[n].bocaiOdds,
-              betsMoney: this.orderDataList[n].orderNormal ? this.orderDataList[n].normalMoney*this.mul : this.moneyOrder*this.mul
+            if(this.orderDataList[n].normalMoney != '') {
+              let obj = {
+                oddNames: this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
+                bocaiOdds: this.orderDataList[n].bocaiOdds,
+                betsMoney: this.orderDataList[n].normalMoney*this.mul
+              }
+
+              this.orderList.push(obj);
             }
-
-            this.orderList.push(obj);
           }
-          console.log('this.this.orderList',this.orderList);
-          this.orderOddsVisible = true;
-        }
+          if(this.orderList.length == '0') {
+            this.$alertMessage('请确认注单!', '温馨提示');
+          } else {
+            this.orderOddsVisible = true;
+          }
+        } else {
+          if(this.orderDataList.length == 0) {
+            this.$alertMessage('请确认注单!', '温馨提示');
+          } else if(this.moneyOrder == ''){
+            this.$alertMessage('请输入金额!', '温馨提示');
+          } else {
 
+            console.log('this.orderDataList',this.orderDataList);
+            for(let n in this.orderDataList) {
+              let obj = {
+                oddNames: this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
+                bocaiOdds: this.orderDataList[n].bocaiOdds,
+                betsMoney: this.orderDataList[n].orderNormal ? this.orderDataList[n].normalMoney*this.mul : this.moneyOrder*this.mul
+              }
+
+              this.orderList.push(obj);
+            }
+            //console.log('this.this.orderList',this.orderList);
+            this.orderOddsVisible = true;
+          }
+        }
       },
       orderMul(mul) {
         
