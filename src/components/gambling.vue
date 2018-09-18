@@ -304,7 +304,7 @@ export default {
         left: 0;
         right: 0;
         height: 156px;
-        background: url(./../../static/img/header.jpg) bottom no-repeat transparent;
+        background: url(../../static/img/header.jpg) bottom no-repeat transparent;
     }
 
     .el-header {

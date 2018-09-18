@@ -43,7 +43,7 @@
                             <td class="tdRight" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">
                               <ul>
                                 <li ><span class="odds-font">{{item.odds}}</span></li>
-                                <li v-if="normalPay" class=""><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(longhuhe_lmp,item,'longhuhe_lmp',item.normalMoney)"></li>
+                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(longhuhe_lmp,item,'longhuhe_lmp',item.normalMoney)"></li>
                               </ul>
                             </td>
                           </template>
@@ -56,7 +56,7 @@
                                 <li>
                                   <span class="odds-font">{{item.odds}}</span>
                                 </li>
-                                <li v-if="normalPay" class=""><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(longhuhe_lmp,item,'longhuhe_lmp',item.normalMoney)"></li>
+                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(longhuhe_lmp,item,'longhuhe_lmp',item.normalMoney)"></li>
                               </ul>
                             </td>
                           </template>
@@ -79,6 +79,7 @@
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
                             </li>
+                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(diyiqiu_lmp,item,'diyiqiu_lmp',item.normalMoney)"></li>
                           </ul>
                         </td>
                       </tr>
@@ -98,6 +99,7 @@
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
                             </li>
+                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(dierqiu_lmp,item,'dierqiu_lmp',item.normalMoney)"></li>
                           </ul>
                         </td>
                       </tr>
@@ -117,6 +119,7 @@
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
                             </li>
+                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(disanqiu_lmp,item,'disanqiu_lmp',item.normalMoney)"></li>
                           </ul>
                         </td>
                       </tr>
@@ -136,6 +139,7 @@
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
                             </li>
+                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(disiqiu_lmp,item,'disiqiu_lmp',item.normalMoney)"></li>
                           </ul>
                         </td>
                       </tr>
@@ -155,6 +159,7 @@
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
                             </li>
+                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(diwuqiu_lmp,item,'diwuqiu_lmp',item.normalMoney)"></li>
                           </ul>
                         </td>
                       </tr>
@@ -177,6 +182,7 @@
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
                             </li>
+                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(qiansan_lmp,item,'qiansan_lmp',item.normalMoney)"></li>
                           </ul>
                         </td>
                       </template>
@@ -196,6 +202,7 @@
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
                             </li>
+                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(zhongsan_lmp,item,'zhongsan_lmp',item.normalMoney)"></li>
                           </ul>
                         </td>
                       </template>
@@ -215,6 +222,7 @@
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
                             </li>
+                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(housan_lmp,item,'housan_lmp',item.normalMoney)"></li>
                           </ul>
                         </td>
                       </template>
@@ -235,7 +243,12 @@
                       <tr v-for="(item,index) in item_yiwu.list">
                           <td v-if="isNaN(item.oddsName*1)" class="oddsNtd tdLeft" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')">{{item.oddsName}}</td>
                           <td v-else class="oddsNtd tdLeft" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')"><div class="ball-icon" >{{item.oddsName}}</div></td> 
-                          <td class="oddsUltd" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')"><ul><li><span class="odds-font" >{{item.odds}}</span></li></ul></td>
+                          <td class="oddsUltd" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')">
+                            <ul>
+                              <li><span class="odds-font" >{{item.odds}}</span></li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(item_yiwu,item,'item_yiwu',item.normalMoney)"></li>
+                            </ul>
+                          </td>
                       </tr>
                     </table>
                   </div>

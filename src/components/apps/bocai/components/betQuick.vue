@@ -282,7 +282,7 @@
 .beishu {
   width: 400px;
   height: 67px;
-  background: url(./../../../../../static/img/casino-wt.png) bottom no-repeat transparent;
+  background: url(../../../../../static/img/casino-wt.png) bottom no-repeat transparent;
 }
 
 .betRight {
