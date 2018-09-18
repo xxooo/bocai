@@ -3,7 +3,8 @@ import App from './App';
 import router from './router.js';
 import store from './vuex/store';
 import $ from 'jquery'
-import _ from 'lodash';
+//import _ from 'lodash';
+import _ from './assets/js/lodash.js';
 import axios from 'axios';
 
 import '../theme/index.css';

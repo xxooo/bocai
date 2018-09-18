@@ -9,33 +9,33 @@ Vue.use(Router);
 const router = new Router({
   routes: [
     {
-      path: '/', name: 'index', component: resolve => require(['./App'],resolve),redirect: '/login'
+      path: '/', name: 'index', component: r => require.ensure([], () => r(require('./App')), 'index'),redirect: '/login'
     },
     {
-      path: '/login', name: 'login', component: resolve => require(['@/components/login'],resolve)
+      path: '/login', name: 'login', component: r => require.ensure([], () => r(require('@/components/login')), 'login')
     },
     {
       path: '/togambling', 
       name: 'userAgreement',
       meta: {
-            requireAuth: true,
+            requireAuth: true,   
         },
-      component: resolve => require(['@/components/userAgreement'],resolve)
+      component: r => require.ensure([], () => r(require('@/components/userAgreement')), 'userAgreement')
     },
     {
-      path: '/gambling', name: 'gambling', component: resolve => require(['@/components/gambling'],resolve),
+      path: '/gambling', name: 'gambling', component: r => require.ensure([], () => r(require('@/components/gambling')), 'gambling'),
       children: [
         { path: '/gambling/chongqindubo', name: 'chongqindubo',
-          meta: {
+          meta: {                                
               requireAuth: true,
           },
-          component: resolve => require(['@/components/apps/bocai/chongqindubo'],resolve), meta: { requiresAuth: true }
+          component: r => require.ensure([], () => r(require('@/components/apps/bocai/chongqindubo')), 'chongqindubo'), meta: { requiresAuth: true }
         },
         { path: '/gambling/luckyairship', name: 'luckyairship',
           meta: {
               requireAuth: true,
           },
-          component: resolve => require(['@/components/apps/bocai/luckyairship'],resolve), meta: { requiresAuth: true }
+          component: r => require.ensure([], () => r(require('@/components/apps/bocai/luckyairship')), 'luckyairship'), meta: { requiresAuth: true }
         }
       ]
     }
