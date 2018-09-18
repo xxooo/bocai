@@ -168,7 +168,7 @@
               </div>
             </div>
 
-            <div>
+            <div class="oodsBodyDiv">
               <div class="order-table">
                   <table>
                     <tr>
@@ -176,8 +176,8 @@
                     </tr>
                     <tr>
                       <template v-for="(item,index) in qiansan_lmp.list">
-                        <td class="tdLeft" style="width: 10%;" :class="'qiansan_lmp'+item.oddsId" @click="orderTd(qiansan_lmp,item,'qiansan_lmp')" @mouseenter="overShow(item,'qiansan_lmp')" @mouseleave="outHide(item,'qiansan_lmp')">{{item.oddsName}}</td>
-                        <td class="tdRight" style="width: 10%;" :class="'qiansan_lmp'+item.oddsId" @click="orderTd(qiansan_lmp,item,'qiansan_lmp')" @mouseenter="overShow(item,'qiansan_lmp')" @mouseleave="outHide(item,'qiansan_lmp')">
+                        <td class="tdLeft" :class="'qiansan_lmp'+item.oddsId" @click="orderTd(qiansan_lmp,item,'qiansan_lmp')" @mouseenter="overShow(item,'qiansan_lmp')" @mouseleave="outHide(item,'qiansan_lmp')">{{item.oddsName}}</td>
+                        <td class="tdRight" :class="'qiansan_lmp'+item.oddsId" @click="orderTd(qiansan_lmp,item,'qiansan_lmp')" @mouseenter="overShow(item,'qiansan_lmp')" @mouseleave="outHide(item,'qiansan_lmp')">
                           <ul>
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
@@ -196,8 +196,8 @@
                     </tr>
                     <tr>
                       <template v-for="(item,index) in zhongsan_lmp.list">
-                        <td class="tdLeft" style="width: 10%;" :class="'zhongsan_lmp'+item.oddsId" @click="orderTd(zhongsan_lmp,item,'zhongsan_lmp')" @mouseenter="overShow(item,'zhongsan_lmp')" @mouseleave="outHide(item,'zhongsan_lmp')">{{item.oddsName}}</td>
-                        <td class="tdRight" style="width: 10%;" :class="'zhongsan_lmp'+item.oddsId" @click="orderTd(zhongsan_lmp,item,'zhongsan_lmp')" @mouseenter="overShow(item,'zhongsan_lmp')" @mouseleave="outHide(item,'zhongsan_lmp')">
+                        <td class="tdLeft" :class="'zhongsan_lmp'+item.oddsId" @click="orderTd(zhongsan_lmp,item,'zhongsan_lmp')" @mouseenter="overShow(item,'zhongsan_lmp')" @mouseleave="outHide(item,'zhongsan_lmp')">{{item.oddsName}}</td>
+                        <td class="tdRight" :class="'zhongsan_lmp'+item.oddsId" @click="orderTd(zhongsan_lmp,item,'zhongsan_lmp')" @mouseenter="overShow(item,'zhongsan_lmp')" @mouseleave="outHide(item,'zhongsan_lmp')">
                           <ul>
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
@@ -216,8 +216,8 @@
                     </tr>
                     <tr>
                       <template v-for="(item,index) in housan_lmp.list">
-                        <td class="tdLeft" style="width: 10%;" :class="'housan_lmp'+item.oddsId" @click="orderTd(housan_lmp,item,'housan_lmp')" @mouseenter="overShow(item,'housan_lmp')" @mouseleave="outHide(item,'housan_lmp')">{{item.oddsName}}</td>
-                        <td class="tdRight" style="width: 10%;" :class="'housan_lmp'+item.oddsId" @click="orderTd(housan_lmp,item,'housan_lmp')" @mouseenter="overShow(item,'housan_lmp')" @mouseleave="outHide(item,'housan_lmp')">
+                        <td class="tdLeft" :class="'housan_lmp'+item.oddsId" @click="orderTd(housan_lmp,item,'housan_lmp')" @mouseenter="overShow(item,'housan_lmp')" @mouseleave="outHide(item,'housan_lmp')">{{item.oddsName}}</td>
+                        <td class="tdRight" :class="'housan_lmp'+item.oddsId" @click="orderTd(housan_lmp,item,'housan_lmp')" @mouseenter="overShow(item,'housan_lmp')" @mouseleave="outHide(item,'housan_lmp')">
                           <ul>
                             <li>
                               <span class="odds-font">{{item.odds}}</span>
@@ -235,7 +235,7 @@
 
           <template v-if="showOdds == '1~5'">
             <div>
-              <div class="qiu15_body">
+              <div class="qiu15_body oodsBodyDiv">
                 <div class="nball" v-for="(item_yiwu,index_yiwu) in oddsList">
                   <div class="order-table">
                     <table>

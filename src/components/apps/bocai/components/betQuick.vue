@@ -194,19 +194,17 @@
                 //更新用户信息
                 bus.$emit('getcUserInfo', ''); 
                 that.orderDatas.list = [];
-                that.$success(result.msg);
+                that.$success('下注成功！');
               }
             })
           });
-
-          console.log('this.orderDataList',this.orderDataList);
+          //console.log('this.orderDataList',this.orderDataList);
 
         }
       },
       orderOdds() {
 
-        console.log('this.orderDataList',this.orderDataList);
-
+        //console.log('this.orderDataList',this.orderDataList);
         this.orderList = [];
 
         if(this.normalPay) {

@@ -5,7 +5,7 @@
     </div>
     <div class="winCurrent">
       <span>当前彩种输赢:</span>
-      <span class="red">0.00</span>
+      <span class="red">{{bocaiInfoData.winnerMoneySum}}</span>
     </div>
     <div class="kaipangTime">
       <div class="qiciDiv">
