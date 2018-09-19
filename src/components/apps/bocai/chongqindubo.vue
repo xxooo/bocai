@@ -354,7 +354,7 @@
 <script>
 import BetQuick from '@/components/apps/bocai/components/betQuick';
 import ClockTime from '@/components/apps/bocai/components/clockTime';
-import {mapState,mapGetters} from 'vuex';
+// import {mapState,mapGetters} from 'vuex';
 
 export default {
   components: {
@@ -386,8 +386,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-    })
+    // ...mapGetters({
+    // })
   },
   created() {
     this.getOdds(1);

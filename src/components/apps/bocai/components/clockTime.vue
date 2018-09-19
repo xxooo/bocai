@@ -23,7 +23,7 @@
 
 
 <script>
-  import { mapGetters } from 'vuex';
+  //import { mapGetters } from 'vuex';
 
 	export default {
 		props: {
@@ -46,9 +46,9 @@
       //this.refreshBocaiInfo();
     },
     computed:{
-      ...mapGetters({
-        cashBalance: 'getcashBalance'
-      }),
+      // ...mapGetters({
+      //   cashBalance: 'getcashBalance'
+      // }),
       totalMoney() {
         let totalMoney = 0;
         for(let n in this.orderList) {

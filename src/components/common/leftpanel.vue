@@ -104,7 +104,7 @@
   </div>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+//import {mapGetters} from 'vuex';
 
 export default {
   data() {
@@ -113,8 +113,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-    })
+    // ...mapGetters({
+    // })
   },
   async created() {
     this.getcUserInfo();
@@ -132,10 +132,9 @@ export default {
       let res = await this.$get(`${window.url}/api/cUserInfo`);
 
       if(res.code===200){
-        store.commit('updatecashBalance',res.data.cashBalance);
-
+        //store.commit('updatecashBalance',res.data.cashBalance);
         this.userInfo = res.data;
-
+        bus.$emit('getcashBalance', res.data.cashBalance);
         bus.$emit('getcuserId', res.data.id);
 
         // "currentPage": 0,

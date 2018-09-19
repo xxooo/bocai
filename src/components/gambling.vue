@@ -65,7 +65,7 @@
 
 import LeftPanel from '@/components/common/leftpanel';
 import PageFooter from '@/components/common/pagefooter';
-import {mapState,mapGetters} from 'vuex';
+// import {mapState,mapGetters} from 'vuex';
 
 export default {
   components: {
@@ -93,8 +93,8 @@ export default {
     this.refreshTime();
   },
   computed: {
-    ...mapGetters({
-    })
+    // ...mapGetters({
+    // })
   },
   methods: {
     async refreshTime() {

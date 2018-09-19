@@ -64,7 +64,7 @@
 
 
 <script>
-  import { mapGetters } from 'vuex';
+  //import { mapGetters } from 'vuex';
 
 	export default {
 		props: {
@@ -88,6 +88,7 @@
         bocaiInfoData: {},
         normalPay: false,
         isOpenOdds: true,
+        cashBalance: '',
         orderDatas: {
           periodsId:'',//投注期数ID
           bocaiTypeId:'',//投注博彩ID
@@ -105,9 +106,9 @@
 		async created() {
     },
     computed:{
-      ...mapGetters({
-        cashBalance: 'getcashBalance'
-      }),
+      // ...mapGetters({
+      //   cashBalance: 'getcashBalance'
+      // }),
       totalMoney() {
         let totalMoney = 0;
         for(let n in this.orderList) {
@@ -134,6 +135,9 @@
       });
       bus.$on('getnormalPay', (data) => {
         this.normalPay = data;
+      });
+      bus.$on('getcashBalance', (data) => {
+        this.cashBalance = data;
       });
     },
 		methods: {
