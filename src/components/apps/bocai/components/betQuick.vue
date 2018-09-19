@@ -1,7 +1,7 @@
 <template>
 	<div class="betQuick">
     <div class="beishu">
-      <div class="beishuBtn beishuBtn10" @click="orderMul(10)"><a>10</a></div>
+      <div class="beishuBtn beishuBtn10" @click="orderMul(10)" @onmousedown="onmousedown()" @onmouseup="onmouseup()"><a>10</a></div>
       <div class="beishuBtn beishuBtn50" @click="orderMul(50)"><a>50</a></div>
       <div class="beishuBtn beishuBtn100" @click="orderMul(100)"><a>100</a></div>
       <div class="beishuBtn beishuBtn500" @click="orderMul(500)"><a>500</a></div>
@@ -66,6 +66,13 @@
 <script>
   //import { mapGetters } from 'vuex';
 
+  $(document).ready(function(){
+  $(".beishuBtn.beishuBtn10").mousedown(function(){
+    console.log('onmousedown');
+    alert("鼠标在该段落上按下！");
+  });
+});
+
 	export default {
 		props: {
       orderDataList: {
@@ -103,7 +110,10 @@
 		},
     components: {
 		},
-		async created() {
+		created() {
+      $(".beishuBtn.beishuBtn10").mousedown(function(){
+        console.log('onmousedown');
+      });
     },
     computed:{
       // ...mapGetters({
@@ -141,6 +151,12 @@
       });
     },
 		methods: {
+      onmousedown() {
+        console.log('onmousedown');
+      },
+      onmouseup() {
+        console.log('onmouseup');
+      },
       changePay(data) {
         this.$emit('childByChangePay', data);
       },
