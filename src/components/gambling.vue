@@ -112,7 +112,7 @@ export default {
 
             }
 
-            //console.log('refreshbocaiInfo',window.refreshTime);
+            console.log('refreshbocaiInfo',window.refreshTime);
             setTimeout(this.refreshTime, window.refreshTime);
     },
     async bocaiInfo() {
