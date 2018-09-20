@@ -1,7 +1,7 @@
 <template>
 	<div class="betQuick">
     <div class="beishu">
-      <div class="beishuBtn beishuBtn10" @click="orderMul(10)" @onmousedown="onmousedown()" @onmouseup="onmouseup()"><a>10</a></div>
+      <div class="beishuBtn beishuBtn10" @click="orderMul(10)"><a>10</a></div>
       <div class="beishuBtn beishuBtn50" @click="orderMul(50)"><a>50</a></div>
       <div class="beishuBtn beishuBtn100" @click="orderMul(100)"><a>100</a></div>
       <div class="beishuBtn beishuBtn500" @click="orderMul(500)"><a>500</a></div>
@@ -67,11 +67,16 @@
   //import { mapGetters } from 'vuex';
 
   $(document).ready(function(){
-  $(".beishuBtn.beishuBtn10").mousedown(function(){
-    console.log('onmousedown');
-    alert("鼠标在该段落上按下！");
+    $(".beishuBtn").mousedown(function(){
+      console.log('onmousedown');
+      $(this).addClass('addPayChouMa');
+
+    });
+    $(".beishuBtn").mouseup(function(){
+      console.log('onmouseup');
+      $(this).removeClass('addPayChouMa');
+    });
   });
-});
 
 	export default {
 		props: {
@@ -86,7 +91,6 @@
 			return {
         moneyOrder: '',
         radio10: '1',
-        mul: 1,
         orderOddsVisible: false,
         orderList: [],
         bocaiTypeId: '',
@@ -96,6 +100,7 @@
         normalPay: false,
         isOpenOdds: true,
         cashBalance: '',
+        choumaPay: 0,
         orderDatas: {
           periodsId:'',//投注期数ID
           bocaiTypeId:'',//投注博彩ID
@@ -111,9 +116,6 @@
     components: {
 		},
 		created() {
-      $(".beishuBtn.beishuBtn10").mousedown(function(){
-        console.log('onmousedown');
-      });
     },
     computed:{
       // ...mapGetters({
@@ -151,18 +153,12 @@
       });
     },
 		methods: {
-      onmousedown() {
-        console.log('onmousedown');
-      },
-      onmouseup() {
-        console.log('onmouseup');
-      },
       changePay(data) {
         this.$emit('childByChangePay', data);
+        this.moneyOrder = '';
       },
       reset() {
         $('.bet_box .orders td').removeClass('selected');
-        $(".beishuBtn").removeClass('selected');
         this.moneyOrder = '';
         this.$emit('childByReset', 'reset');
       },
@@ -233,7 +229,7 @@
               let obj = {
                 oddNames: this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
                 bocaiOdds: this.orderDataList[n].bocaiOdds,
-                betsMoney: this.orderDataList[n].normalMoney*this.mul
+                betsMoney: this.orderDataList[n].normalMoney
               }
 
               this.orderList.push(obj);
@@ -256,7 +252,7 @@
               let obj = {
                 oddNames: this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
                 bocaiOdds: this.orderDataList[n].bocaiOdds,
-                betsMoney: this.orderDataList[n].orderNormal ? this.orderDataList[n].normalMoney*this.mul : this.moneyOrder*this.mul
+                betsMoney: this.moneyOrder
               }
 
               this.orderList.push(obj);
@@ -266,16 +262,19 @@
           }
         }
       },
-      orderMul(mul) {
+      orderMul(pay) {
+
+        this.moneyOrder = pay*1 + this.moneyOrder*1;
         
-        if($('.beishuBtn'+mul).hasClass('selected')) {
-          $('.beishuBtn'+mul).removeClass('selected');
-          this.mul = 1;
-        } else {
-          $(".beishuBtn").removeClass('selected');
-          $('.beishuBtn'+mul).addClass('selected');
-          this.mul = mul;
-        }
+        // if($('.beishuBtn'+mul).hasClass('selected')) {
+        //   $('.beishuBtn'+mul).removeClass('selected');
+        //   this.mul = 1;
+        // } else {
+        //   $(".beishuBtn").removeClass('selected');
+        //   $('.beishuBtn'+mul).addClass('selected');
+        //   this.mul = mul;
+        // }
+
       }
 		}
 	}
@@ -295,6 +294,10 @@
   display: inline-block;
   float: left;
   margin-left: 20px;
+}
+
+.betRTop div {
+  font-size: 16px;
 }
 
 .beishu {
@@ -337,10 +340,10 @@
   color: #ff9800;
 }
 
-.beishuBtn.selected {
+/*.beishuBtn.selected {
   color: #ff9800;
   font-size: 16px;
-}
+}*/
 
 .beishuBtn:last-child
 { 
@@ -408,6 +411,14 @@ button.btn-delete {
     font-weight: 700;
     color: #261238;
 }
+
+.beishuBtn.addPayChouMa a{
+  color: #ff9800;
+  font-size: 18px;
+}
+
+
+
 </style>
 
 <style lang="less">

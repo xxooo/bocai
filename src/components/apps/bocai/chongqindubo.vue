@@ -408,6 +408,8 @@ export default {
     },
     childByReset(data) {
       this.orderDataList = [];
+      this.getOdds(1);
+
     },
     outHide(item,ids) {
       $('.'+ids+item.oddsId).removeClass('overTd');
@@ -417,7 +419,6 @@ export default {
     },
     inputFunc(oddsObj,item,ids,pay) {
 
-      console.log(pay);
       if(this.normalPay) {
         if(pay == '') {
           $('.'+ids+item.oddsId).removeClass('selected');
@@ -530,10 +531,10 @@ export default {
     async getOdds(id) {
 
       let that = this;
-          NProgress.start();
+          //NProgress.start();
           await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+id).then((res) => {
             that.$handelResponse(res, (result) => {
-              NProgress.done();
+              //NProgress.done();
               if(result.code===200){
 
                 that.bocaiCategoryList = result.bocaiCategoryList;
