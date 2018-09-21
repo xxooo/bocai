@@ -37,13 +37,16 @@
 		data() {
 			return {
         timeLeft:'',
-        bocaiInfoData: {}
+        t: null, //轮询
+        bocaiInfoData: {},
+        openPrizeTime: 0
 			}
 		},
     components: {
 		},
 		created() {
       //this.refreshBocaiInfo();
+      this.gettimeLeft();
     },
     computed:{
       // ...mapGetters({
@@ -60,18 +63,24 @@
     mounted(){
       bus.$on('getbocaiInfoData', (data) => {
         this.bocaiInfoData = data;
-        this.gettimeLeft();
+        this.openPrizeTime = data.openPrizeTime;
+        //this.gettimeLeft();
       });
+    },
+    beforeDestroy: function() {
+      if (this.t) {
+        clearTimeout(this.t)
+      }
     },
 		methods: {
       gettimeLeft() {
 
         var now = new Date();
-
-        var leftTime = this.bocaiInfoData.openPrizeTime - now.getTime();
+        var leftTime = this.openPrizeTime - now.getTime();
 
         if(leftTime<=0) {
-          console.log('到期封盘',this.timestampToTime(this.bocaiInfoData.openPrizeTime));
+          console.log('未开盘',this.timestampToTime(this.openPrizeTime));
+          console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
           this.timeLeft = '00' + ":" + '00' + ":" + '00';
 
           bus.$emit('isOpenOdds', false);
@@ -85,11 +94,12 @@
           var s = leftTime % 60;
 
           this.timeLeft = (o*1> 9 ? o : '0'+ o) + ":" + (m*1> 9 ? m : '0'+ m) + ":" + (s*1 > 9 ? s : '0'+ s);
-          console.log('开盘时间',this.timestampToTime(this.bocaiInfoData.openPrizeTime));
+          console.log('开盘时间',this.timestampToTime(this.openPrizeTime));
+          console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
           bus.$emit('isOpenOdds', true);
         }
 
-        setTimeout(this.gettimeLeft, 1000);
+        this.t = setTimeout(this.gettimeLeft, 1000);
 
       },
       timestampToTime(timestamp) {
