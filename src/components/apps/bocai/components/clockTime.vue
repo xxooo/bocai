@@ -39,7 +39,8 @@
         timeLeft:'',
         t: null, //轮询
         bocaiInfoData: {},
-        openPrizeTime: 0
+        openPrizeTime: 0,
+        closeTimeSet: 0
 			}
 		},
     components: {
@@ -64,6 +65,7 @@
       bus.$on('getbocaiInfoData', (data) => {
         this.bocaiInfoData = data;
         this.openPrizeTime = data.openPrizeTime;
+        this.closeTimeSet = data.closeTimeSet;
         //this.gettimeLeft();
       });
     },
@@ -78,14 +80,36 @@
         var now = new Date();
         var leftTime = this.openPrizeTime - now.getTime();
 
-        if(leftTime<=0) {
+        var closeTime = leftTime - this.closeTimeSet*1000;
+
+        var closeTimeSet = this.openPrizeTime - this.closeTimeSet*1000;
+        console.log('当前时间',this.timestampToTime(now.getTime()));
+        console.log('封盘时间',this.timestampToTime(closeTimeSet));
+
+        if(closeTime<=0 && leftTime<=0) {
           console.log('未开盘',this.timestampToTime(this.openPrizeTime));
-          console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
+          //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
           this.timeLeft = '00' + ":" + '00' + ":" + '00';
 
           bus.$emit('isOpenOdds', false);
 
-        } else {
+        } 
+
+        if(closeTime<=0 && leftTime>0) {
+          var ms = parseInt(leftTime % 1000).toString();
+          leftTime = parseInt(leftTime / 1000); 
+          var o = Math.floor(leftTime / 3600);
+          var d = Math.floor(o / 24);
+          var m = Math.floor(leftTime / 60 % 60);
+          var s = leftTime % 60;
+
+          this.timeLeft = (o*1> 9 ? o : '0'+ o) + ":" + (m*1> 9 ? m : '0'+ m) + ":" + (s*1 > 9 ? s : '0'+ s);
+          console.log('未开盘',this.timestampToTime(this.openPrizeTime));
+          //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
+          bus.$emit('isOpenOdds', false);
+        }
+        if(closeTime>0) {
+
           var ms = parseInt(leftTime % 1000).toString();
           leftTime = parseInt(leftTime / 1000); 
           var o = Math.floor(leftTime / 3600);
@@ -95,7 +119,7 @@
 
           this.timeLeft = (o*1> 9 ? o : '0'+ o) + ":" + (m*1> 9 ? m : '0'+ m) + ":" + (s*1 > 9 ? s : '0'+ s);
           console.log('开盘时间',this.timestampToTime(this.openPrizeTime));
-          console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
+          //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
           bus.$emit('isOpenOdds', true);
         }
 
