@@ -75,6 +75,9 @@
       }
     },
 		methods: {
+      getRefreshTime() {
+
+      },
       gettimeLeft() {
 
         var now = new Date();
@@ -92,6 +95,8 @@
           this.timeLeft = '00' + ":" + '00' + ":" + '00';
 
           bus.$emit('isOpenOdds', false);
+
+          bus.$emit('getRefreshTime', '');
 
         } 
 

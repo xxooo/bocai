@@ -211,6 +211,7 @@
                 bus.$emit('getcUserInfo', ''); 
                 that.orderDatas.list = [];
                 that.$success('下注成功！');
+                that.reset();
               }
             })
           });

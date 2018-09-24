@@ -97,6 +97,23 @@ export default {
     // })
   },
   methods: {
+    async getRefreshTime() {
+      let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
+
+      if(res.code===200){
+
+              //if("companyIsOpenSet": "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。)
+               //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
+
+              bus.$emit('getbocaiInfoData', res.data);
+
+              this.preResult = res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(',');   //"preResult": 
+              this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
+
+            }
+
+            console.log('getRefreshTime',window.refreshTime);
+    },
     async refreshTime() {
       let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
 
@@ -171,6 +188,9 @@ export default {
     }
   },
   mounted() {
+    bus.$on('getRefreshTime', (data) => {
+        this.getRefreshTime();
+    });
   },
   updated() {
   }
