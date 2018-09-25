@@ -13,10 +13,10 @@
               background-color="#572f5f"
               text-color="#ffd04b"
               active-text-color="#fff">
-              <el-menu-item v-for="(item,index) in bocaiCategoryList" :key="index" :index="item.name" @click="getOddsCategory(item,index)" v-if="index*1 < 10">{{item.name}}</el-menu-item>
-              <el-submenu v-if="bocaiCategoryList.length*1 > 10" key="submenu" index="submenu">
+              <el-menu-item v-for="(item,index) in bocaiCategoryList" :key="index" :index="item.name" @click="getOddsCategory(item,index)" v-if="index*1 < 11">{{item.name}}</el-menu-item>
+              <el-submenu v-if="bocaiCategoryList.length*1 > 11" key="submenu" index="submenu">
                 <template slot="title">{{submenu}}</template>
-                <el-menu-item v-for="(item,index) in bocaiCategoryList" :key="index" :index="item.name" @click="getOddsCategory(item,index)" v-if="index*1 > 9">{{item.name}}</el-menu-item>
+                <el-menu-item v-for="(item,index) in bocaiCategoryList" :key="index" :index="item.name" @click="getOddsCategory(item,index)" v-if="index*1 > 10">{{item.name}}</el-menu-item>
               </el-submenu>
             </el-menu>
           </div>
@@ -31,231 +31,339 @@
 
             <template v-if="showOdds == '两面盘'">
 
+                <div class="oodsBodyDiv">
+                  <div class="order-table">
+                      <table>
+                        <tr>
+                          <th colspan="8">{{longhuhe_lmp.name}}</th>
+                        </tr>
+                          <tr>
+                            <template v-for="(item,index) in longhuhe_lmp.list" v-if="index*1 < 4">
+                              <td class="tdLeft ordersTdOver" width="8%" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">{{item.oddsName}}</td>
+                              <td class="tdRight" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">
+                                <ul>
+                                  <li ><span class="odds-font">{{item.odds}}</span></li>
+                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(longhuhe_lmp,item,'longhuhe_lmp',item.normalMoney)"></li>
+                                </ul>
+                              </td>
+                            </template>
+                          </tr>
+                          <tr>
+                            <template v-for="(item,index) in longhuhe_lmp.list" v-if="index*1 > 3">
+                              <td class="tdLeft" width="8%" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">{{item.oddsName}}</td>
+                              <td class="tdRight" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')"> 
+                                <ul>
+                                  <li>
+                                    <span class="odds-font">{{item.odds}}</span>
+                                  </li>
+                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(longhuhe_lmp,item,'longhuhe_lmp',item.normalMoney)"></li>
+                                </ul>
+                              </td>
+                            </template>
+                          </tr>
+                      </table>
+                  </div>
+                </div>
+
+              <div class="qiu15_body oodsBodyDiv">
+                <div class="eball">
+                    <div class="order-table">
+                      <table>
+                        <tr>
+                          <th colspan="2">{{diyiqiu_lmp.name}}</th>
+                        </tr>
+                        <tr v-for="(item,index) in diyiqiu_lmp.list">
+                          <td class="tdLeft" :class="'diyiqiu_lmp'+item.oddsId" @click="orderTd(diyiqiu_lmp,item,'diyiqiu_lmp')" @mouseenter="overShow(item,'diyiqiu_lmp')" @mouseleave="outHide(item,'diyiqiu_lmp')">{{item.oddsName}}</td>
+                          <td class="tdRight" :class="'diyiqiu_lmp'+item.oddsId" @click="orderTd(diyiqiu_lmp,item,'diyiqiu_lmp')" @mouseenter="overShow(item,'diyiqiu_lmp')" @mouseleave="outHide(item,'diyiqiu_lmp')">
+                            <ul>
+                              <li>
+                                <span class="odds-font">{{item.odds}}</span>
+                              </li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(diyiqiu_lmp,item,'diyiqiu_lmp',item.normalMoney)"></li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                </div>
+                <div class="eball">
+                    <div class="order-table">
+                      <table>
+                        <tr>
+                          <th colspan="2">{{dierqiu_lmp.name}}</th>
+                        </tr>
+                        <tr v-for="(item,index) in dierqiu_lmp.list">
+                          <td class="tdLeft" :class="'dierqiu_lmp'+item.oddsId" @click="orderTd(dierqiu_lmp,item,'dierqiu_lmp')" @mouseenter="overShow(item,'dierqiu_lmp')" @mouseleave="outHide(item,'dierqiu_lmp')">{{item.oddsName}}</td>
+                          <td class="tdRight" :class="'dierqiu_lmp'+item.oddsId" @click="orderTd(dierqiu_lmp,item,'dierqiu_lmp')" @mouseenter="overShow(item,'dierqiu_lmp')" @mouseleave="outHide(item,'dierqiu_lmp')">
+                            <ul>
+                              <li>
+                                <span class="odds-font">{{item.odds}}</span>
+                              </li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(dierqiu_lmp,item,'dierqiu_lmp',item.normalMoney)"></li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                </div>
+                <div class="eball">
+                    <div class="order-table">
+                      <table>
+                        <tr>
+                          <th colspan="2">{{disanqiu_lmp.name}}</th>
+                        </tr>
+                        <tr v-for="(item,index) in disanqiu_lmp.list">
+                          <td class="tdLeft" :class="'disanqiu_lmp'+item.oddsId" @click="orderTd(disanqiu_lmp,item,'disanqiu_lmp')" @mouseenter="overShow(item,'disanqiu_lmp')" @mouseleave="outHide(item,'disanqiu_lmp')">{{item.oddsName}}</td>
+                          <td class="tdRight" :class="'disanqiu_lmp'+item.oddsId" @click="orderTd(disanqiu_lmp,item,'disanqiu_lmp')" @mouseenter="overShow(item,'disanqiu_lmp')" @mouseleave="outHide(item,'disanqiu_lmp')">
+                            <ul>
+                              <li>
+                                <span class="odds-font">{{item.odds}}</span>
+                              </li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(disanqiu_lmp,item,'disanqiu_lmp',item.normalMoney)"></li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                </div>
+                <div class="eball">
+                    <div class="order-table">
+                      <table>
+                        <tr>
+                          <th colspan="2">{{disiqiu_lmp.name}}</th>
+                        </tr>
+                        <tr v-for="(item,index) in disiqiu_lmp.list">
+                          <td class="tdLeft" :class="'disiqiu_lmp'+item.oddsId" @click="orderTd(disiqiu_lmp,item,'disiqiu_lmp')" @mouseenter="overShow(item,'disiqiu_lmp')" @mouseleave="outHide(item,'disiqiu_lmp')">{{item.oddsName}}</td>
+                          <td class="tdRight" :class="'disiqiu_lmp'+item.oddsId" @click="orderTd(disiqiu_lmp,item,'disiqiu_lmp')" @mouseenter="overShow(item,'disiqiu_lmp')" @mouseleave="outHide(item,'disiqiu_lmp')">
+                            <ul>
+                              <li>
+                                <span class="odds-font">{{item.odds}}</span>
+                              </li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(disiqiu_lmp,item,'disiqiu_lmp',item.normalMoney)"></li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                </div>
+                <div class="eball">
+                    <div class="order-table">
+                      <table>
+                        <tr>
+                          <th colspan="2">{{diwuqiu_lmp.name}}</th>
+                        </tr>
+                        <tr v-for="(item,index) in diwuqiu_lmp.list">
+                          <td class="tdLeft" :class="'diwuqiu_lmp'+item.oddsId" @click="orderTd(diwuqiu_lmp,item,'diwuqiu_lmp')" @mouseenter="overShow(item,'diwuqiu_lmp')" @mouseleave="outHide(item,'diwuqiu_lmp')">{{item.oddsName}}</td>
+                          <td class="tdRight" :class="'diwuqiu_lmp'+item.oddsId" @click="orderTd(diwuqiu_lmp,item,'diwuqiu_lmp')" @mouseenter="overShow(item,'diwuqiu_lmp')" @mouseleave="outHide(item,'diwuqiu_lmp')">
+                            <ul>
+                              <li>
+                                <span class="odds-font">{{item.odds}}</span>
+                              </li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(diwuqiu_lmp,item,'diwuqiu_lmp',item.normalMoney)"></li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                </div>
+              </div>
+
               <div class="oodsBodyDiv">
                 <div class="order-table">
                     <table>
                       <tr>
-                        <th colspan="8">{{longhuhe_lmp.name}}</th>
+                        <th colspan="10">{{qiansan_lmp.name}}</th>
                       </tr>
-                        <tr>
-                          <template v-for="(item,index) in longhuhe_lmp.list" v-if="index*1 < 4">
-                            <td class="tdLeft ordersTdOver" width="8%" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">{{item.oddsName}}</td>
-                            <td class="tdRight" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">
-                              <ul>
-                                <li ><span class="odds-font">{{item.odds}}</span></li>
-                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(longhuhe_lmp,item,'longhuhe_lmp',item.normalMoney)"></li>
-                              </ul>
-                            </td>
-                          </template>
-                        </tr>
-                        <tr>
-                          <template v-for="(item,index) in longhuhe_lmp.list" v-if="index*1 > 3">
-                            <td class="tdLeft" width="8%" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">{{item.oddsName}}</td>
-                            <td class="tdRight" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')"> 
-                              <ul>
-                                <li>
-                                  <span class="odds-font">{{item.odds}}</span>
-                                </li>
-                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(longhuhe_lmp,item,'longhuhe_lmp',item.normalMoney)"></li>
-                              </ul>
-                            </td>
-                          </template>
-                        </tr>
-                    </table>
-                </div>
-              </div>
-
-            <div class="qiu15_body oodsBodyDiv">
-              <div class="eball">
-                  <div class="order-table">
-                    <table>
                       <tr>
-                        <th colspan="2">{{diyiqiu_lmp.name}}</th>
-                      </tr>
-                      <tr v-for="(item,index) in diyiqiu_lmp.list">
-                        <td class="tdLeft" :class="'diyiqiu_lmp'+item.oddsId" @click="orderTd(diyiqiu_lmp,item,'diyiqiu_lmp')" @mouseenter="overShow(item,'diyiqiu_lmp')" @mouseleave="outHide(item,'diyiqiu_lmp')">{{item.oddsName}}</td>
-                        <td class="tdRight" :class="'diyiqiu_lmp'+item.oddsId" @click="orderTd(diyiqiu_lmp,item,'diyiqiu_lmp')" @mouseenter="overShow(item,'diyiqiu_lmp')" @mouseleave="outHide(item,'diyiqiu_lmp')">
-                          <ul>
-                            <li>
-                              <span class="odds-font">{{item.odds}}</span>
-                            </li>
-                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(diyiqiu_lmp,item,'diyiqiu_lmp',item.normalMoney)"></li>
-                          </ul>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-              </div>
-              <div class="eball">
-                  <div class="order-table">
-                    <table>
-                      <tr>
-                        <th colspan="2">{{dierqiu_lmp.name}}</th>
-                      </tr>
-                      <tr v-for="(item,index) in dierqiu_lmp.list">
-                        <td class="tdLeft" :class="'dierqiu_lmp'+item.oddsId" @click="orderTd(dierqiu_lmp,item,'dierqiu_lmp')" @mouseenter="overShow(item,'dierqiu_lmp')" @mouseleave="outHide(item,'dierqiu_lmp')">{{item.oddsName}}</td>
-                        <td class="tdRight" :class="'dierqiu_lmp'+item.oddsId" @click="orderTd(dierqiu_lmp,item,'dierqiu_lmp')" @mouseenter="overShow(item,'dierqiu_lmp')" @mouseleave="outHide(item,'dierqiu_lmp')">
-                          <ul>
-                            <li>
-                              <span class="odds-font">{{item.odds}}</span>
-                            </li>
-                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(dierqiu_lmp,item,'dierqiu_lmp',item.normalMoney)"></li>
-                          </ul>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-              </div>
-              <div class="eball">
-                  <div class="order-table">
-                    <table>
-                      <tr>
-                        <th colspan="2">{{disanqiu_lmp.name}}</th>
-                      </tr>
-                      <tr v-for="(item,index) in disanqiu_lmp.list">
-                        <td class="tdLeft" :class="'disanqiu_lmp'+item.oddsId" @click="orderTd(disanqiu_lmp,item,'disanqiu_lmp')" @mouseenter="overShow(item,'disanqiu_lmp')" @mouseleave="outHide(item,'disanqiu_lmp')">{{item.oddsName}}</td>
-                        <td class="tdRight" :class="'disanqiu_lmp'+item.oddsId" @click="orderTd(disanqiu_lmp,item,'disanqiu_lmp')" @mouseenter="overShow(item,'disanqiu_lmp')" @mouseleave="outHide(item,'disanqiu_lmp')">
-                          <ul>
-                            <li>
-                              <span class="odds-font">{{item.odds}}</span>
-                            </li>
-                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(disanqiu_lmp,item,'disanqiu_lmp',item.normalMoney)"></li>
-                          </ul>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-              </div>
-              <div class="eball">
-                  <div class="order-table">
-                    <table>
-                      <tr>
-                        <th colspan="2">{{disiqiu_lmp.name}}</th>
-                      </tr>
-                      <tr v-for="(item,index) in disiqiu_lmp.list">
-                        <td class="tdLeft" :class="'disiqiu_lmp'+item.oddsId" @click="orderTd(disiqiu_lmp,item,'disiqiu_lmp')" @mouseenter="overShow(item,'disiqiu_lmp')" @mouseleave="outHide(item,'disiqiu_lmp')">{{item.oddsName}}</td>
-                        <td class="tdRight" :class="'disiqiu_lmp'+item.oddsId" @click="orderTd(disiqiu_lmp,item,'disiqiu_lmp')" @mouseenter="overShow(item,'disiqiu_lmp')" @mouseleave="outHide(item,'disiqiu_lmp')">
-                          <ul>
-                            <li>
-                              <span class="odds-font">{{item.odds}}</span>
-                            </li>
-                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(disiqiu_lmp,item,'disiqiu_lmp',item.normalMoney)"></li>
-                          </ul>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-              </div>
-              <div class="eball">
-                  <div class="order-table">
-                    <table>
-                      <tr>
-                        <th colspan="2">{{diwuqiu_lmp.name}}</th>
-                      </tr>
-                      <tr v-for="(item,index) in diwuqiu_lmp.list">
-                        <td class="tdLeft" :class="'diwuqiu_lmp'+item.oddsId" @click="orderTd(diwuqiu_lmp,item,'diwuqiu_lmp')" @mouseenter="overShow(item,'diwuqiu_lmp')" @mouseleave="outHide(item,'diwuqiu_lmp')">{{item.oddsName}}</td>
-                        <td class="tdRight" :class="'diwuqiu_lmp'+item.oddsId" @click="orderTd(diwuqiu_lmp,item,'diwuqiu_lmp')" @mouseenter="overShow(item,'diwuqiu_lmp')" @mouseleave="outHide(item,'diwuqiu_lmp')">
-                          <ul>
-                            <li>
-                              <span class="odds-font">{{item.odds}}</span>
-                            </li>
-                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(diwuqiu_lmp,item,'diwuqiu_lmp',item.normalMoney)"></li>
-                          </ul>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-              </div>
-            </div>
-
-            <div class="oodsBodyDiv">
-              <div class="order-table">
-                  <table>
-                    <tr>
-                      <th colspan="10">{{qiansan_lmp.name}}</th>
-                    </tr>
-                    <tr>
-                      <template v-for="(item,index) in qiansan_lmp.list">
-                        <td class="tdLeft" :class="'qiansan_lmp'+item.oddsId" @click="orderTd(qiansan_lmp,item,'qiansan_lmp')" @mouseenter="overShow(item,'qiansan_lmp')" @mouseleave="outHide(item,'qiansan_lmp')">{{item.oddsName}}</td>
-                        <td class="tdRight" :class="'qiansan_lmp'+item.oddsId" @click="orderTd(qiansan_lmp,item,'qiansan_lmp')" @mouseenter="overShow(item,'qiansan_lmp')" @mouseleave="outHide(item,'qiansan_lmp')">
-                          <ul>
-                            <li>
-                              <span class="odds-font">{{item.odds}}</span>
-                            </li>
-                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(qiansan_lmp,item,'qiansan_lmp',item.normalMoney)"></li>
-                          </ul>
-                        </td>
-                      </template>
-                    </tr>
-                  </table>
-              </div>
-              <div class="order-table">
-                  <table>
-                    <tr>
-                      <th colspan="10">{{zhongsan_lmp.name}}</th>
-                    </tr>
-                    <tr>
-                      <template v-for="(item,index) in zhongsan_lmp.list">
-                        <td class="tdLeft" :class="'zhongsan_lmp'+item.oddsId" @click="orderTd(zhongsan_lmp,item,'zhongsan_lmp')" @mouseenter="overShow(item,'zhongsan_lmp')" @mouseleave="outHide(item,'zhongsan_lmp')">{{item.oddsName}}</td>
-                        <td class="tdRight" :class="'zhongsan_lmp'+item.oddsId" @click="orderTd(zhongsan_lmp,item,'zhongsan_lmp')" @mouseenter="overShow(item,'zhongsan_lmp')" @mouseleave="outHide(item,'zhongsan_lmp')">
-                          <ul>
-                            <li>
-                              <span class="odds-font">{{item.odds}}</span>
-                            </li>
-                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(zhongsan_lmp,item,'zhongsan_lmp',item.normalMoney)"></li>
-                          </ul>
-                        </td>
-                      </template>
-                    </tr>
-                  </table>
-              </div>
-              <div class="order-table">
-                  <table>
-                    <tr>
-                      <th colspan="10">{{housan_lmp.name}}</th>
-                    </tr>
-                    <tr>
-                      <template v-for="(item,index) in housan_lmp.list">
-                        <td class="tdLeft" :class="'housan_lmp'+item.oddsId" @click="orderTd(housan_lmp,item,'housan_lmp')" @mouseenter="overShow(item,'housan_lmp')" @mouseleave="outHide(item,'housan_lmp')">{{item.oddsName}}</td>
-                        <td class="tdRight" :class="'housan_lmp'+item.oddsId" @click="orderTd(housan_lmp,item,'housan_lmp')" @mouseenter="overShow(item,'housan_lmp')" @mouseleave="outHide(item,'housan_lmp')">
-                          <ul>
-                            <li>
-                              <span class="odds-font">{{item.odds}}</span>
-                            </li>
-                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(housan_lmp,item,'housan_lmp',item.normalMoney)"></li>
-                          </ul>
-                        </td>
-                      </template>
-                    </tr>
-                  </table>
-              </div>
-            </div>
-
-          </template>
-
-          <template v-if="showOdds == '1~5'">
-            <div>
-              <div class="qiu15_body oodsBodyDiv">
-                <div class="nball" v-for="(item_yiwu,index_yiwu) in oddsList">
-                  <div class="order-table">
-                    <table>
-                      <tr><th colspan="2">{{item_yiwu.name}}</th></tr>
-                      <tr v-for="(item,index) in item_yiwu.list">
-                          <td v-if="isNaN(item.oddsName*1)" class="oddsNtd tdLeft" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')">{{item.oddsName}}</td>
-                          <td v-else class="oddsNtd tdLeft" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')"><div class="ball-icon" >{{item.oddsName}}</div></td> 
-                          <td class="oddsUltd" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')">
+                        <template v-for="(item,index) in qiansan_lmp.list">
+                          <td class="tdLeft" :class="'qiansan_lmp'+item.oddsId" @click="orderTd(qiansan_lmp,item,'qiansan_lmp')" @mouseenter="overShow(item,'qiansan_lmp')" @mouseleave="outHide(item,'qiansan_lmp')">{{item.oddsName}}</td>
+                          <td class="tdRight" :class="'qiansan_lmp'+item.oddsId" @click="orderTd(qiansan_lmp,item,'qiansan_lmp')" @mouseenter="overShow(item,'qiansan_lmp')" @mouseleave="outHide(item,'qiansan_lmp')">
                             <ul>
-                              <li><span class="odds-font" >{{item.odds}}</span></li>
-                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(item_yiwu,item,'item_yiwu',item.normalMoney)"></li>
+                              <li>
+                                <span class="odds-font">{{item.odds}}</span>
+                              </li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(qiansan_lmp,item,'qiansan_lmp',item.normalMoney)"></li>
                             </ul>
                           </td>
+                        </template>
                       </tr>
                     </table>
-                  </div>
+                </div>
+                <div class="order-table">
+                    <table>
+                      <tr>
+                        <th colspan="10">{{zhongsan_lmp.name}}</th>
+                      </tr>
+                      <tr>
+                        <template v-for="(item,index) in zhongsan_lmp.list">
+                          <td class="tdLeft" :class="'zhongsan_lmp'+item.oddsId" @click="orderTd(zhongsan_lmp,item,'zhongsan_lmp')" @mouseenter="overShow(item,'zhongsan_lmp')" @mouseleave="outHide(item,'zhongsan_lmp')">{{item.oddsName}}</td>
+                          <td class="tdRight" :class="'zhongsan_lmp'+item.oddsId" @click="orderTd(zhongsan_lmp,item,'zhongsan_lmp')" @mouseenter="overShow(item,'zhongsan_lmp')" @mouseleave="outHide(item,'zhongsan_lmp')">
+                            <ul>
+                              <li>
+                                <span class="odds-font">{{item.odds}}</span>
+                              </li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(zhongsan_lmp,item,'zhongsan_lmp',item.normalMoney)"></li>
+                            </ul>
+                          </td>
+                        </template>
+                      </tr>
+                    </table>
+                </div>
+                <div class="order-table">
+                    <table>
+                      <tr>
+                        <th colspan="10">{{housan_lmp.name}}</th>
+                      </tr>
+                      <tr>
+                        <template v-for="(item,index) in housan_lmp.list">
+                          <td class="tdLeft" :class="'housan_lmp'+item.oddsId" @click="orderTd(housan_lmp,item,'housan_lmp')" @mouseenter="overShow(item,'housan_lmp')" @mouseleave="outHide(item,'housan_lmp')">{{item.oddsName}}</td>
+                          <td class="tdRight" :class="'housan_lmp'+item.oddsId" @click="orderTd(housan_lmp,item,'housan_lmp')" @mouseenter="overShow(item,'housan_lmp')" @mouseleave="outHide(item,'housan_lmp')">
+                            <ul>
+                              <li>
+                                <span class="odds-font">{{item.odds}}</span>
+                              </li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(housan_lmp,item,'housan_lmp',item.normalMoney)"></li>
+                            </ul>
+                          </td>
+                        </template>
+                      </tr>
+                    </table>
                 </div>
               </div>
-            </div> 
-          </template>
+
+            </template>
+
+            <template v-if="showOdds == '1~5'">
+              <div>
+                <div class="qiu15_body oodsBodyDiv">
+                  <div class="nball" v-for="(item_yiwu,index_yiwu) in oddsList">
+                    <div class="order-table">
+                      <table>
+                        <tr><th colspan="2">{{item_yiwu.name}}</th></tr>
+                        <tr v-for="(item,index) in item_yiwu.list">
+                            <td v-if="isNaN(item.oddsName*1)" class="oddsNtd tdLeft" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')">{{item.oddsName}}</td>
+                            <td v-else class="oddsNtd tdLeft" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')"><div class="ball-icon" >{{item.oddsName}}</div></td> 
+                            <td class="oddsUltd" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')">
+                              <ul>
+                                <li><span class="odds-font" >{{item.odds}}</span></li>
+                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(item_yiwu,item,'item_yiwu',item.normalMoney)"></li>
+                              </ul>
+                            </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+            </template>
+
+            <template v-if="showOdds == '一字'">
+              <div class="order-table yiziType oodsBodyDiv">
+                <table class="title">
+                  <tr>
+                    <th v-for="(item,index) in oddsList" class="pointerDom yiziThAct" :class="['shishiZi'+index,index == '0' ? 'active' : '']" @click="shishiZiGet(item,index)">{{item.name}}</th> 
+                  </tr>
+                </table> 
+                <table>
+                  <tr>
+                    <th>号码</th> 
+                    <th>赔率</th> 
+                    <th>号码</th> 
+                    <th>赔率</th> 
+                    <th>号码</th> 
+                    <th>赔率</th> 
+                    <th>号码</th> 
+                    <th>赔率</th> 
+                    <th>号码</th> 
+                    <th>赔率</th>
+                  </tr>     
+                  <tr>
+                    <template v-for="(item,index) in shishiZiDatas.list" v-if="index*1 < 5">
+                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">{{item.oddsName}}</td> 
+                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">
+                        <ul>
+                          <li><span class="odds-font">{{item.odds}}</span></li>
+                          <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFuncYiZi(item,'item_yizi',item.normalMoney)"></li>
+                        </ul>
+                      </td> 
+                    </template>
+                  </tr> 
+                  <tr>
+                    <template v-for="(item,index) in shishiZiDatas.list" v-if="index*1 > 4">
+                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">{{item.oddsName}}</td> 
+                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">
+                        <ul>
+                          <li><span class="odds-font">{{item.odds}}</span></li>
+                          <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFuncYiZi(item,'item_yizi',item.normalMoney)"></li>
+                        </ul>
+                      </td> 
+                    </template> 
+                  </tr>
+                </table>
+              </div>
+            </template>
+
+            <template v-if="showOdds == '二字'">
+              <div class="order-table yiziType oodsBodyDiv">
+                <table class="title">
+                  <tr>
+                    <th v-for="(item,index) in oddsList" class="pointerDom yiziThAct" :class="['shishiZi'+index,index == '0' ? 'active' : '']" @click="shishiZiGet(item,index)">{{item.name}}</th> 
+                  </tr>
+                </table> 
+
+                <table  class="kuaixuanTable">
+                  <tr >
+                    <td colspan="11">快选</td>
+                  </tr> 
+                  <tr>
+                    <td style="background-color: rgb(228, 231, 241);">头</td> 
+                    <td v-for="(item,index) in kuaixuanList">{{item}}</td>
+                  </tr> 
+                  <tr>
+                    <td style="background-color: rgb(228, 231, 241);">尾</td> 
+                    <td v-for="(item,index) in kuaixuanList">{{item}}</td>
+                  </tr> 
+                </table>
+
+                <table>
+                  <tr>
+                    <th>号码</th> 
+                    <th>赔率</th> 
+                    <th>号码</th> 
+                    <th>赔率</th> 
+                    <th>号码</th> 
+                    <th>赔率</th> 
+                    <th>号码</th> 
+                    <th>赔率</th> 
+                    <th>号码</th> 
+                    <th>赔率</th>
+                  </tr>     
+                  <tr>
+                    <template v-for="(item,index) in shishiZiDatas.list" v-if="index*1 < 5">
+                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">{{item.oddsName}}</td> 
+                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">
+                        <ul>
+                          <li><span class="odds-font">{{item.odds}}</span></li>
+                          <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFuncYiZi(item,'item_yizi',item.normalMoney)"></li>
+                        </ul>
+                      </td> 
+                    </template>
+                  </tr> 
+                  <tr>
+                    <template v-for="(item,index) in shishiZiDatas.list" v-if="index*1 > 4">
+                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">{{item.oddsName}}</td> 
+                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">
+                        <ul>
+                          <li><span class="odds-font">{{item.odds}}</span></li>
+                          <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFuncYiZi(item,'item_yizi',item.normalMoney)"></li>
+                        </ul>
+                      </td> 
+                    </template> 
+                  </tr>
+                </table>
+
+              </div>
+            </template>
 
           </div>
 
@@ -382,7 +490,9 @@ export default {
       housan_lmp:{},
       orderDataList: [],
       normalPay: false,
-      bocaiCategory: {}
+      bocaiCategory: {},
+      kuaixuanList: [0,1,2,3,4,5,6,7,8,9],
+      shishiZiDatas: {}
     }
   },
   computed: {
@@ -398,17 +508,22 @@ export default {
       });
   },
   methods: {
+    shishiZiGet(item,index) {
+      $('.yiziThAct').removeClass('active');
+      $('.shishiZi'+index).addClass('active');
+      this.shishiZiDatas = item;
+      this.orderDataList = [];
+    },
     childByChangePay(data) {
       if(this.normalPay != data) {
         this.orderDataList = [];
         $('.bet_box .orders td').removeClass('selected');
-        //console.log('this.orderDataList',this.orderDataList);
       }
       this.normalPay = data;
     },
     childByReset(data) {
       this.orderDataList = [];
-      this.getOdds(1);
+      this.resetOddsCategory(this.bocaiCategory);
 
     },
     outHide(item,ids) {
@@ -416,6 +531,11 @@ export default {
     },
     overShow(item,ids) {
       $('.'+ids+item.oddsId).addClass('overTd');
+    },
+    inputFuncYiZi(item,ids,pay) {
+      let oddsObj = this.shishiZiDatas;
+
+      this.inputFunc(oddsObj,item,ids,pay);
     },
     inputFunc(oddsObj,item,ids,pay) {
 
@@ -465,6 +585,11 @@ export default {
       }
       
     },
+    orderTdYiZi(item,ids) {
+      let oddsObj = this.shishiZiDatas;
+
+      this.orderTd(oddsObj,item,ids);
+    },
     orderTd(oddsObj,item,ids) {
 
       if(this.isOpenOdds) {
@@ -501,13 +626,7 @@ export default {
     handleSelect(key, keyPath) {
         //console.log(key, keyPath);
     },
-    async getOddsCategory(item,index) {
-
-      if(index*1 > 9) {
-        this.submenu = item.name;
-      } else {
-        this.submenu = '更多';
-      }
+    async resetOddsCategory(item) {
 
       let that = this;
 
@@ -523,10 +642,27 @@ export default {
                 that.orderDataList = [];
                 that.normalPay = false;
                 bus.$emit('getnormalPay', false); 
+
+                if(item.name == '一字' || item.name == '二字') {
+                  this.shishiZiDatas = result.oddsList[0];
+                  $('.yiziThAct').removeClass('active');
+                  $('.shishiZi0').addClass('active');
+                }
               }
 
             })
           });
+    },
+    async getOddsCategory(item,index) {
+
+      if(index*1 > 9) {
+        this.submenu = item.name;
+      } else {
+        this.submenu = '更多';
+      }
+
+      this.resetOddsCategory(item);
+
     },
     async getOdds(id) {
 

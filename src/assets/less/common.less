@@ -80,7 +80,7 @@ li {
         border-bottom: 0px solid #6C3092;
         background-size: 100% 100%;
         color: #ffea00;
-        cursor: point;
+        cursor: pointer;
         padding-left: 10px;
         padding-right: 10px;
         background-color: #ffd04b !important;
@@ -89,14 +89,14 @@ li {
     .el-menu-item.is-active {
       background-size: 100% 100%;
       color: #ffea00;
-      cursor: point;
+      cursor: pointer;
       border-bottom: 0px solid #6c3092;
       background-color: #ffd04b !important;
     }
 
     .el-menu-item:hover {
       color: #fff !important;
-      cursor: point;
+      cursor: pointer;
     }
 
     .el-menu-item,.el-submenu {
@@ -131,6 +131,10 @@ li {
         font-size: 12px;
     }
 
+}
+
+.pointerDom {
+    cursor: pointer;
 }
 
 #submenu{ 
@@ -260,8 +264,22 @@ td, th {
 
 
 .duboBodyClass {
-  .right {
-    position: relative;
+    .kuaixuanTable {
+        font-weight: bold;
+        cursor: pointer;
+    }   
+    .right {
+        position: relative;
+    }
+
+    .order-table .title th {
+        background-color: #ecdcad;
+    }
+
+    .order-table .title th.active {
+        background-image: none;
+        background-color: #fc9647;
+        cursor: default;
     }
 
     .bet_box {
@@ -354,23 +372,23 @@ td, th {
         position: relative;
     }
 
-    .tdRight ul {
+    .bet_box .orders ul {
         height: 100%;
         overflow: hidden;
     }
 
-    .tdRight ul li {
+    .bet_box .orders ul li {
         padding: 7px 0;
         display: inline-block;
         width: 40%;
         margin: 0;
     }
 
-    .bet_box ul li+li {
+    .bet_box .orders ul li+li {
         width: 48%;
     }
 
-    .tdRight ul li:only-child {
+    .bet_box .orders ul li:only-child {
         width: 100%;
     }
 
@@ -504,25 +522,6 @@ td, th {
     .nball .order-table td.oddsUltd{
         cursor: pointer;
         position: relative;
-    }
-    .nball .order-table ul {
-        height: 100%;
-        overflow: hidden;
-    }
-    .nball .order-table ul li {
-        padding: 7px 0;
-        display: inline-block;
-        width: 40%;
-        margin: 0;
-    }
-    .nball .order-table ul li {
-        padding: 7px 0;
-        display: inline-block;
-        width: 40%;
-        margin: 0;
-    }
-    .nball .order-table ul li:only-child {
-        width: 100%;
     }
     .nball .order-table span {
         cursor: pointer;
