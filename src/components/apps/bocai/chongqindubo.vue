@@ -278,7 +278,7 @@
                     <th>赔率</th>
                   </tr>     
                   <tr>
-                    <template v-for="(item,index) in shishiZiDatas.list" v-if="index*1 < 5">
+                    <template v-for="(item,index) in shishiZiDatasList" v-if="index*1 < 5">
                       <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">{{item.oddsName}}</td> 
                       <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">
                         <ul>
@@ -289,7 +289,7 @@
                     </template>
                   </tr> 
                   <tr>
-                    <template v-for="(item,index) in shishiZiDatas.list" v-if="index*1 > 4">
+                    <template v-for="(item,index) in shishiZiDatasList" v-if="index*1 > 4">
                       <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">{{item.oddsName}}</td> 
                       <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">
                         <ul>
@@ -317,11 +317,11 @@
                   </tr> 
                   <tr>
                     <td style="background-color: rgb(228, 231, 241);">头</td> 
-                    <td v-for="(item,index) in kuaixuanList">{{item}}</td>
+                    <td v-for="(item,index) in kuaixuanList" :class="'kuaixuantou'+item" @click="kuaixuanOdd(item,'tou')">{{item}}</td>
                   </tr> 
                   <tr>
                     <td style="background-color: rgb(228, 231, 241);">尾</td> 
-                    <td v-for="(item,index) in kuaixuanList">{{item}}</td>
+                    <td v-for="(item,index) in kuaixuanList" :class="'kuaixuanwei'+item" @click="kuaixuanOdd(item,'wei')">{{item}}</td>
                   </tr> 
                 </table>
 
@@ -338,8 +338,8 @@
                     <th>号码</th> 
                     <th>赔率</th>
                   </tr>     
-                  <tr>
-                    <template v-for="(item,index) in shishiZiDatas.list" v-if="index*1 < 5">
+                  <tr v-for="(itemPa,index) in shishiZiDatasList">
+                    <template v-for="(item,index) in itemPa">
                       <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">{{item.oddsName}}</td> 
                       <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">
                         <ul>
@@ -349,17 +349,6 @@
                       </td> 
                     </template>
                   </tr> 
-                  <tr>
-                    <template v-for="(item,index) in shishiZiDatas.list" v-if="index*1 > 4">
-                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">{{item.oddsName}}</td> 
-                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">
-                        <ul>
-                          <li><span class="odds-font">{{item.odds}}</span></li>
-                          <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFuncYiZi(item,'item_yizi',item.normalMoney)"></li>
-                        </ul>
-                      </td> 
-                    </template> 
-                  </tr>
                 </table>
 
               </div>
@@ -491,8 +480,9 @@ export default {
       orderDataList: [],
       normalPay: false,
       bocaiCategory: {},
-      kuaixuanList: [0,1,2,3,4,5,6,7,8,9],
-      shishiZiDatas: {}
+      kuaixuanList: ['0','1','2','3','4','5','6','7','8','9'],
+      shishiZiDatas: {},
+      shishiZiDatasList: []
     }
   },
   computed: {
@@ -508,10 +498,44 @@ export default {
       });
   },
   methods: {
+    kuaixuanOdd(item,type) {
+      let list = this.shishiZiDatasList;
+
+
+
+      for(let n in list) {
+        if(list[n].oddsName..charAt(0) == item) {
+
+        }
+          
+      }
+      if(type == 'tou') {
+        for(let n in list) {
+          if(list[n].oddsName..charAt(0) == item)
+          
+        }
+
+      } else {
+        str.charAt(str.length – 1)
+      }
+      shishiZiDatasList
+    },
     shishiZiGet(item,index) {
       $('.yiziThAct').removeClass('active');
       $('.shishiZi'+index).addClass('active');
       this.shishiZiDatas = item;
+      this.shishiZiDatasList = item.list;
+
+      if(this.showOdds == '二字') {
+        let arry = [];
+
+        for(var i=0;i<item.list.length;i=i+5){
+          arry.push(item.list.slice(i,i+5));
+        }
+
+        this.shishiZiDatasList = arry;
+      }
+
       this.orderDataList = [];
     },
     childByChangePay(data) {
@@ -643,13 +667,27 @@ export default {
                 that.normalPay = false;
                 bus.$emit('getnormalPay', false); 
 
-                if(item.name == '一字' || item.name == '二字') {
-                  this.shishiZiDatas = result.oddsList[0];
+                this.shishiZiDatas = result.oddsList[0];
+                this.shishiZiDatasList = result.oddsList[0].list;
+
+                if(item.name == '一字') {
+                  $('.yiziThAct').removeClass('active');
+                  $('.shishiZi0').addClass('active');
+                } else if(item.name == '二字') {
+
+                  let arry = [];
+
+                  for(var i=0;i<this.shishiZiDatas.list.length;i=i+5){
+                    arry.push(this.shishiZiDatas.list.slice(i,i+5));
+                  }
+
+                  this.shishiZiDatasList = arry;
                   $('.yiziThAct').removeClass('active');
                   $('.shishiZi0').addClass('active');
                 }
-              }
 
+
+              }
             })
           });
     },
