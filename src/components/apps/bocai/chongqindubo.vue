@@ -503,7 +503,10 @@ export default {
   },
   methods: {
     kuaixuanOdd(item,type) {
+      this.qingkong();
       let list = this.shishiZiDatas.list;
+
+      console.log('item',item,'type',type);
 
       if($('.kuaixuan'+type+item).hasClass('active')){
         $('.kuaixuan'+type+item).removeClass('active');
@@ -532,7 +535,12 @@ export default {
       let temlist = [];
       let temlistSub = [];
 
+      console.log('this.kuaixuanTouList',this.kuaixuanTouList);
+      console.log('this.kuaixuanWeiList',this.kuaixuanWeiList);
+
       if(this.kuaixuanTouList.length != 0 && this.kuaixuanWeiList.length != 0) {
+
+        console.log('item111',item,'type',type);
         for(let n in list) {
           for(let m in this.kuaixuanTouList) {
             if(list[n].oddsName.charAt(0) == this.kuaixuanTouList[m].item) {
@@ -549,7 +557,11 @@ export default {
             }
           }
           
-      } else if(this.kuaixuanTouList.length != 0 && this.kuaixuanWeiList.length == 0) {
+      } 
+      if(this.kuaixuanTouList.length != 0 && this.kuaixuanWeiList.length == 0) {
+
+        console.log('item222',item,'type',type);
+
         for(let n in list) {
           for(let m in this.kuaixuanTouList) {
             if(list[n].oddsName.charAt(0) == this.kuaixuanTouList[m].item) {
@@ -557,7 +569,11 @@ export default {
             } 
           }
         }
-      } else if(this.kuaixuanTouList.length == 0 && this.kuaixuanWeiList.length != 0) {
+      } 
+      if(this.kuaixuanTouList.length == 0 && this.kuaixuanWeiList.length != 0) {
+
+        console.log('item333',item,'type',type);
+
         for(let n in list) {
             for(let m in this.kuaixuanWeiList) {
               if(list[n].oddsName.charAt(list[n].oddsName.length*1 - 1) == this.kuaixuanWeiList[m].item) {
@@ -571,32 +587,26 @@ export default {
 
       console.log('temlistSub',temlistSub);
 
-
       let oddsObj = this.shishiZiDatas;
-
-      // this.orderTd(oddsObj,item,ids);
-      
-      // console.log('temlist',temlist);
-
-      // 'item_yizi'
-
 
       for(let n in this.selectedZiTd ) {
         this.orderTd(oddsObj,this.selectedZiTd[n],'item_yizi');
       }
           
-    
-
-
-
-
     },
     qingkong() {
       $('.bet_box .orders td').removeClass('selected');
       this.orderDataList = [];
     },
+    allQingkong() {
+      $('.bet_box .orders td').removeClass('selected');
+      this.orderDataList = [];
+      $('.kuaixuanTable td').removeClass('active');
+      this.kuaixuanTouList = [];
+      this.kuaixuanWeiList = [];
+    },
     shishiZiGet(item,index) {
-      this.qingkong();
+      this.allQingkong();
       $('.yiziThAct').removeClass('active');
       $('.shishiZi'+index).addClass('active');
       this.shishiZiDatas = item;
@@ -616,13 +626,13 @@ export default {
       if(this.normalPay != data) {
         this.orderDataList = [];
         $('.bet_box .orders td').removeClass('selected');
+        this.allQingkong();
       }
       this.normalPay = data;
     },
     childByReset(data) {
-      this.orderDataList = [];
       this.resetOddsCategory(this.bocaiCategory);
-
+      this.allQingkong();
     },
     outHide(item,ids) {
       $('.'+ids+item.oddsId).removeClass('overTd');

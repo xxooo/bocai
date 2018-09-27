@@ -158,7 +158,6 @@
         this.moneyOrder = '';
       },
       reset() {
-        $('.bet_box .orders td').removeClass('selected');
         this.moneyOrder = '';
         this.$emit('childByReset', 'reset');
       },
@@ -170,6 +169,9 @@
         }
       },
       async orderSub() {
+
+        console.log('this.totalMoney',this.totalMoney);
+        console.log('this.cashBalance',this.cashBalance);
         if(this.totalMoney > this.cashBalance) {
           this.$alertMessage('您的余额不足!', '温馨提示');
         } else {
