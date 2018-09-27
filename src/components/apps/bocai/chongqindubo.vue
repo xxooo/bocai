@@ -257,7 +257,7 @@
               </div> 
             </template>
 
-            <template v-if="showOdds == '一字'">
+            <!-- <template v-if="showOdds == '一字'">
               <div class="order-table yiziType oodsBodyDiv">
                 <table class="title">
                   <tr>
@@ -301,9 +301,9 @@
                   </tr>
                 </table>
               </div>
-            </template>
+            </template> -->
 
-            <template v-if="showOdds == '二字'">
+            <template v-if="showOdds == '二字' || showOdds == '一字'">
               <div class="order-table yiziType oodsBodyDiv">
                 <table class="title">
                   <tr>
@@ -311,7 +311,7 @@
                   </tr>
                 </table> 
 
-                <table  class="kuaixuanTable">
+                <table  class="kuaixuanTable" v-if="showOdds == '二字'">
                   <tr >
                     <td colspan="11">快选</td>
                   </tr> 
@@ -482,7 +482,11 @@ export default {
       bocaiCategory: {},
       kuaixuanList: ['0','1','2','3','4','5','6','7','8','9'],
       shishiZiDatas: {},
-      shishiZiDatasList: []
+      shishiZiDatasList: [],
+      kuaixuanTouList:[],
+      kuaixuanWeiList:[],
+      tempList:[],
+      selectedZiTd:[]
     }
   },
   computed: {
@@ -499,34 +503,105 @@ export default {
   },
   methods: {
     kuaixuanOdd(item,type) {
-      let list = this.shishiZiDatasList;
+      let list = this.shishiZiDatas.list;
 
+      if($('.kuaixuan'+type+item).hasClass('active')){
+        $('.kuaixuan'+type+item).removeClass('active');
 
-
-      for(let n in list) {
-        if(list[n].oddsName..charAt(0) == item) {
-
-        }
-          
-      }
-      if(type == 'tou') {
-        for(let n in list) {
-          if(list[n].oddsName..charAt(0) == item)
-          
+        if(type == 'tou') {
+          _.remove(this.kuaixuanTouList, function(n) {
+            let m = {type,item};
+            return JSON.stringify(n) == JSON.stringify(m);
+          });
+        } else {
+          _.remove(this.kuaixuanWeiList, function(n) {
+            let m = {type,item};
+            return JSON.stringify(n) == JSON.stringify(m);
+          });
         }
 
       } else {
-        str.charAt(str.length – 1)
+        $('.kuaixuan'+type+item).addClass('active');
+        if(type == 'tou') {
+          this.kuaixuanTouList.push({type,item});
+        } else {
+          this.kuaixuanWeiList.push({type,item});
+        }
       }
-      shishiZiDatasList
+
+      let temlist = [];
+      let temlistSub = [];
+
+      if(this.kuaixuanTouList.length != 0 && this.kuaixuanWeiList.length != 0) {
+        for(let n in list) {
+          for(let m in this.kuaixuanTouList) {
+            if(list[n].oddsName.charAt(0) == this.kuaixuanTouList[m].item) {
+              temlist.push(list[n]);
+            } 
+          }
+        }
+
+        for(let n in temlist) {
+            for(let m in this.kuaixuanWeiList) {
+              if(temlist[n].oddsName.charAt(list[n].oddsName.length*1 - 1) == this.kuaixuanWeiList[m].item) {
+                temlistSub.push(temlist[n]);
+              } 
+            }
+          }
+          
+      } else if(this.kuaixuanTouList.length != 0 && this.kuaixuanWeiList.length == 0) {
+        for(let n in list) {
+          for(let m in this.kuaixuanTouList) {
+            if(list[n].oddsName.charAt(0) == this.kuaixuanTouList[m].item) {
+              temlistSub.push(list[n]);
+            } 
+          }
+        }
+      } else if(this.kuaixuanTouList.length == 0 && this.kuaixuanWeiList.length != 0) {
+        for(let n in list) {
+            for(let m in this.kuaixuanWeiList) {
+              if(list[n].oddsName.charAt(list[n].oddsName.length*1 - 1) == this.kuaixuanWeiList[m].item) {
+                temlistSub.push(list[n]);
+              } 
+            }
+          }
+      } 
+
+      this.selectedZiTd = temlistSub;
+
+      console.log('temlistSub',temlistSub);
+
+
+      let oddsObj = this.shishiZiDatas;
+
+      // this.orderTd(oddsObj,item,ids);
+      
+      // console.log('temlist',temlist);
+
+      // 'item_yizi'
+
+
+      for(let n in this.selectedZiTd ) {
+        this.orderTd(oddsObj,this.selectedZiTd[n],'item_yizi');
+      }
+          
+    
+
+
+
+
+    },
+    qingkong() {
+      $('.bet_box .orders td').removeClass('selected');
+      this.orderDataList = [];
     },
     shishiZiGet(item,index) {
+      this.qingkong();
       $('.yiziThAct').removeClass('active');
       $('.shishiZi'+index).addClass('active');
       this.shishiZiDatas = item;
-      this.shishiZiDatasList = item.list;
 
-      if(this.showOdds == '二字') {
+      if(this.showOdds == '二字' || item.showOdds == '一字') {
         let arry = [];
 
         for(var i=0;i<item.list.length;i=i+5){
@@ -536,7 +611,6 @@ export default {
         this.shishiZiDatasList = arry;
       }
 
-      this.orderDataList = [];
     },
     childByChangePay(data) {
       if(this.normalPay != data) {
@@ -668,13 +742,8 @@ export default {
                 bus.$emit('getnormalPay', false); 
 
                 this.shishiZiDatas = result.oddsList[0];
-                this.shishiZiDatasList = result.oddsList[0].list;
 
-                if(item.name == '一字') {
-                  $('.yiziThAct').removeClass('active');
-                  $('.shishiZi0').addClass('active');
-                } else if(item.name == '二字') {
-
+                if(item.name == '一字' || item.name == '二字') {
                   let arry = [];
 
                   for(var i=0;i<this.shishiZiDatas.list.length;i=i+5){
@@ -682,10 +751,10 @@ export default {
                   }
 
                   this.shishiZiDatasList = arry;
+
                   $('.yiziThAct').removeClass('active');
                   $('.shishiZi0').addClass('active');
                 }
-
 
               }
             })
