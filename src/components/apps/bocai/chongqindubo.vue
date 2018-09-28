@@ -43,7 +43,7 @@
                               <td class="tdRight" :class="'longhuhe_lmp'+item.oddsId" @click="orderTd(longhuhe_lmp,item,'longhuhe_lmp')" @mouseenter="overShow(item,'longhuhe_lmp')" @mouseleave="outHide(item,'longhuhe_lmp')">
                                 <ul>
                                   <li ><span class="odds-font">{{item.odds}}</span></li>
-                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(longhuhe_lmp,item,'longhuhe_lmp',item.normalMoney)"></li>
+                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(longhuhe_lmp,item,'longhuhe_lmp',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                                 </ul>
                               </td>
                             </template>
@@ -56,7 +56,7 @@
                                   <li>
                                     <span class="odds-font">{{item.odds}}</span>
                                   </li>
-                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(longhuhe_lmp,item,'longhuhe_lmp',item.normalMoney)"></li>
+                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(longhuhe_lmp,item,'longhuhe_lmp',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                                 </ul>
                               </td>
                             </template>
@@ -79,7 +79,7 @@
                               <li>
                                 <span class="odds-font">{{item.odds}}</span>
                               </li>
-                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(diyiqiu_lmp,item,'diyiqiu_lmp',item.normalMoney)"></li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(diyiqiu_lmp,item,'diyiqiu_lmp',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                             </ul>
                           </td>
                         </tr>
@@ -99,7 +99,7 @@
                               <li>
                                 <span class="odds-font">{{item.odds}}</span>
                               </li>
-                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(dierqiu_lmp,item,'dierqiu_lmp',item.normalMoney)"></li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(dierqiu_lmp,item,'dierqiu_lmp',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                             </ul>
                           </td>
                         </tr>
@@ -119,7 +119,7 @@
                               <li>
                                 <span class="odds-font">{{item.odds}}</span>
                               </li>
-                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(disanqiu_lmp,item,'disanqiu_lmp',item.normalMoney)"></li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(disanqiu_lmp,item,'disanqiu_lmp',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                             </ul>
                           </td>
                         </tr>
@@ -139,7 +139,7 @@
                               <li>
                                 <span class="odds-font">{{item.odds}}</span>
                               </li>
-                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(disiqiu_lmp,item,'disiqiu_lmp',item.normalMoney)"></li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(disiqiu_lmp,item,'disiqiu_lmp',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                             </ul>
                           </td>
                         </tr>
@@ -159,7 +159,7 @@
                               <li>
                                 <span class="odds-font">{{item.odds}}</span>
                               </li>
-                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(diwuqiu_lmp,item,'diwuqiu_lmp',item.normalMoney)"></li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(diwuqiu_lmp,item,'diwuqiu_lmp',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                             </ul>
                           </td>
                         </tr>
@@ -182,7 +182,7 @@
                               <li>
                                 <span class="odds-font">{{item.odds}}</span>
                               </li>
-                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(qiansan_lmp,item,'qiansan_lmp',item.normalMoney)"></li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(qiansan_lmp,item,'qiansan_lmp',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                             </ul>
                           </td>
                         </template>
@@ -202,7 +202,7 @@
                               <li>
                                 <span class="odds-font">{{item.odds}}</span>
                               </li>
-                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(zhongsan_lmp,item,'zhongsan_lmp',item.normalMoney)"></li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(zhongsan_lmp,item,'zhongsan_lmp',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                             </ul>
                           </td>
                         </template>
@@ -222,7 +222,7 @@
                               <li>
                                 <span class="odds-font">{{item.odds}}</span>
                               </li>
-                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(housan_lmp,item,'housan_lmp',item.normalMoney)"></li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(housan_lmp,item,'housan_lmp',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                             </ul>
                           </td>
                         </template>
@@ -246,7 +246,7 @@
                             <td class="oddsUltd" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')">
                               <ul>
                                 <li><span class="odds-font" >{{item.odds}}</span></li>
-                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(item_yiwu,item,'item_yiwu',item.normalMoney)"></li>
+                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(item_yiwu,item,'item_yiwu',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                               </ul>
                             </td>
                         </tr>
@@ -256,52 +256,6 @@
                 </div>
               </div> 
             </template>
-
-            <!-- <template v-if="showOdds == '一字'">
-              <div class="order-table yiziType oodsBodyDiv">
-                <table class="title">
-                  <tr>
-                    <th v-for="(item,index) in oddsList" class="pointerDom yiziThAct" :class="['shishiZi'+index,index == '0' ? 'active' : '']" @click="shishiZiGet(item,index)">{{item.name}}</th> 
-                  </tr>
-                </table> 
-                <table>
-                  <tr>
-                    <th>号码</th> 
-                    <th>赔率</th> 
-                    <th>号码</th> 
-                    <th>赔率</th> 
-                    <th>号码</th> 
-                    <th>赔率</th> 
-                    <th>号码</th> 
-                    <th>赔率</th> 
-                    <th>号码</th> 
-                    <th>赔率</th>
-                  </tr>     
-                  <tr>
-                    <template v-for="(item,index) in shishiZiDatasList" v-if="index*1 < 5">
-                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">{{item.oddsName}}</td> 
-                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">
-                        <ul>
-                          <li><span class="odds-font">{{item.odds}}</span></li>
-                          <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFuncYiZi(item,'item_yizi',item.normalMoney)"></li>
-                        </ul>
-                      </td> 
-                    </template>
-                  </tr> 
-                  <tr>
-                    <template v-for="(item,index) in shishiZiDatasList" v-if="index*1 > 4">
-                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">{{item.oddsName}}</td> 
-                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">
-                        <ul>
-                          <li><span class="odds-font">{{item.odds}}</span></li>
-                          <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFuncYiZi(item,'item_yizi',item.normalMoney)"></li>
-                        </ul>
-                      </td> 
-                    </template> 
-                  </tr>
-                </table>
-              </div>
-            </template> -->
 
             <template v-if="showOdds == '二字' || showOdds == '一字'">
               <div class="order-table yiziType oodsBodyDiv">
@@ -344,7 +298,7 @@
                       <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">
                         <ul>
                           <li><span class="odds-font">{{item.odds}}</span></li>
-                          <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFuncYiZi(item,'item_yizi',item.normalMoney)"></li>
+                          <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFuncYiZi(item,'item_yizi',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                         </ul>
                       </td> 
                     </template>
@@ -589,9 +543,22 @@ export default {
 
       let oddsObj = this.shishiZiDatas;
 
-      for(let n in this.selectedZiTd ) {
-        this.orderTd(oddsObj,this.selectedZiTd[n],'item_yizi');
+      if(!this.normalPay) {
+        for(let n in this.selectedZiTd ) {
+          this.orderTd(oddsObj,this.selectedZiTd[n],'item_yizi');
+        }
+      } else {
+        for(let n in this.shishiZiDatasList){
+          for(let m in this.shishiZiDatasList[n]) {
+            this.inputFuncYiZi(this.shishiZiDatasList[n][m],'item_yizi',this.shishiZiDatasList[n][m].normalMoney);
+          }
+        }
+        for(let n in this.selectedZiTd ) {
+          $('.item_yizi'+this.selectedZiTd[n].oddsId).addClass('selected');
+        }
       }
+
+      
           
     },
     qingkong() {
@@ -611,14 +578,11 @@ export default {
       $('.shishiZi'+index).addClass('active');
       this.shishiZiDatas = item;
 
-      if(this.showOdds == '二字' || item.showOdds == '一字') {
-        let arry = [];
-
+      if(this.showOdds == '二字' || this.showOdds == '一字') {
+        this.shishiZiDatasList = [];
         for(var i=0;i<item.list.length;i=i+5){
-          arry.push(item.list.slice(i,i+5));
+          this.shishiZiDatasList.push(item.list.slice(i,i+5));
         }
-
-        this.shishiZiDatasList = arry;
       }
 
     },
@@ -647,19 +611,39 @@ export default {
     },
     inputFunc(oddsObj,item,ids,pay) {
 
-      if(this.normalPay) {
-        if(pay == '') {
-          $('.'+ids+item.oddsId).removeClass('selected');
-          _.remove(this.orderDataList, function(n) {
-                  return n.bocaiOddName == item.oddsName;
-                });
-        } else {
+      let reg = /^[\u2E80-\u9FFF]+$/;
+      if(reg.test(this.moneyOrder)){
+        this.$alertMessage('请确认注单!', '温馨提示');
+      } else {
+        if(this.normalPay) {
+          if(pay == '') {
+            $('.'+ids+item.oddsId).removeClass('selected');
+            _.remove(this.orderDataList, function(n) {
+                    return n.bocaiOddName == item.oddsName;
+                  });
+          } else {
 
-          $('.'+ids+item.oddsId).addClass('selected');
-              let ifHas = false;
-              for(let n in this.orderDataList) {
-                if(this.orderDataList[n].bocaiOddId == item.oddsId) {
-                  ifHas = true;
+            $('.'+ids+item.oddsId).addClass('selected');
+                let ifHas = false;
+                for(let n in this.orderDataList) {
+                  if(this.orderDataList[n].bocaiOddId == item.oddsId) {
+                    ifHas = true;
+                    let obj = {
+                      bocaiCategory2Id: oddsObj.id,//8225,//投注博彩分类2ID
+                      bocaiCategory2Name: oddsObj.name,//"混合",//投注博彩分类2名称
+                      bocaiOddId: item.oddsId,//5543,//投注博彩赔率ID
+                      bocaiOddName: item.oddsName,//"大",//投注博彩赔率名称
+                      bocaiValue:"",//投注内容,六合彩连肖/连尾
+                      normalMoney: item.normalMoney,//10000,//一般模式下，选择的金额
+                      orderNormal: this.normalPay,   //是快捷，还是一般投注
+                      bocaiOdds: item.odds//1.90//赔率
+                    };
+
+                    this.orderDataList[n] = obj;
+                  }
+                }
+
+                if(!ifHas) {
                   let obj = {
                     bocaiCategory2Id: oddsObj.id,//8225,//投注博彩分类2ID
                     bocaiCategory2Name: oddsObj.name,//"混合",//投注博彩分类2名称
@@ -671,26 +655,13 @@ export default {
                     bocaiOdds: item.odds//1.90//赔率
                   };
 
-                  this.orderDataList[n] = obj;
+                  this.orderDataList.push(obj);
                 }
-              }
-
-              if(!ifHas) {
-                let obj = {
-                  bocaiCategory2Id: oddsObj.id,//8225,//投注博彩分类2ID
-                  bocaiCategory2Name: oddsObj.name,//"混合",//投注博彩分类2名称
-                  bocaiOddId: item.oddsId,//5543,//投注博彩赔率ID
-                  bocaiOddName: item.oddsName,//"大",//投注博彩赔率名称
-                  bocaiValue:"",//投注内容,六合彩连肖/连尾
-                  normalMoney: item.normalMoney,//10000,//一般模式下，选择的金额
-                  orderNormal: this.normalPay,   //是快捷，还是一般投注
-                  bocaiOdds: item.odds//1.90//赔率
-                };
-
-                this.orderDataList.push(obj);
-              }
+          }
         }
       }
+
+      
       
     },
     orderTdYiZi(item,ids) {
