@@ -328,8 +328,8 @@ export default {
       submenu: '更多',
       isOpenOdds: true,
       longhuhe_lmp: {},
-      yiwuqiu_lmp: {},
-      qianhousan_lmp: {},
+      yiwuqiu_lmp: [],
+      qianhousan_lmp: [],
       orderDataList: [],
       normalPay: false,
       bocaiCategory: {},
@@ -675,19 +675,22 @@ export default {
 
     },
     shuaiXuanDatas(dataList) {
+      let yiwuqiuTemp = [];
+      let qianhousanTemp = [];
       for(let m in dataList) {
         if(dataList[m].name == '总和-龙虎和') {
           this.longhuhe_lmp = dataList[m];
         }
         if(['第一球','第二球','第三球','第四球','第五球'].findIndex((n) => n == dataList[m].name)>-1) {
-          this.yiwuqiu_lmp.push(dataList[m]);
+          yiwuqiuTemp.push(dataList[m]);
         }
         if(['前三','中三','后三'].findIndex((n) => n == dataList[m].name)>-1) {
-          this.qianhousan_lmp.push(dataList[m]);
+          qianhousanTemp.push(dataList[m]);
         }
       }
+      this.yiwuqiu_lmp = yiwuqiuTemp;
+      this.qianhousan_lmp = qianhousanTemp;
     }
-
   }
 }
 

@@ -84,7 +84,9 @@ export default {
       preResult: '',
       icons:[
             require('@/assets/img/chongqindubo.png'),
-            require('@/assets/img/luckyairship.png')
+            require('@/assets/img/luckyairship.png'),
+            require('@/assets/img/beijingpk10.png'),
+            require('@/assets/img/shandong11xuan5.png')
           ]
     }
   },
@@ -178,6 +180,14 @@ export default {
           case '幸运飞艇':
             path = 'luckyairship';
             this.imgUrl = 1;
+            break;
+          case '北京PK拾':
+            path = 'beijingpk10';
+            this.imgUrl = 2;
+            break;
+          case '山东11选5':
+            path = 'shandong11xuan5';
+            this.imgUrl = 3;
             break;
         }
       bus.$emit('getbocaiTypeId', item.bocaiId); 
