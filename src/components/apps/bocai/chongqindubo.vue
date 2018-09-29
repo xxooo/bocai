@@ -257,7 +257,7 @@
               </div> 
             </template>
 
-            <template v-if="showOdds == '二字' || showOdds == '一字'">
+            <template v-if="['二字','一字','三字','二定位','三定位','组选三','组选六','跨度'].findIndex((n) => n == showOdds)>-1">
               <div class="order-table yiziType oodsBodyDiv">
                 <table class="title">
                   <tr>
@@ -265,7 +265,7 @@
                   </tr>
                 </table> 
 
-                <table  class="kuaixuanTable" v-if="showOdds == '二字'">
+                <table  class="kuaixuanTable" v-if="['二字','二定位'].findIndex((n) => n == this.showOdds)>-1">
                   <tr >
                     <td colspan="11">快选</td>
                   </tr> 
@@ -305,6 +305,30 @@
                   </tr> 
                 </table>
 
+              </div>
+            </template>
+
+            <template v-if="['和数'].findIndex((n) => n == showOdds)>-1">
+              <div>
+                <div class="order-table oodsBodyDiv">
+                  <table>
+                    <tr>
+                      <th colspan="5">和数</th>
+                    </tr> 
+                    <tr v-for="(itemPa,index) in oddsList">
+                      <td width="20%"><b>{{itemPa.name}}</b></td>
+                      <template v-for="(item,index) in itemPa.list">
+                        <td class="pointerDom" :class="'item_heshu'+item.oddsId" @click="orderTd(itemPa,item,'item_heshu')" @mouseenter="overShow(item,'item_heshu')" @mouseleave="outHide(item,'item_heshu')">{{item.oddsName}}</td> 
+                        <td class="pointerDom" :class="'item_heshu'+item.oddsId" @click="orderTd(itemPa,item,'item_heshu')" @mouseenter="overShow(item,'item_heshu')" @mouseleave="outHide(item,'item_heshu')">
+                          <ul>
+                            <li><span class="odds-font">{{item.odds}}</span></li>
+                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(itemPa,item,'item_heshu',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
+                          </ul>
+                        </td>
+                      </template>
+                    </tr>
+                  </table>
+                </div>
               </div>
             </template>
 
@@ -578,7 +602,7 @@ export default {
       $('.shishiZi'+index).addClass('active');
       this.shishiZiDatas = item;
 
-      if(this.showOdds == '二字' || this.showOdds == '一字') {
+      if(['二字','一字','三字','二定位','三定位','组选三','组选六','跨度'].findIndex((n) => n == this.showOdds)>-1) {
         this.shishiZiDatasList = [];
         for(var i=0;i<item.list.length;i=i+5){
           this.shishiZiDatasList.push(item.list.slice(i,i+5));
@@ -724,7 +748,7 @@ export default {
 
                 this.shishiZiDatas = result.oddsList[0];
 
-                if(item.name == '一字' || item.name == '二字') {
+                if(['二字','一字','三字','二定位','三定位','组选三','组选六','跨度'].findIndex((n) => n == this.showOdds)>-1) {
                   let arry = [];
 
                   for(var i=0;i<this.shishiZiDatas.list.length;i=i+5){
