@@ -6,14 +6,14 @@
           <div class="headImg"><img :src="icons[imgUrl]"></div>
           <div class="headLabel">
             <div class="activeIndex"><h3>{{activeIndex}}</h3></div>
-            <!-- <div class="preResult"><span>{{preResult}}</span></div> -->
             <div class="preResult">
               <ul class="result-list">
                 <li v-for="(item,index) in preResult" class="bjpk-ran bjpk-ranNo-5 orangeShishiC">{{item}}</li>
               </ul>
             </div>
             <div class="preBocaiPeriods"><p class="qicip">第 <span>{{preBocaiPeriods}}</span> 期</p></div>
-          </div>        </div>
+            </div>        
+          </div>
       </el-header>
       <el-menu
           :default-active="activeIndex"
