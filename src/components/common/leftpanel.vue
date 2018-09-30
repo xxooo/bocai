@@ -126,7 +126,7 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event);
+      //console.log(tab, event);
     },
     async getcUserInfo() {
       let res = await this.$get(`${window.url}/api/cUserInfo`);

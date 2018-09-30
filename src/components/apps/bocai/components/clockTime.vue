@@ -50,9 +50,6 @@
       this.gettimeLeft();
     },
     computed:{
-      // ...mapGetters({
-      //   cashBalance: 'getcashBalance'
-      // }),
       totalMoney() {
         let totalMoney = 0;
         for(let n in this.orderList) {

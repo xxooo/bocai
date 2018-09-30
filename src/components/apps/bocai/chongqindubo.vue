@@ -24,14 +24,14 @@
           <clock-time></clock-time>
         </div>
         <div class="bet_box">
-          <div class="orders">
+          <div class="orders oodsBodyDiv">
             <div class="order-info">
               <bet-quick :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
             </div>
 
             <template v-if="showOdds == '两面盘'">
 
-                <div class="oodsBodyDiv">
+                <div>
                   <div class="order-table">
                       <table>
                         <tr>
@@ -65,7 +65,7 @@
                   </div>
                 </div>
 
-              <div class="qiu15_body oodsBodyDiv">
+              <div class="qiu15_body">
 
                 <div class="eball" v-for="(itemPa,index) in yiwuqiu_lmp">
                     <div class="order-table">
@@ -90,7 +90,7 @@
 
               </div>
 
-              <div class="oodsBodyDiv">
+              <div>
 
                 <div class="order-table" v-for="(itemPa,index) in qianhousan_lmp">
                     <table>
@@ -118,7 +118,7 @@
 
             <template v-if="showOdds == '1~5'">
               <div>
-                <div class="qiu15_body oodsBodyDiv">
+                <div class="qiu15_body">
                   <div class="nball" v-for="(item_yiwu,index_yiwu) in oddsList">
                     <div class="order-table">
                       <table>
@@ -141,7 +141,7 @@
             </template>
 
             <template v-if="['二字','一字','三字','二定位','三定位','组选三','组选六','跨度'].findIndex((n) => n == showOdds)>-1">
-              <div class="order-table yiziType oodsBodyDiv">
+              <div class="order-table yiziType">
                 <table class="title">
                   <tr>
                     <th v-for="(item,index) in oddsList" class="pointerDom yiziThAct" :class="['shishiZi'+index,index == '0' ? 'active' : '']" @click="shishiZiGet(item,index)">{{item.name}}</th> 
@@ -193,10 +193,10 @@
 
             <template v-if="['和数'].findIndex((n) => n == showOdds)>-1">
               <div>
-                <div class="order-table oodsBodyDiv">
+                <div class="order-table">
                   <table>
                     <tr>
-                      <th colspan="5">和数</th>
+                      <th colspan="5">{{showOdds}}</th>
                     </tr> 
                     <tr v-for="(itemPa,index) in oddsList">
                       <td width="20%"><b>{{itemPa.name}}</b></td>
@@ -619,24 +619,7 @@ export default {
                 that.normalPay = false;
                 bus.$emit('getnormalPay', false); 
 
-                if(this.showOdds == '两面盘') {
-                  that.shuaiXuanDatas(result.oddsList);
-                }
-
-                if(['二字','一字','三字','二定位','三定位','组选三','组选六','跨度'].findIndex((n) => n == this.showOdds)>-1) {
-                  this.shishiZiDatas = result.oddsList[0];
-
-                  let arry = [];
-
-                  for(var i=0;i<this.shishiZiDatas.list.length;i=i+5){
-                    arry.push(this.shishiZiDatas.list.slice(i,i+5));
-                  }
-
-                  this.shishiZiDatasList = arry;
-
-                  $('.yiziThAct').removeClass('active');
-                  $('.shishiZi0').addClass('active');
-                }
+                that.shuaiXuanDatas(result.oddsList);
 
               }
             })
@@ -669,28 +652,49 @@ export default {
                 that.activeIndex = that.bocaiCategoryList[0].name;
                 that.shuaiXuanDatas(result.oddsList);
 
+                bus.$emit('getbocaiTypeId', that.curBocaiTypeId); 
+                bus.$emit('getbocaiTypeName', that.curactiveIndex); 
+
               }
             })
           });
 
     },
     shuaiXuanDatas(dataList) {
-      let yiwuqiuTemp = [];
-      let qianhousanTemp = [];
-      for(let m in dataList) {
-        if(dataList[m].name == '总和-龙虎和') {
-          this.longhuhe_lmp = dataList[m];
+      if(this.showOdds == '两面盘') {
+        let yiwuqiuTemp = [];
+        let qianhousanTemp = [];
+        for(let m in dataList) {
+          if(dataList[m].name == '总和-龙虎和') {
+            this.longhuhe_lmp = dataList[m];
+          }
+          if(['第一球','第二球','第三球','第四球','第五球'].findIndex((n) => n == dataList[m].name)>-1) {
+            yiwuqiuTemp.push(dataList[m]);
+          }
+          if(['前三','中三','后三'].findIndex((n) => n == dataList[m].name)>-1) {
+            qianhousanTemp.push(dataList[m]);
+          }
         }
-        if(['第一球','第二球','第三球','第四球','第五球'].findIndex((n) => n == dataList[m].name)>-1) {
-          yiwuqiuTemp.push(dataList[m]);
-        }
-        if(['前三','中三','后三'].findIndex((n) => n == dataList[m].name)>-1) {
-          qianhousanTemp.push(dataList[m]);
-        }
+        this.yiwuqiu_lmp = yiwuqiuTemp;
+        this.qianhousan_lmp = qianhousanTemp;
       }
-      this.yiwuqiu_lmp = yiwuqiuTemp;
-      this.qianhousan_lmp = qianhousanTemp;
+
+      if(['二字','一字','三字','二定位','三定位','组选三','组选六','跨度'].findIndex((n) => n == this.showOdds)>-1) {
+          this.shishiZiDatas = dataList[0];
+
+          let arry = [];
+
+          for(var i=0;i<this.shishiZiDatas.list.length;i=i+5){
+            arry.push(this.shishiZiDatas.list.slice(i,i+5));
+          }
+
+          this.shishiZiDatasList = arry;
+
+          $('.yiziThAct').removeClass('active');
+          $('.shishiZi0').addClass('active');
+        }
     }
+
   }
 }
 

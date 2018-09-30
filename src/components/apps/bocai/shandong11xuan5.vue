@@ -24,7 +24,7 @@
           <clock-time></clock-time>
         </div>
         <div class="bet_box">
-          <div class="orders">
+          <div class="orders oodsBodyDiv">
             <div class="order-info">
               <bet-quick :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
             </div>
@@ -65,7 +65,7 @@
                   </div>
                 </div>
 
-              <div class="qiu15_body oodsBodyDiv">
+              <div class="qiu15_body">
 
                 <div class="eball" v-for="(itemPa,index) in yiwuqiu_lmp">
                     <div class="order-table">
@@ -90,129 +90,53 @@
 
               </div>
 
-              <div class="oodsBodyDiv">
-
-                <div class="order-table" v-for="(itemPa,index) in qianhousan_lmp">
-                    <table>
-                      <tr>
-                        <th colspan="10">{{itemPa.name}}</th>
-                      </tr>
-                      <tr>
-                        <template v-for="(item,index) in itemPa.list">
-                          <td class="tdLeft" :class="'qianhousan_lmp'+item.oddsId" @click="orderTd(itemPa,item,'qianhousan_lmp')" @mouseenter="overShow(item,'qianhousan_lmp')" @mouseleave="outHide(item,'qianhousan_lmp')">{{item.oddsName}}</td>
-                          <td class="tdRight" :class="'qianhousan_lmp'+item.oddsId" @click="orderTd(itemPa,item,'qianhousan_lmp')" @mouseenter="overShow(item,'qianhousan_lmp')" @mouseleave="outHide(item,'qianhousan_lmp')">
-                            <ul>
-                              <li>
-                                <span class="odds-font">{{item.odds}}</span>
-                              </li>
-                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(itemPa,item,'qianhousan_lmp',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
-                            </ul>
-                          </td>
-                        </template>
-                      </tr>
-                    </table>
-                </div>
-              </div>
-
             </template>
 
-            <template v-if="showOdds == '1~5'">
-              <div>
-                <div class="qiu15_body oodsBodyDiv">
-                  <div class="nball" v-for="(item_yiwu,index_yiwu) in oddsList">
+
+            <template v-if="showOdds == '单号'">
+              <div class="qiu15_body lanqiu">
+                <div class="order-table">
+                  <table>
+                    <tr>
+                      <th colspan="10">{{shishiZiDatas.name}}</th>
+                    </tr> 
+                    <tr v-for="(itemPa,index) in yizhongyiList">
+                      <template v-for="(item,index) in itemPa">
+                        <td class="oddsNtd tdLeft" :class="'yizhongyi'+item.oddsId" @click="orderTdYiZi(item,'yizhongyi')" @mouseenter="overShow(item,'yizhongyi')" @mouseleave="outHide(item,'yizhongyi')"><div class="ball-icon" >{{item.oddsName}}</div></td>
+                          <td class="oddsUltd" :class="'yizhongyi'+item.oddsId" @click="orderTdYiZi(item,'yizhongyi')" @mouseenter="overShow(item,'yizhongyi')" @mouseleave="outHide(item,'yizhongyi')">
+                            <ul>
+                              <li><span class="odds-font" >{{item.odds}}</span></li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFuncYiZi(item,'yizhongyi',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/">
+                              </li>
+                            </ul>
+                          </td>
+                      </template>
+                    </tr> 
+                  </table>
+                </div>
+
+                <div>
+                  <div class="nball" v-for="(itemPa,index) in yiwuqiu_lmp">
                     <div class="order-table">
                       <table>
-                        <tr><th colspan="2">{{item_yiwu.name}}</th></tr>
-                        <tr v-for="(item,index) in item_yiwu.list">
-                            <td v-if="isNaN(item.oddsName*1)" class="oddsNtd tdLeft" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')">{{item.oddsName}}</td>
-                            <td v-else class="oddsNtd tdLeft" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')"><div class="ball-icon" >{{item.oddsName}}</div></td> 
-                            <td class="oddsUltd" :class="'item_yiwu'+item.oddsId" @click="orderTd(item_yiwu,item,'item_yiwu')" @mouseenter="overShow(item,'item_yiwu')" @mouseleave="outHide(item,'item_yiwu')">
-                              <ul>
-                                <li><span class="odds-font" >{{item.odds}}</span></li>
-                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(item_yiwu,item,'item_yiwu',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
-                              </ul>
-                            </td>
+                        <tr><th colspan="2">{{itemPa.name}}</th></tr>
+                        <tr v-for="(item,index) in itemPa.list">
+                          <td class="oddsNtd tdLeft" :class="'yiwuqiu_lmp'+item.oddsId" @click="orderTd(itemPa,item,'yiwuqiu_lmp')" @mouseenter="overShow(item,'yiwuqiu_lmp')" @mouseleave="outHide(item,'yiwuqiu_lmp')"><div class="ball-icon" >{{item.oddsName}}</div></td>
+                          <td class="oddsUltd" :class="'yiwuqiu_lmp'+item.oddsId" @click="orderTd(itemPa,item,'yiwuqiu_lmp')" @mouseenter="overShow(item,'yiwuqiu_lmp')" @mouseleave="outHide(item,'yiwuqiu_lmp')">
+                            <ul>
+                              <li><span class="odds-font" >{{item.odds}}</span></li>
+                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(itemPa,item,'yiwuqiu_lmp',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/">
+                              </li>
+                            </ul>
+                          </td>
                         </tr>
                       </table>
                     </div>
                   </div>
+
                 </div>
+
               </div> 
-            </template>
-
-            <template v-if="['二字','一字','三字','二定位','三定位','组选三','组选六','跨度'].findIndex((n) => n == showOdds)>-1">
-              <div class="order-table yiziType oodsBodyDiv">
-                <table class="title">
-                  <tr>
-                    <th v-for="(item,index) in oddsList" class="pointerDom yiziThAct" :class="['shishiZi'+index,index == '0' ? 'active' : '']" @click="shishiZiGet(item,index)">{{item.name}}</th> 
-                  </tr>
-                </table> 
-
-                <table  class="kuaixuanTable" v-if="['二字','二定位'].findIndex((n) => n == this.showOdds)>-1">
-                  <tr >
-                    <td colspan="11">快选</td>
-                  </tr> 
-                  <tr>
-                    <td style="background-color: rgb(228, 231, 241);">头</td> 
-                    <td v-for="(item,index) in kuaixuanList" :class="'kuaixuantou'+item" @click="kuaixuanOdd(item,'tou')">{{item}}</td>
-                  </tr> 
-                  <tr>
-                    <td style="background-color: rgb(228, 231, 241);">尾</td> 
-                    <td v-for="(item,index) in kuaixuanList" :class="'kuaixuanwei'+item" @click="kuaixuanOdd(item,'wei')">{{item}}</td>
-                  </tr> 
-                </table>
-
-                <table>
-                  <tr>
-                    <th>号码</th> 
-                    <th>赔率</th>
-                    <th>号码</th> 
-                    <th>赔率</th>
-                    <th>号码</th> 
-                    <th>赔率</th>
-                    <th>号码</th> 
-                    <th>赔率</th>
-                    <th>号码</th> 
-                    <th>赔率</th>
-                  </tr>     
-                  <tr v-for="(itemPa,index) in shishiZiDatasList">
-                    <template v-for="(item,index) in itemPa">
-                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">{{item.oddsName}}</td> 
-                      <td class="pointerDom" :class="'item_yizi'+item.oddsId" @click="orderTdYiZi(item,'item_yizi')" @mouseenter="overShow(item,'item_yizi')" @mouseleave="outHide(item,'item_yizi')">
-                        <ul>
-                          <li><span class="odds-font">{{item.odds}}</span></li>
-                          <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFuncYiZi(item,'item_yizi',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
-                        </ul>
-                      </td> 
-                    </template>
-                  </tr> 
-                </table>
-
-              </div>
-            </template>
-
-            <template v-if="['和数'].findIndex((n) => n == showOdds)>-1">
-              <div>
-                <div class="order-table oodsBodyDiv">
-                  <table>
-                    <tr>
-                      <th colspan="5">和数</th>
-                    </tr> 
-                    <tr v-for="(itemPa,index) in oddsList">
-                      <td width="20%"><b>{{itemPa.name}}</b></td>
-                      <template v-for="(item,index) in itemPa.list">
-                        <td class="pointerDom" :class="'item_heshu'+item.oddsId" @click="orderTd(itemPa,item,'item_heshu')" @mouseenter="overShow(item,'item_heshu')" @mouseleave="outHide(item,'item_heshu')">{{item.oddsName}}</td> 
-                        <td class="pointerDom" :class="'item_heshu'+item.oddsId" @click="orderTd(itemPa,item,'item_heshu')" @mouseenter="overShow(item,'item_heshu')" @mouseleave="outHide(item,'item_heshu')">
-                          <ul>
-                            <li><span class="odds-font">{{item.odds}}</span></li>
-                            <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(itemPa,item,'item_heshu',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
-                          </ul>
-                        </td>
-                      </template>
-                    </tr>
-                  </table>
-                </div>
-              </div>
             </template>
 
           </div>
@@ -321,6 +245,7 @@ export default {
   data () {
     return {
       curBocaiTypeId: '8811',
+      curactiveIndex: '山东11选5',
       bocaiCategoryList: [],
       oddsList: [],
       activeIndex: '',
@@ -335,6 +260,7 @@ export default {
       bocaiCategory: {},
       kuaixuanList: ['0','1','2','3','4','5','6','7','8','9'],
       shishiZiDatas: {},
+      yizhongyiList: [],
       shishiZiDatasList: [],
       kuaixuanTouList:[],
       kuaixuanWeiList:[],
@@ -619,24 +545,7 @@ export default {
                 that.normalPay = false;
                 bus.$emit('getnormalPay', false); 
 
-                if(this.showOdds == '两面盘') {
-                  that.shuaiXuanDatas(result.oddsList);
-                }
-
-                if(['二字','一字','三字','二定位','三定位','组选三','组选六','跨度'].findIndex((n) => n == this.showOdds)>-1) {
-                  this.shishiZiDatas = result.oddsList[0];
-
-                  let arry = [];
-
-                  for(var i=0;i<this.shishiZiDatas.list.length;i=i+5){
-                    arry.push(this.shishiZiDatas.list.slice(i,i+5));
-                  }
-
-                  this.shishiZiDatasList = arry;
-
-                  $('.yiziThAct').removeClass('active');
-                  $('.shishiZi0').addClass('active');
-                }
+                that.shuaiXuanDatas(result.oddsList);
 
               }
             })
@@ -661,35 +570,60 @@ export default {
             that.$handelResponse(res, (result) => {
               //NProgress.done();
               if(result.code===200){
-
+                bus.$emit('curactiveIndex', this.curactiveIndex);
                 that.bocaiCategoryList = result.bocaiCategoryList;
                 that.oddsList = result.oddsList;
                 that.showOdds = result.bocaiCategoryList[0].name;
                 that.bocaiCategory = result.bocaiCategoryList[0];
                 that.activeIndex = that.bocaiCategoryList[0].name;
+
                 that.shuaiXuanDatas(result.oddsList);
 
+                bus.$emit('getbocaiTypeId', that.curBocaiTypeId); 
+                bus.$emit('getbocaiTypeName', that.curactiveIndex); 
+                
               }
             })
           });
 
     },
     shuaiXuanDatas(dataList) {
-      let yiwuqiuTemp = [];
-      let qianhousanTemp = [];
-      for(let m in dataList) {
-        if(dataList[m].name == '总和-龙虎和') {
-          this.longhuhe_lmp = dataList[m];
+      if(this.showOdds == '两面盘') {
+        let yiwuqiuTemp = [];
+        for(let m in dataList) {
+          if(dataList[m].name == '总和') {
+            this.longhuhe_lmp = dataList[m];
+          }
+          if(['第一球','第二球','第三球','第四球','第五球'].findIndex((n) => n == dataList[m].name)>-1) {
+            yiwuqiuTemp.push(dataList[m]);
+          }
         }
-        if(['第一球','第二球','第三球','第四球','第五球'].findIndex((n) => n == dataList[m].name)>-1) {
-          yiwuqiuTemp.push(dataList[m]);
-        }
-        if(['前三','中三','后三'].findIndex((n) => n == dataList[m].name)>-1) {
-          qianhousanTemp.push(dataList[m]);
-        }
+        this.yiwuqiu_lmp = yiwuqiuTemp;
       }
-      this.yiwuqiu_lmp = yiwuqiuTemp;
-      this.qianhousan_lmp = qianhousanTemp;
+
+      if(['单号'].findIndex((n) => n == this.showOdds)>-1) {
+
+        let yiwuqiuTemp = [];
+        for(let m in dataList) {
+          if(dataList[m].name == '一中一') {
+            this.shishiZiDatas = dataList[m];
+            let arry = [];
+
+            for(var i=0;i<dataList[m].list.length;i=i+5){
+              arry.push(dataList[m].list.slice(i,i+5));
+            }
+
+            this.yizhongyiList = arry;
+
+            console.log('this.yizhongyiList',this.yizhongyiList);
+
+          }
+          if(['第一球','第二球','第三球','第四球','第五球'].findIndex((n) => n == dataList[m].name)>-1) {
+            yiwuqiuTemp.push(dataList[m]);
+          }
+        }
+        this.yiwuqiu_lmp = yiwuqiuTemp;
+      }
     }
   }
 }

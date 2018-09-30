@@ -241,7 +241,7 @@ export default {
 
     if (window.ENV == 'dev') {
 
-      console.log('研发自动登录');
+      //console.log('研发自动登录');
 
     } else {
       //普通用户登录

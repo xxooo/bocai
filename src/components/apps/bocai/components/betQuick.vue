@@ -93,6 +93,7 @@
         radio10: '1',
         orderOddsVisible: false,
         orderList: [],
+        hahahaid: '',
         bocaiTypeId: '',
         bocaiTypeName: '',
         cuserId: '',
@@ -118,9 +119,6 @@
 		created() {
     },
     computed:{
-      // ...mapGetters({
-      //   cashBalance: 'getcashBalance'
-      // }),
       totalMoney() {
         let totalMoney = 0;
         for(let n in this.orderList) {
@@ -163,22 +161,16 @@
       },
       deleteOdd(index) {
         this.orderList.splice(index,1);
-        console.log('orderList.length',this.orderList.length);
         if(this.orderList.length == 0) {
           this.orderOddsVisible = false;
         }
       },
       async orderSub() {
 
-        console.log('this.totalMoney',this.totalMoney);
-        console.log('this.cashBalance',this.cashBalance);
         if(this.totalMoney > this.cashBalance) {
           this.$alertMessage('您的余额不足!', '温馨提示');
         } else {
           this.orderDatas.list = [];
-
-          //console.log('bocaiTypeId',this.bocaiTypeId);
-          //console.log('orderDataList',this.orderDataList);
 
           this.orderDatas.periodsId = this.bocaiInfoData.bocaiPeriodsId;
           this.orderDatas.bocaiTypeId = this.bocaiTypeId;
@@ -217,8 +209,6 @@
               }
             })
           });
-          //console.log('this.orderDataList',this.orderDataList);
-
         }
       },
       orderOdds() {
@@ -253,7 +243,7 @@
               this.$alertMessage('请输入金额!', '温馨提示');
             } else {
 
-              console.log('this.orderDataList',this.orderDataList);
+              //console.log('this.orderDataList',this.orderDataList);
               for(let n in this.orderDataList) {
                 let obj = {
                   oddNames: this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
@@ -274,15 +264,6 @@
 
         this.moneyOrder = pay*1 + this.moneyOrder*1;
         
-        // if($('.beishuBtn'+mul).hasClass('selected')) {
-        //   $('.beishuBtn'+mul).removeClass('selected');
-        //   this.mul = 1;
-        // } else {
-        //   $(".beishuBtn").removeClass('selected');
-        //   $('.beishuBtn'+mul).addClass('selected');
-        //   this.mul = mul;
-        // }
-
       }
 		}
 	}

@@ -65,7 +65,6 @@
 
 import LeftPanel from '@/components/common/leftpanel';
 import PageFooter from '@/components/common/pagefooter';
-// import {mapState,mapGetters} from 'vuex';
 
 export default {
   components: {
@@ -95,8 +94,6 @@ export default {
     this.refreshTime();
   },
   computed: {
-    // ...mapGetters({
-    // })
   },
   methods: {
     async getRefreshTime() {
@@ -159,8 +156,6 @@ export default {
 
           if(res.code===200){
             this.bocaiTypeList = res.bocaiTypeList;
-            bus.$emit('getbocaiTypeId', res.bocaiTypeList[0].bocaiId); 
-            bus.$emit('getbocaiTypeName', res.bocaiTypeList[0].bocaiName); 
           }
     },
     async getOdds(item,index) {
@@ -190,16 +185,19 @@ export default {
             this.imgUrl = 3;
             break;
         }
-      bus.$emit('getbocaiTypeId', item.bocaiId); 
-      bus.$emit('getbocaiTypeName', item.bocaiName); 
       this.bocaiTypeId = item.bocaiId;
       this.bocaiInfo();
       this.$router.push({name: path});
+
+      bus.$emit('getcUserInfo', '');
     }
   },
   mounted() {
     bus.$on('getRefreshTime', (data) => {
         this.getRefreshTime();
+    });
+    bus.$on('curactiveIndex', (data) => {
+        this.activeIndex = data;
     });
   },
   updated() {
