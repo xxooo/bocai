@@ -139,6 +139,65 @@
               </div> 
             </template>
 
+            <template v-if="['连码','直选'].findIndex((n) => n == showOdds)>-1">
+              <div class="order-table">
+                <table>
+                  <tr>
+                    <th v-for="item in oddsList.list">
+                      <label>
+                        <input type="radio" :value="item.oddsName">
+                      </label>
+                    </th> 
+                  </tr> 
+                  <!-- <tr>
+                    <td>{{9876}}</td>
+                  </tr> 
+                  <tr>
+                    <td>
+                      <label><span class="odds-font">{{4455}}</span></label>
+                    </td> 
+                  </tr> -->
+                  <tr>
+                    <th v-for="item in oddsList[0].list">
+                      <label>
+                        <input type="radio" :value="item">
+                      </label>
+                    </th> 
+                  </tr> 
+                  <tr>
+                    <td v-for="item in oddsList[0].list">{{item.oddsName}}</td>
+                  </tr>
+                  <tr>
+                    <td v-for="item in oddsList[0].list">
+                      <label><span class="odds-font">{{item.odds}}</span></label>
+                    </td> 
+                  </tr>
+                </table> 
+
+                <table class="tab2">
+                  <tr>
+                    <th colspan="12">号码</th>
+                  </tr> 
+                  <tr>
+                    <template v-for="item in renxuanhaoma1">
+                      <td width="8%">{{item}}</td> 
+                      <td>
+                        <label><input type="checkbox" :value="item"></label>
+                      </td>
+                    </template>
+                  </tr> 
+                  <tr>
+                    <template v-for="item in renxuanhaoma2">
+                      <td width="8%">{{item}}</td> 
+                      <td>
+                        <label><input type="checkbox" :value="item"></label>
+                      </td>
+                    </template>
+                  </tr>
+                </table>
+              </div>
+            </template>
+
           </div>
 
           <div>
@@ -259,6 +318,8 @@ export default {
       normalPay: false,
       bocaiCategory: {},
       kuaixuanList: ['0','1','2','3','4','5','6','7','8','9'],
+      renxuanhaoma1: ['1','2','3','4','5','6'],
+      renxuanhaoma2: ['7','8','9','10','11'],
       shishiZiDatas: {},
       yizhongyiList: [],
       shishiZiDatasList: [],
@@ -279,111 +340,6 @@ export default {
       });
   },
   methods: {
-    kuaixuanOdd(item,type) {
-      this.qingkong();
-      let list = this.shishiZiDatas.list;
-
-      //console.log('item',item,'type',type);
-
-      if($('.kuaixuan'+type+item).hasClass('active')){
-        $('.kuaixuan'+type+item).removeClass('active');
-
-        if(type == 'tou') {
-          _.remove(this.kuaixuanTouList, function(n) {
-            let m = {type,item};
-            return JSON.stringify(n) == JSON.stringify(m);
-          });
-        } else {
-          _.remove(this.kuaixuanWeiList, function(n) {
-            let m = {type,item};
-            return JSON.stringify(n) == JSON.stringify(m);
-          });
-        }
-
-      } else {
-        $('.kuaixuan'+type+item).addClass('active');
-        if(type == 'tou') {
-          this.kuaixuanTouList.push({type,item});
-        } else {
-          this.kuaixuanWeiList.push({type,item});
-        }
-      }
-
-      let temlist = [];
-      let temlistSub = [];
-
-      //console.log('this.kuaixuanTouList',this.kuaixuanTouList);
-      //console.log('this.kuaixuanWeiList',this.kuaixuanWeiList);
-
-      if(this.kuaixuanTouList.length != 0 && this.kuaixuanWeiList.length != 0) {
-
-        console.log('item111',item,'type',type);
-        for(let n in list) {
-          for(let m in this.kuaixuanTouList) {
-            if(list[n].oddsName.charAt(0) == this.kuaixuanTouList[m].item) {
-              temlist.push(list[n]);
-            } 
-          }
-        }
-
-        for(let n in temlist) {
-            for(let m in this.kuaixuanWeiList) {
-              if(temlist[n].oddsName.charAt(list[n].oddsName.length*1 - 1) == this.kuaixuanWeiList[m].item) {
-                temlistSub.push(temlist[n]);
-              } 
-            }
-          }
-          
-      } 
-      if(this.kuaixuanTouList.length != 0 && this.kuaixuanWeiList.length == 0) {
-
-        //console.log('item222',item,'type',type);
-
-        for(let n in list) {
-          for(let m in this.kuaixuanTouList) {
-            if(list[n].oddsName.charAt(0) == this.kuaixuanTouList[m].item) {
-              temlistSub.push(list[n]);
-            } 
-          }
-        }
-      } 
-      if(this.kuaixuanTouList.length == 0 && this.kuaixuanWeiList.length != 0) {
-
-        //console.log('item333',item,'type',type);
-
-        for(let n in list) {
-            for(let m in this.kuaixuanWeiList) {
-              if(list[n].oddsName.charAt(list[n].oddsName.length*1 - 1) == this.kuaixuanWeiList[m].item) {
-                temlistSub.push(list[n]);
-              } 
-            }
-          }
-      } 
-
-      this.selectedZiTd = temlistSub;
-
-      //console.log('temlistSub',temlistSub);
-
-      let oddsObj = this.shishiZiDatas;
-
-      if(!this.normalPay) {
-        for(let n in this.selectedZiTd ) {
-          this.orderTd(oddsObj,this.selectedZiTd[n],'item_yizi');
-        }
-      } else {
-        for(let n in this.shishiZiDatasList){
-          for(let m in this.shishiZiDatasList[n]) {
-            this.inputFuncYiZi(this.shishiZiDatasList[n][m],'item_yizi',this.shishiZiDatasList[n][m].normalMoney);
-          }
-        }
-        for(let n in this.selectedZiTd ) {
-          $('.item_yizi'+this.selectedZiTd[n].oddsId).addClass('selected');
-        }
-      }
-
-      
-          
-    },
     qingkong() {
       $('.bet_box .orders td').removeClass('selected');
       this.orderDataList = [];
@@ -483,8 +439,6 @@ export default {
           }
         }
       }
-
-      
       
     },
     orderTdYiZi(item,ids) {
@@ -539,6 +493,7 @@ export default {
               that.showOdds = item.name;
               that.bocaiCategory = item;
               if(result.code===200){
+                console.log('result.oddsList',result.oddsList);
                 that.oddsList = result.oddsList;
                 
                 that.orderDataList = [];
@@ -624,6 +579,11 @@ export default {
         }
         this.yiwuqiu_lmp = yiwuqiuTemp;
       }
+
+      if(['连码','直选'].findIndex((n) => n == this.showOdds)>-1) {
+        console.log('oddsList',this.oddsList);
+      }
+
     }
   }
 }
