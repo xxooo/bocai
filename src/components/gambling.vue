@@ -2,18 +2,48 @@
   <div id="main">
     <div id="header">
       <el-header height="216">
+        <div class="fenghuangimg"></div>
         <div class="head-div">
-          <div class="headImg"><img :src="icons[imgUrl]"></div>
-          <div class="headLabel">
-            <div class="activeIndex"><h3>{{activeIndex}}</h3></div>
-            <div class="preResult">
-              <ul class="result-list">
-                <li v-for="(item,index) in preResult" class="bjpk-ran bjpk-ranNo-5 orangeShishiC">{{item}}</li>
-              </ul>
+          <div class="centerDiv">
+            <div class="headImg">
+              <img :src="icons[imgUrl]">
+              <div class="preBocaiPeriods"><p class="qicip">-第 <span>{{preBocaiPeriods}}</span> 期-</p></div>
             </div>
-            <div class="preBocaiPeriods"><p class="qicip">第 <span>{{preBocaiPeriods}}</span> 期</p></div>
-            </div>        
+            <div class="headLabel">
+              <div class="activeIndex"><h3>{{activeIndex}}</h3></div>
+              <div class="preResult">
+                <ul class="result-list">
+                  <li v-for="(item,index) in preResult" class="bjpk-ran bjpk-ranNo-5 orangeShishiC">{{item}}</li>
+                </ul>
+              </div>
+            </div>
+            <div class="history_num">
+              <div class="btn-group">
+                <a id="show_history" class="active"><span>近期开奖</span></a>
+              </div>
+              <div class="history_run_num">
+                <ul>
+                  <li>6543328765<span>67988</span></li>
+                  <li>6543328765<span>67988</span></li>
+                  <li>6543328765<span>67988</span></li>
+                  <li>6543328765<span>67988</span></li>
+                  <li>6543328765<span>67988</span></li>
+                  <li>6543328765<span>67988</span></li>
+                </ul>
+              </div>                                 
+            </div>
           </div>
+        </div>
+        <div class="rightMenu">
+          <ul>
+            <li>即时注单</li>
+            <li>下注历史</li>
+            <li>个人资讯</li>
+            <li>财务管理</li>
+            <li>开奖结果</li>
+            <li>游戏规则</li>
+          </ul>
+        </div>
       </el-header>
       <el-menu
           :default-active="activeIndex"
@@ -215,7 +245,7 @@ export default {
     height: 100%;
   }
 
-  .head-div >div {
+  .centerDiv >div {
     float: left;
     height: 116px;
   }
@@ -224,50 +254,97 @@ export default {
     width: 420px;
   }
   .headLabel h3 {
-    color: #ff5722;
+    color: #805933;
   }
   .headLabel .activeIndex,.headLabel .preBocaiPeriods {
     margin: 10px 0px 10px -20px;
   }
   .headLabel .preResult {
-    margin: 15px 7%;
+    margin: 10px 0;
   }
   .head-div {
-    height: 116px;
-    width: 600px;
-    margin: 0 auto;
+    height: 130px;
+    width: 800px;
     padding-top: 1.1%;
+    margin: 0 auto;
+    background: url(../../static/img/caibaobg.png) center no-repeat;
+    background-size: 100% 100%;
+    display:inline-block;
+  }
+  .centerDiv {
+    height: 120px;
+    width: 700px;
+    margin: 0 auto;
     position: relative;
+    background: url(../../static/img/kaijiangbg.png) center no-repeat;
+    background-size: 100% 100%;
+  }
+  .history_num {
+    width: 140px;
+    text-align: left;
+  }
+  .history_num li {
+    color: #f6e9c7;
+  }
+  .history_num li span {
+    color: #805933;
+    padding: 0 10px;
+  }
+  .history_num .btn-group {
+    text-align: center;
+    color: #805933;
+  }
+  .fenghuangimg {
+    height: 155px;
+    width: 210px;
+    position: absolute;
+    margin-left: 2%;
+    background: url(../../static/img/logo.png) center no-repeat;
+    background-size: 100% 100%;
+  }
+  .rightMenu {
+    background: #3d270d;
+    border: 1px solid #8f541b;
+    border-radius: 2px;
+    margin-top: 0.9%;
+    margin-left: 2%;
+    float: right;
+    height: 134px;
+    width: 80px;
+    display: inline-block;
+    position: absolute;
+  }
+  .rightMenu li {
+    margin: 2.7px;
   }
   .headImg >img {
     height: 70px;
-    margin-top: 23px;
+    margin-top: 15px;
   }
   .headImg {
-    margin-left: 40px;
+    margin-left: 20px;
   }
   .game-result ul {
     margin: 10px 10px 0;
   }
   .bjpk-ran {
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
-    margin: 0px 5px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0px 3px;
   }
   .bjpk-ran, .bjpk-ran-s {
     display: inline-block;
     color: #fff;
     border-radius: 50px;
     font-family: Microsoft YaHei,Verdana,SimSun,Arial,Helvetica,sans-serif;
-    font-size: 14px;
-    text-shadow: #555 1px 0 0, #555 0 1px 0, #555 -1px 0 0, #555 0 -1px 0;
+    font-size: 28px;
   }
   .bjpk-ranNo-1 {
     background-color: #ffd64c;
   }
   .orangeShishiC {
-    background-color: #f96a2a;
+    background: url(../../static/img/num_bg.png) center no-repeat;
   }
   .game-result li {
     width: 24px;
@@ -280,7 +357,10 @@ export default {
     vertical-align: middle;
   }
   .preBocaiPeriods .qicip {
-    color: #6c3092;
+    color: #80664b;
+  }
+  .preBocaiPeriods .qicip span {
+    color: #f6e9c7;
   }
 </style>
 <style lang="less">
@@ -288,7 +368,6 @@ export default {
     width: 100%;
     height: 100%;
     position: relative;
-    background-color: #6c3092;
 
   #header {
     border-bottom: solid 2px #ffd04b;
@@ -306,7 +385,6 @@ export default {
     }
 
     .el-menu-item.is-active {
-      background: url(./../../static/img/gold-light-btn-shading.png) bottom no-repeat transparent;
       background-size: 100% 100%;
       color: #ffea00;
       cursor: point;
@@ -332,7 +410,8 @@ export default {
         left: 0;
         right: 0;
         height: 156px;
-        background: url(../../static/img/header.jpg) bottom no-repeat transparent;
+        background: url(../../static/img/header.png) center no-repeat;
+        background-size: 100% 100%;
     }
 
     .el-header {
@@ -341,7 +420,6 @@ export default {
 
 
   footer {
-    background-color: #361d3d;
     color: #fff;
     font-size: 12px;
     padding-bottom: 10px;
@@ -368,7 +446,5 @@ export default {
   }
 
 }
-
-@import "../assets/less/common.less";
 
 </style>

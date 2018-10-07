@@ -19,3 +19,6 @@ export default {
   margin-top: 60px;*/
 }
 </style>
+<style lang="less">
+	@import "assets/less/common.less";
+</style>
