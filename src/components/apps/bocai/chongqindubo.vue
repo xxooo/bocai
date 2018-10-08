@@ -10,9 +10,8 @@
               class="el-menu-subnav"
               mode="horizontal"
               @select="handleSelect"
-              background-color="#572f5f"
-              text-color="#ffd04b"
-              active-text-color="#fff">
+              text-color="#ebcb80"
+              active-text-color="#f6e9c7">
               <el-menu-item v-for="(item,index) in bocaiCategoryList" :key="index" :index="item.name" @click="getOddsCategory(item,index)" v-if="index*1 < 11">{{item.name}}</el-menu-item>
               <el-submenu v-if="bocaiCategoryList.length*1 > 11" key="submenu" index="submenu">
                 <template slot="title">{{submenu}}</template>

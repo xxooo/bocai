@@ -15,33 +15,30 @@
             <p><label>锁定金额：</label><span style="color: #f42222;">{{userInfo.lockBalance}}</span></p> 
             <p><label>已下金额：</label><span style="color: #f42222;">{{userInfo.alreadyBalance}}</span></p>
           </div> 
-          <p class="login-out">
-            <el-button type="primary" size="mini" @click="$router.push({name: 'login'})">登出</el-button>
-            <el-button type="primary" size="mini">修改密码</el-button>
-          </p>
+          <div class="login-out">
+            <div><el-button class="loginoutbtn" type="primary" size="mini" @click="$router.push({name: 'login'})">登出</el-button></div>
+            <div><el-button class="changepassbtn" type="primary" size="mini">修改密码</el-button></div>
+          </div>
+          <div class="jinbibg"></div>
         </div>
-        <div id="subnav">
-          <ul>
-            <li><a href="#">即时注单</a></li>
-            <li><a href="#">下注历史</a></li>
-            <li><a href="#">个人资讯</a></li>
-            <li><a href="#">财务管理</a></li>
-          </ul> 
-        </div>
-      </div> 
+      </div>
       <div class="long-dragon">
-        <div class="tabmenu">
+        <div class="gonggaotab">
+          <a>公告</a>
+        </div>
+        <div class="cont">
+          <div class="gonggaocont">
+            <p>这里是公告内容，各位球友大家好，欢迎充值!</p>
+          </div>
+        </div>
+      </div>
+      <div class="long-dragon">
+        <div class="tabmenu active">
           <a>最新结果</a>
         </div>
         <div class="tabmenu">
           <a>最近注单</a>
         </div>
-        <div class="tabmenu">
-          <a>公告</a>
-        </div>
-        <div class="tabmenu">
-          <a>长龙排行榜</a>
-        </div> 
         <div class="cont">
           <div class="sum">
             <div data-v-1c2d87c0="" class="table">
@@ -216,7 +213,11 @@ export default {
     position: relative;
     text-align: center;
     overflow: hidden;
-    background: #9b63b7;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#userInfo {
+  background: #80664b;
 }
 
 #leftpanel .leftList .userInfo .title {
@@ -224,16 +225,13 @@ export default {
     line-height: 36px;
     font-size: 14px;
     font-weight: 700;
-    color: #ffd04b;
     position: relative;
 }
 
 #leftpanel .leftList .userInfo .info {
-    background: #ae70d4;
     background-size: 100% 100%;
     padding: 15px 5px;
     font-size: 13px;
-    color: #fff;
     overflow-x: hidden;
     word-break: break-all;
     text-align: center;
@@ -243,9 +241,9 @@ export default {
     width: 94%;
     text-align: left;
     margin: 0 auto 10px;
-    background-color: #cb87f7;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 5px;
-    color: #ffd04b;
     font-weight: 700;
     padding: 5px 0;
 }
@@ -263,21 +261,29 @@ export default {
 
 #leftpanel .leftList .long-dragon .cont {
     width: 240px;
-    background-color: #ffe37e;
+}
+
+.gonggaocont {
+  height: 100px;
+  background-color: #f6e9c7;
+  color: #805933;
+  padding: 10px;
 }
 
 .tabmenu {
   display: inline-block;
   float: left;
+  color: #805933;
   width: 120px;
   height: 32px;
-  color: #944e03;
-  background: url(./../../../static/img/gold-btn-spirit_mo.png);
+  background-color: #d2ae7e;
 }
 
 .tabmenu:hover {
-  background: url(./../../../static/img/gold-btn-spirit_hover.png);
-  color: #fff;
+  background-color: #fcefc2;
+}
+.tabmenu.active {
+  background-color: #fcefc2;
 }
 
 .tabmenu a {
@@ -328,5 +334,41 @@ export default {
     color: #f42222;
 }
 
+.login-out div {
+  width: 80px;
+  margin: 0px 0px 5px 5px;
+  color: #805933;
+}
+
+.login-out .el-button--primary {
+    color: #805933;
+}
+.login-out .loginoutbtn {
+  width: 80px;
+}
+.login-out .changepassbtn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 0px solid rgba(255, 255, 255, 0.5);
+}
+.login-out .changepassbtn:hover {
+  background-color: #FCEFC2;
+  border-color: #FCEFC2;
+}
+.jinbibg {
+    height: 140px;
+    width: 110px;
+    top: 170px;
+    position: absolute;
+    left: 130px;
+    background: url(../../../static/img/jinbibg.png) center no-repeat;
+    background-size: 100% 100%;
+}
+.gonggaotab {
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  background-color: #d2ae7e;
+  color: #805933;
+}
 </style>
 

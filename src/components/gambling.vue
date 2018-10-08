@@ -50,9 +50,9 @@
           class="el-menu-demo"
           mode="horizontal"
           @select="handleSelect"
-          background-color="#6c3092"
-          text-color="#ffd04b"
-          active-text-color="#ffd04b">
+          background-color="#1e140d"
+          text-color="#ebcb80"
+          active-text-color="#f6e9c7">
 
           <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item,index)" v-if="index*1 < 8">{{item.bocaiName}}</el-menu-item>
           <el-submenu v-if="bocaiTypeList.length*1 > 8" key="submenu" index="submenu">
@@ -392,11 +392,14 @@ export default {
     }
 
     .el-menu-item:hover {
-      color: #fff !important;
+      color: #f6e9c7 !important;
     }
 
     .el-menu-item {
-      padding: 0 32px;
+      padding: 0 18px;
+      font-family: SourceHanSansSC-Medium;
+      font-size: 18px;
+      letter-spacing: 0;
     }
 
   }
