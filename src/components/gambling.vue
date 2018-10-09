@@ -285,15 +285,16 @@ export default {
     text-align: left;
   }
   .history_num li {
-    color: #f6e9c7;
+    color: #ff9800;
   }
   .history_num li span {
     color: #805933;
     padding: 0 10px;
   }
   .history_num .btn-group {
-    text-align: center;
+    text-align: left;
     color: #805933;
+    margin: 5px;
   }
   .fenghuangimg {
     height: 155px;
@@ -318,12 +319,16 @@ export default {
   .rightMenu li {
     margin: 2.7px;
   }
+  .rightMenu li:hover {
+    color: #f6e9c7;
+  }
   .headImg >img {
     height: 70px;
     margin-top: 15px;
   }
   .headImg {
     margin-left: 20px;
+    width: 116px;
   }
   .game-result ul {
     margin: 10px 10px 0;
@@ -361,10 +366,10 @@ export default {
     color: #80664b;
   }
   .preBocaiPeriods .qicip span {
-    color: #f6e9c7;
+    color: #ff9800;
   }
   .headerFather {
-    width: 70%;
+    width: 88%;
     margin: 0 auto;
   }
 </style>

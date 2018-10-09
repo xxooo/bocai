@@ -7,11 +7,8 @@
             <p>即时注单</p>
           </div> 
           <div class="default-list">
-            <p class="tar">
+            <p class="tar left">
               <a class="refresh l"><i class="icon-refresh"></i>刷新</a>
-                页数：
-                <select><option value="1">1</option></select>
-                / 1 页 共 0 条记录
             </p> 
             <table>
               <thead>
@@ -115,7 +112,7 @@ export default {
 </style>
 <style lang="less">
   #submenuDiv {
-    margin-top: 20px;
+    margin-top: 40px;
 
     .box {
         width: 770px;
@@ -173,6 +170,14 @@ export default {
     }
     .default-list table td.tar, .default-list table th.tar {
         text-align: right;
+    }
+    .header p {
+      color: #805933;
+    }
+
+    .default-list table {
+      border-collapse: collapse;
+      border-spacing: 0;
     }
   }
 </style>
