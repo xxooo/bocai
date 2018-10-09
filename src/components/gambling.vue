@@ -2,47 +2,48 @@
   <div id="main">
     <div id="header">
       <el-header height="216">
-        <div class="fenghuangimg"></div>
-        <div class="head-div">
-          <div class="centerDiv">
-            <div class="headImg">
-              <img :src="icons[imgUrl]">
-              <div class="preBocaiPeriods"><p class="qicip">-第 <span>{{preBocaiPeriods}}</span> 期-</p></div>
-            </div>
-            <div class="headLabel">
-              <div class="activeIndex"><h3>{{activeIndex}}</h3></div>
-              <div class="preResult">
-                <ul class="result-list">
-                  <li v-for="(item,index) in preResult" class="bjpk-ran bjpk-ranNo-5 orangeShishiC">{{item}}</li>
-                </ul>
+        <div class="headerFather">
+          <div class="fenghuangimg"></div>
+          <div class="head-div">
+            <div class="centerDiv">
+              <div class="headImg">
+                <img :src="icons[imgUrl]">
+                <div class="preBocaiPeriods"><p class="qicip">-第 <span>{{preBocaiPeriods}}</span> 期-</p></div>
               </div>
-            </div>
-            <div class="history_num">
-              <div class="btn-group">
-                <a id="show_history" class="active"><span>近期开奖</span></a>
+              <div class="headLabel">
+                <div class="activeIndex"><h3>{{activeIndex}}</h3></div>
+                <div class="preResult">
+                  <ul class="result-list">
+                    <li v-for="(item,index) in preResult" class="bjpk-ran bjpk-ranNo-5 orangeShishiC">{{item}}</li>
+                  </ul>
+                </div>
               </div>
-              <div class="history_run_num">
-                <ul>
-                  <li>6543328765<span>67988</span></li>
-                  <li>6543328765<span>67988</span></li>
-                  <li>6543328765<span>67988</span></li>
-                  <li>6543328765<span>67988</span></li>
-                  <li>6543328765<span>67988</span></li>
-                  <li>6543328765<span>67988</span></li>
-                </ul>
-              </div>                                 
+              <div class="history_num">
+                <div class="btn-group">
+                  <a id="show_history" class="active"><span>近期开奖</span></a>
+                </div>
+                <div class="history_run_num">
+                  <ul>
+                    <li>6543328765<span>67988</span></li>
+                    <li>6543328765<span>67988</span></li>
+                    <li>6543328765<span>67988</span></li>
+                    <li>6543328765<span>67988</span></li>
+                    <li>6543328765<span>67988</span></li>
+                  </ul>
+                </div>                                 
+              </div>
             </div>
           </div>
-        </div>
-        <div class="rightMenu">
-          <ul>
-            <li>即时注单</li>
-            <li>下注历史</li>
-            <li>个人资讯</li>
-            <li>财务管理</li>
-            <li>开奖结果</li>
-            <li>游戏规则</li>
-          </ul>
+          <div class="rightMenu">
+            <ul>
+              <li @click="$router.push({name: 'instantorder'})">即时注单</li>
+              <li>下注历史</li>
+              <li>个人资讯</li>
+              <li>财务管理</li>
+              <li>开奖结果</li>
+              <li>游戏规则</li>
+            </ul>
+          </div>
         </div>
       </el-header>
       <el-menu
@@ -307,7 +308,7 @@ export default {
     border: 1px solid #8f541b;
     border-radius: 2px;
     margin-top: 0.9%;
-    margin-left: 2%;
+    margin-left: 3%;
     float: right;
     height: 134px;
     width: 80px;
@@ -361,6 +362,10 @@ export default {
   }
   .preBocaiPeriods .qicip span {
     color: #f6e9c7;
+  }
+  .headerFather {
+    width: 70%;
+    margin: 0 auto;
   }
 </style>
 <style lang="less">

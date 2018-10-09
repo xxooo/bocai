@@ -48,6 +48,12 @@ const router = new Router({
               requireAuth: true,
           },
           component: r => require.ensure([], () => r(require('@/components/apps/bocai/shandong11xuan5')), 'shandong11xuan5'), meta: { requiresAuth: true }
+        },
+        { path: '/gambling/instantorder', name: 'instantorder',
+          meta: {
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/components/apps/submenu/instantorder')), 'instantorder'), meta: { requiresAuth: true }
         }
       ]
     }

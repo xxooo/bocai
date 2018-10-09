@@ -276,7 +276,7 @@ export default {
   color: #805933;
   width: 120px;
   height: 32px;
-  background-color: #d2ae7e;
+  background-color: #d3b281;
 }
 
 .tabmenu:hover {
@@ -367,7 +367,7 @@ export default {
   width: 100%;
   height: 32px;
   line-height: 32px;
-  background-color: #d2ae7e;
+  background-color: #d3b281;
   color: #805933;
 }
 </style>
