@@ -273,7 +273,7 @@
 <style scoped>
 .betQuick {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     margin-top: 14px;
     position: relative;
     height: 67px;
@@ -292,7 +292,6 @@
 .beishu {
   width: 400px;
   height: 67px;
-  background: url(../../../../../static/img/casino-wt.png) bottom no-repeat transparent;
 }
 
 .betRight {
@@ -311,33 +310,52 @@
 }
 
 .beishuBtn {
-    width: 66.1px;
-    height: 67px;
-    margin: 0px !important;
+    width: 54px;
+    height: 52px;
+    margin: 0px 2px !important;
     border-radius: 50px;
+    color: #1b1b1b;
+    font-family: Microsoft YaHei;
+    font-size: 10px;
+    font-weight: 700;
     cursor: pointer;
 }
 
 .beishuBtn a {
-  height: 66px;
-  line-height: 66px;
+  height: 52px;
+  line-height: 52px;
   font-weight: bold;
-  padding-left: 2px;
+}
+
+.beishuBtn.beishuBtn10 {
+    background: url(/static/img/cm1.png) bottom no-repeat transparent;
+    background-size: contain;
+}
+.beishuBtn.beishuBtn50 {
+  background: url(/static/img/cm2.png) bottom no-repeat transparent;
+    background-size: contain;
+}
+.beishuBtn.beishuBtn100 {
+  background: url(/static/img/cm3.png) bottom no-repeat transparent;
+    background-size: contain;
+}
+.beishuBtn.beishuBtn500 {
+  background: url(/static/img/cm4.png) bottom no-repeat transparent;
+    background-size: contain;
+}
+.beishuBtn.beishuBtn1000 {
+  background: url(/static/img/cm5.png) bottom no-repeat transparent;
+    background-size: contain;
+}
+.beishuBtn.beishuBtn5000 {
+  background: url(/static/img/cm6.png) bottom no-repeat transparent;
+    background-size: contain;
 }
 
 .beishuBtn:hover {
   color: #ff9800;
 }
 
-/*.beishuBtn.selected {
-  color: #ff9800;
-  font-size: 16px;
-}*/
-
-.beishuBtn:last-child
-{ 
-  width: 68.8px;
-}
 
 .popup-body {
     overflow-y: auto;
@@ -419,7 +437,7 @@ button.btn-delete {
   }
 
   .el-radio.is-bordered.is-checked {
-    background-color: #ffd04b;
+    background-color: #805933;
   }
 
   .betRTop.onlybet {
@@ -442,6 +460,13 @@ button.btn-delete {
   .el-dialog--center .el-dialog__body {
     text-align: center;
     padding: 0px;
+  }
+  .betRTop button {
+    height: 28px;
+  }
+
+  .el-button--primary.is-plain {
+    color: #805933;
   }
 }
 

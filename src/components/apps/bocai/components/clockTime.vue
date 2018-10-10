@@ -1,7 +1,8 @@
 <template>
 	<div class="title-content">
     <div class="wanfaBtn">
-        <el-button type="primary" size="mini">玩法规则</el-button>
+      <p class="rule">玩法规则</p>
+        <!-- <el-button type="primary" size="mini">玩法规则</el-button> -->
     </div>
     <div class="winCurrent">
       <span>当前彩种输赢:</span>
@@ -9,7 +10,7 @@
     </div>
     <div class="kaipangTime">
       <div class="qiciDiv">
-        <p>第 <span class="qiciSpan">{{bocaiInfoData.bocaiPeriods}}</span> 期</p>
+        <!-- <p>第 <span class="qiciSpan">{{bocaiInfoData.bocaiPeriods}}</span> 期</p> -->
         <p>距离下期开盘</p>              
       </div>
       <div id="clockTimes">
@@ -269,41 +270,28 @@ button.btn-delete {
     font-weight: 700;
     color: #261238;
 }
+
+.wanfaBtn .rule {
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    width: 100px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    color: #efcc9f;
+    cursor: pointer;
+}
+.wanfaBtn .rule:hover {
+    background-color: #9b7547;
+}
+.qiciDiv {
+  height: 42px;
+  line-height: 42px;
+}
 </style>
 
 <style lang="less">
-
-.betQuick {
-  .el-input {
-    width: 120px;
-    margin-right: 20px;
-  }
-
-  .el-radio.is-bordered.is-checked {
-    background-color: #ffd04b;
-  }
-
-  .betRTop.onlybet {
-    margin-top: 20px;
-  }
-
-  .el-dialog__header {
-    padding: 20px 20px 10px;
-    background-color: #ccb0da;
-    border-radius: 5px 5px 0 0;
-  }
-  .el-dialog.el-dialog--center {
-    width: 500px;
-    color: #450400 !important;
-    background-color: #fcfcfa;
-    box-shadow: 0 2px 8px rgba(0,0,0,.33);
-    font-family: Helvetica,Arial,sans-serif;
-    border-radius: 5px;
-  }
-  .el-dialog--center .el-dialog__body {
-    text-align: center;
-    padding: 0px;
-  }
-}
 
 </style>
