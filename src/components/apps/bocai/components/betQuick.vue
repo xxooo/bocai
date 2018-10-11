@@ -282,11 +282,14 @@
 .betQuick div {
   display: inline-block;
   float: left;
-  margin-left: 20px;
 }
 
 .betRTop div {
   font-size: 16px;
+}
+
+.betRTop {
+  margin-left: 20px; 
 }
 
 .beishu {

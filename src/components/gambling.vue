@@ -248,7 +248,7 @@ export default {
 
   .centerDiv >div {
     float: left;
-    height: 116px;
+    height: 136px;
   }
   .headLabel {
     color: #fff;
@@ -261,7 +261,7 @@ export default {
     margin: 10px 0px 10px -20px;
   }
   .headLabel .preResult {
-    margin: 10px 0;
+    margin: 20px 0;
   }
   .head-div {
     height: 130px;
@@ -273,7 +273,7 @@ export default {
     display:inline-block;
   }
   .centerDiv {
-    height: 120px;
+    height: 140px;
     width: 700px;
     margin: 0 auto;
     position: relative;
@@ -294,7 +294,7 @@ export default {
   .history_num .btn-group {
     text-align: left;
     color: #805933;
-    margin: 5px;
+    margin: 10px 5px;
   }
   .fenghuangimg {
     height: 155px;
@@ -324,7 +324,7 @@ export default {
   }
   .headImg >img {
     height: 70px;
-    margin-top: 15px;
+    margin-top: 25px;
   }
   .headImg {
     margin-left: 10px;
@@ -369,7 +369,7 @@ export default {
     color: #ff9800;
   }
   .headerFather {
-    width: 88%;
+    width: 1200px;
     margin: 0 auto;
   }
 </style>
