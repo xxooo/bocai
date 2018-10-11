@@ -328,27 +328,27 @@
 }
 
 .beishuBtn.beishuBtn10 {
-    background: url(/static/img/cm1.png) bottom no-repeat transparent;
+    background: url(../../../../../static/img/cm1.png) bottom no-repeat transparent;
     background-size: contain;
 }
 .beishuBtn.beishuBtn50 {
-  background: url(/static/img/cm2.png) bottom no-repeat transparent;
+  background: url(../../../../../static/img/cm2.png) bottom no-repeat transparent;
     background-size: contain;
 }
 .beishuBtn.beishuBtn100 {
-  background: url(/static/img/cm3.png) bottom no-repeat transparent;
+  background: url(../../../../../static/img/cm3.png) bottom no-repeat transparent;
     background-size: contain;
 }
 .beishuBtn.beishuBtn500 {
-  background: url(/static/img/cm4.png) bottom no-repeat transparent;
+  background: url(../../../../../static/img/cm4.png) bottom no-repeat transparent;
     background-size: contain;
 }
 .beishuBtn.beishuBtn1000 {
-  background: url(/static/img/cm5.png) bottom no-repeat transparent;
+  background: url(../../../../../static/img/cm5.png) bottom no-repeat transparent;
     background-size: contain;
 }
 .beishuBtn.beishuBtn5000 {
-  background: url(/static/img/cm6.png) bottom no-repeat transparent;
+  background: url(../../../../../static/img/cm6.png) bottom no-repeat transparent;
     background-size: contain;
 }
 

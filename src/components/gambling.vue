@@ -252,7 +252,7 @@ export default {
   }
   .headLabel {
     color: #fff;
-    width: 420px;
+    width: 400px;
   }
   .headLabel h3 {
     color: #805933;
@@ -327,8 +327,8 @@ export default {
     margin-top: 15px;
   }
   .headImg {
-    margin-left: 20px;
-    width: 116px;
+    margin-left: 10px;
+    width: 146px;
   }
   .game-result ul {
     margin: 10px 10px 0;
