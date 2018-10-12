@@ -3,71 +3,32 @@
     <div class="right">
       <div id="submenuDiv">
         <div class="box">
-          <div class="header">
-            <p>即时注单</p>
-          </div> 
-          <div class="default-list">
-            <p class="tar left">
-              <a class="refresh l" @click="getnowOrder()"><i class="icon-refresh"></i>刷新</a>
-            </p> 
-            <table>
-              <thead>
-                <tr>
-                  <th>编号</th> 
-                  <th>注单号/投注日期</th> 
-                  <th>投注类型</th> 
-                  <th>内容</th> 
-                  <th>投注额</th> 
-                  <th>可赢金额</th>
-                </tr>
-              </thead> 
-
-              <tbody v-for="(item,index) in nowOrder.list">
-                <tr>
-                  <td>{{index*1+1}}</td> 
-                  <td>
-                    <p>{{item.orderNum}}</p> 
-                    <p>{{item.createDate}}</p>
-                  </td> 
-                  <td>
-                    <p>{{item.bocaiTypeName}}</p> 
-                    <p>{{item.periods}} 期</p>
-                  </td> 
-                  <td>
-                    <p>
-                    <span class="odds-font">{{item.bocaiOddName}}</span>
-                              @
-                    <span class="odds-font">{{item.odds}}</span>
-                    </p>
-                  </td> 
-                  <td>{{item.betsMoney}}</td> 
-                  <td>{{item.winMoney}}</td>
-                </tr>
-              </tbody> 
-
-              <tr class="tab-footer">
-                <td colspan="4" class="tar">此页面统计：</td> 
-                <td>22.00</td> 
-                <td>876.48</td>
-              </tr> 
-              <tr class="tab-footer">
-                <td colspan="4" class="tar">总计：</td> 
-                <td>{{totalbetsMoney}}</td> 
-                <td>{{totalwinMoney}}</td>
-              </tr>
-            </table>
-            <div class="block">
-              <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page.sync="currentPage"
-                :page-size="nowOrder.pageSize"
-                layout="total, prev, pager, next"
-                :total="nowOrder.totalCount*1">
-              </el-pagination>
-            </div>
-          </div> 
-        </div>
+        <div class="header">
+        <p>下注历史概要</p>
+        </div> 
+        <div class="default-list">
+        <div>
+        <p>
+        游戏：
+        <select>
+        <option data-v-722b6594="" value="0">全部</option> 
+        <option data-v-722b6594="" value="六合彩">六合彩</option>
+        </select> 
+        <a data-v-722b6594="" class="refresh r"><i data-v-722b6594="" class="icon-refresh"></i>
+          刷新
+        </a>
+        </p> 
+        <table class="sum_tab">
+        <caption data-v-722b6594=""><i data-v-722b6594="" class="icon-calendar"></i> 本周</caption> 
+        <thead data-v-722b6594="">
+        <tr data-v-722b6594="">
+        <th data-v-722b6594="">日期</th> 
+        <th data-v-722b6594="">投注额</th> 
+        <th data-v-722b6594="">派彩结果</th> 
+        <th data-v-722b6594="">注数</th>
+        </tr>
+        </thead> 
+        <tbody data-v-722b6594=""><!----> <tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-14</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-13</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-12</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-11</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-10</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-09</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-08</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr></tbody> <tr data-v-722b6594="" class="tab-footer"><td data-v-722b6594="">总计：</td> <td data-v-722b6594="">0.00</td> <td data-v-722b6594="">0.00</td> <td data-v-722b6594="">0</td></tr></table> <table data-v-722b6594="" class="sum_tab"><caption data-v-722b6594=""><i data-v-722b6594="" class="icon-calendar"></i> 上周</caption> <thead data-v-722b6594=""><tr data-v-722b6594=""><th data-v-722b6594="">日期</th> <th data-v-722b6594="">投注额</th> <th data-v-722b6594="">派彩结果</th> <th data-v-722b6594="">注数</th></tr></thead> <tbody data-v-722b6594=""><!----> <tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-07</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-06</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-05</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-04</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-03</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-02</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-01</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr></tbody> <tr data-v-722b6594="" class="tab-footer"><td data-v-722b6594="">总计：</td> <td data-v-722b6594="">0.00</td> <td data-v-722b6594="">0.00</td> <td data-v-722b6594="">0</td></tr></table></div></div></div>
       </div>
     </div>
   </div>

@@ -264,7 +264,7 @@ export default {
     margin: 20px 0;
   }
   .head-div {
-    height: 130px;
+    height: 140px;
     width: 800px;
     padding-top: 1.1%;
     margin: 0 auto;
@@ -308,8 +308,8 @@ export default {
     background: #3d270d;
     border: 1px solid #8f541b;
     border-radius: 2px;
-    margin-top: 0.9%;
-    margin-left: 3%;
+    margin-top: 15px;
+    margin-left: 50px;
     float: right;
     height: 134px;
     width: 80px;
