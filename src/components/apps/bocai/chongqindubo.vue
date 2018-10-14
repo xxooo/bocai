@@ -320,6 +320,7 @@ export default {
   data () {
     return {
       curBocaiTypeId: '1',
+      curactiveIndex: '重庆时时彩',
       bocaiCategoryList: [],
       oddsList: [],
       activeIndex: '',

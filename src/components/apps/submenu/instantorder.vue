@@ -47,8 +47,8 @@
 
               <tr class="tab-footer">
                 <td colspan="4" class="tar">此页面统计：</td> 
-                <td>22.00</td> 
-                <td>876.48</td>
+                <td>{{currentBetsMoney}}</td> 
+                <td>{{currentWinMoney}}</td>
               </tr> 
               <tr class="tab-footer">
                 <td colspan="4" class="tar">总计：</td> 
@@ -56,9 +56,8 @@
                 <td>{{totalwinMoney}}</td>
               </tr>
             </table>
-            <div class="block">
+            <div class="block" v-if="nowOrder.totalPage*1>1">
               <el-pagination
-                @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page.sync="currentPage"
                 :page-size="nowOrder.pageSize"
@@ -82,24 +81,27 @@ export default {
     return {
       nowOrder: {},
       currentPage: 1,
-      totalbetsMoney: '',
-      totalwinMoney: ''
+      totalbetsMoney: 0,
+      totalwinMoney: 0,
+      currentBetsMoney: 0,
+      currentWinMoney: 0
     }
   },
   created() {
-      this.getnowOrder();
+      this.getnowOrder2(this.currentPage,10000);
+      this.getnowOrder(this.currentPage,10);
   },
   computed: {
   },
   methods: {
-    handleSizeChange(data) {
-      console.log('handleSizeChange',data);
-    },
     handleCurrentChange(data) {
-      console.log('handleCurrentChange',data);
+      this.getnowOrder(data,10);
     },
-    async getnowOrder() {
-      let res = await this.$get(`${window.url}/api/nowOrder`);
+    async getnowOrder(cpage,pages) { 
+      this.currentBetsMoney = 0;
+      this.currentWinMoney = 0;
+
+      let res = await this.$get(`${window.url}/api/nowOrder?currentPage=`+cpage+`&pageSize=`+pages);
 
           if(res.code===200){
             this.nowOrder = res.page;
@@ -109,8 +111,21 @@ export default {
               this.nowOrder.list[n].createDate = this.$timestampToTime(this.nowOrder.list[n].createDate);
               this.nowOrder.list[n].winMoney = this.nowOrder.list[n].odds*this.nowOrder.list[n].betsMoney*1;
 
-              this.totalbetsMoney += this.nowOrder.list[n].betsMoney;
-              this.totalwinMoney += this.nowOrder.list[n].winMoney;
+              this.currentBetsMoney += this.nowOrder.list[n].betsMoney*1;
+              this.currentWinMoney += this.nowOrder.list[n].winMoney*1;
+            }
+          }
+    },
+    async getnowOrder2(cpage,pages) { 
+      let res = await this.$get(`${window.url}/api/nowOrder?currentPage=`+cpage+`&pageSize=`+pages);
+
+          if(res.code===200){
+
+            for(let n in res.page.list) {
+              let winMoney = res.page.list[n].odds*res.page.list[n].betsMoney*1;
+
+              this.totalbetsMoney += res.page.list[n].betsMoney*1;
+              this.totalwinMoney += winMoney*1;
             }
           }
     }

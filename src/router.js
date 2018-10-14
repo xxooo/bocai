@@ -54,6 +54,24 @@ const router = new Router({
               requireAuth: true,
           },
           component: r => require.ensure([], () => r(require('@/components/apps/submenu/instantorder')), 'instantorder'), meta: { requiresAuth: true }
+        },
+        { path: '/gambling/bettingHistory', name: 'bettingHistory',
+          meta: {
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/components/apps/submenu/bettingHistory')), 'bettingHistory'), meta: { requiresAuth: true }
+        },
+        { path: '/gambling/personalinfo', name: 'personalinfo',
+          meta: {
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/components/apps/submenu/personalinfo')), 'personalinfo'), meta: { requiresAuth: true }
+        },
+        { path: '/gambling/caiwumanager', name: 'caiwumanager',
+          meta: {
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/components/apps/submenu/caiwumanager')), 'caiwumanager'), meta: { requiresAuth: true }
         }
       ]
     }

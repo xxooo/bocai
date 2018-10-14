@@ -170,6 +170,9 @@
         if(this.totalMoney > this.cashBalance) {
           this.$alertMessage('您的余额不足!', '温馨提示');
         } else {
+
+          console.log('this.bocaiTypeName',this.bocaiTypeName);
+
           this.orderDatas.list = [];
 
           this.orderDatas.periodsId = this.bocaiInfoData.bocaiPeriodsId;
@@ -192,6 +195,8 @@
             }
             this.orderDatas.list.push(obj);
           }
+
+          console.log('this.orderDatas',this.orderDatas);
 
           this.orderOddsVisible = false;
           

@@ -3,32 +3,86 @@
     <div class="right">
       <div id="submenuDiv">
         <div class="box">
-        <div class="header">
-        <p>下注历史概要</p>
-        </div> 
-        <div class="default-list">
-        <div>
-        <p>
-        游戏：
-        <select>
-        <option data-v-722b6594="" value="0">全部</option> 
-        <option data-v-722b6594="" value="六合彩">六合彩</option>
-        </select> 
-        <a data-v-722b6594="" class="refresh r"><i data-v-722b6594="" class="icon-refresh"></i>
-          刷新
-        </a>
-        </p> 
-        <table class="sum_tab">
-        <caption data-v-722b6594=""><i data-v-722b6594="" class="icon-calendar"></i> 本周</caption> 
-        <thead data-v-722b6594="">
-        <tr data-v-722b6594="">
-        <th data-v-722b6594="">日期</th> 
-        <th data-v-722b6594="">投注额</th> 
-        <th data-v-722b6594="">派彩结果</th> 
-        <th data-v-722b6594="">注数</th>
-        </tr>
-        </thead> 
-        <tbody data-v-722b6594=""><!----> <tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-14</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-13</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-12</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-11</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-10</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-09</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-08</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr></tbody> <tr data-v-722b6594="" class="tab-footer"><td data-v-722b6594="">总计：</td> <td data-v-722b6594="">0.00</td> <td data-v-722b6594="">0.00</td> <td data-v-722b6594="">0</td></tr></table> <table data-v-722b6594="" class="sum_tab"><caption data-v-722b6594=""><i data-v-722b6594="" class="icon-calendar"></i> 上周</caption> <thead data-v-722b6594=""><tr data-v-722b6594=""><th data-v-722b6594="">日期</th> <th data-v-722b6594="">投注额</th> <th data-v-722b6594="">派彩结果</th> <th data-v-722b6594="">注数</th></tr></thead> <tbody data-v-722b6594=""><!----> <tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-07</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-06</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-05</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-04</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-03</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-02</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr><tr data-v-722b6594=""><td data-v-722b6594="" style="line-height: 26px;"><span data-v-722b6594="">2018-10-01</span></td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0.00</td> <td data-v-722b6594="" style="line-height: 26px;">0</td></tr></tbody> <tr data-v-722b6594="" class="tab-footer"><td data-v-722b6594="">总计：</td> <td data-v-722b6594="">0.00</td> <td data-v-722b6594="">0.00</td> <td data-v-722b6594="">0</td></tr></table></div></div></div>
+
+          <div class="header">
+            <p>下注历史概要</p>
+          </div> 
+          <div class="default-list">
+            <div>
+              <p>
+                游戏：
+                <el-select v-model="bocaiTypeId" placeholder="请选择" size="mini" @change="changeboType">
+                  <el-option label="全部" :value="''"></el-option>
+                  <el-option
+                    v-for="item in bocaiTypeList"
+                    :key="item.value"
+                    :label="item.bocaiName"
+                    :value="item.bocaiId">
+                  </el-option>
+                </el-select>
+                <a class="refresh r">刷新</a>
+              </p> 
+              <table class="sum_tab">
+                <caption><i class="icon-calendar"></i> 本周</caption> 
+                <thead>
+                  <tr>
+                    <th>日期</th> 
+                    <th>投注额</th> 
+                    <th>派彩结果</th> 
+                    <th>注数</th>
+                  </tr>
+                </thead> 
+                <tbody>
+                  <tr v-if="nowWeekPage.length*1 == '0'">
+                    <td style="line-height: 26px;" colspan="4">{{"暂无数据"}}</td> 
+                  </tr>
+                  <tr v-else v-for="item in nowWeekPage">
+                    <td style="line-height: 26px;"><span>{{item.createDateStr}}</span></td> 
+                    <td style="line-height: 26px;">{{item.betsMoneySum}}</td> 
+                    <td style="line-height: 26px;">{{item.winnerMoneySum}}</td> 
+                    <td style="line-height: 26px;">{{item.orderCount}}</td>
+                  </tr>
+                </tbody> 
+                <tr class="tab-footer">
+                  <td>总计：</td> 
+                  <td>{{betsAllNow}}</td> 
+                  <td>{{winnerAllNow}}</td> 
+                  <td>{{orderAllNow}}</td>
+                </tr>
+              </table>
+
+              <table class="sum_tab">
+                <caption><i class="icon-calendar"></i> 上周</caption> 
+                <thead>
+                  <tr>
+                    <th>日期</th> 
+                    <th>投注额</th> 
+                    <th>派彩结果</th> 
+                    <th>注数</th>
+                  </tr>
+                </thead> 
+                <tbody>
+                  <tr v-if="afterWeekPage.length*1 == '0'">
+                    <td style="line-height: 26px;" colspan="4">{{"暂无数据"}}</td> 
+                  </tr>
+                  <tr v-else v-for="item in afterWeekPage">
+                    <td style="line-height: 26px;"><span>{{item.createDateStr}}</span></td> 
+                    <td style="line-height: 26px;">{{item.betsMoneySum}}</td> 
+                    <td style="line-height: 26px;">{{item.winnerMoneySum}}</td> 
+                    <td style="line-height: 26px;">{{item.orderCount}}</td>
+                  </tr>
+                </tbody> 
+                <tr class="tab-footer">
+                  <td>总计：</td> 
+                  <td>{{betsAllAfter}}</td> 
+                  <td>{{winnerAllAfter}}</td> 
+                  <td>{{orderAllAfter}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
@@ -42,38 +96,68 @@ export default {
   data() {
     return {
       nowOrder: {},
-      currentPage: 1,
       totalbetsMoney: '',
-      totalwinMoney: ''
+      totalwinMoney: '',
+      bocaiTypeList: [],
+      bocaiTypeId: '',
+      afterWeekPage: [],
+      nowWeekPage: [],
+      betsAllNow: '',
+      winnerAllNow: '',
+      orderAllNow: '',
+      betsAllAfter: '',
+      winnerAllAfter: '',
+      orderAllAfter: ''
     }
   },
   created() {
-      this.getnowOrder();
+    this.hisOrder(this.bocaiTypeId);
+    this.getBocai();
   },
   computed: {
   },
   methods: {
-    handleSizeChange(data) {
-      console.log('handleSizeChange',data);
-    },
-    handleCurrentChange(data) {
-      console.log('handleCurrentChange',data);
-    },
-    async getnowOrder() {
-      let res = await this.$get(`${window.url}/api/nowOrder`);
+    async getBocai() {
+      let res = await this.$get(`${window.url}/api/getBocai`);
 
           if(res.code===200){
-            this.nowOrder = res.page;
-
-            for(let n in this.nowOrder.list) {
-              console.log('this.nowOrder[n].createDate',this.nowOrder);
-              this.nowOrder.list[n].createDate = this.$timestampToTime(this.nowOrder.list[n].createDate);
-              this.nowOrder.list[n].winMoney = this.nowOrder.list[n].odds*this.nowOrder.list[n].betsMoney*1;
-
-              this.totalbetsMoney += this.nowOrder.list[n].betsMoney;
-              this.totalwinMoney += this.nowOrder.list[n].winMoney;
-            }
+            this.bocaiTypeList = res.bocaiTypeList;
           }
+    },
+    changeboType(data) {
+      this.hisOrder(data);
+    },
+    async hisOrder(id) {
+
+      this.betsAllNow = '';
+      this.winnerAllNow = '';
+      this.orderAllNow = '';
+      this.betsAllAfter = '';
+      this.winnerAllAfter = '';
+      this.orderAllAfter = '';
+
+      let res = await this.$get(`${window.url}/api/hisOrder?bocaiTypeId=`+id);
+
+        if(res.code===200){
+            this.nowWeekPage = res.page.nowWeekPage;
+
+            for(let n in res.page.nowWeekPage) {
+              this.betsAllNow += res.page.nowWeekPage[n].betsMoneySum*1;
+              this.winnerAllNow += res.page.nowWeekPage[n].winnerMoneySum*1;
+              this.orderAllNow += res.page.nowWeekPage[n].orderCount*1;
+            }
+
+            this.afterWeekPage = res.page.afterWeekPage;
+
+            for(let n in res.page.afterWeekPage) {
+              this.betsAllAfter += res.page.afterWeekPage[n].betsMoneySum*1;
+              this.winnerAllAfter += res.page.afterWeekPage[n].winnerMoneySum*1;
+              this.orderAllAfter += res.page.afterWeekPage[n].orderCount*1;
+            }
+
+            console.log('afterWeekPage.length*1',this.afterWeekPage.length*1);
+            console.log('nowWeekPage.length*1',this.nowWeekPage.length*1);
+        } 
     }
   },
   mounted() {

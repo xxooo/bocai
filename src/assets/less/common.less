@@ -9,6 +9,10 @@ body {
     font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif; // font-family: Helvetica Neue For Number, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif!important;
 }
 
+address, button, caption, cite, code, dfn, em, input, optgroup, option, select, strong, textarea, th, var {
+    font: inherit;
+}
+
 body {
     color: #EBCB80;
     background: url(../../../static/img/bj.png) center no-repeat;
@@ -27,6 +31,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 a {
     text-decoration: none;
     outline: none;
+    cursor: pointer;
 }
 
 .golden {
@@ -567,6 +572,7 @@ td, th {
         width: 770px;
         background-color: #fff;
         min-height: 400px;
+        text-align: left;
     }
     .header {
         padding: 10px 20px;
@@ -584,8 +590,11 @@ td, th {
         color: #b55233;
     }
     .default-list table {
-        margin-top: 5px;
+        margin-top: 15px;
         width: 100%;
+    }
+    .sum_tab caption {
+        color: #805933;
     }
     .default-list table thead {
         background-color: #8b7b5f;
@@ -627,5 +636,171 @@ td, th {
     .default-list table {
       border-collapse: collapse;
       border-spacing: 0;
+    }
+
+    .default-list table tr.tab-footer {
+        color: #f2f1f0;
+        background-color: #8b7b5f;
+        font-weight: 700;
+    }
+
+    .block {
+        text-align: center;
+    }
+
+    .gameNav {
+        display: inline-block;
+        margin-right: 10px;
+        background-color: #eacda7;
+        padding: 7px 10px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        font-weight: 700;
+        cursor: pointer;
+        color: #3f312b;
+    }
+    .gameNav.active {
+        background-color: #8a3319;
+        cursor: default;
+        color: #ffdfb6;
+    }
+    .gameNav:hover {
+        background-color: #cfa972;
+    }
+
+    .bank-info {
+        margin-top: 10px;
+        padding: 5px 8px;
+    }
+    .bank-info .tab {
+        padding: 0 10px;
+        height: 34px;
+    }
+    .bank-info .tab a {
+        position: relative;
+        height: 32px;
+        box-sizing: border-box;
+        color: #fff;
+        font-size: 14px;
+        line-height: 2.3;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        width: 120px;
+        margin-right: 1px;
+        float: left;
+        z-index: 2;
+        background: #321919;
+    }
+    .bank-info .tab a, .bank-info .tab a:after {
+        transition: all .4s;
+        -webkit-transition: all .4s;
+        -moz-transition: all .4s;
+        -o-transition: all .4s;
+    }
+    .bank-info .tab a.active, .bank-info .tab a:hover {
+        background-color: #875e5a;
+    }
+    .bank-info .tab a.active {
+        cursor: default;
+    }
+    .bank-info .table {
+        padding: 10px;
+        background-color: #fdfdfd;
+        position: relative;
+    }
+
+    .bank-info table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .bank-info .table table {
+        margin-top: 10px;
+        padding: 10px;
+        line-height: 24px;
+        width: 100%;
+        border: 1px solid #907a61;
+    }
+    .bank-info .table .bank-table {
+        width: 482px;
+    }
+    .bank-info table > tr {
+        vertical-align: middle;
+    }
+    .bank-info .table table tr {
+        border: 1px solid #907a61;
+    }
+    .bank-info .table table td, .bank-info .table table th {
+        padding: 0 10px;
+        font-size: 13px;
+        line-height: 30px;
+        border: 1px solid #907a61;
+    }
+    .bank-info .table .bank-table th {
+        text-align: right;
+        background-color: #eacda7;
+    }
+
+    .bank-info input[type=text], textarea {
+        padding-left: 3px;
+    }
+    .bank-info .table table td input, .bank-info .table table th input {
+        height: 18px;
+        line-height: 20px;
+    }
+    .red {
+        color: red;
+    }
+
+    .bank-info th {
+        color: #805933;
+    }
+    .btn-box {
+        text-align: center;
+    }
+    .btn-box button {
+        color: #805933;
+    }
+    .contact {
+        color: #595857;
+    }
+    .contact a {
+        color: #2d78f4;
+    }
+    .recharge-type, .recharge-type th {
+        text-align: center;
+    }
+    .recharge-type label {
+        display: block;
+        margin: 10px 0;
+    }
+    .recharge-type img {
+        vertical-align: bottom;
+        background-color: #fff;
+        border: 1px solid #dfdfdf;
+    }
+    .grey {
+        color: #999;
+        margin-bottom: 5px;
+    }
+    .r {
+        float: right;
+    }
+    .bank-info .table .ask-table th, .bank-info .table .payRecord th {
+        font-weight: 700;
+        text-align: center;
+        background-color: #875e2f;
+        color: #ffdfb6;
+    }
+    .bank-info .table .ask-table tr td, .bank-info .table .payRecord tr td {
+        text-align: center;
+    }
+
+    .shqitixian input {
+        padding: 2px 0px;
+    }
+    .shqitixian select {
+        padding: 0px 0px 4px;
     }
   }
