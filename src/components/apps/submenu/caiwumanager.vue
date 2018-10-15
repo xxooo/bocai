@@ -31,77 +31,77 @@
                 <tr>
                   <th>卡主姓名：</th> 
                   <td>
-                  <input type="text" v-model="bankInfoObj.bankNum" placeholder="请输入卡主姓名"> 
+                  <input type="text" v-model="bankInfoObj.bankUserName" class="bankUserName" placeholder="请输入卡主姓名"> 
                   <span class="red">（设置后不能修改）</span>
                 </td>
                 </tr> 
                 <tr>
                   <th>手机号码：</th> 
-                  <td><input type="text" v-model="bankInfoObj.bankNum" placeholder="请输入手机号码"></td>
+                  <td><input type="text" v-model="bankInfoObj.phone" placeholder="请输入手机号码"></td>
                 </tr> 
                 <tr>
                   <th>微信支付账号：</th> 
                   <td>
-                  <input type="text" v-model="bankInfoObj.bankNum" placeholder="请输入微信账号"> <span class="red">（设置后不能修改）</span>
+                  <input type="text" v-model="bankInfoObj.weixin" class="weixin" placeholder="请输入微信账号"> <span class="red">（设置后不能修改）</span>
                   </td>
                 </tr> 
                 <tr>
                   <th>支付宝账号：</th> 
                   <td>
-                  <input type="text" v-model="bankInfoObj.bankNum" placeholder="请输入支付宝账号"> <span class="red">（设置后不能修改）</span>
+                  <input type="text" v-model="bankInfoObj.zhifubao" class="zhifubao" placeholder="请输入支付宝账号"> <span class="red">（设置后不能修改）</span>
                   </td>
                 </tr> 
                 <tr>
                   <th>提现密码：</th>
-                  <td v-if="bankInfoObj.putForwardPassword != ''"><a @click="chanPassType">修改密码</a></td>
-                  <td v-if="passType">
+                  <td v-if="bankInfoObj.putForwardPassword == ''">
                     <p>
-                      旧密码：
-                      <select>
+                      <select v-model="newPass[0]">
                         <option v-for="item in mima" :value="item">{{item}}</option>
                       </select>
-                      <select>
+                      <select v-model="newPass[1]">
                         <option v-for="item in mima" :value="item">{{item}}</option>
                       </select> 
-                      <select>
+                      <select v-model="newPass[2]">
                         <option v-for="item in mima" :value="item">{{item}}</option>
                       </select> 
-                      <select>
+                      <select v-model="newPass[3]">
+                        <option v-for="item in mima" :value="item">{{item}}</option>
+                      </select>  
+                    </p>
+                  </td>
+                  <td v-else-if="passType">
+                    <p>
+                      旧密码：
+                      <select v-model="oldPass[0]">
+                        <option v-for="item in mima" :value="item">{{item}}</option>
+                      </select>
+                      <select v-model="oldPass[1]">
+                        <option v-for="item in mima" :value="item">{{item}}</option>
+                      </select> 
+                      <select v-model="oldPass[2]">
+                        <option v-for="item in mima" :value="item">{{item}}</option>
+                      </select> 
+                      <select v-model="oldPass[3]">
                         <option v-for="item in mima" :value="item">{{item}}</option>
                       </select>  
                     </p>
                     <p>
                       新密码：
-                      <select>
+                      <select v-model="newPass[0]">
                         <option v-for="item in mima" :value="item">{{item}}</option>
                       </select>
-                      <select>
+                      <select v-model="newPass[1]">
                         <option v-for="item in mima" :value="item">{{item}}</option>
                       </select> 
-                      <select>
+                      <select v-model="newPass[2]">
                         <option v-for="item in mima" :value="item">{{item}}</option>
                       </select> 
-                      <select>
+                      <select v-model="newPass[3]">
                         <option v-for="item in mima" :value="item">{{item}}</option>
                       </select>  
                     </p> 
                   </td>
-                  <td v-if="bankInfoObj.putForwardPassword == ''">
-                    <p>
-                      <select>
-                        <option v-for="item in mima" :value="item">{{item}}</option>
-                      </select>
-                      <select>
-                        <option v-for="item in mima" :value="item">{{item}}</option>
-                      </select> 
-                      <select>
-                        <option v-for="item in mima" :value="item">{{item}}</option>
-                      </select> 
-                      <select>
-                        <option v-for="item in mima" :value="item">{{item}}</option>
-                      </select>  
-                    </p>
-                  </td>
+                  <td v-else><a @click="chanPassType">修改密码</a></td>
                 </tr>
               </table> 
               <i class="icon-credit-card"></i> 
@@ -272,6 +272,16 @@ export default {
   data() {
     return {
       bankInfoObj: {},
+      newPass: ['--','--','--','--'],
+      oldPass: ['--','--','--','--'],
+      newPass1: '',
+      newPass2: '',
+      newPass3: '',
+      newPass4: '',
+      oldPass1: '',
+      oldPass2: '',
+      oldPass3: '',
+      oldPass4: '',
       tabNum: '1',
       passType: false,
       mima: ['--','0','1','2','3','4','5','6','7','8','9'],
@@ -292,8 +302,78 @@ export default {
   methods: {
     async submit() {
       if(this.tabNum == '1') {
+        let normal = true;
+        let password = '';
 
-        
+        console.log('bankInfoObj',this.bankInfoObj);
+
+        if(this.passType) {
+          let oldpassword = '';
+          for(let n in this.oldPass) {
+            oldpassword += this.oldPass[n];
+          }
+          if(oldpassword != this.bankInfoObj.putForwardPassword) {
+            normal = false;
+            this.$alertMessage('旧密码不正确!', '温馨提示');
+          } else {
+
+            for(let n in this.newPass) {
+              if(this.newPass[n] == '--') {
+                normal = false;
+                this.$alertMessage('请确认密码正确!', '温馨提示');
+              }
+            }
+          }
+
+        } else if(this.bankInfoObj.putForwardPassword == '') {
+          for(let n in this.newPass) {
+            if(this.newPass[n] == '--') {
+              normal = false;
+              this.$alertMessage('请确认密码正确!', '温馨提示');
+            }
+          }
+        } else {
+          password = this.bankInfoObj.putForwardPassword;
+        }
+
+
+        if(normal) {
+
+          if(password == '') {
+            for(let n in this.newPass) {
+              password += this.newPass[n];
+            }
+          }
+
+          let dataobj = {
+            bankName: this.bankInfoObj.bankName,//银行名称
+            bankNum: this.bankInfoObj.bankNum,//银行卡号
+            bankUserName: this.bankInfoObj.bankUserName,//卡主姓名
+            phone: this.bankInfoObj.phone,//手机号码
+            weixin: this.bankInfoObj.weixin,//微信支付账号
+            zhifubao: this.bankInfoObj.zhifubao,//支付宝账号
+            putForwardPassword: password//提现密码
+          }
+
+          console.log('dataobj',dataobj);
+
+          let that = this;
+          NProgress.start();
+          await that.$post(`${window.url}/api/bankInfoSub`,dataobj).then((res) => {
+            that.$handelResponse(res, (result) => {
+              NProgress.done();
+              if(result.code===200){
+                //更新用户信息
+                // bus.$emit('getcUserInfo', ''); 
+                // that.orderDatas.list = [];
+                that.$success('修改成功！');
+                // that.reset();
+                that.bankInfo();
+              }
+            })
+          });
+
+        }
         
       } else if(this.tabNum == '2') {
 
@@ -301,6 +381,8 @@ export default {
     },
     chanPassType() {
       this.passType = true;
+      this.oldPass = ['--','--','--','--'];
+      this.newPass = ['--','--','--','--'];
     },
     async historyInfo() {
       $('.historyInfo').addClass('active').siblings().removeClass('active');
@@ -342,33 +424,23 @@ export default {
 
       if(res.code===200){
         this.bankInfoObj = res.data;
+
+ //        if(this.bankInfoObj.bankUserName) {
+ //          $(".bankUserName").attr("disabled", true);
+ //        }
+
+
+ // this.bankInfoObj.bankUserName,//卡主姓名
+ //            phone: this.bankInfoObj.phone,//手机号码
+ //            weixin: this.bankInfoObj.weixin,//微信支付账号
+ //            zhifubao: this.bankInfoObj.zhifubao,//支付宝账号
+
+ //        this.passType = false;
+ //        $(".bankUserName").attr("disabled", true);
+
       }
 
       this.tabNum = '1';
-    },
-    getcuserInfo(item) {
-      this.cbocai = item.bocaiName;
-      this.cUserdewater(item.bocaiId);
-      $('.bocai'+item.bocaiId).addClass('active').siblings().removeClass('active');
-    },
-    async getBocai() {
-      let res = await this.$get(`${window.url}/api/getBocai`);
-
-      if(res.code===200){
-        this.bocaiTypeList = res.bocaiTypeList;
-      }
-    },
-    changeboType(data) {
-      this.cUserdewater(data);
-    },
-    async cUserdewater(id) {
-
-      let res = await this.$get(`${window.url}/api/cUserdewater?bocaiTypeId=`+id);
-
-        if(res.code===200){
-            this.cUserdeList = res.data;
-
-        } 
     }
   },
   mounted() {
