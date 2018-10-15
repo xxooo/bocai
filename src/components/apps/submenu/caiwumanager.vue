@@ -108,9 +108,9 @@
             </div>
 
             <div class="table" v-if="tabNum == '2'">
-              <div class="pay">
+              <div class="pay" v-if="!chongzhiHisOp">
                 <p class="contact">
-                  <a class="payRecord r">
+                  <a class="payRecord r" @click="toChongzhiHis">
                     <i class="icon-credit-card"></i> 
                     充值记录
                   </a>
@@ -160,7 +160,7 @@
                 </table>
               </div>
 
-              <div class="pay">
+              <div class="pay" v-else>
                 <p class="contact">
                   <a href="javascript:;" class="r"><i class="icon-reply"></i> 返回</a>
                   <span>
@@ -255,7 +255,7 @@
 
           <p class="btn-box">
             <el-button type="primary" size="mini" @click="submit">确 定</el-button>
-            <el-button type="primary" size="mini" @click="">取 消</el-button>
+            <el-button type="primary" size="mini" @click="cancel">取 消</el-button>
           </p>
 
         </div>
@@ -271,7 +271,10 @@ export default {
   },
   data() {
     return {
+      chongzhiHisOp: false,
       bankInfoObj: {},
+      caiwuYinhangzhuanzhangList: [],
+      caiwuChongzhifangshi: {},
       newPass: ['--','--','--','--'],
       oldPass: ['--','--','--','--'],
       newPass1: '',
@@ -300,6 +303,17 @@ export default {
   computed: {
   },
   methods: {
+    toChongzhiHis() {
+      this.chongzhiHisOp = true;
+
+      let res = await this.$get(`${window.url}/api/rechargeList?status=1`);
+      if(res.code===200){
+        this.bankInfoObj = res.data;
+      }
+    },
+    async cancel() {
+      this.bankInfo();
+    },
     async submit() {
       if(this.tabNum == '1') {
         let normal = true;
@@ -407,15 +421,20 @@ export default {
       this.tabNum = '3';
     },
     async rechargeInfo() {
-      $('.rechargeInfo').addClass('active').siblings().removeClass('active');
+      if(this.bankInfoObj.putForwardPassword == '') {
+        this.$alertMessage('请先设置提现密码，才能访问!', '温馨提示');
+      } else {
+        $('.rechargeInfo').addClass('active').siblings().removeClass('active');
 
-      let res = await this.$get(`${window.url}/api/bankInfo`);
+        let res = await this.$get(`${window.url}/api/rechargeInfo`);
 
-      if(res.code===200){
-        this.bankInfoObj = res.data;
+        if(res.code===200){
+          this.bankInfoObj = res.data;
+        }
+
+        this.tabNum = '2';
       }
-
-      this.tabNum = '2';
+      
     },
     async bankInfo() {
       $('.bankInfo').addClass('active').siblings().removeClass('active');
@@ -425,19 +444,17 @@ export default {
       if(res.code===200){
         this.bankInfoObj = res.data;
 
- //        if(this.bankInfoObj.bankUserName) {
- //          $(".bankUserName").attr("disabled", true);
- //        }
+        if(this.bankInfoObj.bankUserName != '') {
+          $(".bankUserName").attr("disabled", true);
+        }
+        if(this.bankInfoObj.weixin != '') {
+          $(".weixin").attr("disabled", true);
+        }
+        if(this.bankInfoObj.zhifubao != '') {
+          $(".zhifubao").attr("disabled", true);
+        }
 
-
- // this.bankInfoObj.bankUserName,//卡主姓名
- //            phone: this.bankInfoObj.phone,//手机号码
- //            weixin: this.bankInfoObj.weixin,//微信支付账号
- //            zhifubao: this.bankInfoObj.zhifubao,//支付宝账号
-
- //        this.passType = false;
- //        $(".bankUserName").attr("disabled", true);
-
+        this.passType = false;
       }
 
       this.tabNum = '1';
