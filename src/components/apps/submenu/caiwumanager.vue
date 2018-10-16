@@ -110,7 +110,7 @@
             <div class="table" v-if="tabNum == '2'">
               <div class="pay" v-if="!chongzhiHisOp">
                 <p class="contact">
-                  <a class="payRecord r" @click="toChongzhiHis">
+                  <a class="payRecord r" @click="toChongzhiHis('1',1,10)">
                     <i class="icon-credit-card"></i> 
                     充值记录
                   </a>
@@ -173,9 +173,9 @@
                   <a class="r" @click="returnChistory"><i class="icon-reply"></i> 返回</a>
                   <span>
                     状态：
-                    <select>
-                      <option value="true">已处理</option> 
-                      <option value="false">未处理</option>
+                    <select v-model="rechargeHisType" @change="changeRechHisType">
+                      <option value="1">已处理</option> 
+                      <option value="2">未处理</option>
                     </select>
                   </span>
                 </p> 
@@ -186,10 +186,27 @@
                     <th>状态</th> 
                     <th>申请时间</th>
                   </tr> 
-                  <tr>
-                    <td colspan="5">暂无数据</td>
+                  <tr v-if="rechargeList.list.length*1 == '0'">
+                    <td  colspan="5">暂无数据</td> 
+                  </tr>
+                  <tr v-else v-for="item in rechargeList.list">
+                    <td><span>{{item.type=='1'?'微信' : item.type=='2'? '支付宝' : '银行转帐'}}</span></td> 
+                    <td>{{item.money}}</td> 
+                    <td>{{item.status=='1'?'已通过' : item.type=='2'? '已拒绝' : '未处理'}}</span></td>
+                    <td>{{item.createDate}}</td>
                   </tr>
                 </table>
+
+                <div class="block">
+                  <el-pagination
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage"
+                    :page-size="rechargeList.pageSize"
+                    layout="total, prev, pager, next"
+                    :total="rechargeList.totalCount*1">
+                  </el-pagination>
+                </div>
+
               </div>
 
             </div>
@@ -279,12 +296,13 @@ export default {
   },
   data() {
     return {
-      rechargeHisType: '0',
+      currentPage: 1,
+      rechargeHisType: '1',
       paymoney: '',
       payremark: '',
       chongzhiImgSrc: '',
       chongzhiType: '',
-      rechargeList: [],
+      rechargeList: {},
       chongzhiHisOp: false,
       bankInfoObj: {},
       caiwuYinhangzhuanzhangList: [],
@@ -317,6 +335,12 @@ export default {
   computed: {
   },
   methods: {
+    changeRechHisType(data) {
+      this.toChongzhiHis(data,1,10);
+    },
+    handleCurrentChange(cpage) {
+      this.toChongzhiHis(this.rechargeHisType,cpage,10);
+    },
     getchongzhiType(data) {
       console.log('data',data);
 
@@ -353,14 +377,15 @@ export default {
     returnChistory() {
       this.chongzhiHisOp = false;
     },
-    async toChongzhiHis() {
+    async toChongzhiHis(rechType,cpage,pages) {
       this.chongzhiHisOp = true;
 
-      let res = await this.$get(`${window.url}/api/rechargeList?status=`+this.rechargeHisType);
+      let res = await this.$get(`${window.url}/api/rechargeList?status=`+rechType+`&currentPage=`+cpage+`&pageSize=`+pages);
       if(res.code===200){
-        this.rechargeList = res.data;
+        this.rechargeList = res.page;
       }
     },
+
     async cancel() {
       this.bankInfo();
     },
