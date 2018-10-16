@@ -2,7 +2,7 @@
   <div class="content-main">
     <div class="right">
       <div id="submenuDiv">
-        <div class="box">
+        <div class="box" id="caiwumanager">
 
           <div class="header">
             <p>财务管理</p>
@@ -16,7 +16,7 @@
               <a class="historyInfo" @click="historyInfo">历史记录</a>
             </ul> 
 
-            <div class="table" v-if="tabNum == '1'">
+            <div class="table"  v-if="tabNum == '1'">
               <table class="bank-table">
                 <tr>
                   <th>银行名称：</th> 
@@ -122,24 +122,32 @@
                   </tr> 
                   <tr>
                     <td>
-                      <label for="wx">
-                        <input type="radio" name="wx" id="wx" value="1"> 
-                        <img src="/static/img/WXPAY.6f192a3.png" alt="">
-                      </label> 
-                      <label for="wx">
-                        <input type="radio" name="wx" id="wx" value="1"> 
-                        <img src="/static/img/alipay.8999215.jpg" alt="">
-                      </label>
-                      <label for="wx">
-                        <input type="radio" name="wx" id="wx" value="1"> 
-                        <img src="/static/img/unionpay.a124865.jpg" alt="">
-                      </label>
+                      <el-radio v-model="chongzhiType" label="1" @change="getchongzhiType"><img src="/static/img/WXPAY.6f192a3.png" alt=""></el-radio>
+                      <el-radio v-model="chongzhiType" label="2" @change="getchongzhiType"><img src="/static/img/alipay.8999215.jpg" alt=""></el-radio>
+                      <el-radio v-model="chongzhiType" label="3" @change="getchongzhiType"><img src="/static/img/unionpay.a124865.jpg" alt=""></el-radio>
+
                     </td> 
-                    <td>
+                    <td v-if="chongzhiType == ''">
                       <p>
                         <a>如充值异常，请刷新二维码</a>
                       </p> 
                       <img src="/static/img/onError.gif" alt="" width="120" height="120" title="点击图片刷新" style="cursor: pointer;">
+                    </td>
+                    <td v-else-if="chongzhiType == '3'">
+                      <div class="kahaoclass" v-for="item in caiwuYinhangzhuanzhangList">
+                        <el-row>
+                          <el-col :span="12"><h3 class="grid-content bg-purple-light">{{item.yinhangLeixing}}</h3></el-col>
+                        </el-row>
+                        <el-row>
+                          <el-col :span="16" class="labelStep">
+                            <span class="grid-content bg-purple">卡号:{{item.yinhangZhanghao}}</span>
+                          </el-col>
+                          <el-col :span="8"><span class="grid-content bg-purple-light">收款人:{{item.shoukuanXingming}}</span></el-col>
+                        </el-row>
+                      </div>
+                    </td>
+                    <td v-else>
+                      <img :src="chongzhiImgSrc" alt="" width="120" height="120" title="充值" >
                     </td>
                   </tr> 
                   <tr>
@@ -148,13 +156,13 @@
                         <span class="red">*</span>
                         充值金额：
                       </p> 
-                      <input type="text" placeholder="请输入金额" style="height: 30px;">
+                      <input type="text" v-model="paymoney" placeholder="请输入金额" style="height: 30px;">
                     </td> 
                     <td class="remark" style="border-left: none;">
                       <span><i class="red">*</i>备注：</span> 
                       <span style="color: rgb(157, 157, 157); font-size: 11px;">(付款账号,姓名等信息)</span>
-                      <br data-v-5787ec6f=""> 
-                      <textarea placeholder="格式如：账号 123，张三" cols="30"></textarea>
+                      <br> 
+                      <textarea v-model="payremark" placeholder="格式如：账号 123，张三" cols="30"></textarea>
                     </td>
                   </tr>
                 </table>
@@ -162,7 +170,7 @@
 
               <div class="pay" v-else>
                 <p class="contact">
-                  <a href="javascript:;" class="r"><i class="icon-reply"></i> 返回</a>
+                  <a class="r" @click="returnChistory"><i class="icon-reply"></i> 返回</a>
                   <span>
                     状态：
                     <select>
@@ -271,6 +279,12 @@ export default {
   },
   data() {
     return {
+      rechargeHisType: '0',
+      paymoney: '',
+      payremark: '',
+      chongzhiImgSrc: '',
+      chongzhiType: '',
+      rechargeList: [],
       chongzhiHisOp: false,
       bankInfoObj: {},
       caiwuYinhangzhuanzhangList: [],
@@ -303,12 +317,48 @@ export default {
   computed: {
   },
   methods: {
-    toChongzhiHis() {
+    getchongzhiType(data) {
+      console.log('data',data);
+
+      this.chongzhiType = data;
+
+      if(this.chongzhiType == '1') {
+        if(this.caiwuChongzhifangshi.weixinEwma != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.weixinEwma;
+        } else if(this.caiwuChongzhifangshi.weixinEwmb != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.weixinEwmb;
+        } else if(this.caiwuChongzhifangshi.weixinEwmc != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.weixinEwmc;
+        } else if(this.caiwuChongzhifangshi.weixinEwmd != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.weixinEwmd;
+        } else if(this.caiwuChongzhifangshi.weixinEwme != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.weixinEwme;
+        }
+      } else if(this.chongzhiType == '2') {
+        if(this.caiwuChongzhifangshi.zhifubaoEwma != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.zhifubaoEwma;
+        } else if(this.caiwuChongzhifangshi.zhifubaoEwmb != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.zhifubaoEwmb;
+        } else if(this.caiwuChongzhifangshi.zhifubaoEwmc != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.zhifubaoEwmc;
+        } else if(this.caiwuChongzhifangshi.zhifubaoEwmd != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.zhifubaoEwmd;
+        } else if(this.caiwuChongzhifangshi.zhifubaoEwme != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.zhifubaoEwme;
+        }
+      } else {
+
+      }
+    },
+    returnChistory() {
+      this.chongzhiHisOp = false;
+    },
+    async toChongzhiHis() {
       this.chongzhiHisOp = true;
 
-      let res = await this.$get(`${window.url}/api/rechargeList?status=1`);
+      let res = await this.$get(`${window.url}/api/rechargeList?status=`+this.rechargeHisType);
       if(res.code===200){
-        this.bankInfoObj = res.data;
+        this.rechargeList = res.data;
       }
     },
     async cancel() {
@@ -390,7 +440,25 @@ export default {
         }
         
       } else if(this.tabNum == '2') {
+        if(this.chongzhiType == '') {
+          this.$alertMessage('请确认充值方式!', '温馨提示');
+        } else if(this.paymoney == '') {
+          this.$alertMessage('请确认充值金额!', '温馨提示');
+        } else if(this.payremark == '') {
+          this.$alertMessage('请确认充值备注', '温馨提示');
+        } else {
+          let subobj = {
+            type: this.chongzhiType*1,//充值方式,1:微信,2:支付宝,3:银行转账
+            money: this.paymoney*1,//充值金额
+            remark: this.payremark//充值备注
+          }
 
+          let res = await this.$post(`${window.url}/api/rechargeInfoSub`, subobj);
+
+          if(res.code === 200) {
+            this.$success('提交成功!');
+          }
+        }
       }
     },
     chanPassType() {
@@ -429,7 +497,9 @@ export default {
         let res = await this.$get(`${window.url}/api/rechargeInfo`);
 
         if(res.code===200){
-          this.bankInfoObj = res.data;
+
+          this.caiwuYinhangzhuanzhangList = res.caiwuYinhangzhuanzhangList;
+          this.caiwuChongzhifangshi = res.caiwuChongzhifangshi;
         }
 
         this.tabNum = '2';
@@ -469,5 +539,4 @@ export default {
 <style scoped>
 </style>
 <style lang="less">
-  
 </style>
