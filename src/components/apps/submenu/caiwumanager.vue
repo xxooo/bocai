@@ -122,16 +122,16 @@
                   </tr> 
                   <tr>
                     <td>
-                      <el-radio v-model="chongzhiType" label="1" @change="getchongzhiType"><img src="/static/img/WXPAY.6f192a3.png" alt=""></el-radio>
-                      <el-radio v-model="chongzhiType" label="2" @change="getchongzhiType"><img src="/static/img/alipay.8999215.jpg" alt=""></el-radio>
-                      <el-radio v-model="chongzhiType" label="3" @change="getchongzhiType"><img src="/static/img/unionpay.a124865.jpg" alt=""></el-radio>
+                      <el-radio v-model="chongzhiType" label="1" @change="getchongzhiType"><img src="../../../../static/img/WXPAY.6f192a3.png" alt=""></el-radio>
+                      <el-radio v-model="chongzhiType" label="2" @change="getchongzhiType"><img src="../../../../static/img/alipay.8999215.jpg" alt=""></el-radio>
+                      <el-radio v-model="chongzhiType" label="3" @change="getchongzhiType"><img src="../../../../static/img/unionpay.a124865.jpg" alt=""></el-radio>
 
                     </td> 
                     <td v-if="chongzhiType == ''">
                       <p>
                         <a>如充值异常，请刷新二维码</a>
                       </p> 
-                      <img src="/static/img/onError.gif" alt="" width="120" height="120" title="点击图片刷新" style="cursor: pointer;">
+                      <img src="../../../../static/img/onError.gif" alt="" width="120" height="120" title="点击图片刷新" style="cursor: pointer;">
                     </td>
                     <td v-else-if="chongzhiType == '3'">
                       <div class="kahaoclass" v-for="item in caiwuYinhangzhuanzhangList">
@@ -173,37 +173,36 @@
                   <a class="r" @click="returnChistory"><i class="icon-reply"></i> 返回</a>
                   <span>
                     状态：
-                    <select v-model="rechargeHisType" @change="changeRechHisType">
+                    <select v-model="rechargeHisType" onchange="changeRechHisType">
                       <option value="1">已处理</option> 
                       <option value="2">未处理</option>
                     </select>
                   </span>
                 </p> 
-                <table class="payRecord">
+                <table v-if="rechargeObj.list" class="payRecord">
                   <tr>
                     <th>充值方式</th> 
                     <th>充值金额</th> 
                     <th>状态</th> 
                     <th>申请时间</th>
                   </tr> 
-                  <tr v-if="rechargeList.list.length*1 == '0'">
+                  <tr v-if="rechargeObj.list.length*1 == '0'">
                     <td  colspan="5">暂无数据</td> 
                   </tr>
-                  <tr v-else v-for="item in rechargeList.list">
+                  <tr v-else v-for="item in rechargeObj.list">
                     <td><span>{{item.type=='1'?'微信' : item.type=='2'? '支付宝' : '银行转帐'}}</span></td> 
                     <td>{{item.money}}</td> 
                     <td>{{item.status=='1'?'已通过' : item.type=='2'? '已拒绝' : '未处理'}}</span></td>
-                    <td>{{item.createDate}}</td>
+                    <td>{{$timestampToTime(item.createDate)}}</td>
                   </tr>
                 </table>
-
                 <div class="block">
                   <el-pagination
                     @current-change="handleCurrentChange"
                     :current-page.sync="currentPage"
-                    :page-size="rechargeList.pageSize"
+                    :page-size="rechargeObj.pageSize"
                     layout="total, prev, pager, next"
-                    :total="rechargeList.totalCount*1">
+                    :total="rechargeObj.totalCount*1">
                   </el-pagination>
                 </div>
 
@@ -213,36 +212,52 @@
 
             <div class="table" v-if="tabNum == '3'">
               <div class="shqitixian">
-                <p class="grey">* 当前可取余额：<b style="color: green;">0.00</b></p> 
+                <p class="grey">* 当前可取余额：<b style="color: green;">{{useMoney}}</b></p> 
                 <div>
                   <div class="r">
                     状态：
-                    <select>
-                      <option value="true">已处理</option> 
-                      <option value="false">未处理</option>
+                    <select v-model="forwardType" @click="changeForwardType">
+                      <option value="1">已处理</option> 
+                      <option value="0">未处理</option>
                     </select>
                   </div>
                   提现金额： 
-                  <input type="text" placeholder="请输入金额" style="width: 80px;"> 
-                  <select style="margin-right: 5px;">
+                  <input type="text" v-model="forwardCash" placeholder="请输入金额" style="width: 80px;"> 
+                  <select style="margin-right: 5px;" v-model="forwardFaction">
                     <option v-for="item in payType" :value="item.value">{{item.label}}</option> 
                   </select> 
                   <span style="margin-right: 5px;">
-                    提现密码：<input data-v-5787ec6f="" type="text" style="width: 50px;">
+                    提现密码：<input type="text" v-model="forwardPass" style="width: 50px;">
                   </span> 
                   <button style="width: 60px;">确定</button>
                 </div> 
-                <table class="ask-table">
+                <table v-if="forwardObj.list" class="ask-table">
                   <tr>
                     <th>提现方式</th> 
                     <th>提现金额</th> 
                     <th>状态</th> 
                     <th>申请时间</th>
                   </tr> 
-                  <tr>
-                    <td colspan="5">暂无数据</td>
+                  <tr v-if="forwardObj.list.length*1 == '0'">
+                    <td  colspan="5">暂无数据</td> 
+                  </tr>
+                  <tr v-else v-for="item in forwardObj.list">
+                    <td><span>{{item.type=='1'?'微信' : item.type=='2'? '支付宝' : '银行转帐'}}</span></td> 
+                    <td>{{item.money}}</td> 
+                    <td>{{item.status=='1'?'已通过' : item.type=='2'? '已拒绝' : '未处理'}}</span></td>
+                    <td>{{$timestampToTime(item.createDate)}}</td>
                   </tr>
                 </table>
+                <div class="block">
+                  <el-pagination
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage"
+                    :page-size="forwardObj.pageSize"
+                    layout="total, prev, pager, next"
+                    :total="forwardObj.totalCount*1">
+                  </el-pagination>
+                </div>
+
               </div>
 
             </div>
@@ -296,27 +311,25 @@ export default {
   },
   data() {
     return {
+      forwardPass: '',
+      forwardFaction: '1',
+      forwardCash: '',
+      useMoney: '',
       currentPage: 1,
       rechargeHisType: '1',
       paymoney: '',
       payremark: '',
       chongzhiImgSrc: '',
       chongzhiType: '',
-      rechargeList: {},
+      forwardType: '0',
+      rechargeObj: {},
+      forwardObj: {},
       chongzhiHisOp: false,
       bankInfoObj: {},
       caiwuYinhangzhuanzhangList: [],
       caiwuChongzhifangshi: {},
       newPass: ['--','--','--','--'],
       oldPass: ['--','--','--','--'],
-      newPass1: '',
-      newPass2: '',
-      newPass3: '',
-      newPass4: '',
-      oldPass1: '',
-      oldPass2: '',
-      oldPass3: '',
-      oldPass4: '',
       tabNum: '1',
       passType: false,
       mima: ['--','0','1','2','3','4','5','6','7','8','9'],
@@ -335,7 +348,12 @@ export default {
   computed: {
   },
   methods: {
+    changeForwardType(data) {
+      console.log('changeForwardType',data);
+      this.forwardList(data,1,10);
+    },
     changeRechHisType(data) {
+      console.log('changeRechHisType',data);
       this.toChongzhiHis(data,1,10);
     },
     handleCurrentChange(cpage) {
@@ -382,10 +400,9 @@ export default {
 
       let res = await this.$get(`${window.url}/api/rechargeList?status=`+rechType+`&currentPage=`+cpage+`&pageSize=`+pages);
       if(res.code===200){
-        this.rechargeList = res.page;
+        this.rechargeObj = res.page;
       }
     },
-
     async cancel() {
       this.bankInfo();
     },
@@ -502,16 +519,25 @@ export default {
 
       this.tabNum = '4';
     },
-    async forwardInfo() {
-      $('.forwardInfo').addClass('active').siblings().removeClass('active');
+    async forwardList(rechType,cpage,pages) {
+      this.chongzhiHisOp = true;
 
-      let res = await this.$get(`${window.url}/api/bankInfo`);
-
+      let res = await this.$get(`${window.url}/api/forwardList?status=`+rechType+`&currentPage=`+cpage+`&pageSize=`+pages);
       if(res.code===200){
-        this.bankInfoObj = res.data;
+        this.forwardObj = res.page;
+        this.useMoney = res.useMoney;
       }
+    },
+    async forwardInfo() {
+      if(this.bankInfoObj.putForwardPassword == '') {
+        this.$alertMessage('请先设置提现密码，才能访问!', '温馨提示');
+      } else {
+        $('.forwardInfo').addClass('active').siblings().removeClass('active');
 
-      this.tabNum = '3';
+        this.forwardList('0',1,10);
+
+        this.tabNum = '3';
+      }
     },
     async rechargeInfo() {
       if(this.bankInfoObj.putForwardPassword == '') {
