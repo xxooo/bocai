@@ -196,7 +196,7 @@
                     <td>{{$timestampToTime(item.createDate)}}</td>
                   </tr>
                 </table>
-                <div class="block">
+                <div class="block" v-if="rechargeObj.totalPage > 1">
                   <el-pagination
                     @current-change="handleCurrentChange"
                     :current-page.sync="currentPage"
@@ -248,7 +248,7 @@
                     <td>{{$timestampToTime(item.createDate)}}</td>
                   </tr>
                 </table>
-                <div class="block">
+                <div class="block" v-if="forwardObj.totalPage > 1">
                   <el-pagination
                     @current-change="handleCurrentChange"
                     :current-page.sync="currentPage"
@@ -265,23 +265,24 @@
             <div class="table" v-if="tabNum == '4'">
               <div class="cash-history">
                 筛选:
-                <el-select v-model="historyType" size="mini" @change="changeForwardType" placeholder="请选择">
-                  <el-option key="2" value="2" label="全部"></el-option> 
+                <el-select class="duanSelect" v-model="historyType" size="mini" @change="changeForwardType" placeholder="请选择">
+                  <el-option key="0" value="0" label="全部"></el-option>
                   <el-option key="1" value="1" label="充值"></el-option> 
-                  <el-option key="0" value="0" label="提现"></el-option>
+                  <el-option key="2" value="2" label="提现"></el-option>
                 </el-select>
                 日期区间：
                 <el-date-picker
+                  value-format="yyyy-M-d"
                   v-model="histDate"
                   size="mini"
-                  type="datetimerange"
+                  type="daterange"
                   range-separator="至"
                   start-placeholder="开始日期"
                   @change="getHisDate"
                   end-placeholder="结束日期">
                 </el-date-picker>
-                <el-button type="primary" size="mini" @click="gethistory">查询</el-button>
-                <table class="ask-table">
+                <el-button type="primary" size="mini" @click="gethistory('1')">查询</el-button>
+                <table class="ask-table" v-if="historyDataList.list">
                   <tr>
                     <th width="40">方式</th> 
                     <th width="80">金额</th> 
@@ -289,10 +290,26 @@
                     <th>备注</th> 
                     <th width="120">时间</th>
                   </tr> 
-                  <tr>
-                    <td colspan="5">暂无数据</td>
+                  <tr v-if="historyDataList.list.length*1 == '0'">
+                    <td  colspan="5">暂无数据</td> 
+                  </tr>
+                  <tr v-else v-for="item in historyDataList.list">
+                    <td><span>{{item.type=='1'?'充值' : '提现'}}</span></td> 
+                    <td>{{item.money}}</td> 
+                    <td>{{item.totalMoney}}</span></td>
+                    <td>{{item.remark}}</span></td>
+                    <td>{{$timestampToTime(item.createDate)}}</td>
                   </tr>
                 </table>
+                <div class="block" v-if="historyDataList.totalPage > 1">
+                  <el-pagination
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage"
+                    :page-size="historyDataList.pageSize"
+                    layout="total, prev, pager, next"
+                    :total="historyDataList.totalCount*1">
+                  </el-pagination>
+                </div>
               </div> 
 
            </div>
@@ -317,8 +334,9 @@ export default {
   },
   data() {
     return {
+      historyDataList: {},
       historyType: '2',
-      histDate: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
+      histDate: [new Date(), new Date()],
       forwardPass: '',
       forwardFaction: '1',
       forwardCash: '0',
@@ -356,7 +374,19 @@ export default {
   computed: {
   },
   methods: {
-    async gethistory() {
+    async gethistory(cur) {
+
+        let that = this;
+            NProgress.start();
+            await that.$post(`${window.url}/api/hisRechargeForwardList?currentPage=`+cur+`&pageSize=10&createDateStart=`+this.histDate[0]+`&createDateEnd=`+this.histDate[1]+`&type=`+this.historyType).then((res) => {
+              that.$handelResponse(res, (result) => {
+                NProgress.done();
+                if(result.code===200){
+                  this.historyDataList = result.page;
+                  that.$success('提交成功！');
+                }
+              })
+            });
 
     },
     getHisDate(data) {
@@ -366,7 +396,7 @@ export default {
 
       if(this.forwardPass == '') {
         this.$alertMessage('提现密码不能为空!', '温馨提示');
-      } else if(this.forwardPass+'' != this.bankInfoObj.putForwardPassword) {
+      } else if(this.forwardPass != this.bankInfoObj.putForwardPassword) {
         this.$alertMessage('提现密码不正确!', '温馨提示');
       } else {
         let dataobj = {
@@ -398,7 +428,11 @@ export default {
       this.toChongzhiHis(data,1,10);
     },
     handleCurrentChange(cpage) {
-      this.toChongzhiHis(this.rechargeHisType,cpage,10);
+      if(tabNum) {
+        
+      }
+
+      //this.toChongzhiHis(this.rechargeHisType,cpage,10);
     },
     getchongzhiType(data) {
       console.log('data',data);
@@ -622,4 +656,7 @@ export default {
 <style scoped>
 </style>
 <style lang="less">
+.duanSelect {
+  width: 12%;
+}
 </style>
