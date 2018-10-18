@@ -173,10 +173,10 @@
                   <a class="r" @click="returnChistory"><i class="icon-reply"></i> 返回</a>
                   <span>
                     状态：
-                    <select v-model="rechargeHisType" onchange="changeRechHisType">
-                      <option value="1">已处理</option> 
-                      <option value="2">未处理</option>
-                    </select>
+                    <el-select v-model="rechargeHisType" size="mini" @change="changeRechHisType" placeholder="请选择">
+                      <el-option key="1" value="1" label="已处理"></el-option> 
+                      <el-option key="2" value="2" label="未处理"></el-option>
+                    </el-select>
                   </span>
                 </p> 
                 <table v-if="rechargeObj.list" class="payRecord">
@@ -216,20 +216,20 @@
                 <div>
                   <div class="r">
                     状态：
-                    <select v-model="forwardType" @click="changeForwardType">
-                      <option value="1">已处理</option> 
-                      <option value="0">未处理</option>
-                    </select>
+                    <el-select v-model="forwardType" size="mini" @change="changeForwardType" placeholder="请选择">
+                      <el-option key="1" value="1" label="已处理"></el-option> 
+                      <el-option key="0" value="0" label="未处理"></el-option>
+                    </el-select>
                   </div>
                   提现金额： 
                   <input type="text" v-model="forwardCash" placeholder="请输入金额" style="width: 80px;"> 
-                  <select style="margin-right: 5px;" v-model="forwardFaction">
-                    <option v-for="item in payType" :value="item.value">{{item.label}}</option> 
-                  </select> 
+                  <el-select v-model="forwardFaction" size="mini" placeholder="请选择">
+                    <el-option v-for="item in payType" :key="item.value" :value="item.value" :label="item.label"></el-option> 
+                  </el-select>
                   <span style="margin-right: 5px;">
                     提现密码：<input type="text" v-model="forwardPass" style="width: 50px;">
                   </span> 
-                  <button style="width: 60px;">确定</button>
+                  <el-button type="primary" size="mini" @click="forwardSubmit">确定</el-button>
                 </div> 
                 <table v-if="forwardObj.list" class="ask-table">
                   <tr>
@@ -265,16 +265,22 @@
             <div class="table" v-if="tabNum == '4'">
               <div class="cash-history">
                 筛选:
-                <select class="mgr10">
-                  <option value="1,2">全部</option> 
-                  <option value="1">充值</option> 
-                  <option value="2">提现</option>
-                </select>
+                <el-select v-model="historyType" size="mini" @change="changeForwardType" placeholder="请选择">
+                  <el-option key="2" value="2" label="全部"></el-option> 
+                  <el-option key="1" value="1" label="充值"></el-option> 
+                  <el-option key="0" value="0" label="提现"></el-option>
+                </el-select>
                 日期区间：
-                <input type="text" placeholder="开始时间" class="flatpickr-input" readonly="readonly">
-                至
-                <input type="text" placeholder="结束时间" class="flatpickr-input" readonly="readonly">
-                <button class="tabBtn btn btn-blue">查询</button> 
+                <el-date-picker
+                  v-model="histDate"
+                  size="mini"
+                  type="datetimerange"
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  @change="getHisDate"
+                  end-placeholder="结束日期">
+                </el-date-picker>
+                <el-button type="primary" size="mini" @click="gethistory">查询</el-button>
                 <table class="ask-table">
                   <tr>
                     <th width="40">方式</th> 
@@ -311,9 +317,11 @@ export default {
   },
   data() {
     return {
+      historyType: '2',
+      histDate: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
       forwardPass: '',
       forwardFaction: '1',
-      forwardCash: '',
+      forwardCash: '0',
       useMoney: '',
       currentPage: 1,
       rechargeHisType: '1',
@@ -348,6 +356,39 @@ export default {
   computed: {
   },
   methods: {
+    async gethistory() {
+
+    },
+    getHisDate(data) {
+      console.log(data);
+    },
+    async forwardSubmit() {
+
+      if(this.forwardPass == '') {
+        this.$alertMessage('提现密码不能为空!', '温馨提示');
+      } else if(this.forwardPass+'' != this.bankInfoObj.putForwardPassword) {
+        this.$alertMessage('提现密码不正确!', '温馨提示');
+      } else {
+        let dataobj = {
+          money: this.forwardCash*1,//提现金额
+          type: this.forwardFaction*1,//提现方式,1:微信,2:支付宝,3:银行转账
+          putForwardPassword: this.forwardPass//提现密码
+        }
+
+        let that = this;
+            NProgress.start();
+            await that.$post(`${window.url}/api/forwardInfoSub`,dataobj).then((res) => {
+              that.$handelResponse(res, (result) => {
+                NProgress.done();
+                if(result.code===200){
+                  that.$success('提交成功！');
+                  this.forwardList('0',1,10);
+                }
+              })
+            });
+      }
+
+    },
     changeForwardType(data) {
       console.log('changeForwardType',data);
       this.forwardList(data,1,10);
@@ -509,18 +550,9 @@ export default {
       this.newPass = ['--','--','--','--'];
     },
     async historyInfo() {
-      $('.historyInfo').addClass('active').siblings().removeClass('active');
-
-      let res = await this.$get(`${window.url}/api/bankInfo`);
-
-      if(res.code===200){
-        this.bankInfoObj = res.data;
-      }
-
       this.tabNum = '4';
     },
     async forwardList(rechType,cpage,pages) {
-      this.chongzhiHisOp = true;
 
       let res = await this.$get(`${window.url}/api/forwardList?status=`+rechType+`&currentPage=`+cpage+`&pageSize=`+pages);
       if(res.code===200){
