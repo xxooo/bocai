@@ -279,7 +279,8 @@
                   range-separator="至"
                   start-placeholder="开始日期"
                   @change="getHisDate"
-                  end-placeholder="结束日期">
+                  end-placeholder="结束日期"
+                  >
                 </el-date-picker>
                 <el-button type="primary" size="mini" @click="gethistory('1')">查询</el-button>
                 <table class="ask-table" v-if="historyDataList.list">
@@ -316,7 +317,7 @@
 
           </div>
 
-          <p class="btn-box">
+          <p class="btn-box" v-if="tabNum == '1' || tabNum == '2'">
             <el-button type="primary" size="mini" @click="submit">确 定</el-button>
             <el-button type="primary" size="mini" @click="cancel">取 消</el-button>
           </p>
@@ -336,7 +337,7 @@ export default {
     return {
       historyDataList: {},
       historyType: '2',
-      histDate: [new Date(), new Date()],
+      histDate: [],
       forwardPass: '',
       forwardFaction: '1',
       forwardCash: '0',
@@ -376,6 +377,9 @@ export default {
   methods: {
     async gethistory(cur) {
 
+      if(this.histDate.length == '0') {
+        this.$alertMessage('日期不能为空!', '温馨提示');
+      } else {
         let that = this;
             NProgress.start();
             await that.$post(`${window.url}/api/hisRechargeForwardList?currentPage=`+cur+`&pageSize=10&createDateStart=`+this.histDate[0]+`&createDateEnd=`+this.histDate[1]+`&type=`+this.historyType).then((res) => {
@@ -387,6 +391,9 @@ export default {
                 }
               })
             });
+      }
+
+        
 
     },
     getHisDate(data) {
@@ -428,11 +435,14 @@ export default {
       this.toChongzhiHis(data,1,10);
     },
     handleCurrentChange(cpage) {
-      if(tabNum) {
-        
+      if(tabNum == '2') {
+        this.toChongzhiHis(this.rechargeHisType,cpage,10);
+      } else if(tabNum == '3') {
+        this.forwardList(this.historyType,cpage,10);
+      } else if(tabNum == '4') {
+        this.gethistory(this.historyType);
       }
-
-      //this.toChongzhiHis(this.rechargeHisType,cpage,10);
+      
     },
     getchongzhiType(data) {
       console.log('data',data);
@@ -584,6 +594,7 @@ export default {
       this.newPass = ['--','--','--','--'];
     },
     async historyInfo() {
+      $('.historyInfo').addClass('active').siblings().removeClass('active');
       this.tabNum = '4';
     },
     async forwardList(rechType,cpage,pages) {
