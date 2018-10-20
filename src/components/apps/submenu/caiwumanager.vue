@@ -489,7 +489,13 @@ export default {
       }
     },
     async cancel() {
-      this.bankInfo();
+      if(this.tabNum == '1') {
+        this.bankInfo();
+      } else {
+        this.payremark = '';
+        this.chongzhiType = '';
+        this.paymoney = '';
+      }
     },
     async submit() {
       if(this.tabNum == '1') {
