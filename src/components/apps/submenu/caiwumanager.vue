@@ -110,7 +110,7 @@
             <div class="table" v-if="tabNum == '2'">
               <div class="pay" v-if="!chongzhiHisOp">
                 <p class="contact">
-                  <a class="payRecord r" @click="toChongzhiHis('1',1,10)">
+                  <a class="payRecord r" @click="toChongzhiHis('0',1,10)">
                     <i class="icon-credit-card"></i> 
                     充值记录
                   </a>
@@ -175,7 +175,7 @@
                     状态：
                     <el-select v-model="rechargeHisType" size="mini" @change="changeRechHisType" placeholder="请选择">
                       <el-option key="1" value="1" label="已处理"></el-option> 
-                      <el-option key="2" value="2" label="未处理"></el-option>
+                      <el-option key="2" value="0" label="未处理"></el-option>
                     </el-select>
                   </span>
                 </p> 
@@ -192,7 +192,7 @@
                   <tr v-else v-for="item in rechargeObj.list">
                     <td><span>{{item.type=='1'?'微信' : item.type=='2'? '支付宝' : '银行转帐'}}</span></td> 
                     <td>{{item.money}}</td> 
-                    <td>{{item.status=='1'?'已通过' : item.type=='2'? '已拒绝' : '未处理'}}</span></td>
+                    <td>{{item.status=='1'?'已通过' : item.status=='2'? '已拒绝' : '未处理'}}</span></td>
                     <td>{{$timestampToTime(item.createDate)}}</td>
                   </tr>
                 </table>
@@ -244,7 +244,7 @@
                   <tr v-else v-for="item in forwardObj.list">
                     <td><span>{{item.type=='1'?'微信' : item.type=='2'? '支付宝' : '银行转帐'}}</span></td> 
                     <td>{{item.money}}</td> 
-                    <td>{{item.status=='1'?'已通过' : item.type=='2'? '已拒绝' : '未处理'}}</span></td>
+                    <td>{{item.status=='1'?'已通过' : item.status=='2'? '已拒绝' : '未处理'}}</span></td>
                     <td>{{$timestampToTime(item.createDate)}}</td>
                   </tr>
                 </table>
@@ -265,14 +265,14 @@
             <div class="table" v-if="tabNum == '4'">
               <div class="cash-history">
                 筛选:
-                <el-select class="duanSelect" v-model="historyType" size="mini" @change="changeForwardType" placeholder="请选择">
+                <el-select class="duanSelect" v-model="historyType" size="mini" @change="changeHistoryType" placeholder="请选择">
                   <el-option key="0" value="0" label="全部"></el-option>
                   <el-option key="1" value="1" label="充值"></el-option> 
                   <el-option key="2" value="2" label="提现"></el-option>
                 </el-select>
                 日期区间：
                 <el-date-picker
-                  value-format="yyyy-M-d"
+                  value-format="yyyy-MM-dd"
                   v-model="histDate"
                   size="mini"
                   type="daterange"
@@ -282,7 +282,7 @@
                   end-placeholder="结束日期"
                   >
                 </el-date-picker>
-                <el-button type="primary" size="mini" @click="gethistory('1')">查询</el-button>
+                <el-button type="primary" size="mini" @click="gethistory(1)">查询</el-button>
                 <table class="ask-table" v-if="historyDataList.list">
                   <tr>
                     <th width="40">方式</th> 
@@ -316,8 +316,7 @@
            </div>
 
           </div>
-
-          <p class="btn-box" v-if="tabNum == '1' || tabNum == '2'">
+          <p class="btn-box" v-if="tabNum == '1' || (tabNum == '2' && !chongzhiHisOp)">
             <el-button type="primary" size="mini" @click="submit">确 定</el-button>
             <el-button type="primary" size="mini" @click="cancel">取 消</el-button>
           </p>
@@ -343,7 +342,7 @@ export default {
       forwardCash: '0',
       useMoney: '',
       currentPage: 1,
-      rechargeHisType: '1',
+      rechargeHisType: '0',
       paymoney: '',
       payremark: '',
       chongzhiImgSrc: '',
@@ -377,12 +376,14 @@ export default {
   methods: {
     async gethistory(cur) {
 
+      this.currentPage = cur;
+
       if(this.histDate.length == '0') {
         this.$alertMessage('日期不能为空!', '温馨提示');
       } else {
         let that = this;
             NProgress.start();
-            await that.$post(`${window.url}/api/hisRechargeForwardList?currentPage=`+cur+`&pageSize=10&createDateStart=`+this.histDate[0]+`&createDateEnd=`+this.histDate[1]+`&type=`+this.historyType).then((res) => {
+            await that.$get(`${window.url}/api/hisRechargeForwardList?currentPage=`+cur+`&pageSize=10&createDateStart=`+this.histDate[0]+`&createDateEnd=`+this.histDate[1]+`&type=`+this.historyType).then((res) => {
               that.$handelResponse(res, (result) => {
                 NProgress.done();
                 if(result.code===200){
@@ -392,8 +393,6 @@ export default {
               })
             });
       }
-
-        
 
     },
     getHisDate(data) {
@@ -426,21 +425,22 @@ export default {
       }
 
     },
+    changeHistoryType(data) {
+      this.gethistory(1);
+    },
     changeForwardType(data) {
-      console.log('changeForwardType',data);
       this.forwardList(data,1,10);
     },
     changeRechHisType(data) {
-      console.log('changeRechHisType',data);
       this.toChongzhiHis(data,1,10);
     },
     handleCurrentChange(cpage) {
-      if(tabNum == '2') {
+      if(this.tabNum == '2') {
         this.toChongzhiHis(this.rechargeHisType,cpage,10);
-      } else if(tabNum == '3') {
+      } else if(this.tabNum == '3') {
         this.forwardList(this.historyType,cpage,10);
-      } else if(tabNum == '4') {
-        this.gethistory(this.historyType);
+      } else if(this.tabNum == '4') {
+        this.gethistory(cpage);
       }
       
     },
@@ -605,6 +605,8 @@ export default {
     },
     async forwardList(rechType,cpage,pages) {
 
+      this.currentPage = cpage;
+
       let res = await this.$get(`${window.url}/api/forwardList?status=`+rechType+`&currentPage=`+cpage+`&pageSize=`+pages);
       if(res.code===200){
         this.forwardObj = res.page;
@@ -648,7 +650,12 @@ export default {
       if(res.code===200){
         this.bankInfoObj = res.data;
 
+        console.log('你来了吗');
+
+        console.log('this.bankInfoObj.bankUserName',this.bankInfoObj.bankUserName);
+
         if(this.bankInfoObj.bankUserName != '') {
+          console.log('你ccc来了吗');
           $(".bankUserName").attr("disabled", true);
         }
         if(this.bankInfoObj.weixin != '') {

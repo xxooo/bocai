@@ -72,6 +72,12 @@ const router = new Router({
               requireAuth: true,
           },
           component: r => require.ensure([], () => r(require('@/components/apps/submenu/caiwumanager')), 'caiwumanager'), meta: { requiresAuth: true }
+        },
+        { path: '/gambling/lotteryResults', name: 'lotteryResults',
+          meta: {
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/components/apps/submenu/lotteryResults')), 'lotteryResults'), meta: { requiresAuth: true }
         }
       ]
     }

@@ -40,7 +40,7 @@
               <li @click="$router.push({name: 'bettingHistory'})">下注历史</li>
               <li @click="$router.push({name: 'personalinfo'})">个人资讯</li>
               <li @click="$router.push({name: 'caiwumanager'})">财务管理</li>
-              <li @click="$router.push({name: 'personalinfo'})">开奖结果</li>
+              <li @click="$router.push({name: 'lotteryResults'})">开奖结果</li>
               <li @click="$router.push({name: 'personalinfo'})">游戏规则</li>
             </ul>
           </div>
