@@ -18,6 +18,16 @@ body {
     background: url(../../../static/img/bj.png) center no-repeat;
     background-size: 100% 100%;
 }
+
+.ball-icon {
+        background-color: #0433de;
+        color: #fff;
+        width: 25px;
+        height: 25px;
+        margin: auto;
+        line-height: 27.5px;
+        border-radius: 30px;
+    }
     
 .left {
         float: left;
@@ -520,24 +530,6 @@ td, th {
         border-top-right-radius: 5px;
         border-right: none;
     }
-    .lanqiu .order-table .ball-icon {
-        background-color: #0433de;
-        color: #fff;
-        width: 25px;
-        height: 25px;
-        margin: 2.5px 7.5px;
-        line-height: 27.5px;
-        border-radius: 30px;
-    }
-    .nball .order-table .ball-icon {
-        background-color: #0433de;
-        color: #fff;
-        width: 25px;
-        height: 25px;
-        margin: 2.5px 7.5px;
-        line-height: 27.5px;
-        border-radius: 30px;
-    }
     .nball {
         display: inline-block;
         width: 162px;
@@ -753,6 +745,10 @@ td, th {
         color: red;
     }
 
+    .blue {
+        color: #2836f4;
+    }
+
     .bank-info th {
         color: #805933;
     }
@@ -815,5 +811,11 @@ td, th {
         .kahaoclass {
             text-align: left;
         }
+    }
+  }
+
+  #lotteryResults {
+    table tbody tr:nth-child(2n) {
+        background-color: #f4f4fa;
     }
   }

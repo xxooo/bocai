@@ -1,5 +1,5 @@
 <template>
-  <div class="content-main">
+  <div class="content-main" id="lotteryResults">
     <div class="right">
       <div id="submenuDiv">
         <div class="box">
@@ -24,7 +24,7 @@
                   日期：
                   <el-date-picker
                   size="mini"
-                  value-format="yyyy-M-d"
+                  value-format="yyyy-MM-dd"
                   @change="gettime"
                   v-model="openPrizeTime"
                   type="date"
@@ -58,15 +58,15 @@
                       </td>
                     </template>
                     <template v-else>
-                      <td><i class="ball-icon">{{item.num1}}</i></td>
-                      <td><i class="ball-icon">{{item.num2}}</i></td>
-                      <td><i class="ball-icon">{{item.num3}}</i></td>
-                      <td><i class="ball-icon">{{item.num4}}</i></td>
-                      <td><i class="ball-icon">{{item.num5}}</i></td> 
+                      <td><div class="ball-icon">{{item.num1}}</div></td>
+                      <td><div class="ball-icon">{{item.num2}}</div></td>
+                      <td><div class="ball-icon">{{item.num3}}</div></td>
+                      <td><div class="ball-icon">{{item.num4}}</div></td>
+                      <td><div class="ball-icon">{{item.num5}}</div></td> 
                       <td>{{item.zonghe}}</td> 
-                      <td><span class="red">{{item.zonghedaxiao}}</span></td> 
-                      <td><span class="red">{{item.zonghedanshuang}}</span></td> 
-                      <td><span class="blue">{{item.longhu}}</span></td> 
+                      <td><span :class="item.zonghedaxiao == '大' ? 'red' : ''">{{item.zonghedaxiao}}</span></td> 
+                      <td><span :class="item.zonghedanshuang == '双' ? 'red' : ''">{{item.zonghedanshuang}}</span></td> 
+                      <td><span :class="item.longhu == '龙' ? 'red' : item.longhu == '虎' ? 'blue' : ''">{{item.longhu}}</span></td> 
                       <td><span>{{item.qiansan}}</span></td> 
                       <td><span>{{item.zhongsan}}</span></td> 
                       <td><span>{{item.housan}}</span></td>
@@ -98,11 +98,11 @@
                       </td>
                     </template>
                     <template v-else>
-                      <td><i class="ball-icon">{{item.num1}}</i></td>
-                      <td><i class="ball-icon">{{item.num2}}</i></td>
-                      <td><i class="ball-icon">{{item.num3}}</i></td>
-                      <td><i class="ball-icon">{{item.num4}}</i></td>
-                      <td><i class="ball-icon">{{item.num5}}</i></td> 
+                      <td><div class="ball-icon">{{item.num1}}</div></td>
+                      <td><div class="ball-icon">{{item.num2}}</div></td>
+                      <td><div class="ball-icon">{{item.num3}}</div></td>
+                      <td><div class="ball-icon">{{item.num4}}</div></td>
+                      <td><div class="ball-icon">{{item.num5}}</div></td> 
                       <td>{{item.zonghe}}</td> 
                       <td><span class="red">{{item.zonghedaxiaohe}}</span></td> 
                       <td><span class="">{{item.zonghedanshuang}}</span></td> 
