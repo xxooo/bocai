@@ -10,7 +10,7 @@
           <div class="default-list" style="min-height: 316px;">
             <div class="">
               游戏类型：
-              <el-select v-model="bocaiTypeId" placeholder="请选择" size="mini" @change="changeboType">
+              <el-select v-model="bocaiType" placeholder="请选择" size="mini" @change="changeboType">
                     <el-option label="全部" :value="''"></el-option>
                     <el-option
                       v-for="item in bocaiTypeList"
@@ -32,47 +32,100 @@
                 </el-date-picker>
               </span>
             </div> 
-          <div>
 
-          <table>
-          <thead>
-          <tr>
-          <th>期数</th> 
-          <th>开奖时间</th> 
-          <th colspan="5">开出号码</th> 
-          <th colspan="3">总和</th> 
-          <th>龙虎</th> 
-          <th>前三</th> 
-          <th>中三</th> 
-          <th>后三</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-          <td>20181020029</td> 
-          <td>2018-10-20 10:50:00</td> 
-          <td colspan="12">
-          <span>暂未开奖</span>
-          </td>
-          </tr>
-          <tr>
-          <td>20181020028</td> 
-          <td>2018-10-20 10:41:00</td> 
-          <td><i class="ball-icon">5</i></td>
-          <td><i class="ball-icon">6</i></td>
-          <td><i class="ball-icon">2</i></td>
-          <td><i class="ball-icon">8</i></td>
-          <td><i class="ball-icon">9</i></td> 
-          <td>30</td> 
-          <td><span class="red">大</span></td> 
-          <td><span class="red">双</span></td> 
-          <td><span class="blue">虎</span></td> 
-          <td><span>半顺</span></td> 
-          <td><span>杂六</span></td> 
-          <td><span>半顺</span></td>
-          </tr>
-          </tbody>
-          </table></div></div>
+            <div>
+              <!-- 重庆时时彩 -->
+              <table v-if="bocaiType == '1'">
+                <thead>
+                  <tr>
+                    <th>期数</th> 
+                    <th>开奖时间</th> 
+                    <th colspan="5">开出号码</th> 
+                    <th colspan="3">总和</th> 
+                    <th>龙虎</th> 
+                    <th>前三</th> 
+                    <th>中三</th> 
+                    <th>后三</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in resultList">
+                    <td>{{item.periods}}</td> 
+                    <td>{{$timestampToTime(item.openPrizetime)}}</td>
+                    <template v-if="!item.result || item.result == ''">
+                      <td colspan="12" >
+                        <span>暂未开奖</span>
+                      </td>
+                    </template>
+                    <template v-else>
+                      <td><i class="ball-icon">{{item.num1}}</i></td>
+                      <td><i class="ball-icon">{{item.num2}}</i></td>
+                      <td><i class="ball-icon">{{item.num3}}</i></td>
+                      <td><i class="ball-icon">{{item.num4}}</i></td>
+                      <td><i class="ball-icon">{{item.num5}}</i></td> 
+                      <td>{{item.zonghe}}</td> 
+                      <td><span class="red">{{item.zonghedaxiao}}</span></td> 
+                      <td><span class="red">{{item.zonghedanshuang}}</span></td> 
+                      <td><span class="blue">{{item.longhu}}</span></td> 
+                      <td><span>{{item.qiansan}}</span></td> 
+                      <td><span>{{item.zhongsan}}</span></td> 
+                      <td><span>{{item.housan}}</span></td>
+                    </template>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- 山东11选5 -->
+              <table v-if="bocaiType == '8811'">
+                <thead>
+                  <tr>
+                    <th>期数</th> 
+                    <th>开奖时间</th> 
+                    <th colspan="5">开出号码</th> 
+                    <th colspan="4">总和</th> 
+                    <th>龙虎</th> 
+                    <th colspan="5">1~5大小</th> 
+                    <th colspan="5">1~5单双</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in resultList">
+                    <td>{{item.periods}}</td> 
+                    <td>{{$timestampToTime(item.openPrizetime)}}</td>
+                    <template v-if="!item.result || item.result == ''">
+                      <td colspan="20" >
+                        <span>暂未开奖</span>
+                      </td>
+                    </template>
+                    <template v-else>
+                      <td><i class="ball-icon">{{item.num1}}</i></td>
+                      <td><i class="ball-icon">{{item.num2}}</i></td>
+                      <td><i class="ball-icon">{{item.num3}}</i></td>
+                      <td><i class="ball-icon">{{item.num4}}</i></td>
+                      <td><i class="ball-icon">{{item.num5}}</i></td> 
+                      <td>{{item.zonghe}}</td> 
+                      <td><span class="red">{{item.zonghedaxiaohe}}</span></td> 
+                      <td><span class="">{{item.zonghedanshuang}}</span></td> 
+                      <td><span class="">{{item.zongheweidaweixiao}}</span></td> 
+                      <td><span class="blue">{{item.longhu}}</span></td> 
+                      <td><span class="blue">{{item.yidaxiaohe}}</span></td> 
+                      <td><span class="red">{{item.erdaxiaohe}}</span></td> 
+                      <td><span class="">{{item.sandaxiaohe}}</span></td> 
+                      <td><span class="red">{{item.sidaxiaohe}}</span></td> 
+                      <td><span class="blue">{{item.wudaxiaohe}}</span></td> 
+                      <td><span class="blue">{{item.yidanshuang}}</span></td> 
+                      <td><span class="blue">{{item.erdanshuang}}</span></td> 
+                      <td><span class="">{{item.sandanshuang}}</span></td> 
+                      <td><span class="red">{{item.sidanshuang}}</span></td> 
+                      <td><span class="red">{{item.wudanshuang}}</span></td>
+                    </template>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- 重庆时时彩 -->
+            </div>
+          </div>
 
         </div>
       </div>
@@ -87,27 +140,27 @@ export default {
   },
   data() {
     return {
+      bocaiType: '1',
       bocaiTypeList: [],
-      openPrizeTime: new Date('yyyy,mth,dd'),
-
-      nowOrder: {},
+      openPrizeTime: '',
       currentPage: 1,
-      totalbetsMoney: 0,
-      totalwinMoney: 0,
-      currentBetsMoney: 0,
-      currentWinMoney: 0
+      resultList: []
     }
   },
   created() {
-    this.getPrizeResult('1');
     this.getBocai();
+    this.openPrizeTime = this.$timestampToTimeRi(new Date());
+    this.getPrizeResult();
   },
   computed: {
-    openPrizeTime
   },
   methods: {
+    changeboType(data) {
+      this.bocaiType = data;
+      this.getPrizeResult();
+    },
     gettime(data) {
-      console.log(data);
+      this.getPrizeResult();
     },
     async getBocai() {
       let res = await this.$get(`${window.url}/api/getBocai`);
@@ -120,59 +173,13 @@ export default {
 
       console.log('openPrizeTime',this.openPrizeTime);
 
-      let res = await this.$get(`${window.url}/api/openPrizeResult?currentPage=`+cpage+`&pageSize=`+pages);
-
+      let res = await this.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+this.bocaiType+`&currentPage=1&pageSize=100&dayStr=`+this.openPrizeTime);
           if(res.code===200){
-
-            for(let n in res.page.list) {
-              let winMoney = res.page.list[n].odds*res.page.list[n].betsMoney*1;
-
-              this.totalbetsMoney += res.page.list[n].betsMoney*1;
-              this.totalwinMoney += winMoney*1;
-            }
-          }
-    },
-
-
-    // /api/openPrizeResult?bocaiTypeId=1&isOpen=2¤tPage=1&pageSize=100&dayStr=2018-10-20
-
-
-
-    handleCurrentChange(data) {
-      this.getnowOrder(data,10);
-    },
-    async getnowOrder(cpage,pages) { 
-      this.currentBetsMoney = 0;
-      this.currentWinMoney = 0;
-
-      let res = await this.$get(`${window.url}/api/nowOrder?currentPage=`+cpage+`&pageSize=`+pages);
-
-          if(res.code===200){
-            this.nowOrder = res.page;
-
-            for(let n in this.nowOrder.list) {
-              console.log('this.nowOrder[n].createDate',this.nowOrder);
-              this.nowOrder.list[n].createDate = this.$timestampToTime(this.nowOrder.list[n].createDate);
-              this.nowOrder.list[n].winMoney = this.nowOrder.list[n].odds*this.nowOrder.list[n].betsMoney*1;
-
-              this.currentBetsMoney += this.nowOrder.list[n].betsMoney*1;
-              this.currentWinMoney += this.nowOrder.list[n].winMoney*1;
-            }
-          }
-    },
-    async getnowOrder2(cpage,pages) { 
-      let res = await this.$get(`${window.url}/api/nowOrder?currentPage=`+cpage+`&pageSize=`+pages);
-
-          if(res.code===200){
-
-            for(let n in res.page.list) {
-              let winMoney = res.page.list[n].odds*res.page.list[n].betsMoney*1;
-
-              this.totalbetsMoney += res.page.list[n].betsMoney*1;
-              this.totalwinMoney += winMoney*1;
-            }
+            this.resultList = res.list;
           }
     }
+
+
   },
   mounted() {
   },
