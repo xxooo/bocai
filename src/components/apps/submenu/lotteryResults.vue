@@ -104,20 +104,20 @@
                       <td><div class="ball-icon">{{item.num4}}</div></td>
                       <td><div class="ball-icon">{{item.num5}}</div></td> 
                       <td>{{item.zonghe}}</td> 
-                      <td><span class="red">{{item.zonghedaxiaohe}}</span></td> 
-                      <td><span class="">{{item.zonghedanshuang}}</span></td> 
-                      <td><span class="">{{item.zongheweidaweixiao}}</span></td> 
-                      <td><span class="blue">{{item.longhu}}</span></td> 
-                      <td><span class="blue">{{item.yidaxiaohe}}</span></td> 
-                      <td><span class="red">{{item.erdaxiaohe}}</span></td> 
-                      <td><span class="">{{item.sandaxiaohe}}</span></td> 
-                      <td><span class="red">{{item.sidaxiaohe}}</span></td> 
-                      <td><span class="blue">{{item.wudaxiaohe}}</span></td> 
-                      <td><span class="blue">{{item.yidanshuang}}</span></td> 
-                      <td><span class="blue">{{item.erdanshuang}}</span></td> 
-                      <td><span class="">{{item.sandanshuang}}</span></td> 
-                      <td><span class="red">{{item.sidanshuang}}</span></td> 
-                      <td><span class="red">{{item.wudanshuang}}</span></td>
+                      <td><span :class="item.zonghedaxiaohe == '大' ? 'red' : ''">{{item.zonghedaxiaohe}}</span></td> 
+                      <td><span :class="item.zonghedanshuang == '双' ? 'red' : ''">{{item.zonghedanshuang}}</span></td> 
+                      <td><span :class="item.zongheweidaweixiao == '尾大' ? 'red' : ''">{{item.zongheweidaweixiao}}</span></td> 
+                      <td><span :class="item.longhu == '龙' ? 'red' : item.longhu == '虎' ? 'blue' : ''">{{item.longhu}}</span></td> 
+                      <td><span :class="item.yidaxiaohe == '大' ? 'red' : item.yidaxiaohe == '小' ? 'blue' : ''">{{item.yidaxiaohe}}</span></td> 
+                      <td><span :class="item.erdaxiaohe == '大' ? 'red' : item.erdaxiaohe == '小' ? 'blue' : ''">{{item.erdaxiaohe}}</span></td> 
+                      <td><span :class="item.sandaxiaohe == '大' ? 'red' : item.sandaxiaohe == '小' ? 'blue' : ''">{{item.sandaxiaohe}}</span></td> 
+                      <td><span :class="item.sidaxiaohe == '大' ? 'red' : item.sidaxiaohe == '小' ? 'blue' : ''">{{item.sidaxiaohe}}</span></td> 
+                      <td><span :class="item.wudaxiaohe == '大' ? 'red' : item.wudaxiaohe == '小' ? 'blue' : ''">{{item.wudaxiaohe}}</span></td> 
+                      <td><span :class="item.yidanshuang == '双' ? 'red' : item.yidanshuang == '单' ? 'blue' : ''">{{item.yidanshuang}}</span></td> 
+                      <td><span :class="item.erdanshuang == '双' ? 'red' : item.erdanshuang == '单' ? 'blue' : ''">{{item.erdanshuang}}</span></td> 
+                      <td><span :class="item.sandanshuang == '双' ? 'red' : item.sandanshuang == '单' ? 'blue' : ''">{{item.sandanshuang}}</span></td> 
+                      <td><span :class="item.sidanshuang == '双' ? 'red' : item.sidanshuang == '单' ? 'blue' : ''">{{item.sidanshuang}}</span></td> 
+                      <td><span :class="item.wudanshuang == '双' ? 'red' : item.wudanshuang == '单' ? 'blue' : ''">{{item.wudanshuang}}</span></td>
                     </template>
                   </tr>
                 </tbody>
