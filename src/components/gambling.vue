@@ -24,11 +24,7 @@
                 </div>
                 <div class="history_run_num">
                   <ul>
-                    <li>6543328765<span>67988</span></li>
-                    <li>6543328765<span>67988</span></li>
-                    <li>6543328765<span>67988</span></li>
-                    <li>6543328765<span>67988</span></li>
-                    <li>6543328765<span>67988</span></li>
+                    <li v-for="item in resultList">{{item.periods}}<span>{{item.result ? item.result : '暂未开奖'}}</span></li>
                   </ul>
                 </div>                                 
               </div>
@@ -41,7 +37,7 @@
               <li @click="$router.push({name: 'personalinfo'})">个人资讯</li>
               <li @click="$router.push({name: 'caiwumanager'})">财务管理</li>
               <li @click="$router.push({name: 'lotteryResults'})">开奖结果</li>
-              <li @click="$router.push({name: 'personalinfo'})">游戏规则</li>
+              <li @click="$router.push({name: 'gameRule'})">游戏规则</li>
             </ul>
           </div>
         </div>
@@ -106,6 +102,7 @@ export default {
     return {
       imgUrl: 0,
       activeIndex: '重庆时时彩',
+      resultList: [],
       preBocaiPeriods: '',
       preResult: '',
       bocaiTypeId: '1',
@@ -123,6 +120,14 @@ export default {
   async created() {
     this.getBocai();
     this.refreshTime();
+    this.openPrizeTime = this.$timestampToTimeRi(new Date());
+
+    preOpenPrizeTime: 1540362000000
+
+    
+
+    console.log('kkkkk',);
+    this.getPrizeResult(1);
   },
   computed: {
   },
@@ -189,6 +194,20 @@ export default {
             this.bocaiTypeList = res.bocaiTypeList;
           }
     },
+    async getPrizeResult(type) { 
+
+      console.log('openPrizeTime',this.openPrizeTime);
+
+      let res = await this.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+type+`&currentPage=1&pageSize=100&dayStr=`+this.openPrizeTime);
+          if(res.code===200){
+            this.resultList = res.list.slice(0,5);
+            for(let n in this.resultList) {
+              if(this.resultList[n].result) {
+                this.resultList[n].result = this.resultList[n].result.replace(/,/g,'');   
+              }
+            }
+          }
+    },
     async getOdds(item,index) {
 
       if(index*1 > 7) {
@@ -219,6 +238,8 @@ export default {
       this.bocaiTypeId = item.bocaiId;
       this.bocaiInfo();
       this.$router.push({name: path});
+
+      this.getPrizeResult(item.bocaiId);
 
       bus.$emit('getcUserInfo', '');
     }
@@ -252,7 +273,7 @@ export default {
   }
   .headLabel {
     color: #fff;
-    width: 400px;
+    width: 380px;
   }
   .headLabel h3 {
     color: #805933;
@@ -281,7 +302,7 @@ export default {
     background-size: 100% 100%;
   }
   .history_num {
-    width: 140px;
+    width: 160px;
     text-align: left;
   }
   .history_num li {

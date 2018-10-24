@@ -169,12 +169,16 @@ export default {
             this.bocaiTypeList = res.bocaiTypeList;
           }
     },
-    async getPrizeResult(type) { 
+    async getPrizeResult() { 
 
       console.log('openPrizeTime',this.openPrizeTime);
 
       let res = await this.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+this.bocaiType+`&currentPage=1&pageSize=100&dayStr=`+this.openPrizeTime);
           if(res.code===200){
+
+            for(let n in res.list) {
+
+            }
             this.resultList = res.list;
           }
     }
