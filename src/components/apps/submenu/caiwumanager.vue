@@ -650,12 +650,7 @@ export default {
       if(res.code===200){
         this.bankInfoObj = res.data;
 
-        console.log('你来了吗');
-
-        console.log('this.bankInfoObj.bankUserName',this.bankInfoObj.bankUserName);
-
         if(this.bankInfoObj.bankUserName != '') {
-          console.log('你ccc来了吗');
           $(".bankUserName").attr("disabled", true);
         }
         if(this.bankInfoObj.weixin != '') {

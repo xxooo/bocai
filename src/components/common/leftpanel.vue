@@ -28,7 +28,8 @@
         </div>
         <div class="cont">
           <div class="gonggaocont">
-            <p>这里是公告内容，各位球友大家好，欢迎充值!</p>
+            <p v-if="userInfo.notice">{{userInfo.notice}}</p>
+            <p v-else>暂无公告</p>
           </div>
         </div>
       </div>
@@ -123,7 +124,7 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
-      //console.log(tab, event);
+      //console.log(tab, event);  notice
     },
     async getcUserInfo() {
       let res = await this.$get(`${window.url}/api/cUserInfo`);
