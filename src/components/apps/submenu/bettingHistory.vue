@@ -38,7 +38,7 @@
                     <td style="line-height: 26px;" colspan="4">{{"暂无数据"}}</td> 
                   </tr>
                   <tr v-else v-for="item in nowWeekPage">
-                    <td style="line-height: 26px;"><a title="历史详情" class="link" @click="goBetInfo">{{item.createDateStr}}</a></td>
+                    <td style="line-height: 26px;"><a title="历史详情" class="link" @click="goBetInfo(item.createDateStr)">{{item.createDateStr}}</a></td>
                     <!-- <td style="line-height: 26px;"><span>{{item.createDateStr}}</span></td> --> 
                     <td style="line-height: 26px;">{{item.betsMoneySum}}</td> 
                     <td style="line-height: 26px;">{{item.winnerMoneySum}}</td> 
@@ -104,7 +104,7 @@
                     <td>{{index*1 +1}}</td> 
                     <td><p>{{item.orderNum}}</p> <p>{{$timestampToTime(item.createDate)}}</p></td> 
                     <td><p>{{item.bocaiTypeName}}</p> <p>{{item.periods}} 期</p></td> 
-                    <td><p><span class="odds-font">{{item.bocaiCategory2Name}} {{item.bocaiOddName}}</span>@<span class="odds-font">{{item.bocaiOdds}}/span></p></td> 
+                    <td><p><span class="odds-font">{{item.bocaiCategory2Name}} {{item.bocaiOddName}}</span>@<span class="odds-font">{{item.bocaiOdds}}</span></p></td> 
                     <td>{{item.betsMoney}}</td> 
                     <td>{{item.betsMoney}}</td> 
                     <td class="red">{{item.betsMoney}}</td> 
@@ -198,7 +198,6 @@ export default {
       currentPage: 1,
       dayStr: '',
       ifshowBetInfo: false,
-      nowOrder: {},
       totalbetsMoney: '',
       totalwinMoney: '',
       bocaiTypeList: [],
@@ -227,7 +226,6 @@ export default {
     goBetInfo(daytime) {
       this.dayStr = daytime;
 
-      console.log('daytime',daytime);
       this.getbetInfo();
     },
     async getbetInfo() {
@@ -235,6 +233,14 @@ export default {
       let res = await this.$get(`${window.url}/api/hisOrderInfo?currentPage=`+this.currentPage+`&pageSize=10&dayStr=`+this.dayStr);
       if(res.code===200){
         this.betInfo = res.page;
+
+        for(let n in this.betInfo.list) {
+          this.totalbetsMoney += this.betInfo.list[n].betsMoney*1;
+          this.totalwinMoney += this.betInfo.list[n].betsMoney*this.betInfo.list[n].bocaiOdds*1 - this.betInfo.list[n].betsMoney*1;
+          
+        }
+
+
       }
 
       this.ifshowBetInfo = true;
