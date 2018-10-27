@@ -106,63 +106,24 @@
                     <td><p>{{item.bocaiTypeName}}</p> <p>{{item.periods}} 期</p></td> 
                     <td><p><span class="odds-font">{{item.bocaiCategory2Name}} {{item.bocaiOddName}}</span>@<span class="odds-font">{{item.bocaiOdds}}</span></p></td> 
                     <td>{{item.betsMoney}}</td> 
-                    <td>{{item.betsMoney}}</td> 
-                    <td class="red">{{item.betsMoney}}</td> 
+                    <td>{{item.winMoney}}</td> 
+                    <td class="red">{{item.paicai}}</td> 
                     <td><span>{{item.status=='1'?'已结算' : '未结算'}}</span></td>
                   </tr>
-
-
-                 <!--  "id": "29230",//ID号
-                "orderNum": "20181023184757781",//注单号
-                "cuserId": null,
-                "periodsId": null,
-                "bocaiTypeId": null,
-                "bocaiTypeName": "重庆时时彩",//投注类型-博彩名称
-                "bocaiCategory1Id": null,
-                "bocaiCategory1Name": "两面盘",
-                "bocaiCategory2Id": null,
-                "bocaiCategory2Name": "总和-龙虎和",//内容-博彩一级分类
-                "bocaiOddId": null,
-                "bocaiOddName": "总和小",//内容-博彩二级分类
-                "bocaiValue": "",
-                "type": null,
-                "status": 1,//注单状态，0:未结算，1:已结算
-                "betsMoney": 100,//投注额
-                #可赢金额=(投注额*赔率)-投注额
-                #派彩要根据winnerStatus进行判断
-                #如果是已中奖：派彩=  可赢金额
-                #如果是未中奖：派彩=  -投注额（负的投注额）
-                #如果是和：派彩=0
-                "winnerStatus": 1,//中奖状态0:未中奖,1:已中奖,2:和奖
-                "winnerMoney": 200,
-                "createDate": 1540291678000,//投注日期
-                "createDateStr": null,
-                "updateDate": null,
-                "isShow": null,
-                "isMustbe": null,
-                "nickname": "ydwhuiyuan1",
-                "username": "aydwhuiyuan1",
-                "bindingIp": "",
-                "loginIp": "0:0:0:0:0:0:0:1",
-                "bocaiOdds": 2,//内容-赔率
-                "periods": "20181023077",//期数
-                "odds": null,
-                "idList": null -->
-
 
                 </tbody> 
                 <tr class="tab-footer">
                   <td colspan="4" class="tar">此页面统计：</td> 
-                  <td>200.00</td> 
-                  <td>1796.60</td> 
-                  <td>-200.00</td> 
+                  <td>{{totalbetsMoney}}</td> 
+                  <td>{{totalwinMoney}}</td> 
+                  <td>{{totalpaicai}}</td> 
                   <td>&nbsp;</td>
                 </tr> 
                 <tr class="tab-footer">
                   <td colspan="4" class="tar">总计：</td> 
-                  <td>200.00</td> 
-                  <td>1796.60</td> 
-                  <td>-200.00</td> 
+                  <td>{{sumData.betsMoneySum}}</td> 
+                  <td>{{sumData.winnerMoneySum}}</td> 
+                  <td>{{sumData.winnerMoneyResultSum}}</td> 
                   <td>&nbsp;</td>
                 </tr>
               </table> 
@@ -198,11 +159,13 @@ export default {
       currentPage: 1,
       dayStr: '',
       ifshowBetInfo: false,
-      totalbetsMoney: '',
-      totalwinMoney: '',
+      totalbetsMoney: 0,
+      totalwinMoney: 0,
+      totalpaicai: 0,
       bocaiTypeList: [],
       bocaiTypeId: '',
       afterWeekPage: [],
+      sumData: {},
       nowWeekPage: [],
       betsAllNow: '',
       winnerAllNow: '',
@@ -233,13 +196,21 @@ export default {
       let res = await this.$get(`${window.url}/api/hisOrderInfo?currentPage=`+this.currentPage+`&pageSize=10&dayStr=`+this.dayStr);
       if(res.code===200){
         this.betInfo = res.page;
+        this.sumData = res.sumData[0];
 
         for(let n in this.betInfo.list) {
+          this.betInfo.list[n].winMoney =  this.betInfo.list[n].betsMoney*this.betInfo.list[n].bocaiOdds*1 - this.betInfo.list[n].betsMoney*1;
+          if(this.betInfo.list[n].winnerStatus == 0) {
+            this.betInfo.list[n].paicai = this.betInfo.list[n].betsMoney*(-1);
+          } else if(this.betInfo.list[n].winnerStatus == 0) {
+            this.betInfo.list[n].paicai = this.betInfo.list[n].winMoney;
+          } else {
+            this.betInfo.list[n].paicai = 0;
+          }
           this.totalbetsMoney += this.betInfo.list[n].betsMoney*1;
-          this.totalwinMoney += this.betInfo.list[n].betsMoney*this.betInfo.list[n].bocaiOdds*1 - this.betInfo.list[n].betsMoney*1;
-          
+          this.totalwinMoney += this.betInfo.list[n].betsMoney*1*this.betInfo.list[n].bocaiOdds*1 - this.betInfo.list[n].betsMoney*1;
+          this.totalpaicai += this.betInfo.list[n].paicai*1;
         }
-
 
       }
 

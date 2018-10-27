@@ -59,10 +59,10 @@ export default {
             var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
             var Y = date.getFullYear() + '-';
             var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-            var D = date.getDate() + ' ';
-            var h = date.getHours() + ':';
-            var m = date.getMinutes() + ':';
-            var s = date.getSeconds();
+            var D = date.getDate()*1 > 9 ? date.getDate() + ' ' : '0' + date.getDate() + ' ';
+            var h = date.getHours()*1 > 9 ? date.getHours() + ':' : '0' + date.getHours() + ':';
+            var m = date.getMinutes()*1 > 9 ? date.getMinutes() + ':' : '0' + date.getMinutes() + ':';
+            var s = date.getSeconds()*1 > 9 ? date.getSeconds() : '0'+ date.getSeconds();
             return Y+M+D+h+m+s;
         };
 
@@ -70,7 +70,7 @@ export default {
             var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
             var Y = date.getFullYear() + '-';
             var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-            var D = date.getDate() + ' ';
+            var D = date.getDate()*1 > 9 ? date.getDate() + ' ' : '0' + date.getDate() + ' ';
             return Y+M+D;
         };
 
