@@ -94,6 +94,10 @@
 
           bus.$emit('isOpenOdds', false);
 
+          $('#clock').addClass('red');
+
+          //$('.bet_box .orders td').removeClass('selected');
+
           bus.$emit('getRefreshTime', '');
 
         } 
@@ -110,6 +114,8 @@
           //console.log('未开盘',this.timestampToTime(this.openPrizeTime));
           //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
           bus.$emit('isOpenOdds', false);
+
+          $('#clock').addClass('red');
         }
         if(closeTime>0) {
 
@@ -124,6 +130,8 @@
           console.log('开盘时间',this.timestampToTime(this.openPrizeTime));
           //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
           bus.$emit('isOpenOdds', true);
+
+          $('#clock').removeClass('red');
         }
 
         this.t = setTimeout(this.gettimeLeft, 1000);

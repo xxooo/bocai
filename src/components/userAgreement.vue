@@ -1,6 +1,4 @@
 <template>
-  <div id="login">
-    
     <div class="wrapper">
     <div class="box">
       <div class="win_title">
@@ -27,8 +25,6 @@
       </div>
     </div>
   </div>
-
-  </div>
 </template>
 
 <script>
@@ -50,12 +46,12 @@ export default {
     width: 800px;
     margin: 0px auto;
     border-radius: 10px;
-    box-shadow: 0px -2px 1px #24243c, 8px 8px 5px #160b2d;
+    box-shadow: 0px -2px 1px #3c270d, 8px 8px 5px #2d140c;
 }
 .win_title {
     text-align: center;
-    background-color: #4f4580;
-    border-bottom: 1px solid #4c2c75;
+    background-color: #80674b;
+    border-bottom: 1px solid #753c2a;
     border-radius: 10px 10px 0 0;
     line-height: 50px;
     font-size: 14px;
@@ -65,20 +61,28 @@ export default {
 }
 .win_info {
     padding: 30px;
-    background-color: #e4e5ff;
+    background-color: #fff5eb;
     border-radius: 0 0 10px 10px;
     color: #511E02;
+    text-align: left;
 }
 li {
     list-style: none;
+    line-height: 20px;
+    margin-bottom: 10px;
 }
-</style>
-<style lang="less">
-  #login {
-    background-color: #6c3092;
+.wrapper {
     height: 100%;
     width: 100%;
     background-size: 100% 120px;
+    padding-top: 120px;
+}
+.user_winbu {
+    margin-top: 30px;
     padding-top: 20px;
-  }
+    border-top: 1px solid #d3d2d1;
+    text-align: center;
+}
+</style>
+<style lang="less">
 </style>

@@ -214,6 +214,10 @@
               </div>
             </template>
 
+            <div class="order-info">
+              <bet-quick :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
+            </div>
+
           </div>
 
           <div>

@@ -13,8 +13,11 @@
               <div class="headLabel">
                 <div class="activeIndex"><h3>{{activeIndex}}</h3></div>
                 <div class="preResult">
+                  <!-- <ul v-if="hasResult" class="result-list">
+                    <li v-for="(item,index) in preResult" :class="'loadanimot'+index" class="bjpk-ran bjpk-ranNo-5 orangeShishiC bounce animated"></li>
+                  </ul> -->
                   <ul class="result-list">
-                    <li v-for="(item,index) in preResult" class="bjpk-ran bjpk-ranNo-5 orangeShishiC">{{item}}</li>
+                    <li v-for="(item,index) in preResult" :class="'loadanimot'+index" class="bjpk-ran bjpk-ranNo-5 orangeShishiC bounce animated"></li>
                   </ul>
                 </div>
               </div>
@@ -100,11 +103,15 @@ export default {
   },
   data() {
     return {
+      min : 0, //生成的最小的数字，比如200
+      max : 9, //生成的最大的数字，比如500
       imgUrl: 0,
+      t: null, //轮询
       activeIndex: '重庆时时彩',
       resultList: [],
       preBocaiPeriods: '',
       preResult: '',
+      hasResult: false,
       bocaiTypeId: '1',
       bocaiTypeList: [],
       submenu: '更多',
@@ -122,16 +129,35 @@ export default {
     this.refreshTime();
     this.openPrizeTime = this.$timestampToTimeRi(new Date());
 
-    preOpenPrizeTime: 1540362000000
-
-    
-
-    console.log('kkkkk',);
     this.getPrizeResult(1);
+
+    this.myTimer();
+
   },
   computed: {
   },
+  beforeDestroy: function() {
+      if (this.t) {
+        clearTimeout(this.t)
+      }
+  },
   methods: {
+    myTimer() {
+      //console.log('this.preResult',this.preResult);
+
+      if(!this.hasResult) {
+        for(let n in this.preResult) {
+          let kk = parseInt(Math.random() * (this.max - this.min + 1) +this. min);
+          $('.loadanimot'+n).html(kk);
+        }
+      } else {
+        for(let n in this.preResult) {
+          let kk = this.preResult[n];
+          $('.loadanimot'+n).html(kk);
+        }
+      }
+      this.t = setTimeout(this.myTimer, 100);
+    },
     async getRefreshTime() {
       let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
 
@@ -142,7 +168,14 @@ export default {
 
               bus.$emit('getbocaiInfoData', res.data);
 
-              this.preResult = res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(',');   //"preResult": 
+              if(res.data.preResult == '') {
+                this.preResult = '等待开奖中';
+                this.hasResult = false;
+              } else {
+                this.preResult = res.data.preResult.split(',');
+                this.hasResult = true;
+              }
+
               this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
 
             }
@@ -159,13 +192,21 @@ export default {
 
               bus.$emit('getbocaiInfoData', res.data);
 
-              this.preResult = res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(',');   //"preResult": 
+              if(res.data.preResult == '') {
+                this.preResult = '等待开奖中';
+                this.hasResult = false;
+              } else {
+                this.preResult = res.data.preResult.split(',');
+                this.hasResult = true;
+              }
+
+              //this.preResult = res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(',');   //"preResult": 
               this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
 
             }
 
             console.log('refreshbocaiInfo',window.refreshTime);
-            setTimeout(this.refreshTime, window.refreshTime);
+          this.t = setTimeout(this.refreshTime, window.refreshTime);
     },
     async bocaiInfo() {
 
@@ -178,7 +219,14 @@ export default {
 
               bus.$emit('getbocaiInfoData', res.data);
 
-              this.preResult = res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(',');   //"preResult": 
+              if(res.data.preResult == '') {
+                this.preResult = '等待开奖中';
+                this.hasResult = false;
+              } else {
+                this.preResult = res.data.preResult.split(',');
+                this.hasResult = true;
+              }
+
               this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
 
             }
@@ -194,11 +242,11 @@ export default {
             this.bocaiTypeList = res.bocaiTypeList;
           }
     },
-    async getPrizeResult(type) { 
+    async getPrizeResult() { 
 
       console.log('openPrizeTime',this.openPrizeTime);
 
-      let res = await this.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+type+`&currentPage=1&pageSize=100&dayStr=`+this.openPrizeTime);
+      let res = await this.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+this.bocaiTypeId+`&currentPage=1&pageSize=100&dayStr=`+this.openPrizeTime);
           if(res.code===200){
             this.resultList = res.list.slice(0,5);
             for(let n in this.resultList) {
@@ -207,6 +255,8 @@ export default {
               }
             }
           }
+
+        this.t = setTimeout(this.getPrizeResult, window.refreshTime);
     },
     async getOdds(item,index) {
 
@@ -239,7 +289,7 @@ export default {
       this.bocaiInfo();
       this.$router.push({name: path});
 
-      this.getPrizeResult(item.bocaiId);
+      //this.getPrizeResult();
 
       bus.$emit('getcUserInfo', '');
     }
@@ -251,10 +301,13 @@ export default {
     bus.$on('curactiveIndex', (data) => {
         this.activeIndex = data;
     });
+
   },
   updated() {
   }
 };
+
+
 </script>
 <style scoped>
   #content {
@@ -315,7 +368,7 @@ export default {
   .history_num .btn-group {
     text-align: left;
     color: #805933;
-    margin: 10px 5px;
+    margin: 10px 5px 2px;
   }
   .fenghuangimg {
     height: 155px;
@@ -328,11 +381,11 @@ export default {
   .rightMenu {
     background: #3d270d;
     border: 1px solid #8f541b;
-    border-radius: 2px;
-    margin-top: 15px;
+    border-radius: 6px;
+    margin-top: 5px;
     margin-left: 50px;
     float: right;
-    height: 134px;
+    height: 144px;
     width: 80px;
     display: inline-block;
     position: absolute;

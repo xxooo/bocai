@@ -1,228 +1,73 @@
 <template>
-  <div id="login">
+  <div id="loginDiv">
+
+  <section id="login" data-htmltype="pc" class="section-wrap scroll-section-0" section_index="0">
+
+    <div class="section dis_txt_high" name="scroll-section-0" style="overflow: auto">
+        <div class="login-main" id="login-content">
+            <div id="login_form" name="section-content" class="dis_txt_high login-form animated animate-bounceInDown">
+                <div class="login-form-bg rel">
+                    <div class="input-area dis_txt_high">
+                      <p class="title">会员登录</p>
+                      <div class="info">
+                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                          <el-form-item label="帐　号：" prop="username">
+                            <el-input v-model="ruleForm.username" size="mini" placeholder="请输入帐号"></el-input>
+                          </el-form-item>
+                            <el-form-item label="密　码：" prop="password">
+                            <el-input v-model="ruleForm.password" size="mini" placeholder="请输入密码"></el-input>
+                          </el-form-item>
+                          <el-form-item label="验证码：" prop="securitycode">
+                            <el-input v-model="ruleForm.securitycode" size="mini" placeholder="验证码"></el-input>
+                          </el-form-item>
+                          <el-form-item>
+                            <el-button type="primary" @click="login('ruleForm')">登录</el-button>
+                            <!-- <el-button @click="resetForm('ruleForm')">重置</el-button> -->
+                          </el-form-item>
+                        </el-form>
+                      </div>
+
+                      
+
+                        <!-- <label for="user_name" class="dis_txt_high">
+                          <el-input v-model="username" size="mini" placeholder="用户名，只支持数字、字母、符号混合"></el-input>
+                        </label>
+                        <label for="password" class="dis_txt_high">
+                          <el-input v-model="password" size="mini" type="password" placeholder="输入密码，由字母和数字组成6-16个字符"></el-input>
+                        </label>
+                        <label for="valid_code" class="dis_txt_high">
+                            <input id="valid_code" name="valid_code" type="text" placeholder="验证码" maxlength="4" onkeyup="this.value=this.value.replace(/\D/g, '')">
+                            <span class="code-area">
+                                <img id="imgCode" src="/static/fx/images/code_img.png" title="点击刷新" alt="点击刷新" class="code-img" data-state="close">
+                                <span class="code-font">验证码</span>
+                            </span>
+                        </label>
+                        <label for="g_code" style="display: none" class="sprite dis_txt_high">
+                            <input id="g_code" name="g_code" type="text" placeholder="谷歌身份验证">
+                        </label>
+                        <div id="btn_register" class="dis_txt_high btn btn-register" style="display:none">立即注册</div> -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     
-    <div class="wrap">
-      <!--header-->
-      <div class="header" id="header">
-        <div class="header-box">
-          <!-- <div class="logo">
-            <img src="/logo" width="208" height="75">
-          </div> -->
-          <!-- <img class="header-title" src="/static/img/sb/header_title.png" alt=""> -->
-          <!-- <ul id="nav">
-            <li>
-              <a href="javascript:;" onclick="clickBet()" class="a1">即时注单</a>
-              <a href="javascript:;" onclick="clickBet()" class="a2">下注历史</a>
-              <a href="javascript:;" onclick="clickBet()" class="a3">开奖结果</a>
-            </li>
-            <li>
-              <a href="javascript:;" onclick="clickBet()" class="a4">个人咨讯</a>
-              <a href="javascript:;" onclick="clickBet()" class="a5">游戏规则</a>
-              <a href="javascript:;" onclick="clickBet()" class="a6">修改密码</a>
-            </li>
-          </ul> -->
-        </div>
-      </div>
-      <!--banner-->
-      <div class="banner" id="banner">
-        <!-- <ul id="list" style="left: -2698px; width: 6745px;">
-          <li class="img banner3"></li>
-          <li class="img banner1"></li>
-          <li class="img banner2"></li>
-          <li class="img banner3"></li>
-          <li class="img banner1"></li>
-        </ul> -->
-        <!-- <div id="buttons">
-          <span index="1" class="on"></span>
-          <span index="2" class=""></span>
-          <span index="3" class=""></span>
-        </div>
-        <a href="javascript:;" id="prev" class="arrow">&lt;</a>
-        <a href="javascript:;" id="next" class="arrow">&gt;</a> -->
-      </div>
-      <!--login-->
+   <!--  <div class="wrap">
       <div id="login_box">
-        <!-- <div class="login_logo">
-          <img src="/logo" alt="logo" height="63" width="175">
-        </div> -->
         <div class="box">
           <form action="" method="post" enctype="application/x-www-form-urlencoded">
             <p><label id="label1" for="name">帐　号：</label><input id="name" class="name" v-model="username"  type="text" placeholder="请输入帐号"></p>
             <p><label id="label2" for="password">密　码：</label><input id="password" v-model="password" type="password" placeholder="请输入密码"></p>
-            <!-- <p class="code">
-              <label id="label3" for="code">验证码：</label><input id="code" name="code" type="text" placeholder="验证码">
-              <img src="/code?0.03919337389555588" id="codeImg" alt="验证码" onclick="this.src='/code?'+Math.random()" title="点击更新验证码"> 
-            </p> -->
 
             <p class="btn">
               <el-button type="primary" @click="login()">登 录</el-button>
-              <!-- <a class="reg" href="javascript:;" >立即注册</a>
-              <a class="test" href="javascript:;" >免费试用</a> -->
             </p>
           </form>
         </div>
       </div>
-      <!--game-->
-      <!-- <div class="game-box" id="game-box">
-        <ul>
-          <li>
-            <div class="game game-item" onclick="clickBet()">
-              <span class="img">
-                <img src="/static/img/game/PC蛋蛋.png" alt="PC蛋蛋">
-              </span>
-              <div class="text">
-                <h2>PC蛋蛋</h2>
-              </div>
-            </div>
-            <div class="game game-item" onclick="clickBet()">
-              <span class="img">
-                <img src="/static/img/game/北京PK拾.png" alt="北京pk拾">
-              </span>
-              <div class="text">
-                <h2>北京pk拾</h2>
-              </div>
-            </div>
-            <div class="game game-item" onclick="clickBet()">
-              <span class="img">
-                <img src="/static/img/game/重庆时时彩.png" alt="重庆时时彩">
-              </span>
-              <div class="text">
-                <h2>重庆时时彩</h2>
-              </div>
-            </div>
-            <div class="game game-item" onclick="clickBet()">
-              <span class="img">
-                <img src="/static/img/game/幸运飞艇.png" alt="幸运飞艇">
-              </span>
-              <div class="text">
-                <h2>幸运飞艇</h2>
-              </div>
-            </div>
-            <div class="game game-item" onclick="clickBet()">
-              <span class="img">
-                <img src="/static/img/game/广东11选5.png" alt="广东11选5">
-              </span>
-              <div class="text">
-                <h2>广东11选5</h2>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="game game-item" onclick="clickBet()">
-              <span class="img">
-                <img src="/static/img/game/广东快乐十分.png" alt="广东快乐十分">
-              </span>
-              <div class="text">
-                <h2>广东快乐十分</h2>
-              </div>
-            </div>
-            <div class="game game-item" onclick="clickBet()">
-               <span class="img">
-                <img src="/static/img/game/江苏快3.png" alt="江苏快3">
-              </span>
-              <div class="text">
-                <h2>江苏快3</h2>
-              </div>
-            </div>
-            <div class="game game-item" onclick="clickBet()">
-              <span class="img">
-                <img src="/static/img/game/重庆幸运农场.png" alt="重庆幸运农场">
-              </span>
-              <div class="text">
-                <h2>重庆幸运农场</h2>
-              </div>
-            </div>
-            <div class="game game-item" onclick="clickBet()">
-               <span class="img">
-                <img src="/static/img/game/北京快乐8.png" alt="北京快乐8">
-              </span>
-              <div class="text">
-                <h2>北京快乐8</h2>
-              </div>
-            </div>
-            <div class="game game-item" onclick="clickBet()">
-               <span class="img">
-                <img src="/static/img/sk/game/六合彩.png" alt="六合彩">
-              </span>
-              <div class="text">
-                <h2>六合彩</h2>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div> -->
-      <!--在线客服-->
-      <!-- <div class="service" id="service" style="top: -84px;">
-        </div> -->
-      <!--底部介绍-->
-      <!-- <div class="introduce" id="introduce">
-        <div class="nav">
-          <ul>
-            <li>
-              <span class="tag tag1"></span>
-              <h2>产品优势</h2>
-              <p>热门游戏产品一网打尽</p>
-            </li>
-            <li>
-              <span class="tag tag2"></span>
-              <h2>服务优势</h2>
-              <p>信誉保证 丰富经验的团队</p>
-            </li>
-            <li>
-              <span class="tag tag3"></span>
-              <h2>品牌优势</h2>
-              <p>公平公正 安全有保障</p>
-            </li>
-            <li>
-              <span class="tag tag4"></span>
-              <h2>技术优势</h2>
-              <p>全程担保会员每一笔存取款</p>
-            </li>
-          </ul>
-        </div>
-        <ul class="section">
-          <li id="p">
-            <div class="p-title">
-              <img src="/logo" width="200" height="72">
-              <h2>彩票游戏</h2>
-              <p>彩票游戏、快乐彩、六合彩、时时彩等，彩票游戏丰富，所有赛果依据官方开奖结果，带给您一夜致富的机会及空前的游戏体验！</p>
-            </div>
-          </li>
-          <li id="r">
-            <h2>大家选择我们娱乐城的理由</h2>
-            <div>
-              <p><i>1</i>游戏种类,全网最多</p>
-              <p><i>2</i>轨迹娱乐城 娱乐场官方直营</p>
-              <p><i>3</i>取款1000万3分锺火速到账</p>
-              <p><i>4</i>资金安全,客户零投诉</p>
-              <p><i>5</i>保障隐私,资料信息多重加密</p>
-            </div>
-          </li>
-          <li id="d">
-            <h2>24小时数据</h2>
-            <div id="data-box">
-              <div class="font" id="d1">
-                存款到账时间 <span>23秒</span>
-              </div>
-              <div class="font" id="d2">
-                取款到账时间 <span>2分钟</span>
-              </div>
-              <div class="accumulate">
-                <p>累积注单量 <span id="d3">235,162 注</span></p>
-                <p>累积派彩量 <span id="d4">112,273235,16 元</span></p>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="footer" id="footer">
-        <div>
-          <p class="icon"></p>
-          <p>致富之路 秒存秒提 信誉首选</p>
-          <p>Copyright © 2006 - 2017 All Rights Reserved</p>
-        </div>
-      </div> -->
-    </div>
+    </div> -->
 
   </div>
 </template>
@@ -234,7 +79,23 @@ export default {
   data () {
     return {
       password: '',
-      username: ''
+      username: '',
+      securitycode: '',
+      ruleForm: {
+          username: '',
+          password: '',
+          securitycode: ''
+        },
+        rules: {
+          username: [
+            { required: true, message: '必填', trigger: 'blur' }
+          ],
+          password: [
+            { required: true, message: '必填', trigger: 'blur' }
+          ],
+          securitycode: [
+          ]
+        }
     }
   },
   created() {
@@ -254,8 +115,8 @@ export default {
     async login() {
 
       let obj = {
-        username: this.username,
-        password: this.password
+        username: this.ruleForm.username,
+        password: this.ruleForm.password
       };
 
       // let obj = {
@@ -275,7 +136,83 @@ export default {
 </script>
 
 <style scoped>
-#login_box {
+#loginDiv {
+    background: url(../../static/img/loginBg.jpg) center no-repeat;
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+#login {
+    min-width: 1100px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: visible;
+}
+.section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.login-main {
+    height: 100%;
+    min-height: 700px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login-main .login-form {
+    position: relative;
+    margin: 0 auto;
+    width: 584px;
+    min-height: 590px;
+    text-align: left;
+    white-space: normal;
+    position: relative;
+    z-index: 2;
+}
+.rel {
+    position: relative;
+}
+.login-main .login-form .login-form-bg {
+    width: 584px;
+    height: 390px;
+    padding-top: 20%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 4px;
+    background: url(../../static/img/middlebg.png) center no-repeat;
+}
+.login-main .login-form .input-area {
+    width: 358px;
+    height: 260px;
+    border-radius: 6px;
+    margin: 0 auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #80664b;
+}
+.title {
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    font-weight: 700;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    background: hsla(0,0%,100%,.2);
+}
+.info {
+    background-size: 100% 100%;
+    padding: 15px 5px;
+    font-size: 13px;
+    overflow-x: hidden;
+    word-break: break-all;
+    text-align: center;
+}
+/*#login_box {
     z-index: 3;
     width: 320px;
     position: absolute;
@@ -290,5 +227,20 @@ export default {
     margin: 24px auto;
 }
 #login_box .box input {
+}*/
+</style>
+<style lang="less">
+#login {
+  .el-form-item__label {
+     color: #EBCB80 !important;
+  }
+  .el-form-item {
+    padding: 0px 20px 0px 0px;
+    margin-bottom: 10px;
+  }
+  .el-form-item__content {
+    margin-left: 0px; 
+  }
 }
 </style>
+

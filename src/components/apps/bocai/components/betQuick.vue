@@ -364,7 +364,6 @@
   color: #ff9800;
 }
 
-
 .popup-body {
     overflow-y: auto;
     margin-left: 0px !important;
@@ -383,14 +382,14 @@
 }
 
 .default-list table thead {
-    background-color: #d6d4de;
+    background-color: #fcefc2;
     font-weight: 700;
     color: #261238;
 }
 .default-list table td, .default-list table th {
     text-align: center;
     line-height: 30px;
-    border: 1px solid #aca6c2;
+    border: 1px solid #dcdfe6;
     padding: 0 6px;
     position: relative;
 }
@@ -422,7 +421,7 @@ button.btn-delete {
     background: #d63e35;
 }
 .default-list table tr.tab-footer {
-    background-color: #d6d4de;
+    background-color: #fcefc2;
     font-weight: 700;
     color: #261238;
 }
@@ -454,7 +453,7 @@ button.btn-delete {
 
   .el-dialog__header {
     padding: 20px 20px 10px;
-    background-color: #ccb0da;
+    background-color: #80664b;
     border-radius: 5px 5px 0 0;
   }
   .el-dialog.el-dialog--center {
