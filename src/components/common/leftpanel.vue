@@ -1,5 +1,5 @@
 <template>
-  <div id="leftpanel">
+  <div id="leftpanel" class="betQuick">
     <div class="leftList">
       <div id="userInfo" class="userInfo">
         <p class="title">
@@ -17,7 +17,7 @@
           </div> 
           <div class="login-out">
             <div><el-button class="loginoutbtn" type="primary" size="mini" @click="$router.push({name: 'login'})">登出</el-button></div>
-            <div><el-button class="changepassbtn" type="primary" size="mini">修改密码</el-button></div>
+            <div><el-button class="changepassbtn" type="primary" size="mini" @click="toUpdatePass">修改密码</el-button></div>
           </div>
           <div class="jinbibg"></div>
         </div>
@@ -35,7 +35,7 @@
       </div>
       <div class="long-dragon">
         <div class="tabmenu active">
-          <a>最新结果</a>
+          <a>长龙排行榜</a>
         </div>
         <div class="tabmenu">
           <a>最近注单</a>
@@ -99,6 +99,59 @@
         </div>
       </div>
     </div>
+
+    <el-dialog
+      title="修改密码"
+      :visible.sync="orderOddsVisible"
+      center>
+
+      
+        <div class="popup-body" style="max-height: 300px;">
+          <div class="default-list">
+            <div class="table">
+              <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="旧密码：" prop="oldPassWrod">
+                  <el-input v-model="ruleForm.oldPassWrod"></el-input>
+                </el-form-item>
+                <el-form-item label="新密码：" prop="newPassWord">
+                  <el-input v-model="ruleForm.newPassWord"></el-input>
+                </el-form-item>
+                <el-form-item label="确认密码：" prop="newPassWordDb">
+                  <el-input v-model="ruleForm.newPassWordDb"></el-input>
+                </el-form-item>
+                <el-form-item style="text-align: center;">
+                  <el-button @click="orderOddsVisible = false" size="medium">取 消</el-button>
+                  <el-button type="primary" @click="updatePassWord('ruleForm')" size="medium">确 定</el-button>
+                </el-form-item>
+              </el-form>
+              <!-- <table>
+              <tr>
+                <th class="tar">旧密码：</th> 
+                <td><input type="password" v-model="oldPassWrod" name="oldPassword" id="oldPassword" placeholder="请输入您的旧密码"></td> 
+                <td><i class="red">*</i> 请输入您的旧密码</td>
+              </tr> 
+              <tr>
+                <th class="tar">新密码：</th> 
+                <td><input type="password" v-model="newPassWord" name="password" id="password" placeholder="请输入新密码"></td> 
+                <td><i class="red">*</i> 密码必须为6-15位字母和数字组合</td>
+              </tr> 
+              <tr>
+                <th class="tar">确认密码：</th> 
+                <td><input type="password" v-model="newPassWordDb" name="rePassword" id="rePassword" placeholder="请再次输入新密码"></td> 
+                <td><i class="red">*</i> 请确认登录密码，两次密码需要一致</td>
+              </tr>
+              </table> -->
+            </div>
+          </div>
+        </div> 
+
+     <!--    <span slot="footer" class="dialog-footer">
+          <el-button @click="orderOddsVisible = false" size="medium">取 消</el-button>
+          <el-button type="primary" @click="updatePassWord('ruleForm')" size="medium">确 定</el-button>
+        </span> -->
+      
+    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -106,8 +159,61 @@
 
 export default {
   data() {
+    let vm = this;
     return {
-      userInfo: {}
+      userInfo: {},
+      orderOddsVisible: false,
+      ruleForm: {
+          oldPassWrod: '',
+          newPassWord: '',
+          newPassWordDb: ''
+        },
+        rules: {
+          oldPassWrod: [
+            { required: true, message: '请输入您的旧密码', trigger: 'blur' },
+            { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
+          ],
+          newPassWord: [
+            { required: true, message: '请输入您的新密码', trigger: 'blur' },
+            { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' },
+            {
+              validator:function(rule, value, callback){
+                let reg = /^[a-zA-Z]\w{5,15}$/;
+                if(!reg.test(value)){
+                  callback('密码以字母开头，长度在6~16之间，只能包含字母、数字和下划线');
+                }
+                callback();
+              },
+              trigger: 'blur'
+            }
+          ],
+          newPassWordDb: [
+            { required: true, message: '请再次输入新密码', trigger: 'blur' },
+            { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' },
+            {
+              validator:function(rule, value, callback){
+                let reg = /^[a-zA-Z]\w{5,15}$/;
+                if(!reg.test(value)){
+                  callback('密码以字母开头，长度在6~16之间，只能包含字母、数字和下划线');
+                }
+                callback();
+              },
+              trigger: 'blur'
+            },
+            {
+              validator:function(rule, value, callback){
+
+                console.log('vm.ruleForm',vm.ruleForm);
+                if(value != vm.ruleForm.newPassWord){
+                  callback('新密码两次输入不一致!');
+                }
+                callback();
+              },
+              trigger: 'blur'
+            }
+          ]
+        }
+
     };
   },
   computed: {
@@ -123,6 +229,35 @@ export default {
       });
   },
   methods: {
+    async updatePassWord(formName) {
+        let that = this;
+
+          this.$refs[formName].validate(async (valid) => {
+
+          if (valid) {
+
+              let obj = {
+                oldPassWrod: this.ruleForm.oldPassWrod,
+                newPassWord: this.ruleForm.newPassWord
+              }
+
+
+              let ret = await this.$post(`${window.url}/api/rePassWord`, obj);
+              if(ret.code===200) {
+                    this.$success(ret.msg);
+                    this.orderOddsVisible = false;
+                  } else {
+              }
+
+          } else {
+
+            return false;
+          }
+        });
+    },
+    toUpdatePass() {
+      this.orderOddsVisible = true;
+    },
     handleClick(tab, event) {
       //console.log(tab, event);  notice
     },
@@ -371,5 +506,89 @@ export default {
   background-color: #d3b281;
   color: #805933;
 }
+.popup-body {
+    overflow-y: auto;
+}
+.default-list {
+    padding: 8px 10px;
+}
+.default-list table {
+    margin-top: 5px;
+    width: 100%;
+}
+.default-list table tr {
+    line-height: 30px;
+    border-bottom: 1px solid #cecece;
+}
+.default-list table tr th {
+    color: #f2f1f0;
+}
+.default-list .table table th {
+    text-align: right;
+    background-color: #e8bd84;
+    color: #450400;
+    padding: 0 10px;
+    font-size: 13px;
+    line-height: 30px;
+    font-weight: 600;
+}
+.default-list table td.tar, .default-list table th.tar {
+    text-align: right;
+}
+.default-list table td, .default-list table th {
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid #b89268;
+}
+.default-list .table table tr td {
+    padding: 3px 8px;
+    text-align: left;
+}
+.default-list .table table tr input {
+    height: 20px;
+    padding-left: 3px;
+}
 </style>
+<style lang="less">
 
+.betQuick {
+  .el-input {
+    width: 120px;
+    margin-right: 20px;
+  }
+
+  .el-radio.is-bordered.is-checked {
+    background-color: #805933;
+  }
+
+  .betRTop.onlybet {
+    margin-top: 20px;
+  }
+
+  .el-dialog__header {
+    padding: 20px 20px 10px;
+    background-color: #80664b;
+    border-radius: 5px 5px 0 0;
+  }
+  .el-dialog.el-dialog--center {
+    width: 500px;
+    color: #450400 !important;
+    background-color: #fcfcfa;
+    box-shadow: 0 2px 8px rgba(0,0,0,.33);
+    font-family: Helvetica,Arial,sans-serif;
+    border-radius: 5px;
+  }
+  .el-dialog--center .el-dialog__body {
+    text-align: center;
+    padding: 0px;
+  }
+  .betRTop button {
+    height: 28px;
+  }
+
+  .el-button--primary.is-plain {
+    color: #805933;
+  }
+}
+
+</style>

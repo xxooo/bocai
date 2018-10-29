@@ -8,7 +8,7 @@ let notify = function(title, msg, type, position = 'bottom-right'){
         message: msg,
         type: type,
         duration: 3000,
-        offset: 300,
+        offset: 500,
         position: position
     });
 };
