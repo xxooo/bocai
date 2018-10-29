@@ -17,7 +17,7 @@
                     <li v-for="(item,index) in preResult" :class="'loadanimot'+index" class="bjpk-ran bjpk-ranNo-5 orangeShishiC bounce animated"></li>
                   </ul> -->
                   <ul class="result-list">
-                    <li v-for="(item,index) in preResult" :class="'loadanimot'+index" class="bjpk-ran bjpk-ranNo-5 orangeShishiC bounce animated"></li>
+                    <li v-for="(item,index) in preResult" :class="'loadanimot'+index" class="bjpk-ran bjpk-ranNo-5 orangeShishiC"></li>
                   </ul>
                 </div>
               </div>
@@ -143,17 +143,20 @@ export default {
   },
   methods: {
     myTimer() {
-      //console.log('this.preResult',this.preResult);
 
       if(!this.hasResult) {
         for(let n in this.preResult) {
           let kk = parseInt(Math.random() * (this.max - this.min + 1) +this. min);
           $('.loadanimot'+n).html(kk);
+          $('.loadanimot'+n).removeClass('bounce animated');
         }
       } else {
+        //这里无限循环，不合适
+
         for(let n in this.preResult) {
           let kk = this.preResult[n];
           $('.loadanimot'+n).html(kk);
+          $('.loadanimot'+n).addClass('bounce animated');
         }
       }
       this.t = setTimeout(this.myTimer, 100);
@@ -196,8 +199,10 @@ export default {
                 this.preResult = '等待开奖中';
                 this.hasResult = false;
               } else {
+
                 this.preResult = res.data.preResult.split(',');
                 this.hasResult = true;
+
               }
 
               //this.preResult = res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(',');   //"preResult": 
@@ -223,6 +228,7 @@ export default {
                 this.preResult = '等待开奖中';
                 this.hasResult = false;
               } else {
+
                 this.preResult = res.data.preResult.split(',');
                 this.hasResult = true;
               }

@@ -111,17 +111,17 @@
             <div class="table">
               <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="旧密码：" prop="oldPassWrod">
-                  <el-input v-model="ruleForm.oldPassWrod"></el-input>
+                  <el-input size="mini" type="password" v-model="ruleForm.oldPassWrod"></el-input>
                 </el-form-item>
                 <el-form-item label="新密码：" prop="newPassWord">
-                  <el-input v-model="ruleForm.newPassWord"></el-input>
+                  <el-input size="mini" type="password" v-model="ruleForm.newPassWord"></el-input>
                 </el-form-item>
                 <el-form-item label="确认密码：" prop="newPassWordDb">
-                  <el-input v-model="ruleForm.newPassWordDb"></el-input>
+                  <el-input size="mini" type="password" v-model="ruleForm.newPassWordDb"></el-input>
                 </el-form-item>
                 <el-form-item style="text-align: center;">
-                  <el-button @click="orderOddsVisible = false" size="medium">取 消</el-button>
-                  <el-button type="primary" @click="updatePassWord('ruleForm')" size="medium">确 定</el-button>
+                  <el-button size="mini" @click="orderOddsVisible = false">取 消</el-button>
+                  <el-button size="mini" type="primary" @click="updatePassWord('ruleForm')">确 定</el-button>
                 </el-form-item>
               </el-form>
               <!-- <table>
@@ -244,10 +244,13 @@ export default {
 
               let ret = await this.$post(`${window.url}/api/rePassWord`, obj);
               if(ret.code===200) {
-                    this.$success(ret.msg);
+                    this.$success('修改密码成功!');
                     this.orderOddsVisible = false;
                   } else {
               }
+
+
+              this.$refs[formName].resetFields();
 
           } else {
 
@@ -510,7 +513,7 @@ export default {
     overflow-y: auto;
 }
 .default-list {
-    padding: 8px 10px;
+    padding: 8px 60px;
 }
 .default-list table {
     margin-top: 5px;
@@ -588,6 +591,14 @@ export default {
 
   .el-button--primary.is-plain {
     color: #805933;
+  }
+
+  .el-form-item {
+    margin-bottom: 0px;
+  }
+
+  .el-form-item__content {
+    margin-left: 0px !important; 
   }
 }
 
