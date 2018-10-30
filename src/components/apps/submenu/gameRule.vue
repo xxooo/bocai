@@ -84,6 +84,18 @@ export default {
 };
 </script>
 <style scoped>
+.default-list h2 {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 700;
+}
+.default-list p {
+    line-height: 30px;
+}
+.text-indent {
+    text-indent: 2em;
+}
+
 </style>
 <style lang="less">
   

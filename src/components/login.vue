@@ -3,7 +3,7 @@
 
   <section id="login" data-htmltype="pc" class="section-wrap scroll-section-0" section_index="0">
 
-    <div class="section dis_txt_high" name="scroll-section-0" style="overflow: auto">
+    <div class="section dis_txt_high" name="scroll-section-0">
         <div class="login-main" id="login-content">
             <div id="login_form" name="section-content" class="dis_txt_high login-form animated animate-bounceInDown">
                 <div class="login-form-bg rel">
@@ -15,37 +15,17 @@
                             <el-input v-model="ruleForm.username" size="mini" placeholder="请输入帐号"></el-input>
                           </el-form-item>
                             <el-form-item label="密　码：" prop="password">
-                            <el-input v-model="ruleForm.password" size="mini" placeholder="请输入密码"></el-input>
+                            <el-input v-model="ruleForm.password" type="password" size="mini" placeholder="请输入密码"></el-input>
                           </el-form-item>
-                          <el-form-item label="验证码：" prop="securitycode">
-                            <el-input v-model="ruleForm.securitycode" size="mini" placeholder="验证码"> <img src="data:image/png;base64,tupian"></el-input>
+                          <el-form-item label="验证码：" prop="yanzhengma">
+                            <el-input v-model="ruleForm.yanzhengma" maxlength="5" size="mini" placeholder="验证码"></el-input>
+                            <img class="yanzhengimg"  @click="getyanzheng" :src="'data:image/png;base64,'+tupian">
                           </el-form-item>
                           <el-form-item>
-                            <el-button type="primary" @click="login('ruleForm')">登录</el-button>
-                            <!-- <el-button @click="resetForm('ruleForm')">重置</el-button> -->
+                            <el-button size="mini" @click="login('ruleForm')">登录</el-button>
                           </el-form-item>
                         </el-form>
                       </div>
-
-                      
-
-                        <!-- <label for="user_name" class="dis_txt_high">
-                          <el-input v-model="username" size="mini" placeholder="用户名，只支持数字、字母、符号混合"></el-input>
-                        </label>
-                        <label for="password" class="dis_txt_high">
-                          <el-input v-model="password" size="mini" type="password" placeholder="输入密码，由字母和数字组成6-16个字符"></el-input>
-                        </label>
-                        <label for="valid_code" class="dis_txt_high">
-                            <input id="valid_code" name="valid_code" type="text" placeholder="验证码" maxlength="4" onkeyup="this.value=this.value.replace(/\D/g, '')">
-                            <span class="code-area">
-                                <img id="imgCode" src="/static/fx/images/code_img.png" title="点击刷新" alt="点击刷新" class="code-img" data-state="close">
-                                <span class="code-font">验证码</span>
-                            </span>
-                        </label>
-                        <label for="g_code" style="display: none" class="sprite dis_txt_high">
-                            <input id="g_code" name="g_code" type="text" placeholder="谷歌身份验证">
-                        </label>
-                        <div id="btn_register" class="dis_txt_high btn btn-register" style="display:none">立即注册</div> -->
 
                     </div>
                 </div>
@@ -53,21 +33,6 @@
         </div>
     </div>
 </section>
-    
-   <!--  <div class="wrap">
-      <div id="login_box">
-        <div class="box">
-          <form action="" method="post" enctype="application/x-www-form-urlencoded">
-            <p><label id="label1" for="name">帐　号：</label><input id="name" class="name" v-model="username"  type="text" placeholder="请输入帐号"></p>
-            <p><label id="label2" for="password">密　码：</label><input id="password" v-model="password" type="password" placeholder="请输入密码"></p>
-
-            <p class="btn">
-              <el-button type="primary" @click="login()">登 录</el-button>
-            </p>
-          </form>
-        </div>
-      </div>
-    </div> -->
 
   </div>
 </template>
@@ -77,6 +42,7 @@ import cookieParser from './../assets/js/cookie';
 
 export default {
   data () {
+    let vm = this;
     return {
       password: '',
       username: '',
@@ -86,7 +52,7 @@ export default {
       ruleForm: {
           username: '',
           password: '',
-          securitycode: ''
+          yanzhengma: ''
         },
         rules: {
           username: [
@@ -95,7 +61,20 @@ export default {
           password: [
             { required: true, message: '必填', trigger: 'blur' }
           ],
-          securitycode: [
+          yanzhengma: [
+            { required: true, message: '必填', trigger: 'blur' },
+            {
+              validator:function(rule, value, callback){
+
+                console.log('value',value);
+                console.log('this.yanzhengma',vm.yanzhengma);
+                if(value != vm.yanzhengma){
+                  callback('验证码输入不正确!');
+                }
+                callback();
+              },
+              trigger: 'blur'
+            }
           ]
         }
     }
@@ -104,14 +83,11 @@ export default {
     this.getyanzheng();
     
     if (window.ENV == 'dev') {
-
       //console.log('研发自动登录');
 
     } else {
       //普通用户登录
        //this.$router.push({name: 'login'});
-
-
     }
   },
   methods: {
@@ -123,23 +99,29 @@ export default {
         this.yanzhengma = res.yanzhengma;
       }
     },
-    async login() {
+    async login(formName) {
+      let that = this;
 
-      let obj = {
-        username: this.ruleForm.username,
-        password: this.ruleForm.password
-      };
+          this.$refs[formName].validate(async (valid) => {
 
-      // let obj = {
-      //   password: 'a111111',
-      //   username: 'aydwhuiyuan1'
-      // };
+          if (valid) {
 
-      let ret = await this.$post(`${window.url}/api/login`, obj);
-      if(ret.code === 200) {
-        cookieParser.setCookie("accesstoken", ret.token);
-        this.$router.push({name: 'userAgreement'});
-      }
+               let obj = {
+                username: this.ruleForm.username,
+                password: this.ruleForm.password
+              };
+
+              let ret = await this.$post(`${window.url}/api/login`, obj);
+              if(ret.code === 200) {
+                cookieParser.setCookie("accesstoken", ret.token);
+                this.$router.push({name: 'userAgreement'});
+              }
+
+          } else {
+
+            return false;
+          }
+        });
 
     }
   }
@@ -226,6 +208,13 @@ export default {
     overflow-x: hidden;
     word-break: break-all;
     text-align: center;
+}
+
+.yanzhengimg {
+  height: 26px;
+  top: 8px;
+  position: absolute;
+  cursor: pointer;
 }
 /*#login_box {
     z-index: 3;

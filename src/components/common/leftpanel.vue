@@ -241,14 +241,12 @@ export default {
                 newPassWord: this.ruleForm.newPassWord
               }
 
-
               let ret = await this.$post(`${window.url}/api/rePassWord`, obj);
               if(ret.code===200) {
                     this.$success('修改密码成功!');
                     this.orderOddsVisible = false;
                   } else {
               }
-
 
               this.$refs[formName].resetFields();
 

@@ -1,7 +1,7 @@
 <template>
 	<div class="title-content">
     <div class="wanfaBtn">
-      <p class="rule">玩法规则</p>
+      <p class="rule" @click="$router.push({name: 'gameRule'})">玩法规则</p>
         <!-- <el-button type="primary" size="mini">玩法规则</el-button> -->
     </div>
     <div class="winCurrent">
