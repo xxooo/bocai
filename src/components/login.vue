@@ -18,7 +18,7 @@
                             <el-input v-model="ruleForm.password" size="mini" placeholder="请输入密码"></el-input>
                           </el-form-item>
                           <el-form-item label="验证码：" prop="securitycode">
-                            <el-input v-model="ruleForm.securitycode" size="mini" placeholder="验证码"></el-input>
+                            <el-input v-model="ruleForm.securitycode" size="mini" placeholder="验证码"> <img src="data:image/png;base64,tupian"></el-input>
                           </el-form-item>
                           <el-form-item>
                             <el-button type="primary" @click="login('ruleForm')">登录</el-button>
@@ -81,6 +81,8 @@ export default {
       password: '',
       username: '',
       securitycode: '',
+      tupian: '',
+      yanzhengma: '',
       ruleForm: {
           username: '',
           password: '',
@@ -99,7 +101,8 @@ export default {
     }
   },
   created() {
-
+    this.getyanzheng();
+    
     if (window.ENV == 'dev') {
 
       //console.log('研发自动登录');
@@ -112,6 +115,14 @@ export default {
     }
   },
   methods: {
+    async getyanzheng() {
+      let res = await this.$get(`${window.url}/api/captcha.jpg`);
+
+      if(res.code===200){
+        this.tupian = res.tupian;
+        this.yanzhengma = res.yanzhengma;
+      }
+    },
     async login() {
 
       let obj = {
@@ -137,9 +148,12 @@ export default {
 
 <style scoped>
 #loginDiv {
-    background: url(../../static/img/loginBg.jpg) center no-repeat;
+    background: url(../../static/img/loginBg.jpg) 50% no-repeat fixed;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
     background-size: 100% 100%;
-    overflow: hidden;
 }
 #login {
     min-width: 1100px;
@@ -166,6 +180,7 @@ export default {
 .login-main .login-form {
     position: relative;
     margin: 0 auto;
+    padding-top: 10%;
     width: 584px;
     min-height: 590px;
     text-align: left;
