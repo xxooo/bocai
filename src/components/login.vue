@@ -5,6 +5,7 @@
 
     <div class="section dis_txt_high" name="scroll-section-0">
         <div class="login-main" id="login-content">
+          <div class="fenghuang">凤凰</div>
             <div id="login_form" name="section-content" class="dis_txt_high login-form animated animate-bounceInDown">
                 <div class="login-form-bg rel">
                     <div class="input-area dis_txt_high">
@@ -129,6 +130,16 @@ export default {
 </script>
 
 <style scoped>
+.fenghuang {
+  top: 100px;
+  left: 200px;
+  font-family: SourceHanSansSC-Medium;
+  font-size: 80px;
+  color: #ebcb80;
+  letter-spacing: 0;
+  text-align: center;
+  position: absolute;
+}
 #loginDiv {
     background: url(../../static/img/loginBg.jpg) 50% no-repeat fixed;
     position: fixed;
