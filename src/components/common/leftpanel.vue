@@ -40,58 +40,27 @@
         <div class="tabmenu">
           <a>最近注单</a>
         </div>
+        <div class="tabmenu active">
+          <a>连续开奖</a>
+        </div>
+        <div class="tabmenu">
+          <a>连续未开</a>
+        </div>
         <div class="cont">
           <div class="sum">
-            <div data-v-1c2d87c0="" class="table">
-              <table data-v-1c2d87c0="">
-                <tr data-v-1c2d87c0="">
-                  <td data-v-1c2d87c0="" class="type"></td> 
-                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">第四名 龙</a></td> 
-                  <td data-v-1c2d87c0="" class="period">5 期</td>
+            <div class="table">
+              <table v-if="showOpen">
+                <tr v-for="(item,index) in openPrizeList">
+                  <td class="type"></td> 
+                  <td class="name"><a>{{item.content}}</a></td> 
+                  <td class="period">{{item.num}} 期</td>
                 </tr>
-                <tr data-v-1c2d87c0="">
-                  <td data-v-1c2d87c0="" class="type"></td> 
-                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">第五名 双</a></td> 
-                  <td data-v-1c2d87c0="" class="period">3 期</td>
-                </tr>
-                <tr data-v-1c2d87c0="">
-                  <td data-v-1c2d87c0="" class="type"></td> 
-                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">第七名 小</a></td> 
-                  <td data-v-1c2d87c0="" class="period">3 期</td>
-                </tr>
-                <tr data-v-1c2d87c0="">
-                  <td data-v-1c2d87c0="" class="type"></td> 
-                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">第八名 单</a></td>
-                  <td data-v-1c2d87c0="" class="period">3 期</td>
-                </tr>
-                <tr data-v-1c2d87c0="">
-                  <td data-v-1c2d87c0="" class="type"></td> 
-                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">冠亚军和 大</a></td> 
-                  <td data-v-1c2d87c0="" class="period">3 期</td>
-                </tr>
-                <tr data-v-1c2d87c0="">
-                  <td data-v-1c2d87c0="" class="type"></td> 
-                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">冠军 大</a></td> 
-                  <td data-v-1c2d87c0="" class="period">2 期</td>
-                </tr>
-                <tr data-v-1c2d87c0=""><td data-v-1c2d87c0="" class="type"></td> 
-                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">冠军 龙</a></td> 
-                  <td data-v-1c2d87c0="" class="period">2 期</td>
-                </tr>
-                <tr data-v-1c2d87c0="">
-                  <td data-v-1c2d87c0="" class="type"></td> 
-                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">亚军 单</a></td> 
-                  <td data-v-1c2d87c0="" class="period">2 期</td>
-                </tr>
-                <tr data-v-1c2d87c0="">
-                  <td data-v-1c2d87c0="" class="type"></td> 
-                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">亚军 虎</a></td> 
-                  <td data-v-1c2d87c0="" class="period">2 期</td>
-                </tr>
-                <tr data-v-1c2d87c0="">
-                  <td data-v-1c2d87c0="" class="type"></td> 
-                  <td data-v-1c2d87c0="" class="name"><a data-v-1c2d87c0="" href="javascript:;">第三名 双</a></td> 
-                  <td data-v-1c2d87c0="" class="period">2 期</td>
+              </table>
+              <table v-if="!showOpen">
+                <tr v-for="(item,index) in noOpenPrizeList">
+                  <td class="type"></td> 
+                  <td class="name"><a>{{item.content}}</a></td> 
+                  <td class="period">{{item.num}} 期</td>
                 </tr>
               </table>
             </div>
@@ -104,7 +73,6 @@
       title="修改密码"
       :visible.sync="orderOddsVisible"
       center>
-
       
         <div class="popup-body" style="max-height: 300px;">
           <div class="default-list">
@@ -124,32 +92,10 @@
                   <el-button size="mini" type="primary" @click="updatePassWord('ruleForm')">确 定</el-button>
                 </el-form-item>
               </el-form>
-              <!-- <table>
-              <tr>
-                <th class="tar">旧密码：</th> 
-                <td><input type="password" v-model="oldPassWrod" name="oldPassword" id="oldPassword" placeholder="请输入您的旧密码"></td> 
-                <td><i class="red">*</i> 请输入您的旧密码</td>
-              </tr> 
-              <tr>
-                <th class="tar">新密码：</th> 
-                <td><input type="password" v-model="newPassWord" name="password" id="password" placeholder="请输入新密码"></td> 
-                <td><i class="red">*</i> 密码必须为6-15位字母和数字组合</td>
-              </tr> 
-              <tr>
-                <th class="tar">确认密码：</th> 
-                <td><input type="password" v-model="newPassWordDb" name="rePassword" id="rePassword" placeholder="请再次输入新密码"></td> 
-                <td><i class="red">*</i> 请确认登录密码，两次密码需要一致</td>
-              </tr>
-              </table> -->
             </div>
           </div>
         </div> 
 
-     <!--    <span slot="footer" class="dialog-footer">
-          <el-button @click="orderOddsVisible = false" size="medium">取 消</el-button>
-          <el-button type="primary" @click="updatePassWord('ruleForm')" size="medium">确 定</el-button>
-        </span> -->
-      
     </el-dialog>
 
   </div>
@@ -161,6 +107,10 @@ export default {
   data() {
     let vm = this;
     return {
+      bocaiTypeId: '',
+      showOpen: true,
+      noOpenPrizeList: [],
+      openPrizeList: [],
       userInfo: {},
       orderOddsVisible: false,
       ruleForm: {
@@ -227,8 +177,45 @@ export default {
       bus.$on('getcUserInfo', (data) => {
         this.getcUserInfo();
       });
+      bus.$on('getbocaiTypeId', (data) => {
+        this.bocaiTypeId = data;
+        this.getchanglong();
+      });
   },
   methods: {
+    async getchanglong() {
+
+      let that = this;
+          NProgress.start();
+          await that.$get(`${window.url}/api/changlong?bocaiTypeId=`+this.bocaiTypeId+'&showNum=20').then((res) => {
+            that.$handelResponse(res, (result) => {
+              NProgress.done();
+              if(result.code===200){
+
+                for(let n in result.openPrizeMap) {
+                  let obj = {};
+                  obj.content = n;
+                  obj.num = result.openPrizeMap[n];
+                  this.openPrizeList.push(obj);
+                }
+
+                for(let n in result.noOpenPrizeMap) {
+                  let obj = {};
+                  obj.content = n;
+                  obj.num = result.noOpenPrizeMap[n];
+                  this.noOpenPrizeList.push(obj);
+                }
+
+                //console.log('this.openPrizeMap',this.openPrizeMap);
+                //更新用户信息
+                // bus.$emit('getcUserInfo', ''); 
+                // that.orderDatas.list = [];
+                // that.$success('下注成功！');
+                // that.reset();
+              }
+            })
+          });
+    },
     async updatePassWord(formName) {
         let that = this;
 

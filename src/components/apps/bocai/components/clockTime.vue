@@ -84,8 +84,8 @@
         var closeTime = leftTime - this.closeTimeSet*1000;
 
         var closeTimeSet = this.openPrizeTime - this.closeTimeSet*1000;
-        console.log('当前时间',this.timestampToTime(now.getTime()));
-        console.log('封盘时间',this.timestampToTime(closeTimeSet));
+        //console.log('当前时间',this.timestampToTime(now.getTime()));
+        //console.log('封盘时间',this.timestampToTime(closeTimeSet));
 
         if(closeTime<=0 && leftTime<=0) {
           //console.log('未开盘',this.timestampToTime(this.openPrizeTime));
@@ -127,7 +127,7 @@
           var s = leftTime % 60;
 
           this.timeLeft = (o*1> 9 ? o : '0'+ o) + ":" + (m*1> 9 ? m : '0'+ m) + ":" + (s*1 > 9 ? s : '0'+ s);
-          console.log('开盘时间',this.timestampToTime(this.openPrizeTime));
+          //console.log('开盘时间',this.timestampToTime(this.openPrizeTime));
           //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
           bus.$emit('isOpenOdds', true);
 

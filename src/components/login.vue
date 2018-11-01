@@ -86,12 +86,31 @@ export default {
     if (window.ENV == 'dev') {
       //console.log('研发自动登录');
 
+      this.logindev();
+
     } else {
       //普通用户登录
        //this.$router.push({name: 'login'});
     }
   },
   methods: {
+    async logindev() {
+      let that = this;
+
+
+
+               let obj = {
+                username: 'axuyao1',
+                password: 'aaa111'
+              };
+
+              let ret = await this.$post(`${window.url}/api/login`, obj);
+              if(ret.code === 200) {
+                cookieParser.setCookie("accesstoken", ret.token);
+                this.$router.push({name: 'userAgreement'});
+              }
+
+    },
     async getyanzheng() {
       let res = await this.$get(`${window.url}/api/captcha.jpg`);
 
