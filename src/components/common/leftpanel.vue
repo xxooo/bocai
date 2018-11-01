@@ -34,16 +34,16 @@
         </div>
       </div>
       <div class="long-dragon">
-        <div class="tabmenu active">
+        <div class="tabmenuPa  active">
           <a>长龙排行榜</a>
         </div>
-        <div class="tabmenu">
+        <!-- <div class="tabmenu">
           <a>最近注单</a>
-        </div>
-        <div class="tabmenu active">
+        </div> -->
+        <div @click="openPrize" class="tabmenu openPrize active">
           <a>连续开奖</a>
         </div>
-        <div class="tabmenu">
+        <div @click="noOpenPrize" class="tabmenu noOpenPrize">
           <a>连续未开</a>
         </div>
         <div class="cont">
@@ -183,9 +183,17 @@ export default {
       });
   },
   methods: {
+    openPrize() {
+      this.showOpen = true;
+      $('.openPrize').addClass('active').siblings().removeClass('active');
+    },
+    noOpenPrize() {
+      this.showOpen = false;
+      $('.noOpenPrize').addClass('active').siblings().removeClass('active');
+    },
     async getchanglong() {
 
-      let that = this;
+          let that = this;
           NProgress.start();
           await that.$get(`${window.url}/api/changlong?bocaiTypeId=`+this.bocaiTypeId+'&showNum=20').then((res) => {
             that.$handelResponse(res, (result) => {
@@ -401,6 +409,7 @@ export default {
   width: 120px;
   height: 32px;
   background-color: #d3b281;
+  cursor: pointer;
 }
 
 .tabmenu:hover {
@@ -414,6 +423,13 @@ export default {
   width: 100%;
   height: 32px;
   line-height: 32px;
+}
+
+.tabmenuPa {
+    color: #ebcb80;
+    height: 32px;
+    line-height: 32px;
+    background-color: #80664b;
 }
 
 #leftpanel .leftList .long-dragon .cont .table {

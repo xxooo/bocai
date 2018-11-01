@@ -17,8 +17,8 @@
           <li>我了解以及同意下注列明的协定和规则。</li>
           <li class="user_winbu">
             <div>
-              <el-button type="primary" @click="$router.push({name: 'chongqindubo'})">同  意</el-button>
-              <el-button type="primary" @click="$router.push({name: 'login'})">不同意</el-button>
+              <el-button type="primary" size="mini" @click="$router.push({name: 'chongqindubo'})">同  意</el-button>
+              <el-button type="primary" size="mini" @click="$router.push({name: 'login'})">不同意</el-button>
             </div>
           </li>
         </ul>
@@ -60,7 +60,7 @@ export default {
     border-bottom: 1px solid #cfb898;
 }
 .win_info {
-    padding: 30px;
+    padding: 20px;
     background-color: #fff5eb;
     border-radius: 0 0 10px 10px;
     color: #511E02;

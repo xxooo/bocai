@@ -224,7 +224,7 @@
             <div class="bead-table">
               <table class="bead-ball">
                 <tr>
-                  <th class="active">第一球</th>
+                  <th class="active" @click="getqiu(1)">第一球</th>
                   <th class="">第二球</th>
                   <th class="">第三球</th>
                   <th class="">第四球</th>
@@ -234,72 +234,72 @@
               <table>
                 <tr class="td-head">
                   <td>0</td> 
-                  <td data-v-21ddc614="">1</td> 
-                  <td data-v-21ddc614="">2</td> 
-                  <td data-v-21ddc614="">3</td> 
-                  <td data-v-21ddc614="">4</td> 
-                  <td data-v-21ddc614="">5</td> 
-                  <td data-v-21ddc614="">6</td> 
-                  <td data-v-21ddc614="">7</td> 
-                  <td data-v-21ddc614="">8</td> 
-                  <td data-v-21ddc614="">9</td>
+                  <td>1</td> 
+                  <td>2</td> 
+                  <td>3</td> 
+                  <td>4</td> 
+                  <td>5</td> 
+                  <td>6</td> 
+                  <td>7</td> 
+                  <td>8</td> 
+                  <td>9</td>
                 </tr> 
-                <tr data-v-21ddc614="">
-                  <td data-v-21ddc614="">9</td>
-                  <td data-v-21ddc614="">10</td>
-                  <td data-v-21ddc614="">8</td>
-                  <td data-v-21ddc614="">16</td>
-                  <td data-v-21ddc614="">15</td>
-                  <td data-v-21ddc614="">10</td>
-                  <td data-v-21ddc614="">12</td>
-                  <td data-v-21ddc614="">12</td>
-                  <td data-v-21ddc614="">13</td>
-                  <td data-v-21ddc614="">19</td>
+                <tr>
+                  <td>9</td>
+                  <td>10</td>
+                  <td>8</td>
+                  <td>16</td>
+                  <td>15</td>
+                  <td>10</td>
+                  <td>12</td>
+                  <td>12</td>
+                  <td>13</td>
+                  <td>19</td>
                 </tr>
               </table>
-              <table data-v-21ddc614="" width="100%" class="bead-ball">
-                <tr data-v-21ddc614="">
-                  <th data-v-21ddc614="" class="active">第一球</th> 
-                  <th data-v-21ddc614="" class="">大小</th> 
-                  <th data-v-21ddc614="" class="">单双</th> 
-                  <th data-v-21ddc614="" class="">总和大小</th> 
-                  <th data-v-21ddc614="" class="">总和单双</th> 
-                  <th data-v-21ddc614="" class="">龙虎和</th>
+              <table width="100%" class="bead-ball">
+                <tr>
+                  <th class="active">第一球</th> 
+                  <th class="">大小</th> 
+                  <th class="">单双</th> 
+                  <th class="">总和大小</th> 
+                  <th class="">总和单双</th> 
+                  <th class="">龙虎和</th>
                 </tr>
               </table>
-              <table data-v-21ddc614="">
-                <tr data-v-21ddc614="">
-                  <td data-v-21ddc614="" width="4%" class="bead-list">
-                    <p data-v-21ddc614="">4</p>
+              <table>
+                <tr>
+                  <td width="4%" class="bead-list">
+                    <p>4</p>
                   </td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list">
-                    <p data-v-21ddc614="">3</p>
+                  <td width="4%" class="bead-list">
+                    <p>3</p>
                   </td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list">
-                    <p data-v-21ddc614="">4</p>
+                  <td width="4%" class="bead-list">
+                    <p>4</p>
                   </td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">6</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">4</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">1</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">3</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">4</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">9</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">6</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">2</p><p data-v-21ddc614="">2</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">4</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">1</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">8</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">5</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">4</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">2</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">0</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">7</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">1</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">2</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">8</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">6</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">5</p><p data-v-21ddc614="">5</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">0</p></td>
+                  <td width="4%" class="bead-list"><p>6</p></td>
+                  <td width="4%" class="bead-list"><p>4</p></td>
+                  <td width="4%" class="bead-list"><p>1</p></td>
+                  <td width="4%" class="bead-list"><p>3</p></td>
+                  <td width="4%" class="bead-list"><p>4</p></td>
+                  <td width="4%" class="bead-list"><p>9</p></td>
+                  <td width="4%" class="bead-list"><p>6</p></td>
+                  <td width="4%" class="bead-list"><p>2</p><p>2</p></td>
+                  <td width="4%" class="bead-list"><p>4</p></td>
+                  <td width="4%" class="bead-list"><p>1</p></td>
+                  <td width="4%" class="bead-list"><p>8</p></td>
+                  <td width="4%" class="bead-list"><p>5</p></td>
+                  <td width="4%" class="bead-list"><p>4</p></td>
+                  <td width="4%" class="bead-list"><p>2</p></td>
+                  <td width="4%" class="bead-list"><p>0</p></td>
+                  <td width="4%" class="bead-list"><p>7</p></td>
+                  <td width="4%" class="bead-list"><p>1</p></td>
+                  <td width="4%" class="bead-list"><p>2</p></td>
+                  <td width="4%" class="bead-list"><p>8</p></td>
+                  <td width="4%" class="bead-list"><p>6</p></td>
+                  <td width="4%" class="bead-list"><p>5</p><p>5</p></td>
+                  <td width="4%" class="bead-list"><p>0</p></td>
                 </tr>
               </table>
             </div>
@@ -350,6 +350,7 @@ export default {
   },
   created() {
     this.getOdds(this.curBocaiTypeId);
+    this.gettongji(this.curBocaiTypeId);
   },
   mounted(){
       bus.$on('isOpenOdds', (data) => {
@@ -357,6 +358,31 @@ export default {
       });
   },
   methods: {
+    getqiu(num) {
+
+    },
+    async gettongji(bocaiId) {
+      let that = this;
+          NProgress.start();
+          await that.$get(`${window.url}/api/tongji?bocaiTypeId=`+bocaiId).then((res) => {
+            that.$handelResponse(res, (result) => {
+              NProgress.done();
+              if(result.code===200){
+
+
+
+//                 counts: [{0: 1, 1: 0, 2: 1, 3: 1, 4: 0, 5: 1, 7: 2, 9: 1}, {1: 0, 2: 1, 3: 2, 4: 1, 5: 0, 9: 3},…]
+// danshuangMap: {1: "单,单,双,单,单,双,单", 2: "单,单,单,双,单,单,双", 3: "单,双,单,单,双,单,双", 4: "单,双,单,单,单,单,双", 5: "单,双,单,单,单,双,双"}
+// daxiaoMap: {1: "大,大,小,大,小,小,大", 2: "小,大,大,小,小,大,小", 3: "大,大,小,大,大,大,小", 4: "大,大,大,大,大,小,大", 5: "小,大,大,大,大,大,小"}
+// longhuhe: "龙,龙,虎,龙,虎,虎,龙"
+// numMap: {1: "7,9,2,7,3,0,5", 2: "3,9,9,2,3,9,4", 3: "7,6,3,5,6,5,0", 4: "5,8,9,7,5,1,8", 5: "3,8,9,5,7,8,0"}
+// zonghedanshuang: "单,双,双,双,双,单,单"
+// zonghedaxiao: "大,大,大,大,大,大,小"
+
+              }
+            })
+          });
+    },
     kuaixuanOdd(item,type) {
       this.qingkong();
       let list = this.shishiZiDatas.list;
