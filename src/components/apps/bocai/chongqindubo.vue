@@ -224,11 +224,11 @@
             <div class="bead-table">
               <table class="bead-ball">
                 <tr>
-                  <th class="active" @click="getqiu(1)">第一球</th>
-                  <th class="">第二球</th>
-                  <th class="">第三球</th>
-                  <th class="">第四球</th>
-                  <th class="">第五球</th>
+                  <th class="active getqiu1" @click="getqiu(1)">第一球</th>
+                  <th class="getqiu2" @click="getqiu(2)">第二球</th>
+                  <th class="getqiu3" @click="getqiu(3)">第三球</th>
+                  <th class="getqiu4" @click="getqiu(4)">第四球</th>
+                  <th class="getqiu5" @click="getqiu(5)">第五球</th>
                 </tr>
               </table>
               <table>
@@ -243,23 +243,31 @@
                   <td>7</td> 
                   <td>8</td> 
                   <td>9</td>
-                </tr> 
-                <tr>
-                  <td>9</td>
-                  <td>10</td>
-                  <td>8</td>
-                  <td>16</td>
-                  <td>15</td>
-                  <td>10</td>
-                  <td>12</td>
-                  <td>12</td>
-                  <td>13</td>
-                  <td>19</td>
                 </tr>
+                <tr v-if="yiwuqiu == 1">
+                  <td v-for="(item,key) in counts[0]">{{item}}</td>
+                </tr>
+                <tr v-else-if="yiwuqiu == 2">
+                  <td v-for="(item,key) in counts[1]">{{item}}</td>
+                </tr>
+                <tr v-else-if="yiwuqiu == 3">
+                  <td v-for="(item,key) in counts[2]">{{item}}</td>
+                </tr>
+                <tr v-else-if="yiwuqiu == 4">
+                  <td v-for="(item,key) in counts[3]">{{item}}</td>
+                </tr>
+                <tr v-else-if="yiwuqiu == 5">
+                  <td v-for="(item,key) in counts[4]">{{item}}</td>
+                </tr>
+                
               </table>
               <table width="100%" class="bead-ball">
                 <tr>
-                  <th class="active">第一球</th> 
+                  <th class="active getqiuSum1">第一球</th>
+                  <th class="getqiuSum2">第二球</th> 
+                  <th class="getqiuSum3">第三球</th> 
+                  <th class="getqiuSum4">第四球</th> 
+                  <th class="getqiuSum5">第五球</th> 
                   <th class="">大小</th> 
                   <th class="">单双</th> 
                   <th class="">总和大小</th> 
@@ -268,38 +276,14 @@
                 </tr>
               </table>
               <table>
-                <tr>
-                  <td width="4%" class="bead-list">
-                    <p>4</p>
-                  </td>
-                  <td width="4%" class="bead-list">
-                    <p>3</p>
-                  </td>
-                  <td width="4%" class="bead-list">
-                    <p>4</p>
-                  </td>
-                  <td width="4%" class="bead-list"><p>6</p></td>
-                  <td width="4%" class="bead-list"><p>4</p></td>
-                  <td width="4%" class="bead-list"><p>1</p></td>
-                  <td width="4%" class="bead-list"><p>3</p></td>
-                  <td width="4%" class="bead-list"><p>4</p></td>
-                  <td width="4%" class="bead-list"><p>9</p></td>
-                  <td width="4%" class="bead-list"><p>6</p></td>
-                  <td width="4%" class="bead-list"><p>2</p><p>2</p></td>
-                  <td width="4%" class="bead-list"><p>4</p></td>
-                  <td width="4%" class="bead-list"><p>1</p></td>
-                  <td width="4%" class="bead-list"><p>8</p></td>
-                  <td width="4%" class="bead-list"><p>5</p></td>
-                  <td width="4%" class="bead-list"><p>4</p></td>
-                  <td width="4%" class="bead-list"><p>2</p></td>
-                  <td width="4%" class="bead-list"><p>0</p></td>
-                  <td width="4%" class="bead-list"><p>7</p></td>
-                  <td width="4%" class="bead-list"><p>1</p></td>
-                  <td width="4%" class="bead-list"><p>2</p></td>
-                  <td width="4%" class="bead-list"><p>8</p></td>
-                  <td width="4%" class="bead-list"><p>6</p></td>
-                  <td width="4%" class="bead-list"><p>5</p><p>5</p></td>
-                  <td width="4%" class="bead-list"><p>0</p></td>
+                  <!-- <td width="4%" class="bead-list"><p>5</p><p>5</p></td> -->
+                <trv-if="yiwuqiu == 1">
+                  <!-- <td width="4%" class="bead-list" v-for="(item,index) in numMap[1]">
+                    <template >
+                      
+                    </template>
+                    <p>{{item}}</p>
+                  </td> -->
                 </tr>
               </table>
             </div>
@@ -323,6 +307,7 @@ export default {
   },
   data () {
     return {
+      yiwuqiu: 1,
       curBocaiTypeId: '1',
       curactiveIndex: '重庆时时彩',
       bocaiCategoryList: [],
@@ -344,8 +329,9 @@ export default {
       kuaixuanWeiList:[],
       tempList:[],
       selectedZiTd:[],
-      numMapList: [],
-      countsList: [],
+
+      numMap1: [],
+      counts: [],
 
     }
   },
@@ -362,7 +348,10 @@ export default {
   },
   methods: {
     getqiu(num) {
+      console.log('num',num);
+      this.yiwuqiu = num;
 
+      $('.getqiu'+num).addClass('active').siblings().removeClass('active');
     },
     async gettongji(bocaiId) {
       let that = this;
@@ -372,12 +361,40 @@ export default {
               NProgress.done();
               if(result.code===200){
 
-                for(let n in result.counts) {
+                this.counts = result.data.counts;
+
+                result.data.numMap[1] = result.data.numMap[1].replace(/,/g, "");
+
+                for(let n in result.data.numMap[1]) {
                   let obj = {};
-                  obj.content = n;
-                  obj.num = result.counts[n];
-                  this.countsList.push(obj);
+                  console.log('result.data.numMap[1][n]',result.data.numMap[1][n]);
+                  if(n == 0) {
+                    obj.num = 1;
+                    obj.value = result.data.numMap[1][n];
+                  }
+                  else if(result.data.numMap[1][n*-1] == result.data.numMap[1][n]) {
+                    console.log(n,result.data.numMap[1][n*-1]);
+                    obj.num = 2;
+                    obj.value = obj
+                  }
+                  // if(result.data.numMap[1][n]) {
+
+                  // }
                 }
+
+                // this.numMap = result.data.numMap;
+                // console.log('result.counts',result.data.counts);
+
+                // console.log(this.numMap[1]);
+
+                // for(let n in result.data.counts) {
+
+                //   let obj = {};
+                //   obj.content = n;
+                //   obj.num = result.data.counts[n];
+                //   this.countsList.push(obj);
+                // }
+
 
 //                 counts: [{0: 1, 1: 0, 2: 1, 3: 1, 4: 0, 5: 1, 7: 2, 9: 1}, {1: 0, 2: 1, 3: 2, 4: 1, 5: 0, 9: 3},…]
 // danshuangMap: {1: "单,单,双,单,单,双,单", 2: "单,单,单,双,单,单,双", 3: "单,双,单,单,双,单,双", 4: "单,双,单,单,单,单,双", 5: "单,双,单,单,单,双,双"}
