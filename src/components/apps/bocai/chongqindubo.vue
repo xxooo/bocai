@@ -346,7 +346,7 @@ export default {
       selectedZiTd:[],
       numMapList: [],
       countsList: [],
-      
+
     }
   },
   computed: {
@@ -372,7 +372,12 @@ export default {
               NProgress.done();
               if(result.code===200){
 
-
+                for(let n in result.counts) {
+                  let obj = {};
+                  obj.content = n;
+                  obj.num = result.counts[n];
+                  this.countsList.push(obj);
+                }
 
 //                 counts: [{0: 1, 1: 0, 2: 1, 3: 1, 4: 0, 5: 1, 7: 2, 9: 1}, {1: 0, 2: 1, 3: 2, 4: 1, 5: 0, 9: 3},…]
 // danshuangMap: {1: "单,单,双,单,单,双,单", 2: "单,单,单,双,单,单,双", 3: "单,双,单,单,双,单,双", 4: "单,双,单,单,单,单,双", 5: "单,双,单,单,单,双,双"}
