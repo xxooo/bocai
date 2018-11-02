@@ -343,7 +343,10 @@ export default {
       kuaixuanTouList:[],
       kuaixuanWeiList:[],
       tempList:[],
-      selectedZiTd:[]
+      selectedZiTd:[],
+      numMapList: [],
+      countsList: [],
+      
     }
   },
   computed: {
