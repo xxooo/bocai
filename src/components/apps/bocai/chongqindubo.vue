@@ -218,76 +218,10 @@
               <bet-quick :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
             </div>
 
+            <footer-Bocai :curBocaiTypeId="curBocaiTypeId"></footer-Bocai>
+
           </div>
 
-          <div>
-            <div class="bead-table">
-              <table class="bead-ball">
-                <tr>
-                  <th class="active getqiu1" @click="getqiu(1)">第一球</th>
-                  <th class="getqiu2" @click="getqiu(2)">第二球</th>
-                  <th class="getqiu3" @click="getqiu(3)">第三球</th>
-                  <th class="getqiu4" @click="getqiu(4)">第四球</th>
-                  <th class="getqiu5" @click="getqiu(5)">第五球</th>
-                </tr>
-              </table>
-              <table>
-                <tr class="td-head">
-                  <td>0</td> 
-                  <td>1</td> 
-                  <td>2</td> 
-                  <td>3</td> 
-                  <td>4</td> 
-                  <td>5</td> 
-                  <td>6</td> 
-                  <td>7</td> 
-                  <td>8</td> 
-                  <td>9</td>
-                </tr>
-                <tr v-if="yiwuqiu == 1">
-                  <td v-for="(item,key) in counts[0]">{{item}}</td>
-                </tr>
-                <tr v-else-if="yiwuqiu == 2">
-                  <td v-for="(item,key) in counts[1]">{{item}}</td>
-                </tr>
-                <tr v-else-if="yiwuqiu == 3">
-                  <td v-for="(item,key) in counts[2]">{{item}}</td>
-                </tr>
-                <tr v-else-if="yiwuqiu == 4">
-                  <td v-for="(item,key) in counts[3]">{{item}}</td>
-                </tr>
-                <tr v-else-if="yiwuqiu == 5">
-                  <td v-for="(item,key) in counts[4]">{{item}}</td>
-                </tr>
-                
-              </table>
-              <table width="100%" class="bead-ball">
-                <tr>
-                  <th class="active getqiuSum1">第一球</th>
-                  <th class="getqiuSum2">第二球</th> 
-                  <th class="getqiuSum3">第三球</th> 
-                  <th class="getqiuSum4">第四球</th> 
-                  <th class="getqiuSum5">第五球</th> 
-                  <th class="">大小</th> 
-                  <th class="">单双</th> 
-                  <th class="">总和大小</th> 
-                  <th class="">总和单双</th> 
-                  <th class="">龙虎和</th>
-                </tr>
-              </table>
-              <table>
-                  <!-- <td width="4%" class="bead-list"><p>5</p><p>5</p></td> -->
-                <trv-if="yiwuqiu == 1">
-                  <!-- <td width="4%" class="bead-list" v-for="(item,index) in numMap[1]">
-                    <template >
-                      
-                    </template>
-                    <p>{{item}}</p>
-                  </td> -->
-                </tr>
-              </table>
-            </div>
-          </div>
 
         </div>
       </div>
@@ -299,15 +233,16 @@
 <script>
 import BetQuick from '@/components/apps/bocai/components/betQuick';
 import ClockTime from '@/components/apps/bocai/components/clockTime';
+import FooterBocai from '@/components/apps/bocai/components/footerBocai';
 
 export default {
   components: {
     ClockTime,
-    BetQuick
+    BetQuick,
+    FooterBocai
   },
   data () {
     return {
-      yiwuqiu: 1,
       curBocaiTypeId: '1',
       curactiveIndex: '重庆时时彩',
       bocaiCategoryList: [],
@@ -328,18 +263,13 @@ export default {
       kuaixuanTouList:[],
       kuaixuanWeiList:[],
       tempList:[],
-      selectedZiTd:[],
-
-      numMap1: [],
-      counts: [],
-
+      selectedZiTd:[]
     }
   },
   computed: {
   },
   created() {
     this.getOdds(this.curBocaiTypeId);
-    this.gettongji(this.curBocaiTypeId);
   },
   mounted(){
       bus.$on('isOpenOdds', (data) => {
@@ -347,67 +277,6 @@ export default {
       });
   },
   methods: {
-    getqiu(num) {
-      console.log('num',num);
-      this.yiwuqiu = num;
-
-      $('.getqiu'+num).addClass('active').siblings().removeClass('active');
-    },
-    async gettongji(bocaiId) {
-      let that = this;
-          NProgress.start();
-          await that.$get(`${window.url}/api/tongji?bocaiTypeId=`+bocaiId).then((res) => {
-            that.$handelResponse(res, (result) => {
-              NProgress.done();
-              if(result.code===200){
-
-                this.counts = result.data.counts;
-
-                result.data.numMap[1] = result.data.numMap[1].replace(/,/g, "");
-
-                for(let n in result.data.numMap[1]) {
-                  let obj = {};
-                  console.log('result.data.numMap[1][n]',result.data.numMap[1][n]);
-                  if(n == 0) {
-                    obj.num = 1;
-                    obj.value = result.data.numMap[1][n];
-                  }
-                  else if(result.data.numMap[1][n*-1] == result.data.numMap[1][n]) {
-                    console.log(n,result.data.numMap[1][n*-1]);
-                    obj.num = 2;
-                    obj.value = obj
-                  }
-                  // if(result.data.numMap[1][n]) {
-
-                  // }
-                }
-
-                // this.numMap = result.data.numMap;
-                // console.log('result.counts',result.data.counts);
-
-                // console.log(this.numMap[1]);
-
-                // for(let n in result.data.counts) {
-
-                //   let obj = {};
-                //   obj.content = n;
-                //   obj.num = result.data.counts[n];
-                //   this.countsList.push(obj);
-                // }
-
-
-//                 counts: [{0: 1, 1: 0, 2: 1, 3: 1, 4: 0, 5: 1, 7: 2, 9: 1}, {1: 0, 2: 1, 3: 2, 4: 1, 5: 0, 9: 3},…]
-// danshuangMap: {1: "单,单,双,单,单,双,单", 2: "单,单,单,双,单,单,双", 3: "单,双,单,单,双,单,双", 4: "单,双,单,单,单,单,双", 5: "单,双,单,单,单,双,双"}
-// daxiaoMap: {1: "大,大,小,大,小,小,大", 2: "小,大,大,小,小,大,小", 3: "大,大,小,大,大,大,小", 4: "大,大,大,大,大,小,大", 5: "小,大,大,大,大,大,小"}
-// longhuhe: "龙,龙,虎,龙,虎,虎,龙"
-// numMap: {1: "7,9,2,7,3,0,5", 2: "3,9,9,2,3,9,4", 3: "7,6,3,5,6,5,0", 4: "5,8,9,7,5,1,8", 5: "3,8,9,5,7,8,0"}
-// zonghedanshuang: "单,双,双,双,双,单,单"
-// zonghedaxiao: "大,大,大,大,大,大,小"
-
-              }
-            })
-          });
-    },
     kuaixuanOdd(item,type) {
       this.qingkong();
       let list = this.shishiZiDatas.list;

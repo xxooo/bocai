@@ -199,90 +199,12 @@
 
           </div>
 
-          <div>
-            <div class="bead-table">
-              <table class="bead-ball">
-                <tr>
-                  <th class="active">第一球</th>
-                  <th class="">第二球</th>
-                  <th class="">第三球</th>
-                  <th class="">第四球</th>
-                  <th class="">第五球</th>
-                </tr>
-              </table>
-              <table>
-                <tr class="td-head">
-                  <td>0</td> 
-                  <td data-v-21ddc614="">1</td> 
-                  <td data-v-21ddc614="">2</td> 
-                  <td data-v-21ddc614="">3</td> 
-                  <td data-v-21ddc614="">4</td> 
-                  <td data-v-21ddc614="">5</td> 
-                  <td data-v-21ddc614="">6</td> 
-                  <td data-v-21ddc614="">7</td> 
-                  <td data-v-21ddc614="">8</td> 
-                  <td data-v-21ddc614="">9</td>
-                </tr> 
-                <tr data-v-21ddc614="">
-                  <td data-v-21ddc614="">9</td>
-                  <td data-v-21ddc614="">10</td>
-                  <td data-v-21ddc614="">8</td>
-                  <td data-v-21ddc614="">16</td>
-                  <td data-v-21ddc614="">15</td>
-                  <td data-v-21ddc614="">10</td>
-                  <td data-v-21ddc614="">12</td>
-                  <td data-v-21ddc614="">12</td>
-                  <td data-v-21ddc614="">13</td>
-                  <td data-v-21ddc614="">19</td>
-                </tr>
-              </table>
-              <table data-v-21ddc614="" width="100%" class="bead-ball">
-                <tr data-v-21ddc614="">
-                  <th data-v-21ddc614="" class="active">第一球</th> 
-                  <th data-v-21ddc614="" class="">大小</th> 
-                  <th data-v-21ddc614="" class="">单双</th> 
-                  <th data-v-21ddc614="" class="">总和大小</th> 
-                  <th data-v-21ddc614="" class="">总和单双</th> 
-                  <th data-v-21ddc614="" class="">龙虎和</th>
-                </tr>
-              </table>
-              <table data-v-21ddc614="">
-                <tr data-v-21ddc614="">
-                  <td data-v-21ddc614="" width="4%" class="bead-list">
-                    <p data-v-21ddc614="">4</p>
-                  </td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list">
-                    <p data-v-21ddc614="">3</p>
-                  </td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list">
-                    <p data-v-21ddc614="">4</p>
-                  </td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">6</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">4</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">1</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">3</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">4</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">9</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">6</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">2</p><p data-v-21ddc614="">2</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">4</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">1</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">8</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">5</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">4</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">2</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">0</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">7</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">1</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">2</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">8</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">6</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">5</p><p data-v-21ddc614="">5</p></td>
-                  <td data-v-21ddc614="" width="4%" class="bead-list"><p data-v-21ddc614="">0</p></td>
-                </tr>
-              </table>
-            </div>
+          <div class="order-info">
+            <bet-quick :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
           </div>
+
+          <footer-Bocai :curBocaiTypeId="curBocaiTypeId"></footer-Bocai>
+
 
         </div>
       </div>
@@ -294,11 +216,13 @@
 <script>
 import BetQuick from '@/components/apps/bocai/components/betQuick';
 import ClockTime from '@/components/apps/bocai/components/clockTime';
+import FooterBocai from '@/components/apps/bocai/components/footerBocai';
 
 export default {
   components: {
     ClockTime,
-    BetQuick
+    BetQuick,
+    FooterBocai
   },
   data () {
     return {
