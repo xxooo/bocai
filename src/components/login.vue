@@ -97,8 +97,6 @@ export default {
     async logindev() {
       let that = this;
 
-
-
                let obj = {
                 username: 'axuyao1',
                 password: 'aaa111'
