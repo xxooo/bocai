@@ -120,7 +120,8 @@ export default {
             require('@/assets/img/chongqindubo.png'),
             require('@/assets/img/luckyairship.png'),
             require('@/assets/img/beijingpk10.png'),
-            require('@/assets/img/shandong11xuan5.png')
+            require('@/assets/img/shandong11xuan5.png'),
+            require('@/assets/img/guangdong11xuan5.png')
           ]
     }
   },
@@ -289,6 +290,10 @@ export default {
           case '山东11选5':
             path = 'shandong11xuan5';
             this.imgUrl = 3;
+            break;
+          case '广东11选5':
+            path = 'guangdong11xuan5';
+            this.imgUrl = 4;
             break;
         }
       this.bocaiTypeId = item.bocaiId;

@@ -1,5 +1,5 @@
 <template>
-  <div id="luckyairship" class="content-main duboBodyClass">
+  <div id="chongqindubo" class="content-main duboBodyClass">
     
     <div class="right">
       <div>
@@ -227,7 +227,7 @@ export default {
   data () {
     return {
       curBocaiTypeId: '8811',
-      curactiveIndex: '幸运飞艇',
+      curactiveIndex: '广东11选5',
       bocaiCategoryList: [],
       oddsList: [],
       activeIndex: '',
