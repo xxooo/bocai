@@ -171,6 +171,7 @@
                     }
                     this.numMapList.push(numMapTemp);
                   }
+
                   this.numMapListTemp = this.numMapList[0];
 
                   for(let x in result.data.danshuangMap) {
@@ -200,78 +201,86 @@
                     }
                     this.danshuangMapList.push(numMapTemp);
                   }
-                  this.danshuangMapListTemp = this.danshuangMapList[0];
+
+                    this.danshuangMapListTemp = this.danshuangMapList[0];
               
-                  for(let x in result.data.daxiaoMap) {
-                    let data = result.data.daxiaoMap[x].split(","); 
-                    let numMapTemp = [];
-                    let temp = '';
-                    let nn = 1;
-                    for(let n in data) {
-                      let obj = {};
-                      if(temp != data[n]) {  
-                        obj.type = 1;
-                        obj.value = [];
-                        obj.value.push(data[n]);
-                        numMapTemp.push(obj);
-                      } else {
-                        let kk = n*1-nn;
-                        if(numMapTemp[n*1-nn]) {
-                          numMapTemp[n*1-nn].type = 2;
-                          numMapTemp[n*1-nn].value.push(data[n]);
-                          nn = nn*1+1;
+                    for(let x in result.data.daxiaoMap) {
+                      let data = result.data.daxiaoMap[x].split(","); 
+                      let numMapTemp = [];
+                      let temp = '';
+                      let nn = 1;
+                      for(let n in data) {
+                        let obj = {};
+                        if(temp != data[n]) {  
+                          obj.type = 1;
+                          obj.value = [];
+                          obj.value.push(data[n]);
+                          numMapTemp.push(obj);
+                        } else {
+                          let kk = n*1-nn;
+                          if(numMapTemp[n*1-nn]) {
+                            numMapTemp[n*1-nn].type = 2;
+                            numMapTemp[n*1-nn].value.push(data[n]);
+                            nn = nn*1+1;
+                          }
                         }
+
+                        temp = data[n];
                       }
-
-                      temp = data[n];
+                      this.daxiaoMapList.push(numMapTemp);
                     }
-                    this.daxiaoMapList.push(numMapTemp);
-                  }
-                  this.daxiaoMapListTemp = this.daxiaoMapList[0];
+                    this.daxiaoMapListTemp = this.daxiaoMapList[0];
+                  
 
-                    let data = result.data.zonghedaxiao.split(","); 
-                    let temp = '';
-                    let nn = 1;
-                    for(let n in data) {
-                      let obj = {};
-                      if(temp != data[n]) {  
-                        obj.type = 1;
-                        obj.value = [];
-                        obj.value.push(data[n]);
-                        this.zonghedaxiaoList.push(obj);
-                      } else {
-                        let kk = n*1-nn;
-                        if(this.zonghedaxiaoList[n*1-nn]) {
-                          this.zonghedaxiaoList[n*1-nn].type = 2;
-                          this.zonghedaxiaoList[n*1-nn].value.push(data[n]);
-                          nn = nn*1+1;
+                    if(result.data.zonghedaxiao) {
+                      let data = result.data.zonghedaxiao.split(","); 
+                      let temp = '';
+                      let nn = 1;
+                      for(let n in data) {
+                        let obj = {};
+                        if(temp != data[n]) {  
+                          obj.type = 1;
+                          obj.value = [];
+                          obj.value.push(data[n]);
+                          this.zonghedaxiaoList.push(obj);
+                        } else {
+                          let kk = n*1-nn;
+                          if(this.zonghedaxiaoList[n*1-nn]) {
+                            this.zonghedaxiaoList[n*1-nn].type = 2;
+                            this.zonghedaxiaoList[n*1-nn].value.push(data[n]);
+                            nn = nn*1+1;
+                          }
                         }
-                      }
 
-                      temp = data[n];
+                        temp = data[n];
+                      }
                     }
 
-                    let data2 = result.data.zonghedanshuang.split(","); 
-                    let temp2 = '';
-                    let nn2 = 1;
-                    for(let n in data2) {
-                      let obj = {};
-                      if(temp2 != data2[n]) {  
-                        obj.type = 1;
-                        obj.value = [];
-                        obj.value.push(data2[n]);
-                        this.zonghedanshuangList.push(obj);
-                      } else {
-                        let kk = n*1-nn2;
-                        if(this.zonghedanshuangList[n*1-nn2]) {
-                          this.zonghedanshuangList[n*1-nn2].type = 2;
-                          this.zonghedanshuangList[n*1-nn2].value.push(data2[n]);
-                          nn2 = nn2*1+1;
+                    
+                    if(result.data.zonghedanshuang) {
+                      let data2 = result.data.zonghedanshuang.split(","); 
+                      let temp2 = '';
+                      let nn2 = 1;
+                      for(let n in data2) {
+                        let obj = {};
+                        if(temp2 != data2[n]) {  
+                          obj.type = 1;
+                          obj.value = [];
+                          obj.value.push(data2[n]);
+                          this.zonghedanshuangList.push(obj);
+                        } else {
+                          let kk = n*1-nn2;
+                          if(this.zonghedanshuangList[n*1-nn2]) {
+                            this.zonghedanshuangList[n*1-nn2].type = 2;
+                            this.zonghedanshuangList[n*1-nn2].value.push(data2[n]);
+                            nn2 = nn2*1+1;
+                          }
                         }
-                      }
 
-                      temp2 = data2[n];
+                        temp2 = data2[n];
+                      }
                     }
+                    
 
                     if(result.data.longhuhe) {
                       let data3 = result.data.longhuhe.split(","); 

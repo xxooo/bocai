@@ -138,24 +138,16 @@
               </div> 
             </template>
 
-            <template v-if="['连码','直选'].findIndex((n) => n == showOdds)>-1">
+            <template v-if="['连码'].findIndex((n) => n == showOdds)>-1">
               <div class="order-table">
                 <table>
-                  <tr>
+                  <!-- <tr>
                     <th v-for="item in oddsList.list">
                       <label>
                         <input type="radio" :value="item.oddsName">
                       </label>
                     </th> 
-                  </tr> 
-                  <!-- <tr>
-                    <td>{{9876}}</td>
-                  </tr> 
-                  <tr>
-                    <td>
-                      <label><span class="odds-font">{{4455}}</span></label>
-                    </td> 
-                  </tr> -->
+                  </tr> --> 
                   <tr>
                     <th v-for="item in oddsList[0].list">
                       <label>
@@ -176,6 +168,72 @@
                 <table class="tab2">
                   <tr>
                     <th colspan="12">号码</th>
+                  </tr> 
+                  <tr>
+                    <template v-for="item in renxuanhaoma1">
+                      <td width="8%">{{item}}</td> 
+                      <td>
+                        <label><input type="checkbox" :value="item"></label>
+                      </td>
+                    </template>
+                  </tr> 
+                  <tr>
+                    <template v-for="item in renxuanhaoma2">
+                      <td width="8%">{{item}}</td> 
+                      <td>
+                        <label><input type="checkbox" :value="item"></label>
+                      </td>
+                    </template>
+                  </tr>
+                </table>
+              </div>
+            </template>
+
+            <template v-if="['直选'].findIndex((n) => n == showOdds)>-1">
+              <div class="order-table">
+                <table>
+                  <tr>
+                    <th v-for="item in oddsList">
+                      <label>
+                        <input type="radio" :value="item.name">
+                      </label>
+                    </th> 
+                  </tr> 
+                  <tr>
+                    <td v-for="item in oddsList">{{item.list[0].oddsName}}</td>
+                  </tr>
+                  <tr>
+                    <td v-for="item in oddsList">
+                      <label><span class="odds-font">{{item.list[0].odds}}</span></label>
+                    </td> 
+                  </tr>
+                </table> 
+
+                <table class="tab2">
+                  <tr>
+                    <th colspan="12">第一球</th>
+                  </tr> 
+                  <tr>
+                    <template v-for="item in renxuanhaoma1">
+                      <td width="8%">{{item}}</td> 
+                      <td>
+                        <label><input type="checkbox" :value="item"></label>
+                      </td>
+                    </template>
+                  </tr> 
+                  <tr>
+                    <template v-for="item in renxuanhaoma2">
+                      <td width="8%">{{item}}</td> 
+                      <td>
+                        <label><input type="checkbox" :value="item"></label>
+                      </td>
+                    </template>
+                  </tr>
+                </table>
+
+                <table class="tab2">
+                  <tr>
+                    <th colspan="12">第二球</th>
                   </tr> 
                   <tr>
                     <template v-for="item in renxuanhaoma1">
@@ -226,7 +284,7 @@ export default {
   },
   data () {
     return {
-      curBocaiTypeId: '8811',
+      curBocaiTypeId: '8374',
       curactiveIndex: '广东11选5',
       bocaiCategoryList: [],
       oddsList: [],

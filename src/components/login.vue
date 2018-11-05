@@ -99,7 +99,7 @@ export default {
 
                let obj = {
                 username: 'axuyao1',
-                password: 'aaa111'
+                password: 'a111111'
               };
 
               let ret = await this.$post(`${window.url}/api/login`, obj);

@@ -268,7 +268,8 @@ export default {
     async getOdds(item,index) {
 
       if(index*1 > 7) {
-        this.submenu = item.name;
+        console.log(item); 
+        this.submenu = item.bocaiName;
       } else {
         this.submenu = '更多';
       }
