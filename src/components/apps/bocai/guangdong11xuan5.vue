@@ -175,6 +175,12 @@
                       <td>
                         <label><input type="checkbox" :value="item"></label>
                       </td>
+
+                      <th v-for="item in oddsList[0].list">
+                      <label>
+                        <input type="radio" :value="item">
+                      </label>
+                    </th> 
                     </template>
                   </tr> 
                   <tr>

@@ -11,7 +11,7 @@
     <div class="betRight">
       <div class="betRTop">
         <el-input v-model.number="moneyOrder" size="mini" placeholder="请输入金额" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></el-input>
-        <el-button type="primary"size="mini" plain @click="orderOdds()" :disabled="!isOpenOdds">下 注</el-button>
+        <el-button type="primary"size="mini" plain @click="orderOdds()" :disabled="!isOpenOdds && !canOrder">下 注</el-button>
         <el-button type="danger" size="mini" @click="reset()">重 置</el-button>
       </div>
       <div class="betRBottom">
@@ -100,6 +100,7 @@
         bocaiInfoData: {},
         normalPay: false,
         isOpenOdds: true,
+        canOrder: true,
         cashBalance: '',
         choumaPay: 0,
         orderDatas: {
@@ -148,6 +149,11 @@
       });
       bus.$on('getcashBalance', (data) => {
         this.cashBalance = data;
+      });
+      bus.$on('getcanOrder', (data) => {
+        this.canOrder = data;
+
+        console.log('this.canOrder',this.canOrder);
       });
     },
 		methods: {
