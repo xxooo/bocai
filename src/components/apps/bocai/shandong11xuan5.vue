@@ -170,12 +170,12 @@
                   </tr> 
                   <tr>
                     <template v-for="(item,index) in renxuanhaoma1">
-                      <td :class="['renxuanhaoma1'+index,ifHege?'':'disTdClass']" class="renxuantd" @click="orderRenXuan(item,'renxuanhaoma1',index)">{{item}}</td> 
+                      <td :class="'renxuanhaoma1'+index" class="renxuantd" @click="orderRenXuan(item,'renxuanhaoma1',index)">{{item}}</td> 
                     </template>
                   </tr> 
                   <tr>
                     <template v-for="(item,index) in renxuanhaoma2">
-                      <td :class="['renxuanhaoma2'+index,ifHege?'':'disTdClass']" class="renxuantd" @click="orderRenXuan(item,'renxuanhaoma2',index)">{{item}}</td> 
+                      <td :class="'renxuanhaoma2'+index" class="renxuantd" @click="orderRenXuan(item,'renxuanhaoma2',index)">{{item}}</td> 
                     </template>
                   </tr>
                 </table>
@@ -255,7 +255,6 @@
           </div>
 
           <footer-Bocai :curBocaiTypeId="curBocaiTypeId"></footer-Bocai>
-
 
         </div>
       </div>
@@ -368,6 +367,7 @@ export default {
             this.ifHege = false;
             this.canOrder = true;
             bus.$emit('getcanOrder', true); 
+            $(".bet_box .orders .haoma td:not(.selected)").addClass('disTdClass');
           } else {
             this.ifHege = false;
             this.canOrder = false;
@@ -376,7 +376,10 @@ export default {
 
 
         } else {
+
+
           if($('.'+odds+index).hasClass('selected')){
+            
             $('.'+odds+index).removeClass('selected');
                   _.remove(this.renxuanList, function(n) {
                   return n == item;
@@ -414,13 +417,15 @@ export default {
       $('.'+odds+index).addClass('selected').siblings().removeClass('selected');
 
       console.log('item',item);
+      console.log('this.orderDataList[0]',this.orderDataList[0]);
 
       if(this.orderDataList[0]) {
         if(this.orderDataList[0].bocaiOddId != item.oddsId) {
           this.renxuanList = [];
           this.orderDataList = [];
-          $('.bet_box .orders .haoma td').removeClass('selected');
+          //$('.bet_box .orders .haoma td').removeClass('selected');
           //$('input[type=checkbox]').prop('checked', false);
+          $('.bet_box .orders .haoma td').removeClass('disTdClass');
 
           if(this.isOpenOdds) {
 
@@ -438,6 +443,9 @@ export default {
                 };
 
               this.orderDataList[0] = obj;
+
+              this.kaishi = true;
+              this.ifHege = true;
 
           }
         }
@@ -458,6 +466,9 @@ export default {
               };
 
             this.orderDataList[0] = obj;
+
+            this.kaishi = true;
+            this.ifHege = true;
 
         }
 

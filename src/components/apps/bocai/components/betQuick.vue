@@ -233,10 +233,17 @@
           if(this.normalPay) {
             for(let n in this.orderDataList) {
               if(this.orderDataList[n].normalMoney != '') {
-                let obj = {
-                  oddNames: this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
-                  bocaiOdds: this.orderDataList[n].bocaiOdds,
-                  betsMoney: this.orderDataList[n].normalMoney
+
+                let obj = {};
+
+                if(this.orderDataList[n].bocaiValue == '') {
+                    obj.oddNames = this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
+                    obj.bocaiOdds = this.orderDataList[n].bocaiOdds,
+                    obj.betsMoney = this.moneyOrder
+                } else {
+                    obj.oddNames = this.orderDataList[n].bocaiOddName + '  ' + this.orderDataList[n].bocaiValue,
+                    obj.bocaiOdds = this.orderDataList[n].bocaiOdds,
+                    obj.betsMoney = this.moneyOrder
                 }
 
                 this.orderList.push(obj);
@@ -256,10 +263,17 @@
 
               //console.log('this.orderDataList',this.orderDataList);
               for(let n in this.orderDataList) {
-                let obj = {
-                  oddNames: this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
-                  bocaiOdds: this.orderDataList[n].bocaiOdds,
-                  betsMoney: this.moneyOrder
+
+                let obj = {};
+
+                if(this.orderDataList[n].bocaiValue == '') {
+                    obj.oddNames = this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
+                    obj.bocaiOdds = this.orderDataList[n].bocaiOdds,
+                    obj.betsMoney = this.moneyOrder
+                } else {
+                    obj.oddNames = this.orderDataList[n].bocaiOddName + '  ' + this.orderDataList[n].bocaiValue,
+                    obj.bocaiOdds = this.orderDataList[n].bocaiOdds,
+                    obj.betsMoney = this.moneyOrder
                 }
 
                 this.orderList.push(obj);

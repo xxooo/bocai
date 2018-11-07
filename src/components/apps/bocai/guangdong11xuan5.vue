@@ -25,7 +25,7 @@
         <div class="bet_box">
           <div class="orders oodsBodyDiv">
             <div class="order-info">
-              <bet-quick :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
+              <bet-quick :orderDataList="orderDataList" :canOrder="canOrder" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
             </div>
 
             <template v-if="showOdds == '两面盘'">
@@ -141,54 +141,41 @@
             <template v-if="['连码'].findIndex((n) => n == showOdds)>-1">
               <div class="order-table">
                 <table>
-                  <!-- <tr>
-                    <th v-for="item in oddsList.list">
-                      <label>
-                        <input type="radio" :value="item.oddsName">
-                      </label>
-                    </th> 
-                  </tr> --> 
                   <tr>
-                    <th v-for="item in oddsList[0].list">
+                    <th colspan="12">连码</th>
+                  </tr> 
+
+                     <!--  <th v-for="item in oddsList[0].list">
                       <label>
                         <input type="radio" :value="item">
                       </label>
                     </th> 
-                  </tr> 
+                    <td>
+                        <label><input type="checkbox" :value="item"></label>
+                      </td> -->
+
                   <tr>
-                    <td v-for="item in oddsList[0].list">{{item.oddsName}}</td>
+                    <td :class="'lianma'+index" v-for="(item,index) in oddsList[0].list" @click="lianma(item,'lianma',index)">{{item.oddsName}}</td>
                   </tr>
                   <tr>
-                    <td v-for="item in oddsList[0].list">
+                    <td :class="'lianma'+index" v-for="(item,index) in oddsList[0].list" @click="lianma(item,'lianma',index)">
                       <label><span class="odds-font">{{item.odds}}</span></label>
                     </td> 
                   </tr>
                 </table> 
 
-                <table class="tab2">
+                <table class="tab2 haoma">
                   <tr>
                     <th colspan="12">号码</th>
                   </tr> 
                   <tr>
-                    <template v-for="item in renxuanhaoma1">
-                      <td width="8%">{{item}}</td> 
-                      <td>
-                        <label><input type="checkbox" :value="item"></label>
-                      </td>
-
-                      <th v-for="item in oddsList[0].list">
-                      <label>
-                        <input type="radio" :value="item">
-                      </label>
-                    </th> 
+                    <template v-for="(item,index) in renxuanhaoma1">
+                      <td :class="'renxuanhaoma1'+index" class="renxuantd" @click="orderRenXuan(item,'renxuanhaoma1',index)">{{item}}</td> 
                     </template>
                   </tr> 
                   <tr>
-                    <template v-for="item in renxuanhaoma2">
-                      <td width="8%">{{item}}</td> 
-                      <td>
-                        <label><input type="checkbox" :value="item"></label>
-                      </td>
+                    <template v-for="(item,index) in renxuanhaoma2">
+                      <td :class="'renxuanhaoma2'+index" class="renxuantd" @click="orderRenXuan(item,'renxuanhaoma2',index)">{{item}}</td> 
                     </template>
                   </tr>
                 </table>
@@ -198,21 +185,24 @@
             <template v-if="['直选'].findIndex((n) => n == showOdds)>-1">
               <div class="order-table">
                 <table>
-                  <tr>
-                    <th v-for="item in oddsList">
+
+                  <!-- <tr>
+                    <th v-for="item in oddsList" class="cursorClass">
                       <label>
                         <input type="radio" :value="item.name">
                       </label>
                     </th> 
-                  </tr> 
+                  </tr> --> 
+
                   <tr>
-                    <td v-for="item in oddsList">{{item.list[0].oddsName}}</td>
+                    <td :class="'zhixuan'+index"  v-for="(item,index) in oddsList" @click="lianma(item,'zhixuan',index)">{{item.list[0].oddsName}}</td>
                   </tr>
                   <tr>
-                    <td v-for="item in oddsList">
+                    <td :class="'zhixuan'+index" v-for="(item,index) in oddsList" @click="lianma(item,'zhixuan',index)">
                       <label><span class="odds-font">{{item.list[0].odds}}</span></label>
                     </td> 
                   </tr>
+
                 </table> 
 
                 <table class="tab2">
@@ -258,17 +248,38 @@
                     </template>
                   </tr>
                 </table>
+
+                <table class="tab2" v-if="">
+                  <tr>
+                    <th colspan="12">第三球</th>
+                  </tr> 
+                  <tr>
+                    <template v-for="item in renxuanhaoma1">
+                      <td width="8%">{{item}}</td> 
+                      <td>
+                        <label><input type="checkbox" :value="item"></label>
+                      </td>
+                    </template>
+                  </tr> 
+                  <tr>
+                    <template v-for="item in renxuanhaoma2">
+                      <td width="8%">{{item}}</td> 
+                      <td>
+                        <label><input type="checkbox" :value="item"></label>
+                      </td>
+                    </template>
+                  </tr>
+                </table>
               </div>
             </template>
 
           </div>
 
           <div class="order-info">
-            <bet-quick :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
+            <bet-quick :orderDataList="orderDataList" :canOrder="canOrder" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
           </div>
 
           <footer-Bocai :curBocaiTypeId="curBocaiTypeId"></footer-Bocai>
-
 
         </div>
       </div>
@@ -313,7 +324,16 @@ export default {
       kuaixuanTouList:[],
       kuaixuanWeiList:[],
       tempList:[],
-      selectedZiTd:[]
+      selectedZiTd:[],
+      maxNum: 1,
+      minNum: 0,
+      renxuanOddsObj: {},
+      renxuanList: [],
+      ifHege: false,
+      kaishi: false,
+      curSubMenu: '',
+      canOrder: false,
+      hasDiSanQiu: false
     }
   },
   computed: {
@@ -327,6 +347,192 @@ export default {
       });
   },
   methods: {
+    orderRenXuan(item,odds,index) { 
+
+      console.log('this.renxuanList.length',this.renxuanList.length);
+
+
+      if(this.isOpenOdds) {
+
+        if(this.ifHege) {
+
+          if($('.'+odds+index).hasClass('selected')){
+
+                $('.'+odds+index).removeClass('selected');
+                  _.remove(this.renxuanList, function(n) {
+                  return n == item;
+                });
+
+          } else {
+                $('.'+odds+index).addClass('selected');
+
+                this.renxuanList.push(item);
+          }
+
+          let str = '';
+
+                for (var i = 0; i < this.renxuanList.length; i++) {
+                  str += this.renxuanList[i]+ ",";
+                }
+
+                if (str.length > 0) {
+                  str = str.substr(0, str.length - 1);
+                }
+
+                //console.log('str',str);
+
+          this.orderDataList[0].bocaiValue = str;
+
+          console.log('this.renxuanList.length',this.renxuanList.length);
+
+          if(this.renxuanList.length < this.maxNum) {
+            this.ifHege = true;
+            this.canOrder = false;
+            bus.$emit('getcanOrder', false); 
+          } else if(this.renxuanList.length == this.maxNum) {
+            this.ifHege = false;
+            this.canOrder = true;
+            bus.$emit('getcanOrder', true); 
+            $(".bet_box .orders .haoma td:not(.selected)").addClass('disTdClass');
+          } else {
+            this.ifHege = false;
+            this.canOrder = false;
+            bus.$emit('getcanOrder', false); 
+          }
+
+
+        } else {
+
+
+          if($('.'+odds+index).hasClass('selected')){
+
+            $('.'+odds+index).removeClass('selected');
+                  _.remove(this.renxuanList, function(n) {
+                  return n == item;
+            });
+            $('.bet_box .orders .haoma td').removeClass('disTdClass');
+            this.ifHege = true;
+            this.canOrder = false;
+            bus.$emit('getcanOrder', false); 
+
+            let str = '';
+
+                for (var i = 0; i < this.renxuanList.length; i++) {
+                  str += this.renxuanList[i]+ ",";
+                }
+
+                if (str.length > 0) {
+                  str = str.substr(0, str.length - 1);
+                }
+
+                console.log('str',str);
+
+            this.orderDataList[0].bocaiValue = str;
+
+          }
+        }
+
+      }
+    },  
+    lianma(item,odds,index) {
+
+      if(item) {
+        this.hasDiSanQiu = true;
+      }
+
+      if(!this.kaishi) {
+        this.kaishi = true;
+        this.ifHege = true;
+      }
+      $('.'+odds+index).addClass('selected').siblings().removeClass('selected');
+
+      console.log('item',item);
+      console.log('this.orderDataList[0]',this.orderDataList[0]);
+
+      if(this.orderDataList[0]) {
+        if(this.orderDataList[0].bocaiOddId != item.oddsId) {
+          this.renxuanList = [];
+          this.orderDataList = [];
+          //$('.bet_box .orders .haoma td').removeClass('selected');
+          //$('input[type=checkbox]').prop('checked', false);
+          $('.bet_box .orders .haoma td').removeClass('disTdClass');
+
+          if(this.isOpenOdds) {
+
+            this.renxuanOddsObj = this.oddsList[0];
+
+              let obj = {
+                  bocaiCategory2Id: this.renxuanOddsObj.id,//8225,//投注博彩分类2ID
+                  bocaiCategory2Name: this.renxuanOddsObj.name,//"混合",//投注博彩分类2名称
+                  bocaiOddId: item.oddsId,//5543,//投注博彩赔率ID
+                  bocaiOddName: item.oddsName,//"大",//投注博彩赔率名称
+                  bocaiValue:"",//投注内容,六合彩连肖/连尾
+                  normalMoney: item.normalMoney,//10000,//一般模式下，选择的金额
+                  orderNormal: this.normalPay,   //是快捷，还是一般投注
+                  bocaiOdds: item.odds//1.90//赔率
+                };
+
+              this.orderDataList[0] = obj;
+
+              this.kaishi = true;
+              this.ifHege = true;
+
+          }
+        }
+      } else {
+        if(this.isOpenOdds) {
+
+          this.renxuanOddsObj = this.oddsList[0];
+
+            let obj = {
+                bocaiCategory2Id: this.renxuanOddsObj.id,//8225,//投注博彩分类2ID
+                bocaiCategory2Name: this.renxuanOddsObj.name,//"混合",//投注博彩分类2名称
+                bocaiOddId: item.oddsId,//5543,//投注博彩赔率ID
+                bocaiOddName: item.oddsName,//"大",//投注博彩赔率名称
+                bocaiValue:"",//投注内容,六合彩连肖/连尾
+                normalMoney: item.normalMoney,//10000,//一般模式下，选择的金额
+                orderNormal: this.normalPay,   //是快捷，还是一般投注
+                bocaiOdds: item.odds//1.90//赔率
+              };
+
+            this.orderDataList[0] = obj;
+
+            this.kaishi = true;
+            this.ifHege = true;
+
+        }
+
+      }
+
+      if(item.oddsName == '任选二') {
+        this.maxNum = 2;
+        this.minNum = 2;
+      } else if(item.oddsName == '任选三') {
+        this.maxNum = 3;
+        this.minNum = 3;
+      } else if(item.oddsName == '任选四') {
+        this.maxNum = 4;
+        this.minNum = 4;
+      } else if(item.oddsName == '任选五') {
+        this.maxNum = 5;
+        this.minNum = 5;
+      } else if(item.oddsName == '任选六') {
+        this.maxNum = 6;
+        this.minNum = 6;
+      } else if(item.oddsName == '任选七') {
+        this.maxNum = 7;
+        this.minNum = 7;
+      } else if(item.oddsName == '任选八') {
+        this.maxNum = 8;
+        this.minNum = 8;
+      } else if(item.oddsName == '前二组选') {
+        this.minNum = 2;
+        this.maxNum = 5;
+      } else if(item.oddsName == '前三组选') {
+        this.minNum = 3;
+        this.maxNum = 5;
+      }
+    },
     qingkong() {
       $('.bet_box .orders td').removeClass('selected');
       this.orderDataList = [];
@@ -337,6 +543,9 @@ export default {
       $('.kuaixuanTable td').removeClass('active');
       this.kuaixuanTouList = [];
       this.kuaixuanWeiList = [];
+      $('.bet_box .orders .haoma td').removeClass('disTdClass');
+      this.ifHege = true;
+      this.canOrder = false;
     },
     shishiZiGet(item,index) {
       this.allQingkong();
@@ -495,13 +704,24 @@ export default {
     },
     async getOddsCategory(item,index) {
 
-      if(index*1 > 9) {
-        this.submenu = item.name;
-      } else {
-        this.submenu = '更多';
+      if(this.curSubMenu != item.name) {
+        if(index*1 > 9) {
+          this.submenu = item.name;
+        } else {
+          this.submenu = '更多';
+        }
+
+        if(item.name == '连码' || item.name == '直选') {
+          this.kaishi = false;
+          this.ifHege = false;
+        }
+
+        this.resetOddsCategory(item);
+
+        this.curSubMenu = item.name;
       }
 
-      this.resetOddsCategory(item);
+      
 
     },
     async getOdds(id) {
