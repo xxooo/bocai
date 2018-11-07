@@ -10,8 +10,8 @@
     </div>
     <div class="betRight">
       <div class="betRTop">
-        <el-input v-model.number="moneyOrder" size="mini" placeholder="请输入金额" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></el-input>
-        <el-button type="primary"size="mini" plain @click="orderOdds()" :disabled="!isOpenOdds && !canOrder">下 注</el-button>
+        <el-input v-model.number="moneyOrder" :disabled="!disableBtn" size="mini" placeholder="请输入金额" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></el-input>
+        <el-button type="primary"size="mini" plain @click="orderOdds()" :disabled="!isOpenOdds">下 注</el-button>
         <el-button type="danger" size="mini" @click="reset()">重 置</el-button>
       </div>
       <div class="betRBottom">
@@ -101,6 +101,7 @@
         normalPay: false,
         isOpenOdds: true,
         canOrder: true,
+        disableBtn: true,
         cashBalance: '',
         choumaPay: 0,
         orderDatas: {
@@ -227,6 +228,8 @@
         let reg = /^[\u2E80-\u9FFF]+$/;
         if(reg.test(this.moneyOrder)){
           this.$alertMessage('请确认注单!', '温馨提示');
+        } else if(!this.disableBtn) {
+          this.$alertMessage('请确认注单!', '温馨提示');
         } else {
           this.orderList = [];
 
@@ -287,10 +290,17 @@
       },
       orderMul(pay) {
 
-        this.moneyOrder = pay*1 + this.moneyOrder*1;
-        
+        if(this.disableBtn) {
+          this.moneyOrder = pay*1 + this.moneyOrder*1;
+        }
+
       }
-		}
+		},
+    watch: {
+      canOrder: function(val, oldValue) {
+        this.disableBtn = val;
+      }
+    }
 	}
 
 </script>

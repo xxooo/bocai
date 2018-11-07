@@ -25,7 +25,7 @@
         <div class="bet_box">
           <div class="orders oodsBodyDiv">
             <div class="order-info">
-              <bet-quick :orderDataList="orderDataList" :canOrder="canOrder" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
+              <bet-quick :orderDataList="orderDataList"  :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
             </div>
 
             <template v-if="showOdds == '两面盘'">
@@ -251,7 +251,7 @@
           </div>
 
           <div class="order-info">
-            <bet-quick :orderDataList="orderDataList" :canOrder="canOrder" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
+            <bet-quick :orderDataList="orderDataList" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
           </div>
 
           <footer-Bocai :curBocaiTypeId="curBocaiTypeId"></footer-Bocai>
