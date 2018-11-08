@@ -302,7 +302,6 @@ var result = combination(garr);
 console.log(result);
 
 
-
 export default {
   components: {
     ClockTime,
@@ -344,9 +343,10 @@ export default {
       curSubMenu: '',
       canOrder: false,
       hasDiSanQiu: false,
-      ersanDiYi: 0,
-      ersanDiEr: 0,
-      ersanDISan: 0
+      ersanDiYi: [],
+      ersanDiEr: [],
+      ersanDISan: [],
+      orderDataTemp: {}
     }
   },
   computed: {
@@ -360,36 +360,68 @@ export default {
       });
   },
   methods: {
+    combination(arr) {
+      var sarr = [[]];
+      var result = [];
+      for (var i = 0; i < arr.length; i++) {
+        var tarr = [];
+        for (var j = 0; j < sarr.length; j++){
+          for (var k = 0; k < arr[i].length; k++){
+            tarr.push(sarr[j].concat(arr[i][k]));
+          }
+        }
+        sarr = tarr;
+      }
+      for(var m =0; m < sarr.length;m++) {
+        result.push(sarr[m].join(','));
+      }
+      return result;
+    },
     orderZhixuan(item,odds) { 
 
       //console.log('this.renxuanList.length',this.renxuanList.length);
 
       if($('.'+odds+item).hasClass('disTdClass')) {
-        console.log('此td不能用');
+        //console.log('此td不能用');
       } else {
         if(this.isOpenOdds) {
 
-
             if($('.'+odds+item).hasClass('selected')){
 
-                  $('.'+odds+item).removeClass('selected');
-                    _.remove(this.renxuanList, function(n) {
-                    return n == item;
-                  });
+                  // $('.'+odds+item).removeClass('selected');
+                  //   _.remove(this.renxuanList, function(n) {
+                  //   return n == item;
+                  // });
 
                 //同级别的能选状态
                 if(odds == 'zhixuandiyiqiu') {
                   $('.zhixuandierqiu'+item).removeClass('disTdClass');
                   $('.zhixuandisanqiu'+item).removeClass('disTdClass');
-                  this.ersanDiYi = this.ersanDiYi-1;
+
+                  $('.'+odds+item).removeClass('selected');
+                    _.remove(this.ersanDiYi, function(n) {
+                    return n == item;
+                  });
+
+                  //this.ersanDiYi = this.ersanDiYi-1;
                 } else if(odds == 'zhixuandierqiu') {
                   $('.zhixuandiyiqiu'+item).removeClass('disTdClass');
                   $('.zhixuandisanqiu'+item).removeClass('disTdClass');
-                  this.ersanDiEr = this.ersanDiEr-1;
+
+                  $('.'+odds+item).removeClass('selected');
+                    _.remove(this.ersanDiEr, function(n) {
+                    return n == item;
+                  });
+                  //this.ersanDiEr = this.ersanDiEr-1;
                 } else {
                   $('.zhixuandiyiqiu'+item).removeClass('disTdClass');
                   $('.zhixuandierqiu'+item).removeClass('disTdClass');
-                  this.ersanDISan = this.ersanDISan-1;
+
+                  $('.'+odds+item).removeClass('selected');
+                    _.remove(this.ersanDISan, function(n) {
+                    return n == item;
+                  });
+                  //this.ersanDISan = this.ersanDISan-1;
                 }
 
             } else {
@@ -402,42 +434,102 @@ export default {
                 if(odds == 'zhixuandiyiqiu') {
                   $('.zhixuandierqiu'+item).addClass('disTdClass');
                   $('.zhixuandisanqiu'+item).addClass('disTdClass');
-                  this.ersanDiYi = this.ersanDiYi+1;
+                  this.ersanDiYi.push(item);
                 } else if(odds == 'zhixuandierqiu') {
                   $('.zhixuandiyiqiu'+item).addClass('disTdClass');
                   $('.zhixuandisanqiu'+item).addClass('disTdClass');
-                  this.ersanDiEr = this.ersanDiEr+1;
+                  this.ersanDiEr.push(item);
+                  //this.ersanDiEr = this.ersanDiEr+1;
                 } else {
                   $('.zhixuandiyiqiu'+item).addClass('disTdClass');
                   $('.zhixuandierqiu'+item).addClass('disTdClass');
-                  this.ersanDISan = this.ersanDISan+1;
+                  this.ersanDISan.push(item);
+                  //this.ersanDISan = this.ersanDISan+1;
                 }
 
             }
 
-            console.log('this.orderDataList[0].bocaiOddName',this.orderDataList[0].bocaiOddName);
+            //console.log('this.orderDataList[0].bocaiOddName',this.orderDataList[0].bocaiOddName);
+
+
 
             //判断是否可以提交
-            if(this.orderDataList[0].bocaiOddName == '前三直选') {
-              console.log(this.ersanDiYi,this.ersanDiEr,this.ersanDISan);
-              if([this.ersanDiYi,this.ersanDiEr,this.ersanDISan].findIndex((n) => n < 1)>-1) {
+            if(this.orderDataTemp.bocaiOddName == '前三直选') {
+             // console.log(this.ersanDiYi,this.ersanDiEr,this.ersanDISan);
+              if([this.ersanDiYi,this.ersanDiEr,this.ersanDISan].findIndex((n) => n.length == 0)>-1) {
                 this.canOrder = false;
                 bus.$emit('getcanOrder', false); 
               } else {
                 this.canOrder = true;
                 bus.$emit('getcanOrder', true); 
               }
-            } else {
-              if([this.ersanDiYi,this.ersanDiEr].findIndex((n) => n < 1)>-1) {
-                this.canOrder = false;
-                bus.$emit('getcanOrder', false); 
-              } else {
-                this.canOrder = true;
-                bus.$emit('getcanOrder', true); 
-              }
-            }
 
-            //赋值
+              let dataArray = [this.ersanDiYi,this.ersanDiEr,this.ersanDISan];
+
+              let result = this.combination(dataArray);
+
+              console.log('result',result);
+
+              let tempArray = [];
+
+              for(let n in result) {
+
+                let obj = {
+                  bocaiCategory2Id: this.orderDataTemp.bocaiCategory2Id,//8225,//投注博彩分类2ID
+                  bocaiCategory2Name: this.orderDataTemp.bocaiCategory2Name,//"混合",//投注博彩分类2名称
+                  bocaiOddId: this.orderDataTemp.bocaiOddId,//5543,//投注博彩赔率ID
+                  bocaiOddName: this.orderDataTemp.bocaiOddName,//"大",//投注博彩赔率名称
+                  bocaiValue: result[n],//投注内容,六合彩连肖/连尾
+                  normalMoney: this.orderDataTemp.normalMoney,//10000,//一般模式下，选择的金额
+                  orderNormal: this.orderDataTemp.orderNormal,   //是快捷，还是一般投注
+                  bocaiOdds: this.orderDataTemp.bocaiOdds//1.90//赔率
+                };
+
+                tempArray.push(obj);
+              }
+
+              this.orderDataList  = tempArray;
+
+            } else {
+              console.log(this.ersanDiYi,this.ersanDiEr,this.ersanDISan);
+
+              if([this.ersanDiYi,this.ersanDiEr].findIndex((n) => n.length  == 0)>-1) {
+                this.canOrder = false;
+                bus.$emit('getcanOrder', false); 
+              } else {
+                this.canOrder = true;
+                bus.$emit('getcanOrder', true); 
+              }
+
+
+              let dataArray = [this.ersanDiYi,this.ersanDiEr];
+
+              let result = this.combination(dataArray);
+
+              //console.log('result',result);
+
+              let tempArray = [];
+
+              for(let n in result) {
+
+                let obj = {
+                  bocaiCategory2Id: this.orderDataTemp.bocaiCategory2Id,//8225,//投注博彩分类2ID
+                  bocaiCategory2Name: this.orderDataTemp.bocaiCategory2Name,//"混合",//投注博彩分类2名称
+                  bocaiOddId: this.orderDataTemp.bocaiOddId,//5543,//投注博彩赔率ID
+                  bocaiOddName: this.orderDataTemp.bocaiOddName,//"大",//投注博彩赔率名称
+                  bocaiValue: result[n],//投注内容,六合彩连肖/连尾
+                  normalMoney: this.orderDataTemp.normalMoney,//10000,//一般模式下，选择的金额
+                  orderNormal: this.orderDataTemp.orderNormal,   //是快捷，还是一般投注
+                  bocaiOdds: this.orderDataTemp.bocaiOdds//1.90//赔率
+                };
+
+                tempArray.push(obj);
+              }
+
+              this.orderDataList  = tempArray;
+
+
+            }
 
 
         }
@@ -451,7 +543,7 @@ export default {
       console.log('this.renxuanList.length',this.renxuanList.length);
 
       if($('.'+odds+index).hasClass('disTdClass')) {
-        console.log('此td不能用');
+        //console.log('此td不能用');
       } else {
           if(this.isOpenOdds) {
 
@@ -506,7 +598,7 @@ export default {
     },  
     lianma(item,odds,index) {
 
-      console.log('this.kaishi',this.kaishi);
+      //console.log('this.kaishi',this.kaishi);
 
       if(item.oddsName == '前三直选') {
         this.hasDiSanQiu = true;
@@ -519,15 +611,15 @@ export default {
         //this.ifHege = true;
         this.renxuanList = [];
         $('.bet_box .orders .haoma td').removeClass('disTdClass');
-        this.ersanDiYi = 0;
-        this.ersanDiEr = 0;
-        this.ersanDISan = 0;
+        this.ersanDiYi = [];
+        this.ersanDiEr = [];
+        this.ersanDISan = [];
         
       }
       $('.'+odds+index).addClass('selected').siblings().removeClass('selected');
 
-      console.log('item',item);
-      console.log('this.orderDataList[0]',this.orderDataList[0]);
+      //console.log('item',item);
+      //console.log('this.orderDataList[0]',this.orderDataList[0]);
 
       if(this.orderDataList[0]) {
         if(this.orderDataList[0].bocaiOddId != item.oddsId) {
@@ -537,9 +629,9 @@ export default {
           //$('input[type=checkbox]').prop('checked', false);
           $('.bet_box .orders .haoma td').removeClass('disTdClass');
           $('.bet_box .orders .haoma td').removeClass('selected');
-          this.ersanDiYi = 0;
-          this.ersanDiEr = 0;
-          this.ersanDISan = 0;
+          this.ersanDiYi = [];
+          this.ersanDiEr = [];
+          this.ersanDISan = [];
           this.canOrder = false;
           bus.$emit('getcanOrder', false); 
 
@@ -559,6 +651,8 @@ export default {
                 };
 
               this.orderDataList[0] = obj;
+
+              this.orderDataTemp = obj;
 
               this.kaishi = true;
               //this.ifHege = true;
@@ -583,6 +677,8 @@ export default {
 
             this.orderDataList[0] = obj;
 
+            this.orderDataTemp = obj;
+
             this.kaishi = true;
             //this.ifHege = true;
 
@@ -590,7 +686,7 @@ export default {
 
       }
 
-      console.log('this.orderDataList[0].oddsName',this.orderDataList[0].bocaiOddName);
+      //console.log('this.orderDataList[0].oddsName',this.orderDataList[0].bocaiOddName);
 
       if(item.oddsName == '任选二') {
         this.maxNum = 2;

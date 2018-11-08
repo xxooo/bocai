@@ -310,8 +310,8 @@ export default {
   },
   data () {
     return {
-      curBocaiTypeId: '8811',
-      curactiveIndex: '山东11选5',
+      curBocaiTypeId: '8813',
+      curactiveIndex: '江西11选5',
       bocaiCategoryList: [],
       oddsList: [],
       activeIndex: '',

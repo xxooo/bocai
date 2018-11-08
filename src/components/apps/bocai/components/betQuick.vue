@@ -233,6 +233,8 @@
         } else {
           this.orderList = [];
 
+          console.log('this.orderDataListthis.orderDataList',this.orderDataList);
+
           if(this.normalPay) {
             for(let n in this.orderDataList) {
               if(this.orderDataList[n].normalMoney != '') {
