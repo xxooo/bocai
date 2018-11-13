@@ -236,6 +236,8 @@
           console.log('this.orderDataListthis.orderDataList',this.orderDataList);
 
           if(this.normalPay) {
+            //console.log('正常');
+
             for(let n in this.orderDataList) {
               if(this.orderDataList[n].normalMoney != '') {
 
@@ -244,11 +246,11 @@
                 if(this.orderDataList[n].bocaiValue == '') {
                     obj.oddNames = this.orderDataList[n].bocaiCategory2Name + '  ' + this.orderDataList[n].bocaiOddName,
                     obj.bocaiOdds = this.orderDataList[n].bocaiOdds,
-                    obj.betsMoney = this.moneyOrder
+                    obj.betsMoney = this.orderDataList[n].normalMoney
                 } else {
                     obj.oddNames = this.orderDataList[n].bocaiOddName + '  ' + this.orderDataList[n].bocaiValue,
                     obj.bocaiOdds = this.orderDataList[n].bocaiOdds,
-                    obj.betsMoney = this.moneyOrder
+                    obj.betsMoney = this.orderDataList[n].normalMoney
                 }
 
                 this.orderList.push(obj);
@@ -259,7 +261,12 @@
             } else {
               this.orderOddsVisible = true;
             }
+
+            //console.log('this.orderList',this.orderList);
+
           } else {
+            //console.log('快捷');
+
             if(this.orderDataList.length == 0) {
               this.$alertMessage('请确认注单!', '温馨提示');
             } else if(this.moneyOrder == ''){
@@ -286,6 +293,9 @@
               //console.log('this.this.orderList',this.orderList);
               this.orderOddsVisible = true;
             }
+
+            //console.log('this.orderList',this.orderList);
+
           }
         }
 

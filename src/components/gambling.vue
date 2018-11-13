@@ -122,7 +122,8 @@ export default {
             require('@/assets/img/beijingpk10.png'),
             require('@/assets/img/shandong11xuan5.png'),
             require('@/assets/img/guangdong11xuan5.png'),
-            require('@/assets/img/jiangxi11xuan5.png')
+            require('@/assets/img/jiangxi11xuan5.png'),
+            require('@/assets/img/pcdandan.png')
           ]
     }
   },
@@ -300,6 +301,10 @@ export default {
           case '江西11选5':
             path = 'jiangxi11xuan5';
             this.imgUrl = 5;
+            break;
+           case 'PC蛋蛋':
+            path = 'pcdandan';
+            this.imgUrl = 6;
             break;
         }
       this.bocaiTypeId = item.bocaiId;
