@@ -1,17 +1,34 @@
 <template>
   <div>
             <div class="bead-table">
+
               <table class="bead-ball">
-                <tr>
+                <tr v-if="[1,8815,8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">
                   <th class="active getqiu1" @click="getqiu(1,'第一球')">第一球</th>
                   <th class="getqiu2" @click="getqiu(2,'第二球')">第二球</th>
                   <th class="getqiu3" @click="getqiu(3,'第三球')">第三球</th>
                   <th class="getqiu4" @click="getqiu(4,'第四球')">第四球</th>
                   <th class="getqiu5" @click="getqiu(5,'第五球')">第五球</th>
                 </tr>
+                <tr v-if="[8555,8806,9057].findIndex((n) => n==curBocaiTypeId)>-1">
+                  <th class="active getqiu1" @click="getqiu(1,'冠军')">冠军</th>
+                  <th class="getqiu2" @click="getqiu(2,'亚军')">亚军</th>
+                  <th class="getqiu3" @click="getqiu(3,'第三名')">第三名</th>
+                  <th class="getqiu4" @click="getqiu(4,'第四名')">第四名</th>
+                  <th class="getqiu5" @click="getqiu(5,'第五名')">第五名</th>
+                  <th class="getqiu5" @click="getqiu(5,'第五名')">第六名</th>
+                  <th class="getqiu5" @click="getqiu(5,'第五名')">第七名</th>
+                  <th class="getqiu5" @click="getqiu(5,'第五名')">第八名</th>
+                  <th class="getqiu5" @click="getqiu(5,'第五名')">第九名</th>
+                  <th class="getqiu5" @click="getqiu(5,'第五名')">第十名</th>
+                </tr>
               </table>
+
+
+
+
               <table>
-                <tr class="td-head">
+                <tr class="td-head" v-if="[1,8815].findIndex((n) => n==curBocaiTypeId)>-1">
                   <td>0</td> 
                   <td>1</td> 
                   <td>2</td> 
@@ -23,6 +40,32 @@
                   <td>8</td> 
                   <td>9</td>
                 </tr>
+                <tr class="td-head" v-if="[8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">
+                  <td>1</td> 
+                  <td>2</td> 
+                  <td>3</td> 
+                  <td>4</td> 
+                  <td>5</td> 
+                  <td>6</td> 
+                  <td>7</td> 
+                  <td>8</td> 
+                  <td>9</td>
+                  <td>10</td>
+                  <td>11</td>
+                </tr>
+                <tr class="td-head" v-if="[8555,8806,9057].findIndex((n) => n==curBocaiTypeId)>-1">
+                  <td>1</td> 
+                  <td>2</td> 
+                  <td>3</td> 
+                  <td>4</td> 
+                  <td>5</td> 
+                  <td>6</td> 
+                  <td>7</td> 
+                  <td>8</td> 
+                  <td>9</td>
+                  <td>10</td>
+                </tr>
+
                 <tr>
                   <td v-for="(item,key) in countsList">{{item}}</td>
                 </tr>
@@ -35,10 +78,10 @@
                   <th class="getsubtit3" @click="getsubtit(3)">单双</th> 
                   <th class="getsubtit4" @click="getsubtit(4)">总和大小</th> 
                   <th class="getsubtit5" @click="getsubtit(5)">总和单双</th>
-                  <th class="getsubtit6" @click="getsubtit(6)" v-if="curBocaiTypeId == 1">龙虎和</th>
+                  <th class="getsubtit6" @click="getsubtit(6)" v-if="[1,8815].findIndex((n) => n==curBocaiTypeId)>-1">龙虎和</th>
 
-                  <th class="getsubtit6" @click="getsubtit(7)" v-if="curBocaiTypeId == 8811">总和尾数大小</th>
-                  <th class="getsubtit6" @click="getsubtit(8)" v-if="curBocaiTypeId == 8811">龙虎</th>
+                  <th class="getsubtit6" @click="getsubtit(7)" v-if="[8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">总和尾数大小</th>
+                  <th class="getsubtit6" @click="getsubtit(8)" v-if="[8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">龙虎</th>
                 </tr>
 
               </table>
@@ -94,6 +137,9 @@
 
               </table>
             </div>
+
+
+
           </div>
 </template>
 

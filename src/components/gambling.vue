@@ -17,7 +17,7 @@
                     <li v-for="(item,index) in preResult" :class="'loadanimot'+index" class="bjpk-ran bjpk-ranNo-5 orangeShishiC bounce animated"></li>
                   </ul> -->
                   <ul class="result-list">
-                    <li v-for="(item,index) in preResult" :class="'loadanimot'+index" class="bjpk-ran bjpk-ranNo-5 orangeShishiC"></li>
+                    <li v-for="(item,index) in preResult" :class="['loadanimot'+index,'sizeNum'+preResult.length]" class="bjpk-ran bjpk-ranNo-5 orangeShishiC"></li>
                   </ul>
                 </div>
               </div>
@@ -429,10 +429,22 @@ export default {
   .game-result ul {
     margin: 10px 10px 0;
   }
-  .bjpk-ran {
+  /*.bjpk-ran {
     width: 60px;
     height: 60px;
     line-height: 60px;
+    margin: 0px 3px;
+  }*/
+  .bjpk-ran.sizeNum5 {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0px 3px;
+  }
+  .bjpk-ran.sizeNum10 {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
     margin: 0px 3px;
   }
   .bjpk-ran, .bjpk-ran-s {
