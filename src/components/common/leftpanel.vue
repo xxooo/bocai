@@ -195,7 +195,7 @@ export default {
 
           let that = this;
           NProgress.start();
-          await that.$get(`${window.url}/api/changlong?bocaiTypeId=`+this.bocaiTypeId+'&showNum=20').then((res) => {
+          await that.$get(`${window.url}/api/changlong?bocaiTypeId=`+this.bocaiTypeId+'&showNum=10').then((res) => {
             that.$handelResponse(res, (result) => {
               NProgress.done();
               if(result.code===200){

@@ -311,7 +311,7 @@ export default {
       this.bocaiInfo();
       this.$router.push({name: path});
 
-      //this.getPrizeResult();
+      this.getPrizeResult();
 
       bus.$emit('getcUserInfo', '');
     }
