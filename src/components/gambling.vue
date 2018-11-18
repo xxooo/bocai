@@ -123,21 +123,28 @@ export default {
             require('@/assets/img/shandong11xuan5.png'),
             require('@/assets/img/guangdong11xuan5.png'),
             require('@/assets/img/jiangxi11xuan5.png'),
-            require('@/assets/img/pcdandan.png')
+            require('@/assets/img/pcdandan.png'),
+            require('@/assets/img/jiangsukuaisan.png')
           ]
     }
   },
   async created() {
     this.getBocai();
-    this.refreshTime();
     this.openPrizeTime = this.$timestampToTimeRi(new Date());
 
-    this.getPrizeResult(1);
+    //this.getPrizeResult();
 
     this.myTimer();
 
+    console.log('bocaiName',this.bocaiName);
+
+    this.getbocaoName();
+
   },
   computed: {
+    bocaiName: function() {
+      return this.$route.name
+    }
   },
   beforeDestroy: function() {
       if (this.t) {
@@ -267,6 +274,48 @@ export default {
 
         this.t = setTimeout(this.getPrizeResult, window.refreshTime);
     },
+    getbocaoName() {
+
+      let path = '';
+        switch (this.bocaiName) {
+          case 'chongqindubo':
+            this.bocaiTypeId = '1';
+            this.imgUrl = 0;
+            break;
+          case 'luckyairship':
+            this.bocaiTypeId = '8555';
+            this.imgUrl = 1;
+            break;
+          case 'beijingpk10':
+            this.bocaiTypeId = '8806';
+            this.imgUrl = 2;
+            break;
+          case 'shandong11xuan5':
+            this.bocaiTypeId = '8811';
+            this.imgUrl = 3;
+            break;
+          case 'guangdong11xuan5':
+            this.bocaiTypeId = '8374';
+            this.imgUrl = 4;
+            break;
+          case 'jiangxi11xuan5':
+            this.bocaiTypeId = '8813';
+            this.imgUrl = 5;
+            break;
+          case 'pcdandan':
+            this.bocaiTypeId = '8223';
+            this.imgUrl = 6;
+            break;
+          case 'jiangsukuaisan':
+            this.bocaiTypeId = '8498';
+            this.imgUrl = 7;
+            break;
+        }
+
+        this.getPrizeResult();
+        this.refreshTime();
+
+    },
     async getOdds(item,index) {
 
       if(index*1 > 7) {
@@ -302,9 +351,13 @@ export default {
             path = 'jiangxi11xuan5';
             this.imgUrl = 5;
             break;
-           case 'PC蛋蛋':
+          case 'PC蛋蛋':
             path = 'pcdandan';
             this.imgUrl = 6;
+            break;
+          case '江苏快3':
+            path = 'jiangsukuaisan';
+            this.imgUrl = 7;
             break;
         }
       this.bocaiTypeId = item.bocaiId;
