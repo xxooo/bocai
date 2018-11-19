@@ -321,7 +321,8 @@ export default {
                       bocaiValue:"",//投注内容,六合彩连肖/连尾
                       normalMoney: item.normalMoney,//10000,//一般模式下，选择的金额
                       orderNormal: this.normalPay,   //是快捷，还是一般投注
-                      bocaiOdds: item.odds//1.90//赔率
+                      bocaiOdds: item.odds,//1.90//赔率
+                      dewaterId: item.dewaterId
                     };
 
                     this.orderDataList[n] = obj;
@@ -337,7 +338,8 @@ export default {
                     bocaiValue:"",//投注内容,六合彩连肖/连尾
                     normalMoney: item.normalMoney,//10000,//一般模式下，选择的金额
                     orderNormal: this.normalPay,   //是快捷，还是一般投注
-                    bocaiOdds: item.odds//1.90//赔率
+                    bocaiOdds: item.odds,//1.90//赔率
+                    dewaterId: item.dewaterId
                   };
 
                   this.orderDataList.push(obj);
@@ -378,7 +380,8 @@ export default {
               bocaiValue:"",//投注内容,六合彩连肖/连尾
               normalMoney: item.normalMoney,//10000,//一般模式下，选择的金额
               orderNormal: this.normalPay,   //是快捷，还是一般投注
-              bocaiOdds: item.odds//1.90//赔率
+              bocaiOdds: item.odds, //1.90//赔率
+              dewaterId: item.dewaterId
             };
 
             this.orderDataList.push(obj);

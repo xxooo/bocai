@@ -198,7 +198,8 @@
               bocaiOddName: this.orderDataList[n].bocaiOddName,//"大",//投注博彩赔率名称
               bocaiValue: this.orderDataList[n].bocaiValue,//投注内容,六合彩连肖/连尾
               betsMoney: this.orderList[n].betsMoney,//10000,//一般模式下，选择的金额
-              bocaiOdds: this.orderDataList[n].bocaiOdds//1.90//赔率
+              bocaiOdds: this.orderDataList[n].bocaiOdds,//1.90//赔率
+              dewaterId: this.orderDataList[n].dewaterId //退水ID
             }
             this.orderDatas.list.push(obj);
           }
