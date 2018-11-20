@@ -124,7 +124,8 @@ export default {
             require('@/assets/img/guangdong11xuan5.png'),
             require('@/assets/img/jiangxi11xuan5.png'),
             require('@/assets/img/pcdandan.png'),
-            require('@/assets/img/jiangsukuaisan.png')
+            require('@/assets/img/jiangsukuaisan.png'),
+            require('@/assets/img/beijingkuaile8.png')
           ]
     }
   },
@@ -310,7 +311,12 @@ export default {
             this.bocaiTypeId = '8498';
             this.imgUrl = 7;
             break;
+          case 'beijingkuaile8':
+            this.bocaiTypeId = '8266';
+            this.imgUrl = 8;
+            break;
         }
+
 
         this.getPrizeResult();
         this.refreshTime();
@@ -358,6 +364,10 @@ export default {
           case '江苏快3':
             path = 'jiangsukuaisan';
             this.imgUrl = 7;
+            break;
+          case '北京快乐8':
+            path = 'beijingkuaile8';
+            this.imgUrl = 8;
             break;
         }
       this.bocaiTypeId = item.bocaiId;
