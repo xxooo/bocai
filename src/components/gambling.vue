@@ -183,6 +183,9 @@ export default {
               bus.$emit('getbocaiInfoData', res.data);
 
               if(res.data.preResult == '') {
+                if(['二字','一字'].findIndex((n) => n == this.showOdds)>-1) {
+
+                }
                 this.preResult = '等待开奖中';
                 this.hasResult = false;
               } else {

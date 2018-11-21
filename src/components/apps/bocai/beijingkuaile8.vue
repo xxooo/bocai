@@ -28,34 +28,95 @@
               <bet-quick :orderDataList="orderDataList" :canOrder="canOrder" :bocaiCategory="bocaiCategory" v-on:childByReset="childByReset" v-on:childByChangePay="childByChangePay"></bet-quick>
             </div>
 
-            <template v-if="showOdds == '两面盘'">
+            <template v-if="showOdds == '总行、比数、五行'">
 
                 <div>
                   <div class="order-table">
                       <table>
                         <tr>
-                          <th colspan="8">{{guanyajunhe.name}}</th>
+                          <th colspan="8">{{zongheguoguan.name}}</th>
                         </tr>
                           <tr>
-                            <template v-for="(item,index) in guanyajunhe.list" v-if="index*1 < 4">
-                              <td class="tdLeft ordersTdOver" width="8%" :class="'guanyajunhe'+item.oddsId" @click="orderTd(guanyajunhe,item,'guanyajunhe')" @mouseenter="overShow(item,'guanyajunhe')" @mouseleave="outHide(item,'guanyajunhe')">{{item.oddsName}}</td>
-                              <td class="tdRight" :class="'guanyajunhe'+item.oddsId" @click="orderTd(guanyajunhe,item,'guanyajunhe')" @mouseenter="overShow(item,'guanyajunhe')" @mouseleave="outHide(item,'guanyajunhe')">
+                            <template v-for="(item,index) in zongheguoguan.list.slice(0,4)">
+                              <td class="tdLeft ordersTdOver" width="8%" :class="'zongheguoguan'+item.oddsId" @click="orderTd(zongheguoguan,item,'zongheguoguan')" @mouseenter="overShow(item,'zongheguoguan')" @mouseleave="outHide(item,'zongheguoguan')">{{item.oddsName}}</td>
+                              <td class="tdRight" :class="'zongheguoguan'+item.oddsId" @click="orderTd(zongheguoguan,item,'zongheguoguan')" @mouseenter="overShow(item,'zongheguoguan')" @mouseleave="outHide(item,'zongheguoguan')">
                                 <ul>
                                   <li ><span class="odds-font">{{item.odds}}</span></li>
-                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(guanyajunhe,item,'guanyajunhe',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
+                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(zongheguoguan,item,'zongheguoguan',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                                 </ul>
                               </td>
                             </template>
                           </tr>
                           <tr>
-                            <template v-for="(item,index) in guanyajunhe.list" v-if="index*1 > 3">
-                              <td class="tdLeft" width="8%" :class="'guanyajunhe'+item.oddsId" @click="orderTd(guanyajunhe,item,'guanyajunhe')" @mouseenter="overShow(item,'guanyajunhe')" @mouseleave="outHide(item,'guanyajunhe')">{{item.oddsName}}</td>
-                              <td class="tdRight" :class="'guanyajunhe'+item.oddsId" @click="orderTd(guanyajunhe,item,'guanyajunhe')" @mouseenter="overShow(item,'guanyajunhe')" @mouseleave="outHide(item,'guanyajunhe')"> 
+                            <template v-for="(item,index) in zongheguoguan.list.slice(4,5)">
+                              <td class="tdLeft ordersTdOver" width="8%" :class="'zongheguoguan'+item.oddsId" @click="orderTd(zongheguoguan,item,'zongheguoguan')" @mouseenter="overShow(item,'zongheguoguan')" @mouseleave="outHide(item,'zongheguoguan')">{{item.oddsName}}</td>
+                              <td class="tdRight" :class="'zongheguoguan'+item.oddsId" @click="orderTd(zongheguoguan,item,'zongheguoguan')" @mouseenter="overShow(item,'zongheguoguan')" @mouseleave="outHide(item,'zongheguoguan')">
                                 <ul>
-                                  <li>
-                                    <span class="odds-font">{{item.odds}}</span>
-                                  </li>
-                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(guanyajunhe,item,'guanyajunhe',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
+                                  <li ><span class="odds-font">{{item.odds}}</span></li>
+                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(zongheguoguan,item,'zongheguoguan',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
+                                </ul>
+                              </td>
+                            </template>
+                            <td colspan="6">&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <template v-for="(item,index) in zongheguoguan.list.slice(5,9)">
+                              <td class="tdLeft ordersTdOver" width="8%" :class="'zongheguoguan'+item.oddsId" @click="orderTd(zongheguoguan,item,'zongheguoguan')" @mouseenter="overShow(item,'zongheguoguan')" @mouseleave="outHide(item,'zongheguoguan')">{{item.oddsName}}</td>
+                              <td class="tdRight" :class="'zongheguoguan'+item.oddsId" @click="orderTd(zongheguoguan,item,'zongheguoguan')" @mouseenter="overShow(item,'zongheguoguan')" @mouseleave="outHide(item,'zongheguoguan')">
+                                <ul>
+                                  <li ><span class="odds-font">{{item.odds}}</span></li>
+                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(zongheguoguan,item,'zongheguoguan',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
+                                </ul>
+                              </td>
+                            </template>
+                          </tr>
+                      </table>
+
+                      <table>
+                        <tr>
+                          <th colspan="8">{{qianhouhe.name}}</th>
+                        </tr>
+                          <tr>
+                            <template v-for="(item,index) in qianhouhe.list">
+                              <td class="tdLeft ordersTdOver" width="8%" :class="'qianhouhe'+item.oddsId" @click="orderTd(qianhouhe,item,'qianhouhe')" @mouseenter="overShow(item,'qianhouhe')" @mouseleave="outHide(item,'qianhouhe')">{{item.oddsName}}</td>
+                              <td class="tdRight" :class="'qianhouhe'+item.oddsId" @click="orderTd(qianhouhe,item,'qianhouhe')" @mouseenter="overShow(item,'qianhouhe')" @mouseleave="outHide(item,'qianhouhe')">
+                                <ul>
+                                  <li ><span class="odds-font">{{item.odds}}</span></li>
+                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(qianhouhe,item,'qianhouhe',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
+                                </ul>
+                              </td>
+                            </template>
+                          </tr>
+                      </table>
+
+                      <table>
+                        <tr>
+                          <th colspan="8">{{danshuanghe.name}}</th>
+                        </tr>
+                          <tr>
+                            <template v-for="(item,index) in danshuanghe.list">
+                              <td class="tdLeft ordersTdOver" width="8%" :class="'danshuanghe'+item.oddsId" @click="orderTd(danshuanghe,item,'danshuanghe')" @mouseenter="overShow(item,'danshuanghe')" @mouseleave="outHide(item,'danshuanghe')">{{item.oddsName}}</td>
+                              <td class="tdRight" :class="'danshuanghe'+item.oddsId" @click="orderTd(danshuanghe,item,'danshuanghe')" @mouseenter="overShow(item,'danshuanghe')" @mouseleave="outHide(item,'danshuanghe')">
+                                <ul>
+                                  <li ><span class="odds-font">{{item.odds}}</span></li>
+                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(danshuanghe,item,'danshuanghe',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
+                                </ul>
+                              </td>
+                            </template>
+                          </tr>
+                      </table>
+
+                      <table>
+                        <tr>
+                          <th colspan="10">{{wuxing.name}}</th>
+                        </tr>
+                          <tr>
+                            <template v-for="(item,index) in wuxing.list">
+                              <td class="tdLeft ordersTdOver" width="8%" :class="'wuxing'+item.oddsId" @click="orderTd(wuxing,item,'wuxing')" @mouseenter="overShow(item,'wuxing')" @mouseleave="outHide(item,'wuxing')">{{item.oddsName}}</td>
+                              <td class="tdRight" :class="'wuxing'+item.oddsId" @click="orderTd(wuxing,item,'wuxing')" @mouseenter="overShow(item,'wuxing')" @mouseleave="outHide(item,'wuxing')">
+                                <ul>
+                                  <li ><span class="odds-font">{{item.odds}}</span></li>
+                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(wuxing,item,'wuxing',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                                 </ul>
                               </td>
                             </template>
@@ -64,135 +125,31 @@
                   </div>
                 </div>
 
-                <div class="qiu15_body">
-
-                <div class="eball" v-for="(itemPa,index) in yidaoshi">
-                    <div class="order-table">
-                      <table>
-                        <tr>
-                          <th colspan="2">{{itemPa.name}}</th>
-                        </tr>
-                        <tr v-for="(item,index) in itemPa.list">
-                          <td class="tdLeft" :class="'yidaoshi'+item.oddsId" @click="orderTd(itemPa,item,'yidaoshi')" @mouseenter="overShow(item,'yidaoshi')" @mouseleave="outHide(item,'yidaoshi')">{{item.oddsName}}</td>
-                          <td class="tdRight" :class="'yidaoshi'+item.oddsId" @click="orderTd(itemPa,item,'yidaoshi')" @mouseenter="overShow(item,'yidaoshi')" @mouseleave="outHide(item,'yidaoshi')">
-                            <ul>
-                              <li>
-                                <span class="odds-font">{{item.odds}}</span>
-                              </li>
-                              <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(itemPa,item,'yidaoshi',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
-                            </ul>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-                </div>
-
-              </div>
-
             </template>
 
-            <template v-if="showOdds == '1~10名'">
-              <div>
-                <div class="qiu15_body yidaoshiming">
-                  <div class="nball" v-for="(item_yishi,index_yishi) in oddsList">
-                    <div class="order-table">
+            <template v-if="showOdds == '正码'">
+
+                <div>
+                  <div class="order-table">
                       <table>
-                        <tr><th colspan="2">{{item_yishi.name}}</th></tr>
-                        <tr v-for="(item,index) in item_yishi.list">
-                            <td v-if="isNaN(item.oddsName*1)" class="oddsNtd tdLeft" :class="'item_yishi'+item.oddsId" @click="orderTd(item_yishi,item,'item_yishi')" @mouseenter="overShow(item,'item_yishi')" @mouseleave="outHide(item,'item_yishi')">{{item.oddsName}}</td>
-                            <td v-else class="oddsNtd tdLeft" :class="'item_yishi'+item.oddsId" @click="orderTd(item_yishi,item,'item_yishi')" @mouseenter="overShow(item,'item_yishi')" @mouseleave="outHide(item,'item_yishi')"><div class="ball-fang" :class="'ball-fang'+item.oddsName">{{item.oddsName}}</div></td> 
-                            <td class="oddsUltd" :class="'item_yishi'+item.oddsId" @click="orderTd(item_yishi,item,'item_yishi')" @mouseenter="overShow(item,'item_yishi')" @mouseleave="outHide(item,'item_yishi')">
-                              <ul>
-                                <li><span class="odds-font" >{{item.odds}}</span></li>
-                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(item_yishi,item,'item_yishi',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
-                              </ul>
-                            </td>
+                        <tr>
+                          <th colspan="8">{{zhengma.name}}</th>
                         </tr>
+                          <tr>
+                            <template v-for="(item,index) in zhengma.list">
+                              <td class="tdLeft ordersTdOver" width="8%" :class="'zhengma'+item.oddsId" @click="orderTd(zhengma,item,'zhengma')" @mouseenter="overShow(item,'zhengma')" @mouseleave="outHide(item,'zhengma')">{{item.oddsName}}</td>
+                              <td class="tdRight" :class="'zhengma'+item.oddsId" @click="orderTd(zhengma,item,'zhengma')" @mouseenter="overShow(item,'zhengma')" @mouseleave="outHide(item,'zhengma')">
+                                <ul>
+                                  <li ><span class="odds-font">{{item.odds}}</span></li>
+                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(zhengma,item,'zhengma',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
+                                </ul>
+                              </td>
+                            </template>
+                          </tr>
                       </table>
-                    </div>
+
                   </div>
                 </div>
-              </div> 
-            </template>
-
-
-            <template v-if="showOdds == '冠亚组合'">
-              <div class="order-table">
-                      <table>
-                        <tr>
-                          <th colspan="8">{{guanyaZonghe.name}}</th>
-                        </tr>
-                          <tr>
-                            <template v-for="(item,index) in guanyaZonghe.list.slice(0,4)">
-                              <td class="tdLeft ordersTdOver" width="8%" :class="'guanyaZonghe'+item.oddsId" @click="orderTd(guanyaZonghe,item,'guanyaZonghe')" @mouseenter="overShow(item,'guanyaZonghe')" @mouseleave="outHide(item,'guanyaZonghe')">{{item.oddsName}}</td>
-                              <td class="tdRight" :class="'guanyaZonghe'+item.oddsId" @click="orderTd(guanyaZonghe,item,'guanyaZonghe')" @mouseenter="overShow(item,'guanyaZonghe')" @mouseleave="outHide(item,'guanyaZonghe')">
-                                <ul>
-                                  <li ><span class="odds-font">{{item.odds}}</span></li>
-                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(guanyaZonghe,item,'guanyaZonghe',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
-                                </ul>
-                              </td>
-                            </template>
-                          </tr>
-                          <tr>
-                            <template v-for="(item,index) in guanyaZonghe.list.slice(4,8)">
-                              <td class="tdLeft ordersTdOver" width="8%" :class="'guanyaZonghe'+item.oddsId" @click="orderTd(guanyaZonghe,item,'guanyaZonghe')" @mouseenter="overShow(item,'guanyaZonghe')" @mouseleave="outHide(item,'guanyaZonghe')">{{item.oddsName}}</td>
-                              <td class="tdRight" :class="'guanyaZonghe'+item.oddsId" @click="orderTd(guanyaZonghe,item,'guanyaZonghe')" @mouseenter="overShow(item,'guanyaZonghe')" @mouseleave="outHide(item,'guanyaZonghe')">
-                                <ul>
-                                  <li ><span class="odds-font">{{item.odds}}</span></li>
-                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(guanyaZonghe,item,'guanyaZonghe',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
-                                </ul>
-                              </td>
-                            </template>
-                          </tr>
-                          <tr>
-                            <template v-for="(item,index) in guanyaZonghe.list.slice(8,12)">
-                              <td class="tdLeft ordersTdOver" width="8%" :class="'guanyaZonghe'+item.oddsId" @click="orderTd(guanyaZonghe,item,'guanyaZonghe')" @mouseenter="overShow(item,'guanyaZonghe')" @mouseleave="outHide(item,'guanyaZonghe')">{{item.oddsName}}</td>
-                              <td class="tdRight" :class="'guanyaZonghe'+item.oddsId" @click="orderTd(guanyaZonghe,item,'guanyaZonghe')" @mouseenter="overShow(item,'guanyaZonghe')" @mouseleave="outHide(item,'guanyaZonghe')">
-                                <ul>
-                                  <li ><span class="odds-font">{{item.odds}}</span></li>
-                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(guanyaZonghe,item,'guanyaZonghe',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
-                                </ul>
-                              </td>
-                            </template>
-                          </tr>
-                          <tr>
-                            <template v-for="(item,index) in guanyaZonghe.list.slice(12,16)">
-                              <td class="tdLeft ordersTdOver" width="8%" :class="'guanyaZonghe'+item.oddsId" @click="orderTd(guanyaZonghe,item,'guanyaZonghe')" @mouseenter="overShow(item,'guanyaZonghe')" @mouseleave="outHide(item,'guanyaZonghe')">{{item.oddsName}}</td>
-                              <td class="tdRight" :class="'guanyaZonghe'+item.oddsId" @click="orderTd(guanyaZonghe,item,'guanyaZonghe')" @mouseenter="overShow(item,'guanyaZonghe')" @mouseleave="outHide(item,'guanyaZonghe')">
-                                <ul>
-                                  <li ><span class="odds-font">{{item.odds}}</span></li>
-                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(guanyaZonghe,item,'guanyaZonghe',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
-                                </ul>
-                              </td>
-                            </template>
-                          </tr>
-                          <tr>
-                            <template v-for="(item,index) in guanyaZonghe.list.slice(16,17)">
-                              <td class="tdLeft ordersTdOver" width="8%" :class="'guanyaZonghe'+item.oddsId" @click="orderTd(guanyaZonghe,item,'guanyaZonghe')" @mouseenter="overShow(item,'guanyaZonghe')" @mouseleave="outHide(item,'guanyaZonghe')">{{item.oddsName}}</td>
-                              <td class="tdRight" :class="'guanyaZonghe'+item.oddsId" @click="orderTd(guanyaZonghe,item,'guanyaZonghe')" @mouseenter="overShow(item,'guanyaZonghe')" @mouseleave="outHide(item,'guanyaZonghe')">
-                                <ul>
-                                  <li ><span class="odds-font">{{item.odds}}</span></li>
-                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(guanyaZonghe,item,'guanyaZonghe',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
-                                </ul>
-                              </td>
-                            </template>
-                            <td class="tdLeft ordersTdOver" colspan="6"></td>
-                          </tr>
-                          <tr>
-                            <template v-for="(item,index) in guanyaZonghe.list.slice(17)">
-                              <td class="tdLeft" width="8%" :class="'guanyaZonghe'+item.oddsId" @click="orderTd(guanyaZonghe,item,'guanyaZonghe')" @mouseenter="overShow(item,'guanyaZonghe')" @mouseleave="outHide(item,'guanyaZonghe')">{{item.oddsName}}</td>
-                              <td class="tdRight" :class="'guanyaZonghe'+item.oddsId" @click="orderTd(guanyaZonghe,item,'guanyaZonghe')" @mouseenter="overShow(item,'guanyaZonghe')" @mouseleave="outHide(item,'guanyaZonghe')"> 
-                                <ul>
-                                  <li>
-                                    <span class="odds-font">{{item.odds}}</span>
-                                  </li>
-                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(guanyaZonghe,item,'guanyaZonghe',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
-                                </ul>
-                              </td>
-                            </template>
-                          </tr>
-                      </table>
-              </div>
 
             </template>
 

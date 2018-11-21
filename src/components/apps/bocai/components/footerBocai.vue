@@ -22,6 +22,18 @@
                   <th class="getqiu5" @click="getqiu(5,'第五名')">第九名</th>
                   <th class="getqiu5" @click="getqiu(5,'第五名')">第十名</th>
                 </tr>
+                <tr v-if="[8266].findIndex((n) => n==curBocaiTypeId)>-1">
+                  <th class="active getqiu1" @click="getqiu(1,'冠军')">冠军</th>
+                  <th class="getqiu2" @click="getqiu(2,'亚军')">亚军</th>
+                  <th class="getqiu3" @click="getqiu(3,'第三名')">第三名</th>
+                  <th class="getqiu4" @click="getqiu(4,'第四名')">第四名</th>
+                  <th class="getqiu5" @click="getqiu(5,'第五名')">第五名</th>
+                  <th class="getqiu5" @click="getqiu(5,'第五名')">第六名</th>
+                  <th class="getqiu5" @click="getqiu(5,'第五名')">第七名</th>
+                  <th class="getqiu5" @click="getqiu(5,'第五名')">第八名</th>
+                  <th class="getqiu5" @click="getqiu(5,'第五名')">第九名</th>
+                  <th class="getqiu5" @click="getqiu(5,'第五名')">第十名</th>
+                </tr>
               </table>
 
 
@@ -71,7 +83,7 @@
                 </tr>
                 
               </table>
-              <table width="100%" class="bead-ball">
+              <table width="100%" class="bead-ball" v-if="curBocaiTypeId != 8266">
                 <tr>
                   <th class="active getsubtit1" @click="getsubtit(1)">{{subtitLabel}}</th>
                   <th class="getsubtit2" @click="getsubtit(2)">大小</th> 
@@ -85,7 +97,7 @@
                 </tr>
 
               </table>
-              <table>
+              <table v-if="curBocaiTypeId != 8266">
 
                 <tr v-if="subtit == 1">
                   <td width="4%" class="bead-list" v-for="(item,index) in numMapListTemp">
@@ -189,9 +201,13 @@
                 NProgress.done();
                 if(result.code===200){
 
-                  this.counts = result.data.counts;
+                  if(result.data.counts) {
+                    this.counts = result.data.counts;
 
-                  this.countsList = this.counts[0];
+                    this.countsList = this.counts[0];
+                  }
+
+                  
 
                   for(let x in result.data.numMap) {
                     let data = result.data.numMap[x].split(","); 
