@@ -566,6 +566,7 @@ export default {
 
     .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
       border-bottom: 0px solid #6C3092;
+      font-size: 18px;
     }
 
     .el-menu-item.is-active {

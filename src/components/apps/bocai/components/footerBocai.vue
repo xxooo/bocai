@@ -2,7 +2,7 @@
   <div>
             <div class="bead-table">
 
-              <table class="bead-ball">
+              <table class="bead-ball" v-if="curBocaiTypeId != 8266">
                 <tr v-if="[1,8815,8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">
                   <th class="active getqiu1" @click="getqiu(1,'第一球')">第一球</th>
                   <th class="getqiu2" @click="getqiu(2,'第二球')">第二球</th>
@@ -16,30 +16,18 @@
                   <th class="getqiu3" @click="getqiu(3,'第三名')">第三名</th>
                   <th class="getqiu4" @click="getqiu(4,'第四名')">第四名</th>
                   <th class="getqiu5" @click="getqiu(5,'第五名')">第五名</th>
-                  <th class="getqiu5" @click="getqiu(5,'第五名')">第六名</th>
-                  <th class="getqiu5" @click="getqiu(5,'第五名')">第七名</th>
-                  <th class="getqiu5" @click="getqiu(5,'第五名')">第八名</th>
-                  <th class="getqiu5" @click="getqiu(5,'第五名')">第九名</th>
-                  <th class="getqiu5" @click="getqiu(5,'第五名')">第十名</th>
-                </tr>
-                <tr v-if="[8266].findIndex((n) => n==curBocaiTypeId)>-1">
-                  <th class="active getqiu1" @click="getqiu(1,'冠军')">冠军</th>
-                  <th class="getqiu2" @click="getqiu(2,'亚军')">亚军</th>
-                  <th class="getqiu3" @click="getqiu(3,'第三名')">第三名</th>
-                  <th class="getqiu4" @click="getqiu(4,'第四名')">第四名</th>
-                  <th class="getqiu5" @click="getqiu(5,'第五名')">第五名</th>
-                  <th class="getqiu5" @click="getqiu(5,'第五名')">第六名</th>
-                  <th class="getqiu5" @click="getqiu(5,'第五名')">第七名</th>
-                  <th class="getqiu5" @click="getqiu(5,'第五名')">第八名</th>
-                  <th class="getqiu5" @click="getqiu(5,'第五名')">第九名</th>
-                  <th class="getqiu5" @click="getqiu(5,'第五名')">第十名</th>
+                  <th class="getqiu5" @click="getqiu(6,'第六名')">第六名</th>
+                  <th class="getqiu5" @click="getqiu(7,'第七名')">第七名</th>
+                  <th class="getqiu5" @click="getqiu(8,'第八名')">第八名</th>
+                  <th class="getqiu5" @click="getqiu(9,'第九名')">第九名</th>
+                  <th class="getqiu5" @click="getqiu(10,'第十名')">第十名</th>
                 </tr>
               </table>
 
 
 
 
-              <table>
+              <table v-if="curBocaiTypeId != 8266">
                 <tr class="td-head" v-if="[1,8815].findIndex((n) => n==curBocaiTypeId)>-1">
                   <td>0</td> 
                   <td>1</td> 
@@ -53,17 +41,17 @@
                   <td>9</td>
                 </tr>
                 <tr class="td-head" v-if="[8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">
-                  <td>1</td> 
-                  <td>2</td> 
-                  <td>3</td> 
-                  <td>4</td> 
-                  <td>5</td> 
-                  <td>6</td> 
-                  <td>7</td> 
-                  <td>8</td> 
-                  <td>9</td>
-                  <td>10</td>
-                  <td>11</td>
+                  <td style="width: 8%;">1</td> 
+                  <td style="width: 8%;">2</td> 
+                  <td style="width: 8%;">3</td> 
+                  <td style="width: 8%;">4</td> 
+                  <td style="width: 8%;">5</td> 
+                  <td style="width: 8%;">6</td> 
+                  <td style="width: 8%;">7</td> 
+                  <td style="width: 8%;">8</td> 
+                  <td style="width: 8%;">9</td>
+                  <td style="width: 8%;">10</td>
+                  <td style="width: 8%;">11</td>
                 </tr>
                 <tr class="td-head" v-if="[8555,8806,9057].findIndex((n) => n==curBocaiTypeId)>-1">
                   <td>1</td> 
@@ -83,20 +71,37 @@
                 </tr>
                 
               </table>
-              <table width="100%" class="bead-ball" v-if="curBocaiTypeId != 8266">
-                <tr>
+
+              <table width="100%" class="bead-ball">
+                <tr v-if="curBocaiTypeId != 8266">
                   <th class="active getsubtit1" @click="getsubtit(1)">{{subtitLabel}}</th>
                   <th class="getsubtit2" @click="getsubtit(2)">大小</th> 
                   <th class="getsubtit3" @click="getsubtit(3)">单双</th> 
-                  <th class="getsubtit4" @click="getsubtit(4)">总和大小</th> 
-                  <th class="getsubtit5" @click="getsubtit(5)">总和单双</th>
+                  <th class="getsubtit4" @click="getsubtit(4)" v-if="[1,8815,8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">总和大小</th> 
+                  <th class="getsubtit5" @click="getsubtit(5)" v-if="[1,8815,8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">总和单双</th>
+
                   <th class="getsubtit6" @click="getsubtit(6)" v-if="[1,8815].findIndex((n) => n==curBocaiTypeId)>-1">龙虎和</th>
 
-                  <th class="getsubtit6" @click="getsubtit(7)" v-if="[8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">总和尾数大小</th>
-                  <th class="getsubtit6" @click="getsubtit(8)" v-if="[8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">龙虎</th>
+                  <th class="getsubtit7" @click="getsubtit(7)" v-if="[8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">总和尾数大小</th>
+                  <th class="getsubtit8" @click="getsubtit(8)" v-if="[8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">龙虎</th>
+
+                  <th class="getsubtit7" @click="getsubtit(9)" v-if="[8555,8806,9057].findIndex((n) => n==curBocaiTypeId)>-1">冠亚军和</th>
+                  <th class="getsubtit8" @click="getsubtit(10)" v-if="[8555,8806,9057].findIndex((n) => n==curBocaiTypeId)>-1">冠亚军和大小</th>
+                  <th class="getsubtit8" @click="getsubtit(11)" v-if="[8555,8806,9057].findIndex((n) => n==curBocaiTypeId)>-1">冠亚军和单双</th>
+
+
                 </tr>
 
+                <tr v-else>
+                  <th class="active getsubtit1" @click="getsubtit(1)">总和数</th>
+                  <th class="getsubtit2" @click="getsubtit(2)">总和大小</th>
+                  <th class="getsubtit3" @click="getsubtit(3)">总和单双</th>
+                  <th class="getsubtit4" @click="getsubtit(4)">五行</th>
+                  <th class="getsubtit5" @click="getsubtit(5)">前后和</th>
+                  <th class="getsubtit6" @click="getsubtit(6)">单双和</th>
+                </tr>
               </table>
+
               <table v-if="curBocaiTypeId != 8266">
 
                 <tr v-if="subtit == 1">
@@ -147,6 +152,64 @@
                   </td>
                 </tr>
 
+                <tr v-if="subtit == 9">
+                  <td width="4%" class="bead-list" v-for="(item,index) in guanyijunhe">
+                    <p v-for="itemsub in item.value">{{itemsub}}</p>
+                  </td>
+                </tr>
+
+                <tr v-if="subtit == 10">
+                  <td width="4%" class="bead-list" v-for="(item,index) in guanyajunhedaxiao">
+                    <p v-for="itemsub in item.value">{{itemsub}}</p>
+                  </td>
+                </tr>
+
+                <tr v-if="subtit == 11">
+                  <td width="4%" class="bead-list" v-for="(item,index) in guanyejunhedanshuang">
+                    <p v-for="itemsub in item.value">{{itemsub}}</p>
+                  </td>
+                </tr>
+
+              </table>
+
+              <table v-if="curBocaiTypeId == 8266">
+
+                <tr v-if="subtit == 1">
+                  <td width="4%" class="bead-list" v-for="(item,index) in zongheshu">
+                    <p v-for="itemsub in item.value">{{itemsub}}</p>
+                  </td>
+                </tr>
+
+                <tr v-if="subtit == 2">
+                  <td width="4%" class="bead-list" v-for="(item,index) in zonghedaxiaoList">
+                    <p v-for="itemsub in item.value">{{itemsub}}</p>
+                  </td>
+                </tr>
+
+                <tr v-if="subtit == 3">
+                  <td width="4%" class="bead-list" v-for="(item,index) in zonghedanshuangList">
+                    <p v-for="itemsub in item.value">{{itemsub}}</p>
+                  </td>
+                </tr>
+
+                <tr v-if="subtit == 4">
+                  <td width="4%" class="bead-list" v-for="(item,index) in wuxing">
+                    <p v-for="itemsub in item.value">{{itemsub}}</p>
+                  </td>
+                </tr>
+
+                <tr v-if="subtit == 5">
+                  <td width="4%" class="bead-list" v-for="(item,index) in qianhouhe">
+                    <p v-for="itemsub in item.value">{{itemsub}}</p>
+                  </td>
+                </tr>
+
+                <tr v-if="subtit == 6">
+                  <td width="4%" class="bead-list" v-for="(item,index) in danshuanghe">
+                    <p v-for="itemsub in item.value">{{itemsub}}</p>
+                  </td>
+                </tr>
+
               </table>
             </div>
 
@@ -179,8 +242,17 @@
         zonghedanshuangList: [],
         longhuheList: [],
         zongheweishudaxiaoList: [],
-        longhuList: []
-        
+        longhuList: [],
+
+        zongheshu: [],
+        wuxing: [],
+        qianhouhe: [],
+        danshuanghe: [],
+
+        guanyijunhe: [],
+        guanyajunhedaxiao: [],
+        guanyejunhedanshuang: []
+
 			}
 		},
     components: {
@@ -206,7 +278,6 @@
 
                     this.countsList = this.counts[0];
                   }
-
                   
 
                   for(let x in result.data.numMap) {
@@ -415,6 +486,197 @@
                         temp3 = data3[n];
                       }
                     }
+
+
+                    if(result.data.zongheshu) {
+
+                      let data3 = result.data.zongheshu.split(","); 
+                      let temp3 = '';
+                      let nn3 = 1;
+                      for(let n in data3) {
+                        let obj = {};
+                        if(temp3 != data3[n]) {  
+                          obj.type = 1;
+                          obj.value = [];
+                          obj.value.push(data3[n]);
+                          this.zongheshu.push(obj);
+                        } else {
+                          let kk = n*1-nn3;
+                          if(this.zongheshu[n*1-nn3]) {
+                            this.zongheshu[n*1-nn3].type = 2;
+                            this.zongheshu[n*1-nn3].value.push(data3[n]);
+                            nn3 = nn3*1+1;
+                          }
+                        }
+
+                        temp3 = data3[n];
+                      }
+
+                      console.log('zongheshu',this.zongheshu);
+                    }
+
+                    if(result.data.wuxing) {
+
+                      let data3 = result.data.wuxing.split(","); 
+                      let temp3 = '';
+                      let nn3 = 1;
+                      for(let n in data3) {
+                        let obj = {};
+                        if(temp3 != data3[n]) {  
+                          obj.type = 1;
+                          obj.value = [];
+                          obj.value.push(data3[n]);
+                          this.wuxing.push(obj);
+                        } else {
+                          let kk = n*1-nn3;
+                          if(this.wuxing[n*1-nn3]) {
+                            this.wuxing[n*1-nn3].type = 2;
+                            this.wuxing[n*1-nn3].value.push(data3[n]);
+                            nn3 = nn3*1+1;
+                          }
+                        }
+
+                        temp3 = data3[n];
+                      }
+
+                      console.log('wuxing',this.wuxing);
+                    }
+
+                    if(result.data.qianhouhe) {
+
+                      let data3 = result.data.qianhouhe.split(","); 
+                      let temp3 = '';
+                      let nn3 = 1;
+                      for(let n in data3) {
+                        let obj = {};
+                        if(temp3 != data3[n]) {  
+                          obj.type = 1;
+                          obj.value = [];
+                          obj.value.push(data3[n]);
+                          this.qianhouhe.push(obj);
+                        } else {
+                          let kk = n*1-nn3;
+                          if(this.qianhouhe[n*1-nn3]) {
+                            this.qianhouhe[n*1-nn3].type = 2;
+                            this.qianhouhe[n*1-nn3].value.push(data3[n]);
+                            nn3 = nn3*1+1;
+                          }
+                        }
+
+                        temp3 = data3[n];
+                      }
+
+                      console.log('qianhouhe',this.qianhouhe);
+                    }
+
+                    if(result.data.danshuanghe) {
+
+                      let data3 = result.data.danshuanghe.split(","); 
+                      let temp3 = '';
+                      let nn3 = 1;
+                      for(let n in data3) {
+                        let obj = {};
+                        if(temp3 != data3[n]) {  
+                          obj.type = 1;
+                          obj.value = [];
+                          obj.value.push(data3[n]);
+                          this.danshuanghe.push(obj);
+                        } else {
+                          let kk = n*1-nn3;
+                          if(this.danshuanghe[n*1-nn3]) {
+                            this.danshuanghe[n*1-nn3].type = 2;
+                            this.danshuanghe[n*1-nn3].value.push(data3[n]);
+                            nn3 = nn3*1+1;
+                          }
+                        }
+
+                        temp3 = data3[n];
+                      }
+
+                      console.log('danshuanghe',this.danshuanghe);
+                    }
+
+                    if(result.data.guanyijunhe) {
+
+                      let data3 = result.data.guanyijunhe.split(","); 
+                      let temp3 = '';
+                      let nn3 = 1;
+                      for(let n in data3) {
+                        let obj = {};
+                        if(temp3 != data3[n]) {  
+                          obj.type = 1;
+                          obj.value = [];
+                          obj.value.push(data3[n]);
+                          this.guanyijunhe.push(obj);
+                        } else {
+                          let kk = n*1-nn3;
+                          if(this.guanyijunhe[n*1-nn3]) {
+                            this.guanyijunhe[n*1-nn3].type = 2;
+                            this.guanyijunhe[n*1-nn3].value.push(data3[n]);
+                            nn3 = nn3*1+1;
+                          }
+                        }
+
+                        temp3 = data3[n];
+                      }
+
+                      console.log('guanyijunhe',this.guanyijunhe);
+                    }
+
+                    if(result.data.guanyajunhedaxiao) {
+
+                      let data3 = result.data.guanyajunhedaxiao.split(","); 
+                      let temp3 = '';
+                      let nn3 = 1;
+                      for(let n in data3) {
+                        let obj = {};
+                        if(temp3 != data3[n]) {  
+                          obj.type = 1;
+                          obj.value = [];
+                          obj.value.push(data3[n]);
+                          this.guanyajunhedaxiao.push(obj);
+                        } else {
+                          let kk = n*1-nn3;
+                          if(this.guanyajunhedaxiao[n*1-nn3]) {
+                            this.guanyajunhedaxiao[n*1-nn3].type = 2;
+                            this.guanyajunhedaxiao[n*1-nn3].value.push(data3[n]);
+                            nn3 = nn3*1+1;
+                          }
+                        }
+
+                        temp3 = data3[n];
+                      }
+
+                      console.log('guanyajunhedaxiao',this.guanyajunhedaxiao);
+                    }
+
+                    if(result.data.guanyejunhedanshuang) {
+
+                      let data3 = result.data.guanyejunhedanshuang.split(","); 
+                      let temp3 = '';
+                      let nn3 = 1;
+                      for(let n in data3) {
+                        let obj = {};
+                        if(temp3 != data3[n]) {  
+                          obj.type = 1;
+                          obj.value = [];
+                          obj.value.push(data3[n]);
+                          this.guanyejunhedanshuang.push(obj);
+                        } else {
+                          let kk = n*1-nn3;
+                          if(this.guanyejunhedanshuang[n*1-nn3]) {
+                            this.guanyejunhedanshuang[n*1-nn3].type = 2;
+                            this.guanyejunhedanshuang[n*1-nn3].value.push(data3[n]);
+                            nn3 = nn3*1+1;
+                          }
+                        }
+
+                        temp3 = data3[n];
+                      }
+
+                      console.log('guanyejunhedanshuang',this.guanyejunhedanshuang);
+                    }
+
 
                 }
               })
