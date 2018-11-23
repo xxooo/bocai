@@ -10,7 +10,7 @@
                 <img :src="icons[imgUrl]">
                 <div class="preBocaiPeriods"><p class="qicip">-第 <span>{{preBocaiPeriods}}</span> 期-</p></div>
               </div>
-              <div class="headLabel">
+              <div class="headLabel" :class="'headLabel'+preResult.length">
                 <div class="activeIndex"><h3>{{activeIndex}}</h3></div>
                 <div class="preResult">
                   <!-- <ul v-if="hasResult" class="result-list">
@@ -183,11 +183,19 @@ export default {
               bus.$emit('getbocaiInfoData', res.data);
 
               if(res.data.preResult == '') {
-                if(['二字','一字'].findIndex((n) => n == this.showOdds)>-1) {
-
+                if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待开奖中';
+                } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待中';
+                } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
+                } else {
+                  this.preResult = '等待开奖中';
                 }
-                this.preResult = '等待开奖中';
+                
                 this.hasResult = false;
+
+                console.log('等待开奖中this.preResult',this.preResult);
               } else {
                 this.preResult = res.data.preResult.split(',');
                 this.hasResult = true;
@@ -210,8 +218,17 @@ export default {
               bus.$emit('getbocaiInfoData', res.data);
 
               if(res.data.preResult == '') {
-                this.preResult = '等待开奖中';
+                if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待开奖中';
+                } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待中';
+                } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
+                } else {
+                  this.preResult = '等待开奖中';
+                }
                 this.hasResult = false;
+
               } else {
 
                 this.preResult = res.data.preResult.split(',');
@@ -239,8 +256,18 @@ export default {
               bus.$emit('getbocaiInfoData', res.data);
 
               if(res.data.preResult == '') {
-                this.preResult = '等待开奖中';
+
+                if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待开奖中';
+                } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待中';
+                } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
+                } else {
+                  this.preResult = '等待开奖中';
+                }
                 this.hasResult = false;
+
               } else {
 
                 this.preResult = res.data.preResult.split(',');
@@ -416,6 +443,10 @@ export default {
     color: #fff;
     width: 380px;
   }
+  .headLabel.headLabel10 {
+    width: 300px;
+    margin: 0px 20px;
+  }
   .headLabel h3 {
     color: #805933;
   }
@@ -425,6 +456,11 @@ export default {
   .headLabel .preResult {
     margin: 20px 0;
   }
+
+  .headLabel.headLabel10 .preResult {
+    margin: 0;
+  }
+
   .head-div {
     height: 140px;
     width: 800px;
@@ -508,10 +544,23 @@ export default {
     margin: 0px 3px;
   }
   .bjpk-ran.sizeNum10 {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    margin: 0px 3px;
+  }
+  .bjpk-ran.sizeNum3 {
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    margin: 0px 3px;
+  }
+  .bjpk-ran.sizeNum20 {
     width: 30px;
     height: 30px;
     line-height: 30px;
     margin: 0px 3px;
+    font-size: 18px !important;
   }
   .bjpk-ran, .bjpk-ran-s {
     display: inline-block;

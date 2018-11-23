@@ -74,7 +74,8 @@
 
               <table width="100%" class="bead-ball">
                 <tr v-if="curBocaiTypeId != 8266">
-                  <th class="active getsubtit1" @click="getsubtit(1)">{{subtitLabel}}</th>
+                  <th class="active getsubtit1" @click="getsubtit(1)" v-if="[1,8815,8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">{{subtitLabel}}</th>
+                  <th class="active getsubtit1" @click="getsubtit(1)" v-if="[8555,8806,9057].findIndex((n) => n==curBocaiTypeId)>-1">{{subtitLabel2}}</th>
                   <th class="getsubtit2" @click="getsubtit(2)">大小</th> 
                   <th class="getsubtit3" @click="getsubtit(3)">单双</th> 
                   <th class="getsubtit4" @click="getsubtit(4)" v-if="[1,8815,8811,8374,8813].findIndex((n) => n==curBocaiTypeId)>-1">总和大小</th> 
@@ -229,6 +230,7 @@
 		data() {
 			return {
         subtitLabel: '第一球',
+        subtitLabel2: '冠军',
         subtit: 1,
         counts: [],
         countsList: [],
@@ -488,9 +490,9 @@
                     }
 
 
-                    if(result.data.zongheshu) {
+                    if(result.data.zhongheshu) {
 
-                      let data3 = result.data.zongheshu.split(","); 
+                      let data3 = result.data.zhongheshu.split(","); 
                       let temp3 = '';
                       let nn3 = 1;
                       for(let n in data3) {
@@ -691,6 +693,7 @@
           this.daxiaoMapListTemp = this.daxiaoMapList[num*1-1];
           this.danshuangMapListTemp = this.danshuangMapList[num*1-1];
           this.subtitLabel = tit;
+          this.subtitLabel2 = tit;
           this.countsList = this.counts[num*1-1];
           $('.getqiu'+num).addClass('active').siblings().removeClass('active');
         }
