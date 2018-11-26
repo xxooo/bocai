@@ -126,7 +126,7 @@ export default {
             require('@/assets/img/pcdandan.png'),
             require('@/assets/img/jiangsukuaisan.png'),
             require('@/assets/img/beijingkuaile8.png'),
-            require('@/assets/img/beijingpk10.png')
+            require('@/assets/img/jisudubo.png')
           ]
     }
   },
@@ -242,7 +242,7 @@ export default {
 
             }
 
-            console.log('refreshbocaiInfo',window.refreshTime);
+          console.log('refreshbocaiInfo',window.refreshTime);
           this.t = setTimeout(this.refreshTime, window.refreshTime);
     },
     async bocaiInfo() {
@@ -359,6 +359,8 @@ export default {
     },
     async getOdds(item,index) {
 
+      console.log('item',item);
+
       if(index*1 > 7) {
         console.log(item); 
         this.submenu = item.bocaiName;
@@ -404,7 +406,7 @@ export default {
             path = 'beijingkuaile8';
             this.imgUrl = 8;
             break;
-          case ' 极速赛车':
+          case '极速赛车':
             path = 'jisusaiche';
             this.imgUrl = 9;
             break;
