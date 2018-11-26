@@ -27,7 +27,7 @@
                 </div>
                 <div class="history_run_num">
                   <ul>
-                    <li v-for="item in resultList">{{item.periods}}<span>{{item.result ? item.result : '暂未开奖'}}</span></li>
+                    <li v-for="item in resultList" :title="item.result">{{item.periods}}<span>{{item.result ? item.result : '暂未开奖'}}</span></li>
                   </ul>
                 </div>                                 
               </div>
@@ -125,7 +125,8 @@ export default {
             require('@/assets/img/jiangxi11xuan5.png'),
             require('@/assets/img/pcdandan.png'),
             require('@/assets/img/jiangsukuaisan.png'),
-            require('@/assets/img/beijingkuaile8.png')
+            require('@/assets/img/beijingkuaile8.png'),
+            require('@/assets/img/beijingpk10.png')
           ]
     }
   },
@@ -137,7 +138,7 @@ export default {
 
     this.myTimer();
 
-    console.log('bocaiName',this.bocaiName);
+    //console.log('bocaiName',this.bocaiName);
 
     this.getbocaoName();
 
@@ -345,6 +346,10 @@ export default {
             this.bocaiTypeId = '8266';
             this.imgUrl = 8;
             break;
+          case 'jisusaiche':
+            this.bocaiTypeId = '9057';
+            this.imgUrl = 9;
+            break;
         }
 
 
@@ -398,6 +403,10 @@ export default {
           case '北京快乐8':
             path = 'beijingkuaile8';
             this.imgUrl = 8;
+            break;
+          case ' 极速赛车':
+            path = 'jisusaiche';
+            this.imgUrl = 9;
             break;
         }
       this.bocaiTypeId = item.bocaiId;

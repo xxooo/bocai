@@ -135,17 +135,17 @@
                         <tr>
                           <th colspan="8">{{zhengma.name}}</th>
                         </tr>
-                          <tr>
-                            <template v-for="(item,index) in zhengma.list">
-                              <td class="tdLeft ordersTdOver" width="8%" :class="'zhengma'+item.oddsId" @click="orderTd(zhengma,item,'zhengma')" @mouseenter="overShow(item,'zhengma')" @mouseleave="outHide(item,'zhengma')">{{item.oddsName}}</td>
+                        <tr v-for="(itemPa,indexPa) in zhengma.list">
+                            <template v-for="(item,index) in itemPa">
+                              <td class="tdLeft ordersTdOver" width="8%" :class="'zhengma'+item.oddsId" @click="orderTd(zhengma,item,'zhengma')" @mouseenter="overShow(item,'zhengma')" @mouseleave="outHide(item,'zhengma')"><div :class="item.oddsName*1 > 40 ? 'ballda' : 'ballxiao'">{{item.oddsName}}</div></td>
                               <td class="tdRight" :class="'zhengma'+item.oddsId" @click="orderTd(zhengma,item,'zhengma')" @mouseenter="overShow(item,'zhengma')" @mouseleave="outHide(item,'zhengma')">
                                 <ul>
                                   <li ><span class="odds-font">{{item.odds}}</span></li>
-                                <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(zhengma,item,'zhengma',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
+                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(zhengma,item,'zhengma',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                                 </ul>
                               </td>
                             </template>
-                          </tr>
+                        </tr>
                       </table>
 
                   </div>
@@ -429,7 +429,38 @@ export default {
           }
         }
       } else if(this.showOdds == '正码') {
-        this.zhengma = this.oddsList[0];
+
+        let arr = this.oddsList[0];
+
+        this.zhengma.id = arr.id;
+        this.zhengma.name = arr.name;
+        this.zhengma.list = [];
+
+        //console.log('arr.list',arr.list);
+
+        this.zhengma.list.push([arr.list[0],arr.list[20],arr.list[40],arr.list[60]]);
+        this.zhengma.list.push([arr.list[1],arr.list[21],arr.list[41],arr.list[61]]);
+        this.zhengma.list.push([arr.list[2],arr.list[22],arr.list[42],arr.list[62]]);
+        this.zhengma.list.push([arr.list[3],arr.list[23],arr.list[43],arr.list[63]]);
+        this.zhengma.list.push([arr.list[4],arr.list[24],arr.list[44],arr.list[64]]);
+        this.zhengma.list.push([arr.list[5],arr.list[25],arr.list[45],arr.list[65]]);
+        this.zhengma.list.push([arr.list[6],arr.list[26],arr.list[46],arr.list[66]]);
+        this.zhengma.list.push([arr.list[7],arr.list[27],arr.list[47],arr.list[67]]);
+        this.zhengma.list.push([arr.list[8],arr.list[28],arr.list[48],arr.list[68]]);
+        this.zhengma.list.push([arr.list[9],arr.list[29],arr.list[49],arr.list[69]]);
+        this.zhengma.list.push([arr.list[10],arr.list[30],arr.list[50],arr.list[70]]);
+        this.zhengma.list.push([arr.list[11],arr.list[31],arr.list[51],arr.list[71]]);
+        this.zhengma.list.push([arr.list[12],arr.list[32],arr.list[52],arr.list[72]]);
+        this.zhengma.list.push([arr.list[13],arr.list[33],arr.list[53],arr.list[73]]);
+        this.zhengma.list.push([arr.list[14],arr.list[34],arr.list[54],arr.list[74]]);
+        this.zhengma.list.push([arr.list[15],arr.list[35],arr.list[55],arr.list[75]]);
+        this.zhengma.list.push([arr.list[16],arr.list[36],arr.list[56],arr.list[76]]);
+        this.zhengma.list.push([arr.list[17],arr.list[37],arr.list[57],arr.list[77]]);
+        this.zhengma.list.push([arr.list[18],arr.list[38],arr.list[58],arr.list[78]]);
+        this.zhengma.list.push([arr.list[19],arr.list[39],arr.list[59],arr.list[79]]);
+
+        //console.log('this.zhengma',this.zhengma);
+        //this.zhengma = this.oddsList[0];
       }
     }
 

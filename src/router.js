@@ -79,7 +79,12 @@ const router = new Router({
           },
           component: r => require.ensure([], () => r(require('@/components/apps/bocai/beijingkuaile8')), 'beijingkuaile8'), meta: { requiresAuth: true }
         },
-
+        { path: '/gambling/jisusaiche', name: 'jisusaiche',
+          meta: {
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/components/apps/bocai/jisusaiche')), 'jisusaiche'), meta: { requiresAuth: true }
+        },
         
         
         { path: '/gambling/instantorder', name: 'instantorder',
