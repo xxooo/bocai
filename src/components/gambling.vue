@@ -126,6 +126,7 @@ export default {
             require('@/assets/img/pcdandan.png'),
             require('@/assets/img/jiangsukuaisan.png'),
             require('@/assets/img/beijingkuaile8.png'),
+            require('@/assets/img/jisudubo.png'),
             require('@/assets/img/jisudubo.png')
           ]
     }
@@ -350,6 +351,10 @@ export default {
             this.bocaiTypeId = '9057';
             this.imgUrl = 9;
             break;
+          case 'jisudubo':
+            this.bocaiTypeId = '8815';
+            this.imgUrl = 9;
+            break;
         }
 
 
@@ -409,6 +414,10 @@ export default {
           case '极速赛车':
             path = 'jisusaiche';
             this.imgUrl = 9;
+            break;
+          case '极速时时彩':
+            path = 'jisudubo';
+            this.imgUrl = 10;
             break;
         }
       this.bocaiTypeId = item.bocaiId;
