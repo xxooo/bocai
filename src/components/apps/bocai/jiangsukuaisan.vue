@@ -225,7 +225,7 @@
                             </template>
                         </tr>
                         <tr>
-                            <template v-for="(item,index) in dianshu.list.slice(9,12)">
+                            <template v-for="(item,index) in changpai.list.slice(9,12)">
                               <td class="tdLeft ordersTdOver" width="16%" :class="'changpai'+item.oddsId" @click="orderTd(changpai,item,'changpai')" @mouseenter="overShow(item,'changpai')" @mouseleave="outHide(item,'changpai')">
                                 <i :class="'jsk3-icon-'+item.oddsName.slice(0,1)"></i>
                                 <i :class="'jsk3-icon-'+item.oddsName.slice(2,3)"></i>
@@ -239,7 +239,7 @@
                             </template>
                         </tr>
                         <tr>
-                            <template v-for="(item,index) in dianshu.list.slice(12,15)">
+                            <template v-for="(item,index) in changpai.list.slice(12,15)">
                               <td class="tdLeft ordersTdOver" width="16%" :class="'changpai'+item.oddsId" @click="orderTd(changpai,item,'changpai')" @mouseenter="overShow(item,'changpai')" @mouseleave="outHide(item,'changpai')">
                                 <i :class="'jsk3-icon-'+item.oddsName.slice(0,1)"></i>
                                 <i :class="'jsk3-icon-'+item.oddsName.slice(2,3)"></i>
