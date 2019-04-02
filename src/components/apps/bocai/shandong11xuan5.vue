@@ -185,14 +185,6 @@
             <template v-if="['直选'].findIndex((n) => n == showOdds)>-1">
               <div class="order-table">
                 <table>
-
-                  <!-- <tr>
-                    <th v-for="item in oddsList" class="cursorClass">
-                      <label>
-                        <input type="radio" :value="item.name">
-                      </label>
-                    </th> 
-                  </tr> --> 
                   <tr>
                     <th colspan="12">前二、前三直选</th>
                   </tr> 
