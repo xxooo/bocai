@@ -72,9 +72,21 @@ li {
     margin-bottom: 10px;
 }
 .wrapper {
-    height: 100%;
     width: 100%;
-    background-size: 100% 120px;
+    height: 100%;
+    background-size: auto 100%;
+    min-height: 600px;
+    min-width: 800px;
+    position: relative;
+
+    background: url(../../static/img/bj.png) no-repeat center 0 #EBCB80 scroll;
+    /*z-index: -1;
+    background-size: 100% 100%;*/
+
+
+    /*height: 100%;
+    width: 100%;
+    background-size: 100% 120px;*/
     padding-top: 120px;
 }
 .user_winbu {
