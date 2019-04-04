@@ -362,9 +362,19 @@ export default {
         this.refreshTime();
 
     },
+    async getnotice() {
+      let res = await this.$get(`${window.url}/api/notice`);
+
+          if(res.code===200){
+            
+            
+          }
+    },
     async getOdds(item,index) {
 
       console.log('item',item);
+
+      this.getnotice();
 
       if(index*1 > 7) {
         console.log(item); 

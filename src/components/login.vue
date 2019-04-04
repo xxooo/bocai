@@ -86,7 +86,7 @@ export default {
     if (window.ENV == 'dev') {
       //console.log('研发自动登录');
 
-      //this.logindev();
+      this.logindev();
 
     } else {
       //普通用户登录
@@ -97,7 +97,7 @@ export default {
     async logindev() {
       let that = this;
 
-               let obj = {
+              let obj = {
                 username: 'axuyao1',
                 password: 'a111111'
               };
