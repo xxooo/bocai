@@ -86,7 +86,7 @@ export default {
     if (window.ENV == 'dev') {
       //console.log('研发自动登录');
 
-      this.logindev();
+      //this.logindev();
 
     } else {
       //普通用户登录
@@ -159,13 +159,12 @@ export default {
 }
 #loginDiv {
 
+    background: url(../../static/img/loginBg.jpg) 50% no-repeat fixed;
+    position: fixed;
     width: 100%;
     height: 100%;
-    background-size: auto 100%;
-    min-height: 600px;
-    min-width: 800px;
-    position: relative;
-    background: url(../../static/img/loginBg.jpg) no-repeat center 0 #EBCB80 scroll;
+    z-index: -1;
+    background-size: 100% 100%;
 }
 #login {
     min-width: 1100px;
