@@ -893,7 +893,19 @@ export default {
             })
           });
     },
+    async getnotice() {
+      let res = await this.$get(`${window.url}/api/notice`);
+
+          if(res.code===200){
+
+            bus.$emit('getmessage', res.data);
+          } else {
+          }
+
+    },
     async getOddsCategory(item,index) {
+
+      this.getnotice();
 
       if(this.curSubMenu != item.name) {
         if(index*1 > 9) {

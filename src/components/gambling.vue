@@ -35,12 +35,12 @@
           </div>
           <div class="rightMenu">
             <ul>
-              <li @click="$router.push({name: 'instantorder'})">即时注单</li>
-              <li @click="$router.push({name: 'bettingHistory'})">下注历史</li>
-              <li @click="$router.push({name: 'personalinfo'})">个人资讯</li>
-              <li @click="$router.push({name: 'caiwumanager'})">财务管理</li>
-              <li @click="$router.push({name: 'lotteryResults'})">开奖结果</li>
-              <li @click="$router.push({name: 'gameRule'})">游戏规则</li>
+              <li @click="goRightMenu('instantorder')">即时注单</li>
+              <li @click="goRightMenu('bettingHistory')">下注历史</li>
+              <li @click="goRightMenu('personalinfo')">个人资讯</li>
+              <li @click="goRightMenu('caiwumanager')">财务管理</li>
+              <li @click="goRightMenu('lotteryResults')">开奖结果</li>
+              <li @click="goRightMenu('gameRule')">游戏规则</li>
             </ul>
           </div>
         </div>
@@ -88,6 +88,9 @@
         <p class="golden">Copyright © 比特娱乐城 Reserved</p>
       </div>
     </el-footer>
+
+    <message-dialog></message-dialog>
+
   </div>
 </template>
 
@@ -95,11 +98,13 @@
 
 import LeftPanel from '@/components/common/leftpanel';
 import PageFooter from '@/components/common/pagefooter';
+import MessageDialog from '@/components/common/messagedialog';
 
 export default {
   components: {
     LeftPanel,
-    PageFooter
+    PageFooter,
+    MessageDialog
   },
   data() {
     return {
@@ -128,7 +133,9 @@ export default {
             require('@/assets/img/beijingkuaile8.png'),
             require('@/assets/img/jisudubo.png'),
             require('@/assets/img/jisudubo.png')
-          ]
+          ],
+      messageinfo: '',
+      centerDialogVisible: false
     }
   },
   async created() {
@@ -155,6 +162,10 @@ export default {
       }
   },
   methods: {
+    goRightMenu(path) {
+      this.getnotice();
+      this.$router.push({name: path});
+    },
     myTimer() {
 
       if(!this.hasResult) {
@@ -366,9 +377,11 @@ export default {
       let res = await this.$get(`${window.url}/api/notice`);
 
           if(res.code===200){
-            
-            
+
+            bus.$emit('getmessage', res.data);
+          } else {
           }
+
     },
     async getOdds(item,index) {
 

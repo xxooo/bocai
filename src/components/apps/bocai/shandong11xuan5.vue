@@ -263,6 +263,7 @@
       </div>
     </div>
     <p style="clear: both;"></p>
+
   </div>
 </template>
 
@@ -270,7 +271,6 @@
 import BetQuick from '@/components/apps/bocai/components/betQuick';
 import ClockTime from '@/components/apps/bocai/components/clockTime';
 import FooterBocai from '@/components/apps/bocai/components/footerBocai';
-
 
 function combination(arr) {
   var sarr = [[]];
@@ -884,7 +884,19 @@ export default {
             })
           });
     },
+    async getnotice() {
+      let res = await this.$get(`${window.url}/api/notice`);
+
+          if(res.code===200){
+
+            bus.$emit('getmessage', res.data);
+          } else {
+          }
+
+    },
     async getOddsCategory(item,index) {
+
+      this.getnotice();
 
       if(this.curSubMenu != item.name) {
         if(index*1 > 9) {
