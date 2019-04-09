@@ -374,6 +374,9 @@ export default {
 
     },
     async getnotice() {
+
+      console.log('yy---getnotice');
+
       let res = await this.$get(`${window.url}/api/notice`);
 
           if(res.code===200){
@@ -385,7 +388,7 @@ export default {
     },
     async getOdds(item,index) {
 
-      console.log('item',item);
+      console.log('item---getnotice',item);
 
       this.getnotice();
 
