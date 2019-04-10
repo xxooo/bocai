@@ -38,7 +38,7 @@
               <li @click="goRightMenu('instantorder')">即时注单</li>
               <li @click="goRightMenu('bettingHistory')">下注历史</li>
               <li @click="goRightMenu('personalinfo')">个人资讯</li>
-              <li @click="goRightMenu('caiwumanager')">财务管理</li>
+              <li v-if="userInfo.cashCredit == 1" @click="goRightMenu('caiwumanager')">财务管理</li>
               <li @click="goRightMenu('lotteryResults')">开奖结果</li>
               <li @click="goRightMenu('gameRule')">游戏规则</li>
             </ul>
@@ -66,7 +66,7 @@
     <el-main>
       <div id="content">
       <left-panel></left-panel>
-      <div id="routerMain">
+      <div id="routerMain" v-if="bocaiTypeList.length != 0">
         <router-view></router-view>
       </div>
       </div>
@@ -135,7 +135,9 @@ export default {
             require('@/assets/img/jisudubo.png')
           ],
       messageinfo: '',
-      centerDialogVisible: false
+      centerDialogVisible: false,
+      userInfo: {}
+
     }
   },
   async created() {
@@ -150,6 +152,8 @@ export default {
 
     this.getbocaoName();
 
+    this.getcUserInfo();
+
   },
   computed: {
     bocaiName: function() {
@@ -162,6 +166,68 @@ export default {
       }
   },
   methods: {
+    async getcUserInfo() {
+      let res = await this.$get(`${window.url}/api/cUserInfo`);
+
+      if(res.code===200){
+        //store.commit('updatecashBalance',res.data.cashBalance);
+        this.userInfo = res.data;
+
+        // "currentPage": 0,
+        // "pageSize": 10,
+        // "startDate": null,
+        // "endDate": null,
+        // "id": "51",//用户ID
+        // "username": "aydwhuiyuan1",//用户注册名称
+        // "nickname": "ydwhuiyuan1",//用户昵称
+        // "password": "",
+        // "cashBalance": 20421200,//可用金额
+        // "lockBalance": 0,//锁定金额
+        // "alreadyBalance": 800,//已下注金额
+        // "ruleId": 13,
+        // "bankName": "1111",
+        // "bankNum": "1111",
+        // "bankUserName": "1111",
+        // "phone": "1111",
+        // "weixin": "1111",
+        // "zhifubao": "1111",
+        // "putForwardPassword": "1234",
+        // "cashCredit": 0,
+        // "creditType": null,
+        // "quota": 0,
+        // "handicap": "a",//用户盘口：a,b,c,d
+        // "companyid": "159",
+        // "pid": "164",
+        // "userClass": "1-2-159-160-163-164-51",
+        // "isFrozen": 0,
+        // "tingyaShouya": 0,
+        // "userType": 1,
+        // "status": 1,
+        // "createDate": 1532001115000,
+        // "updateDate": 1534748779000,
+        // "lockingQuota": null,
+        // "isOnline": 1,
+        // "quotaInfo": null,
+        // "aUserOccupied": null,
+        // "isHide": 1,
+        // "bindingIp": "192.168.1.75",
+        // "loginIp": "0:0:0:0:0:0:0:1",
+        // "loginWebsite": null,
+        // "teamId": 1,
+        // "loginTime": 1533883022000,
+        // "systemStr": null,
+        // "phandicapA": null,
+        // "phandicapB": null,
+        // "phandicapC": null,
+        // "phandicapD": null,
+        // "pAllotOccupied": null,
+        // "pCashCredit": null,
+        // "pnickname": null,
+        // "pusername": null,
+        // "pquota": null
+
+      }
+    },
     goRightMenu(path) {
       this.getnotice();
       this.$router.push({name: path});

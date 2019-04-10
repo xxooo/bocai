@@ -17,7 +17,7 @@
           <li>我了解以及同意下注列明的协定和规则。</li>
           <li class="user_winbu">
             <div>
-              <el-button type="primary" size="mini" @click="$router.push({name: 'chongqindubo'})">同  意</el-button>
+              <el-button type="primary" size="mini" @click="gotobocai()">同  意</el-button>
               <el-button type="primary" size="mini" @click="$router.push({name: 'login'})">不同意</el-button>
             </div>
           </li>
@@ -36,6 +36,10 @@ export default {
   created() {
   },
   methods: {
+    async gotobocai() {
+
+      this.$router.push({name: 'chongqindubo'}); //判断获取列表的第一个 ，跳第一个博彩，另外，不同意，要重新登录
+    }
   }
 }
 </script>
