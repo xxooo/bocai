@@ -29,6 +29,8 @@ export default {
 
             if (res.data.code == 200) {
                 //this.$success(res.data.msg);
+            } else if(res.data.code == 444) {
+                //消息为空，但不需要提示
             } else {
                 this.$error(res.data.msg);
                 
