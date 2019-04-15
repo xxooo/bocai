@@ -3,10 +3,13 @@
     title="注意，来自管理员的消息"
     :visible.sync="centerDialogVisible"
     width="30%"
+    :close-on-click-modal = 'false'
+    :show-close = 'false'
+    :close-on-press-escape = 'false'
     center>
     <span>{{messageinfo}}</span>
     <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+      <el-button type="primary" @click="closeNotice()">确 定</el-button>
     </span>
   </el-dialog>
 </template>
@@ -39,6 +42,10 @@
     beforeDestroy() {
     },
 		methods: {
+      async closeNotice() {
+        let res = await this.$get(`${window.url}/api/closeNotice?id=1`);
+        this.centerDialogVisible = false;
+      }
 		}
 	}
 
