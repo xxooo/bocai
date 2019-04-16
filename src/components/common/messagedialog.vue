@@ -24,7 +24,8 @@
 		data() {
 			return {
         centerDialogVisible: false,
-        messageinfo: ''
+        messageinfo: '',
+        messageid: ''
 			}
 		},
     components: {
@@ -35,7 +36,9 @@
     },
     mounted(){
       bus.$on('getmessage', (data) => {
+
         this.messageinfo = data.content;
+        this.messageid = data.id;
         this.centerDialogVisible = true;
       });
     },
@@ -43,7 +46,7 @@
     },
 		methods: {
       async closeNotice() {
-        let res = await this.$get(`${window.url}/api/closeNotice?id=1`);
+        let res = await this.$get(`${window.url}/api/closeNotice?id=`+this.messageid);
         this.centerDialogVisible = false;
       }
 		}
