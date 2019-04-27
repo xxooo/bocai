@@ -16,7 +16,7 @@
             <p><label>已下金额：</label><span style="color: #f42222;">{{userInfo.alreadyBalance}}</span></p>
           </div> 
           <div class="login-out">
-            <div><el-button class="loginoutbtn" type="primary" size="mini" @click="$router.push({name: 'login'})">登出</el-button></div>
+            <div><el-button class="loginoutbtn" type="primary" size="mini" @click="exit()">登出</el-button></div>
             <div><el-button class="changepassbtn" type="primary" size="mini" @click="toUpdatePass">修改密码</el-button></div>
           </div>
           <div class="jinbibg"></div>
@@ -183,6 +183,16 @@ export default {
       });
   },
   methods: {
+    async exit() {
+
+      let ret = await this.$get(`${window.url}/api/exitLogin`);
+              if(ret.code===200) {
+                    this.$success('退出登录!');
+                    this.$router.push({name: 'login'});
+                  } else {
+              }
+
+    },
     openPrize() {
       this.showOpen = true;
       $('.openPrize').addClass('active').siblings().removeClass('active');
@@ -193,11 +203,12 @@ export default {
     },
     async getchanglong() {
 
+        this.openPrizeList = [];
+        this.noOpenPrizeList = [];
+
           let that = this;
-          NProgress.start();
           await that.$get(`${window.url}/api/changlong?bocaiTypeId=`+this.bocaiTypeId+'&showNum=10').then((res) => {
             that.$handelResponse(res, (result) => {
-              NProgress.done();
               if(result.code===200){
 
                 for(let n in result.openPrizeMap) {

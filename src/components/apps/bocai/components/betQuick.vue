@@ -209,10 +209,14 @@
           this.orderOddsVisible = false;
           
           let that = this;
-          NProgress.start();
+          const loading = this.$loading({
+                lock: true,
+                text: 'Loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+              });
           await that.$post(`${window.url}/api/orderSub`,this.orderDatas).then((res) => {
             that.$handelResponse(res, (result) => {
-              NProgress.done();
+            loading.close();
               if(result.code===200){
                 //更新用户信息
                 bus.$emit('getcUserInfo', ''); 

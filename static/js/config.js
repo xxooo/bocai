@@ -15,6 +15,7 @@ window.url = 'http://47.106.13.12:8008';		//部署
 //window.url = ''; 								//本地
 //获取博彩信息刷新频率					
 window.refreshTime = 20000;
+window.refreshTimeFast = 5000;
 
 
 

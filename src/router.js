@@ -142,7 +142,7 @@ router.beforeEach((to, from, next) => {
   let token = cookie.getCookie('accesstoken');
 
     if (to.matched.some(r => r.meta.requireAuth)) {
-      NProgress.start();
+      //NProgress.start();
         if (token) {
             next();
         }
@@ -150,17 +150,17 @@ router.beforeEach((to, from, next) => {
             next({
                 path: '/login'
             })
-            NProgress.done();
+            //NProgress.done();
         }
     }
     else {
-        NProgress.start();  
+        //NProgress.start();  
         next();
     }
 });
 
 router.afterEach(transition => {
-  NProgress.done()
+  //NProgress.done()
 })
 
 export default router;

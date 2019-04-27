@@ -111,7 +111,10 @@ export default {
       min : 0, //生成的最小的数字，比如200
       max : 9, //生成的最大的数字，比如500
       imgUrl: 0,
-      t: null, //轮询
+      t1: null, //轮询  博彩信息
+      t2: null, //轮询  开奖结果
+      t3: null, //轮询  动画
+      t4: null, //轮询  开奖结果 快速
       activeIndex: '重庆时时彩',
       resultList: [],
       preBocaiPeriods: '',
@@ -120,7 +123,6 @@ export default {
       bocaiTypeId: '1',
       bocaiTypeList: [],
       submenu: '更多',
-      preResult: '',
       icons:[
             require('@/assets/img/chongqindubo.png'),
             require('@/assets/img/luckyairship.png'),
@@ -161,11 +163,23 @@ export default {
     }
   },
   beforeDestroy: function() {
-      if (this.t) {
-        clearTimeout(this.t)
-      }
+      this.clearTime();
   },
   methods: {
+    clearTime() {
+      if (this.t1) {
+        clearTimeout(this.t1)
+      }
+      if (this.t2) {
+        clearTimeout(this.t2)
+      }
+      if (this.t3) {
+        clearTimeout(this.t3)
+      }
+      if (this.t4) {
+        clearTimeout(this.t4)
+      }
+    },
     async getcUserInfo() {
       let res = await this.$get(`${window.url}/api/cUserInfo`);
 
@@ -249,7 +263,7 @@ export default {
           $('.loadanimot'+n).addClass('bounce animated');
         }
       }
-      this.t = setTimeout(this.myTimer, 100);
+      this.t3 = setTimeout(this.myTimer, 100);
     },
     async getRefreshTime() {
       let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
@@ -275,6 +289,8 @@ export default {
                 this.hasResult = false;
 
                 console.log('等待开奖中this.preResult',this.preResult);
+
+                this.refreshTime();
               } else {
                 this.preResult = res.data.preResult.split(',');
                 this.hasResult = true;
@@ -286,8 +302,47 @@ export default {
 
             console.log('getRefreshTime',window.refreshTime);
     },
-    async refreshTime() {
+    async getRefreshTimeFast() {
       let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
+
+      if(res.code===200){
+
+              //if("companyIsOpenSet": "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。)
+               //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
+
+              bus.$emit('getbocaiInfoData', res.data);
+
+              if(res.data.preResult == '') {
+                if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待开奖中';
+                } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待中';
+                } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
+                } else {
+                  this.preResult = '等待开奖中';
+                }
+                
+                this.hasResult = false;
+
+                console.log('等待开奖中this.preResult',this.preResult);
+
+                this.refreshTimeFast();
+              } else {
+                this.preResult = res.data.preResult.split(',');
+                this.hasResult = true;
+              }
+
+              this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
+
+            }
+
+            console.log('refreshTimeFast',window.refreshTimeFast);
+    },
+    async refreshTime() {
+
+      if(!this.hasResult) {
+        let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
 
             if(res.code===200){
 
@@ -319,9 +374,52 @@ export default {
               this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
 
             }
+      }
 
           console.log('refreshbocaiInfo',window.refreshTime);
-          this.t = setTimeout(this.refreshTime, window.refreshTime);
+          this.t1 = setTimeout(this.refreshTime, window.refreshTime);
+    },
+    async refreshTimeFast() {
+
+      bus.$emit('hasFast', true);
+
+      if(!this.hasResult) {
+        let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
+
+            if(res.code===200){
+
+              //if("companyIsOpenSet": "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。)
+               //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
+
+              bus.$emit('getbocaiInfoData', res.data);
+
+              if(res.data.preResult == '') {
+                if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待开奖中';
+                } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待中';
+                } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
+                } else {
+                  this.preResult = '等待开奖中';
+                }
+                this.hasResult = false;
+
+              } else {
+
+                this.preResult = res.data.preResult.split(',');
+                this.hasResult = true;
+
+              }
+
+              //this.preResult = res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(',');   //"preResult": 
+              this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
+
+            }
+      }
+
+          console.log('refreshTimeFast',window.refreshTimeFast);
+          this.t4 = setTimeout(this.refreshTimeFast, window.refreshTimeFast);
     },
     async bocaiInfo() {
 
@@ -372,7 +470,15 @@ export default {
 
       console.log('openPrizeTime',this.openPrizeTime);
 
-      let res = await this.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+this.bocaiTypeId+`&currentPage=1&pageSize=100&dayStr=`+this.openPrizeTime);
+      console.log('this.hasResult',this.hasResult);
+
+      console.log('!!!!!this.hasResult',!this.hasResult);
+
+      if(!this.hasResult) {
+
+
+        console.log('!!!!!this.hasResult',!this.hasResult);
+        let res = await this.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+this.bocaiTypeId+`&currentPage=1&pageSize=5&dayStr=`+this.openPrizeTime);
           if(res.code===200){
             this.resultList = res.list.slice(0,5);
             for(let n in this.resultList) {
@@ -382,7 +488,9 @@ export default {
             }
           }
 
-        this.t = setTimeout(this.getPrizeResult, window.refreshTime);
+      }
+
+        this.t2 = setTimeout(this.getPrizeResult, window.refreshTime);
     },
     getbocaoName() {
 
@@ -436,7 +544,7 @@ export default {
 
 
         this.getPrizeResult();
-        this.refreshTime();
+        //this.refreshTime();
 
     },
     async getnotice() {
@@ -514,6 +622,9 @@ export default {
         }
       this.bocaiTypeId = item.bocaiId;
       this.bocaiInfo();
+
+      //this.clearTime();
+
       this.$router.push({name: path});
 
       this.getPrizeResult();
@@ -524,6 +635,9 @@ export default {
   mounted() {
     bus.$on('getRefreshTime', (data) => {
         this.getRefreshTime();
+    });
+    bus.$on('getRefreshTimeFast', (data) => {
+        this.getRefreshTimeFast();
     });
     bus.$on('curactiveIndex', (data) => {
         this.activeIndex = data;
