@@ -4,7 +4,7 @@
       <div id="submenuDiv">
         <div class="box">
           <div class="header">
-            <p>即时注单</p>
+            <p>开奖结果</p>
           </div> 
 
           <div class="default-list" style="min-height: 316px;">
@@ -140,7 +140,7 @@ export default {
   },
   data() {
     return {
-      bocaiType: '1',
+      bocaiType: 1,
       bocaiTypeList: [],
       openPrizeTime: '',
       currentPage: 1,

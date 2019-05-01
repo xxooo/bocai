@@ -86,7 +86,7 @@ export default {
     if (window.ENV == 'dev') {
       //console.log('研发自动登录');
 
-      //this.logindev();
+      this.logindev();
 
     } else {
       //普通用户登录
@@ -106,6 +106,9 @@ export default {
                 // password: 'a111111'
                 username: 'a4m28dhy',
                 password: 'a123'
+
+                // username: 'hih0759',
+                // password: 'aaa888'
               };
 
               let ret = await this.$post(`${window.url}/api/login`, obj);
