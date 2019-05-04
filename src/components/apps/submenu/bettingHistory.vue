@@ -106,7 +106,7 @@
                     <td><p>{{item.bocaiTypeName}}</p> <p>{{item.periods}} 期</p></td> 
                     <td><p><span class="odds-font">{{item.bocaiCategory2Name}} {{item.bocaiOddName}}</span>@<span class="odds-font">{{item.bocaiOdds}}</span></p></td> 
                     <td>{{item.betsMoney}}</td> 
-                    <td>{{item.winMoney}}</td> 
+                    <td>{{item.winnerMoney}}</td> 
                     <td class="red">{{item.paicai}}</td> 
                     <td><span>{{item.status=='1'?'已结算' : '未结算'}}</span></td>
                   </tr>
@@ -199,11 +199,11 @@ export default {
         this.sumData = res.sumData[0];
 
         for(let n in this.betInfo.list) {
-          this.betInfo.list[n].winMoney =  this.betInfo.list[n].betsMoney*this.betInfo.list[n].bocaiOdds*1 - this.betInfo.list[n].betsMoney*1;
+          // this.betInfo.list[n].winMoney =  this.betInfo.list[n].betsMoney*this.betInfo.list[n].bocaiOdds*1 - this.betInfo.list[n].betsMoney*1;
           if(this.betInfo.list[n].winnerStatus == 0) {
             this.betInfo.list[n].paicai = this.betInfo.list[n].betsMoney*(-1);
-          } else if(this.betInfo.list[n].winnerStatus == 0) {
-            this.betInfo.list[n].paicai = this.betInfo.list[n].winMoney;
+          } else if(this.betInfo.list[n].winnerStatus == 1) {
+            this.betInfo.list[n].paicai = this.betInfo.list[n].winnerMoney;
           } else {
             this.betInfo.list[n].paicai = 0;
           }
