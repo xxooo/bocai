@@ -459,7 +459,7 @@ export default {
 
     },
     handleSelect(key, keyPath) {
-      this.activeIndex = key;
+      //this.activeIndex = key;
     },
     async getBocai() {
       let res = await this.$get(`${window.url}/api/getBocai`);
@@ -565,73 +565,84 @@ export default {
     async getOdds(item,index) {
 
       console.log('item---getnotice',item);
+      console.log('item---index',index);
 
-      this.getnotice();
+      if(['重庆时时彩','幸运飞艇','北京PK拾','山东11选5','广东11选5','江西11选5','PC蛋蛋','江苏快3','北京快乐8','极速赛车','极速时时彩'].findIndex((n) => n==item.bocaiName)>-1) {
 
-      if(index*1 > 7) {
-        console.log(item); 
-        this.submenu = item.bocaiName;
+        this.activeIndex = item.bocaiName;
+
+        this.getnotice();
+
+        if(index*1 > 7) {
+          console.log(item); 
+          this.submenu = item.bocaiName;
+        } else {
+          this.submenu = '更多';
+        }
+
+        let path = '';
+          switch (item.bocaiName) {
+            case '重庆时时彩':
+              path = 'chongqindubo';
+              this.imgUrl = 0;
+              break;
+            case '幸运飞艇':
+              path = 'luckyairship';
+              this.imgUrl = 1;
+              break;
+            case '北京PK拾':
+              path = 'beijingpk10';
+              this.imgUrl = 2;
+              break;
+            case '山东11选5':
+              path = 'shandong11xuan5';
+              this.imgUrl = 3;
+              break;
+            case '广东11选5':
+              path = 'guangdong11xuan5';
+              this.imgUrl = 4;
+              break;
+            case '江西11选5':
+              path = 'jiangxi11xuan5';
+              this.imgUrl = 5;
+              break;
+            case 'PC蛋蛋':
+              path = 'pcdandan';
+              this.imgUrl = 6;
+              break;
+            case '江苏快3':
+              path = 'jiangsukuaisan';
+              this.imgUrl = 7;
+              break;
+            case '北京快乐8':
+              path = 'beijingkuaile8';
+              this.imgUrl = 8;
+              break;
+            case '极速赛车':
+              path = 'jisusaiche';
+              this.imgUrl = 9;
+              break;
+            case '极速时时彩':
+              path = 'jisudubo';
+              this.imgUrl = 10;
+              break;
+          }
+        this.bocaiTypeId = item.bocaiId;
+        this.bocaiInfo();
+
+        //this.clearTime();
+
+        this.$router.push({name: path});
+
+        this.getPrizeResult();
+
+        bus.$emit('getcUserInfo', '');
+
       } else {
-        this.submenu = '更多';
+        this.$warning('此博彩还未完成,请耐心等待! 谢谢');
       }
 
-      let path = '';
-        switch (item.bocaiName) {
-          case '重庆时时彩':
-            path = 'chongqindubo';
-            this.imgUrl = 0;
-            break;
-          case '幸运飞艇':
-            path = 'luckyairship';
-            this.imgUrl = 1;
-            break;
-          case '北京PK拾':
-            path = 'beijingpk10';
-            this.imgUrl = 2;
-            break;
-          case '山东11选5':
-            path = 'shandong11xuan5';
-            this.imgUrl = 3;
-            break;
-          case '广东11选5':
-            path = 'guangdong11xuan5';
-            this.imgUrl = 4;
-            break;
-          case '江西11选5':
-            path = 'jiangxi11xuan5';
-            this.imgUrl = 5;
-            break;
-          case 'PC蛋蛋':
-            path = 'pcdandan';
-            this.imgUrl = 6;
-            break;
-          case '江苏快3':
-            path = 'jiangsukuaisan';
-            this.imgUrl = 7;
-            break;
-          case '北京快乐8':
-            path = 'beijingkuaile8';
-            this.imgUrl = 8;
-            break;
-          case '极速赛车':
-            path = 'jisusaiche';
-            this.imgUrl = 9;
-            break;
-          case '极速时时彩':
-            path = 'jisudubo';
-            this.imgUrl = 10;
-            break;
-        }
-      this.bocaiTypeId = item.bocaiId;
-      this.bocaiInfo();
-
-      //this.clearTime();
-
-      this.$router.push({name: path});
-
-      this.getPrizeResult();
-
-      bus.$emit('getcUserInfo', '');
+      
     }
   },
   mounted() {

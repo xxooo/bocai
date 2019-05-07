@@ -8,7 +8,7 @@
           </div> 
           <div class="default-list">
             <p class="tar left">
-              <a class="refresh l" @click="getnowOrder()"><i class="icon-refresh"></i>刷新</a>
+              <a class="refresh l" @click="getnewdata"><i class="icon-refresh"></i>刷新</a>
             </p> 
             <table>
               <thead>
@@ -81,6 +81,7 @@ export default {
     return {
       nowOrder: {},
       currentPage: 1,
+      pageSize: 10,
       totalbetsMoney: 0,
       totalwinMoney: 0,
       currentBetsMoney: 0,
@@ -88,20 +89,28 @@ export default {
     }
   },
   created() {
-      this.getnowOrder2(this.currentPage,10000);
-      this.getnowOrder(this.currentPage,10);
+      this.getnowOrder2();
+      this.getnowOrder();
   },
   computed: {
   },
   methods: {
-    handleCurrentChange(data) {
-      this.getnowOrder(data,10);
+    getnewdata() {
+      this.totalbetsMoney = 0;
+      this.totalwinMoney = 0;
+      this.currentPage = 1;
+      this.getnowOrder2();
+      this.getnowOrder();
     },
-    async getnowOrder(cpage,pages) { 
+    handleCurrentChange(data) {
+      this.currentPage = data;
+      this.getnowOrder();
+    },
+    async getnowOrder() { 
       this.currentBetsMoney = 0;
       this.currentWinMoney = 0;
 
-      let res = await this.$get(`${window.url}/api/nowOrder?currentPage=`+cpage+`&pageSize=`+pages);
+      let res = await this.$get(`${window.url}/api/nowOrder?currentPage=`+this.currentPage+`&pageSize=`+this.pageSize);
 
           if(res.code===200){
             this.nowOrder = res.page;
@@ -114,10 +123,11 @@ export default {
               this.currentBetsMoney += this.nowOrder.list[n].betsMoney*1;
               this.currentWinMoney += this.nowOrder.list[n].winMoney*1;
             }
+
           }
-    },
-    async getnowOrder2(cpage,pages) { 
-      let res = await this.$get(`${window.url}/api/nowOrder?currentPage=`+cpage+`&pageSize=`+pages);
+    },              
+    async getnowOrder2() { 
+      let res = await this.$get(`${window.url}/api/nowOrder?currentPage=`+this.currentPage+`&pageSize=1000`);
 
           if(res.code===200){
 
