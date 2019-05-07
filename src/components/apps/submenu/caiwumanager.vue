@@ -602,6 +602,9 @@ export default {
 
           if(res.code === 200) {
             this.$success('提交成功!');
+
+            this.paymoney = '';
+            this.payremark = '';
           }
         }
       }

@@ -188,10 +188,10 @@ export default {
       let ret = await this.$get(`${window.url}/api/exitLogin`);
               if(ret.code===200) {
                     this.$success('退出登录!');
-                    this.$router.push({name: 'login'});
+                    
                   } else {
               }
-
+      this.$router.push({name: 'login'});
     },
     openPrize() {
       this.showOpen = true;
