@@ -274,6 +274,9 @@ export default {
       if(res.code===200){
         //store.commit('updatecashBalance',res.data.cashBalance);
         this.userInfo = res.data;
+
+        console.log('要给现金了',res.data.cashBalance);
+
         bus.$emit('getcashBalance', res.data.cashBalance);
         bus.$emit('getcuserId', res.data.id);
 

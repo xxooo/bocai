@@ -38,7 +38,7 @@
               <li @click="goRightMenu('instantorder')">即时注单</li>
               <li @click="goRightMenu('bettingHistory')">下注历史</li>
               <li @click="goRightMenu('personalinfo')">个人资讯</li>
-              <li v-if="userInfo.cashCredit == 1" @click="goRightMenu('caiwumanager')">财务管理</li>
+              <li v-if="userInfo.cashCredit == 0" @click="goRightMenu('caiwumanager')">财务管理</li>
               <li @click="goRightMenu('lotteryResults')">开奖结果</li>
               <li @click="goRightMenu('gameRule')">游戏规则</li>
             </ul>
@@ -186,6 +186,8 @@ export default {
       if(res.code===200){
         //store.commit('updatecashBalance',res.data.cashBalance);
         this.userInfo = res.data;
+
+
 
         // "currentPage": 0,
         // "pageSize": 10,

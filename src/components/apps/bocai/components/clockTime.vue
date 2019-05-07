@@ -87,14 +87,18 @@
         var closeTimeSet = this.openPrizeTime - this.closeTimeSet*1000;
 
 
-        console.log('当前时间',this.timestampToTime(now.getTime()));
+        //console.log('当前时间',this.timestampToTime(now.getTime()));
 
         console.log('this.closeTimeSet',this.closeTimeSet);
-        console.log('封盘时间',this.timestampToTime(closeTimeSet));
+        //console.log('封盘时间',this.timestampToTime(closeTimeSet));
 
         if(closeTime<=0 && leftTime<=0) {
-          console.log('未开盘',this.timestampToTime(this.openPrizeTime));
-          console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
+
+          //console.log('closeTime111',closeTime);
+          //console.log('leftTime111',this.timestampToTime(leftTime));
+
+          //console.log('未开盘',this.timestampToTime(this.openPrizeTime));
+          //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
           this.timeLeft = '00' + ":" + '00' + ":" + '00';
 
           bus.$emit('isOpenOdds', false);
@@ -103,13 +107,17 @@
 
           //$('.bet_box .orders td').removeClass('selected');
 
-          if(!this.hasFast) {
+          //if(!this.hasFast) {
             bus.$emit('getRefreshTimeFast', '');
-          }
+          //}
 
         } 
 
         if(closeTime<=0 && leftTime>0) {
+
+          //console.log('closeTime2222',closeTime);
+          //console.log('leftTime2222',this.timestampToTime(leftTime));
+
           var ms = parseInt(leftTime % 1000).toString();
           leftTime = parseInt(leftTime / 1000); 
           var o = Math.floor(leftTime / 3600);
@@ -125,6 +133,9 @@
           $('#clock').addClass('red');
         }
         if(closeTime>0) {
+
+          //console.log('closeTime3333',closeTime);
+          //console.log('leftTime333',this.timestampToTime(leftTime));
 
           var ms = parseInt(leftTime % 1000).toString();
           leftTime = parseInt(leftTime / 1000); 

@@ -149,6 +149,8 @@
         this.normalPay = data;
       });
       bus.$on('getcashBalance', (data) => {
+
+        console.log('getcashBalance',data);
         this.cashBalance = data;
       });
       bus.$on('getcanOrder', (data) => {
@@ -173,6 +175,9 @@
         }
       },
       async orderSub() {
+
+        console.log('this.cashBalance',this.cashBalance);
+        console.log('this.totalMoney',this.totalMoney);
 
         if(this.totalMoney > this.cashBalance) {
           this.$alertMessage('您的余额不足!', '温馨提示');
