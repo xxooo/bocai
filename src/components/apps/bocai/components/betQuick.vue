@@ -119,6 +119,8 @@
     components: {
 		},
 		created() {
+
+      this.getcashmoney();
     },
     computed:{
       totalMoney() {
@@ -160,6 +162,13 @@
       });
     },
 		methods: {
+      async getcashmoney() {
+        let res = await this.$get(`${window.url}/api/cUserInfo`);
+
+        if(res.code===200){
+          this.cashBalance = res.data.cashBalance;
+        }
+      },
       changePay(data) {
         this.$emit('childByChangePay', data);
         this.moneyOrder = '';
@@ -175,9 +184,6 @@
         }
       },
       async orderSub() {
-
-        console.log('this.cashBalance',this.cashBalance);
-        console.log('this.totalMoney',this.totalMoney);
 
         if(this.totalMoney > this.cashBalance) {
           this.$alertMessage('您的余额不足!', '温馨提示');
