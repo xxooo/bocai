@@ -133,7 +133,7 @@ export default {
             require('@/assets/img/pcdandan.png'),
             require('@/assets/img/jiangsukuaisan.png'),
             require('@/assets/img/beijingkuaile8.png'),
-            require('@/assets/img/jisudubo.png'),
+            require('@/assets/img/jisusaiche.png'),
             require('@/assets/img/jisudubo.png')
           ],
       messageinfo: '',
@@ -538,7 +538,7 @@ export default {
             break;
           case 'jisudubo':
             this.bocaiTypeId = '8815';
-            this.imgUrl = 9;
+            this.imgUrl = 10;
             break;
         }
 
