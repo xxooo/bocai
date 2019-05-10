@@ -152,7 +152,7 @@
       });
       bus.$on('getcashBalance', (data) => {
 
-        console.log('getcashBalance',data);
+        //console.log('getcashBalance',data);
         this.cashBalance = data;
       });
       bus.$on('getcanOrder', (data) => {

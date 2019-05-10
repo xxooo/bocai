@@ -302,7 +302,7 @@ export default {
 
             }
 
-            console.log('getRefreshTime',window.refreshTime);
+            //console.log('getRefreshTime',window.refreshTime);
     },
     async getRefreshTimeFast() {
       let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
@@ -327,7 +327,7 @@ export default {
                 
                 this.hasResult = false;
 
-                console.log('等待开奖中this.preResult',this.preResult);
+                //console.log('等待开奖中this.preResult',this.preResult);
 
                 this.refreshTimeFast();
               } else {
@@ -339,7 +339,7 @@ export default {
 
             }
 
-            console.log('refreshTimeFast',window.refreshTimeFast);
+            //console.log('refreshTimeFast',window.refreshTimeFast);
     },
     async refreshTime() {
 
@@ -378,7 +378,7 @@ export default {
             }
       }
 
-          console.log('refreshbocaiInfo',window.refreshTime);
+          //console.log('refreshbocaiInfo',window.refreshTime);
           this.t1 = setTimeout(this.refreshTime, window.refreshTime);
     },
     async refreshTimeFast() {
@@ -420,7 +420,7 @@ export default {
             }
       }
 
-          console.log('refreshTimeFast',window.refreshTimeFast);
+          //console.log('refreshTimeFast',window.refreshTimeFast);
           this.t4 = setTimeout(this.refreshTimeFast, window.refreshTimeFast);
     },
     async bocaiInfo() {
@@ -470,16 +470,16 @@ export default {
     },
     async getPrizeResult() { 
 
-      console.log('openPrizeTime',this.openPrizeTime);
+      //console.log('openPrizeTime',this.openPrizeTime);
 
-      console.log('this.hasResult',this.hasResult);
+      //console.log('this.hasResult',this.hasResult);
 
-      console.log('!!!!!this.hasResult',!this.hasResult);
+      //console.log('!!!!!this.hasResult',!this.hasResult);
 
       if(!this.hasResult) {
 
 
-        console.log('!!!!!this.hasResult',!this.hasResult);
+       // console.log('!!!!!this.hasResult',!this.hasResult);
         let res = await this.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+this.bocaiTypeId+`&currentPage=1&pageSize=5&dayStr=`+this.openPrizeTime);
           if(res.code===200){
             this.resultList = res.list.slice(0,5);

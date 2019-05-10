@@ -42,7 +42,9 @@
         bocaiInfoData: {},
         openPrizeTime: 0,
         closeTimeSet: 0,
-        hasFast: false
+        hasFast: false,
+        differTime: 0,
+        temdata: {}
 			}
 		},
     components: {
@@ -65,6 +67,22 @@
         this.bocaiInfoData = data;
         this.openPrizeTime = data.openPrizeTime;
         this.closeTimeSet = data.closeTimeSet;
+
+
+        console.log('getbocaiInfoData--获取传来博彩数据',data,
+          '当期开奖时间：'+this.timestampToTime(data.openPrizeTime),
+          '当期开盘时间：'+this.timestampToTime(data.openTime),
+          '提前多少秒封盘:'+data.closeTimeSet,
+          '服务器时间:'+this.timestampToTime(data.nowTime*1000));
+        console.log('new Date()',new Date());
+
+        let now = new Date();
+
+        this.differTime = now.getTime() - data.nowTime*1000;
+
+        this.temdata = data;
+
+
         //this.gettimeLeft();
       });
       bus.$on('hasFast', (data) => {
@@ -77,11 +95,17 @@
       }
     },
 		methods: {
+      getServerDate(){
+          return new Date($.ajax({async: false}).getResponseHeader("Date"));
+      },
       gettimeLeft() {
 
+        //console.log('this.getServerDate()',this.getServerDate());
+        //console.log('new Date()',new Date());
+        console.log('this.differTime',this.differTime);
         var now = new Date();
-        var leftTime = this.openPrizeTime - now.getTime();
-
+        var leftTime = this.openPrizeTime - now.getTime() + this.differTime;
+        console.log('leftTime',leftTime);
         var closeTime = leftTime - this.closeTimeSet*1000;
 
         var closeTimeSet = this.openPrizeTime - this.closeTimeSet*1000;
@@ -89,10 +113,22 @@
 
         //console.log('当前时间',this.timestampToTime(now.getTime()));
 
-        console.log('this.closeTimeSet',this.closeTimeSet);
+        //console.log('this.closeTimeSet',this.closeTimeSet);
         //console.log('封盘时间',this.timestampToTime(closeTimeSet));
 
         if(closeTime<=0 && leftTime<=0) {
+
+          // this.$alert('这是一段内容', '标题名称', {
+          //   confirmButtonText: '确定',
+          //   callback: action => {
+          //     this.$message({
+          //       type: 'info',
+          //       message: `action: ${ action }`
+          //     });
+          //   }
+          // });
+
+          //this.$alert('closeTime<=0 && leftTime<=0'+'closeTime:'+this.timestampToTime(closeTime)+'leftTime:'+this.timestampToTime(leftTime));
 
           //console.log('closeTime111',closeTime);
           //console.log('leftTime111',this.timestampToTime(leftTime));
@@ -114,6 +150,8 @@
         } 
 
         if(closeTime<=0 && leftTime>0) {
+
+          //this.$alert('closeTime<=0 && leftTime>0'+'closeTime:'+this.timestampToTime(closeTime)+'leftTime:'+this.timestampToTime(leftTime));
 
           //console.log('closeTime2222',closeTime);
           //console.log('leftTime2222',this.timestampToTime(leftTime));
@@ -137,6 +175,8 @@
           //console.log('closeTime3333',closeTime);
           //console.log('leftTime333',this.timestampToTime(leftTime));
 
+          //this.$alert('closeTime>0'+'closeTime:'+this.timestampToTime(closeTime));
+
           var ms = parseInt(leftTime % 1000).toString();
           leftTime = parseInt(leftTime / 1000); 
           var o = Math.floor(leftTime / 3600);
@@ -150,9 +190,18 @@
           bus.$emit('isOpenOdds', true);
 
           $('#clock').removeClass('red');
+
+          //alert('closeTime>0');
         }
 
         this.t = setTimeout(this.gettimeLeft, 1000);
+
+        //console.log('new Date()',new Date());
+
+        //console.log(this.temdata,
+          // '当期开奖时间：'+this.timestampToTime(this.temdata.openPrizeTime),
+          // '当期开盘时间：'+this.timestampToTime(this.temdata.openTime),
+          // '提前多少秒封盘:'+this.temdata.closeTimeSet);
 
       },
       timestampToTime(timestamp) {
