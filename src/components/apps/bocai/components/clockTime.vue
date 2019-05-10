@@ -42,9 +42,10 @@
         bocaiInfoData: {},
         openPrizeTime: 0,
         closeTimeSet: 0,
-        hasFast: false,
+        //hasFast: false,
         differTime: 0,
-        temdata: {}
+        temdata: {},
+        noneResult: false
 			}
 		},
     components: {
@@ -69,12 +70,12 @@
         this.closeTimeSet = data.closeTimeSet;
 
 
-        console.log('getbocaiInfoData--获取传来博彩数据',data,
-          '当期开奖时间：'+this.timestampToTime(data.openPrizeTime),
-          '当期开盘时间：'+this.timestampToTime(data.openTime),
-          '提前多少秒封盘:'+data.closeTimeSet,
-          '服务器时间:'+this.timestampToTime(data.nowTime*1000));
-        console.log('new Date()',new Date());
+        // console.log('getbocaiInfoData--获取传来博彩数据',data,
+        //   '当期开奖时间：'+this.timestampToTime(data.openPrizeTime),
+        //   '当期开盘时间：'+this.timestampToTime(data.openTime),
+        //   '提前多少秒封盘:'+data.closeTimeSet,
+        //   '服务器时间:'+this.timestampToTime(data.nowTime*1000));
+        // console.log('new Date()',new Date());
 
         let now = new Date();
 
@@ -86,7 +87,7 @@
         //this.gettimeLeft();
       });
       bus.$on('hasFast', (data) => {
-        this.hasFast = data;
+        this.noneResult = data;
       });
     },
     beforeDestroy: function() {
@@ -100,12 +101,16 @@
       },
       gettimeLeft() {
 
+        // if() {
+
+        // }
+
         //console.log('this.getServerDate()',this.getServerDate());
         //console.log('new Date()',new Date());
-        console.log('this.differTime',this.differTime);
+        //console.log('this.differTime',this.differTime);
         var now = new Date();
         var leftTime = this.openPrizeTime - now.getTime() + this.differTime;
-        console.log('leftTime',leftTime);
+        //console.log('leftTime',leftTime);
         var closeTime = leftTime - this.closeTimeSet*1000;
 
         var closeTimeSet = this.openPrizeTime - this.closeTimeSet*1000;
@@ -135,16 +140,40 @@
 
           //console.log('未开盘',this.timestampToTime(this.openPrizeTime));
           //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
-          this.timeLeft = '00' + ":" + '00' + ":" + '00';
 
-          bus.$emit('isOpenOdds', false);
+          if(this.noneResult) {
 
-          $('#clock').addClass('red');
+            console.log('this.noneResult');
+            this.timeLeft = '--' + ":" + '--' + ":" + '--';
+
+            bus.$emit('isOpenOdds', false);
+
+            $('#clock').addClass('gray');
+          } else {
+            console.log('!!!!this.noneResult');
+            this.timeLeft = '00' + ":" + '00' + ":" + '00';
+
+            bus.$emit('isOpenOdds', false);
+
+            $('#clock').addClass('red');
+
+            bus.$emit('getRefreshTimeFast', '');
+          }
+
+          // this.timeLeft = '00' + ":" + '00' + ":" + '00';
+
+          // bus.$emit('isOpenOdds', false);
+
+          // $('#clock').addClass('red');
 
           //$('.bet_box .orders td').removeClass('selected');
 
           //if(!this.hasFast) {
-            bus.$emit('getRefreshTimeFast', '');
+            
+
+            //bus.$emit('getRefreshTimeFast', '');
+
+
           //}
 
         } 
@@ -193,6 +222,8 @@
 
           //alert('closeTime>0');
         }
+
+        //bus.$emit('getRefreshTimeFast', '');
 
         this.t = setTimeout(this.gettimeLeft, 1000);
 

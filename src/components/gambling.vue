@@ -305,6 +305,8 @@ export default {
             //console.log('getRefreshTime',window.refreshTime);
     },
     async getRefreshTimeFast() {
+
+
       let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
 
       if(res.code===200){
@@ -313,6 +315,8 @@ export default {
                //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
 
               bus.$emit('getbocaiInfoData', res.data);
+
+              //res.data.preResult == '';
 
               if(res.data.preResult == '') {
                 if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
@@ -383,7 +387,9 @@ export default {
     },
     async refreshTimeFast() {
 
-      bus.$emit('hasFast', true);
+      console.log('refreshTimeFast');
+
+      //bus.$emit('hasFast', true);
 
       if(!this.hasResult) {
         let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
@@ -394,6 +400,8 @@ export default {
                //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
 
               bus.$emit('getbocaiInfoData', res.data);
+
+              //res.data.preResult == '';
 
               if(res.data.preResult == '') {
                 if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
@@ -407,10 +415,14 @@ export default {
                 }
                 this.hasResult = false;
 
+                bus.$emit('hasFast', true);
+
               } else {
 
                 this.preResult = res.data.preResult.split(',');
                 this.hasResult = true;
+
+                bus.$emit('hasFast', false);
 
               }
 
@@ -650,6 +662,7 @@ export default {
         this.getRefreshTime();
     });
     bus.$on('getRefreshTimeFast', (data) => {
+        console.log('getRefreshTimeFast');
         this.getRefreshTimeFast();
     });
     bus.$on('curactiveIndex', (data) => {
