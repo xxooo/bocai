@@ -232,6 +232,11 @@ export default {
       bus.$on('isOpenOdds', (data) => {
         this.isOpenOdds = data;
       });
+      bus.$on('setNewOddsList', (data) => {
+        this.normalPay = false;
+        this.oddsList = data;
+        this.shuaiXuanDatas(data);
+      });
   },
   methods: {
     qingkong() {
@@ -400,6 +405,8 @@ export default {
     },
     async getOddsCategory(item,index) {
 
+      bus.$emit('getbocaiCategoryId', item.id);
+
       this.getnotice();
 
       if(index*1 > 9) {
@@ -428,6 +435,8 @@ export default {
                 that.oddsList = result.oddsList;
                 that.showOdds = result.bocaiCategoryList[0].name;
                 that.bocaiCategory = result.bocaiCategoryList[0];
+
+                bus.$emit('getbocaiCategoryId', result.bocaiCategoryList[0].id);
                 that.activeIndex = that.bocaiCategoryList[0].name;
                 that.shuaiXuanDatas(result.oddsList);
 

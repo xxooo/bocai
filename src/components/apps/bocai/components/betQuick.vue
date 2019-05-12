@@ -68,12 +68,10 @@
 
   $(document).ready(function(){
     $(".beishuBtn").mousedown(function(){
-      console.log('onmousedown');
       $(this).addClass('addPayChouMa');
 
     });
     $(".beishuBtn").mouseup(function(){
-      console.log('onmouseup');
       $(this).removeClass('addPayChouMa');
     });
   });
@@ -95,6 +93,7 @@
         orderList: [],
         hahahaid: '',
         bocaiTypeId: '',
+        bocaiCategoryId: '',
         bocaiTypeName: '',
         cuserId: '',
         bocaiInfoData: {},
@@ -134,6 +133,10 @@
     mounted(){
       bus.$on('getbocaiTypeId', (data) => {
         this.bocaiTypeId = data;
+      });
+      bus.$on('getbocaiCategoryId', (data) => {
+        console.log('gevie ?',data)
+        this.bocaiCategoryId = data;
       });
       bus.$on('getbocaiTypeName', (data) => {
         this.bocaiTypeName = data;
@@ -239,7 +242,52 @@
           });
         }
       },
-      orderOdds() {
+      //下单前先刷新最新的赔率
+      async orderOdds() {
+
+        let that = this;
+
+          const loading = this.$loading({
+                lock: true,
+                text: 'Loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+              });
+          await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+this.bocaiTypeId+`&bocaiCategoryId=`+this.bocaiCategoryId).then((res) => {
+            that.$handelResponse(res, (result) => {
+            loading.close();
+
+              if(result.code===200){
+
+                bus.$emit('setNewOddsList', result.oddsList);
+
+
+                for(let n in this.orderDataList) {
+                  for(let m in result.oddsList) {
+                    if(this.orderDataList[n].bocaiCategory2Id == result.oddsList[m].id) {
+
+                      for(let x in result.oddsList[m].list) {
+
+                        if(this.orderDataList[n].bocaiOddId == result.oddsList[m].list[x].oddsId) {
+
+                          this.orderDataList[n].bocaiOdds = result.oddsList[m].list[x].odds;
+                        }
+                      }
+                    }
+                  }
+                }
+
+                bus.$emit('getnormalPay', false); 
+
+                this.orderOddsTo();
+
+              }
+            })
+          });
+
+      },
+
+
+      orderOddsTo() {
 
         let reg = /^[\u2E80-\u9FFF]+$/;
         if(reg.test(this.moneyOrder)){
