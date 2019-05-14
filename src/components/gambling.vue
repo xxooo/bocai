@@ -513,51 +513,62 @@ export default {
           case 'chongqindubo':
             this.bocaiTypeId = '1';
             this.imgUrl = 0;
+            this.submenu = '重庆时时彩';
             break;
           case 'luckyairship':
             this.bocaiTypeId = '8555';
             this.imgUrl = 1;
+            this.submenu = '幸运飞艇';
             break;
           case 'beijingpk10':
             this.bocaiTypeId = '8806';
             this.imgUrl = 2;
+            this.submenu = '北京PK拾';
             break;
           case 'shandong11xuan5':
             this.bocaiTypeId = '8811';
             this.imgUrl = 3;
+            this.submenu = '山东11选5';
             break;
           case 'guangdong11xuan5':
             this.bocaiTypeId = '8374';
             this.imgUrl = 4;
+            this.submenu = '广东11选5';
             break;
           case 'jiangxi11xuan5':
             this.bocaiTypeId = '8813';
             this.imgUrl = 5;
+            this.submenu = '极速时时彩';
             break;
           case 'pcdandan':
             this.bocaiTypeId = '8223';
             this.imgUrl = 6;
+            this.submenu = 'PC蛋蛋';
             break;
           case 'jiangsukuaisan':
             this.bocaiTypeId = '8498';
             this.imgUrl = 7;
+            this.submenu = '江苏快3';
             break;
           case 'beijingkuaile8':
             this.bocaiTypeId = '8266';
             this.imgUrl = 8;
+            this.submenu = '北京快乐8';
             break;
           case 'jisusaiche':
             this.bocaiTypeId = '9057';
             this.imgUrl = 9;
+            this.submenu = '极速赛车';
             break;
           case 'jisudubo':
             this.bocaiTypeId = '8815';
             this.imgUrl = 10;
+            this.submenu = '极速时时彩';
             break;
         }
 
 
-        this.getPrizeResult();
+        //this.getPrizeResult();
         //this.refreshTime();
 
     },
