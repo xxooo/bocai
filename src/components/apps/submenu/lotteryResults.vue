@@ -123,7 +123,85 @@
                 </tbody>
               </table>
 
-              <!-- 重庆时时彩 -->
+              <!-- 江苏快三 -->
+              <table v-if="bocaiType == '8498'">
+                <thead>
+                  <tr>
+                    <th>期数</th> 
+                    <th>开奖时间</th> 
+                    <th colspan="3">开出号码</th> 
+                    <th colspan="2">总和</th>
+                  </tr>
+                </thead> 
+                <tbody>
+                  <tr v-for="item in resultList">
+                    <td>{{item.periods}}</td> 
+                    <td>{{$timestampToTime(item.openPrizetime)}}</td>
+
+                    <template v-if="!item.result || item.result == ''">
+                      <td colspan="5">
+                        <span>暂未开奖</span>
+                      </td>
+                    </template>
+                    <template v-else>
+                      <td><i :class="'jsk3-icon-'+item.num1" style="margin-top: 6px;"></i></td>
+                      <td><i :class="'jsk3-icon-'+item.num2" style="margin-top: 6px;"></i></td>
+                      <td><i :class="'jsk3-icon-'+item.num3" style="margin-top: 6px;"></i></td>
+                      <td><span>{{item.zonghe}}</span></td> 
+                      <td><span class="red">{{item.zonghedaxiao}}</span></td>
+                    </template>
+                  </tr>
+                </tbody>
+              </table>
+
+
+              <!-- 北京PK10  幸运飞艇 急速赛车-->
+              <table v-if="[8555,8806,9057].findIndex((n) => n==bocaiType)>-1">
+                <thead>
+                  <tr>
+                    <th>期数</th> 
+                    <th>开奖时间</th> 
+                    <th colspan="10">开出号码</th> 
+                    <th colspan="3">冠亚军和</th> 
+                    <th colspan="5">1~5龙虎</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in resultList">
+                    <td>{{item.periods}}</td> 
+                    <td>{{$timestampToTime(item.openPrizetime)}}</td>
+                    <template v-if="!item.result || item.result == ''">
+                      <td colspan="18">
+                        <span>暂未开奖</span>
+                      </td>
+                    </template>
+                    <template v-else>
+                      <td><div :class="'ball-fang ball-fang'+item.num1">{{item.num1}}</div></td> 
+                      <td><div :class="'ball-fang ball-fang'+item.num2">{{item.num2}}</div></td> 
+                      <td><div :class="'ball-fang ball-fang'+item.num3">{{item.num3}}</div></td> 
+                      <td><div :class="'ball-fang ball-fang'+item.num4">{{item.num4}}</div></td> 
+                      <td><div :class="'ball-fang ball-fang'+item.num5">{{item.num5}}</div></td> 
+                      <td><div :class="'ball-fang ball-fang'+item.num6">{{item.num6}}</div></td> 
+                      <td><div :class="'ball-fang ball-fang'+item.num7">{{item.num7}}</div></td> 
+                      <td><div :class="'ball-fang ball-fang'+item.num8">{{item.num8}}</div></td> 
+                      <td><div :class="'ball-fang ball-fang'+item.num9">{{item.num9}}</div></td> 
+                      <td><div :class="'ball-fang ball-fang'+item.num10">{{item.num10}}</div></td> 
+                      <td>{{item.guanyajunhe}}</td> 
+                      <td><span :class="item.guanyajundaxiao == '大' ? 'red' : ''">{{item.guanyajundaxiao}}</span></td> 
+                      <td><span :class="item.guanyajundanshuang == '双' ? 'red' : ''">{{item.guanyajundanshuang}}</span></td> 
+                      <td><span :class="item.yilonghu == '龙' ? 'red' : item.yilonghu == '虎' ? 'blue' : ''">{{item.yilonghu}}</span></td> 
+                      <td><span :class="item.erlonghu == '龙' ? 'red' : item.erlonghu == '虎' ? 'blue' : ''">{{item.erlonghu}}</span></td> 
+                      <td><span :class="item.sanlonghu == '龙' ? 'red' : item.sanlonghu == '虎' ? 'blue' : ''">{{item.sanlonghu}}</span></td> 
+                      <td><span :class="item.silonghu == '龙' ? 'red' : item.silonghu == '虎' ? 'blue' : ''">{{item.silonghu}}</span></td> 
+                      <td><span :class="item.wulonghu == '龙' ? 'red' : item.wulonghu == '虎' ? 'blue' : ''">{{item.wulonghu}}</span></td> 
+                    </template>
+                  </tr>
+                </tbody>
+              </table>
+
+
+              <!-- 重庆时时彩，江苏3，北京pk，幸运飞艇，快乐10，急速时时彩，急速赛车 -->
+
             </div>
           </div>
 
