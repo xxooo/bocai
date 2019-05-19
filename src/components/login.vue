@@ -107,8 +107,8 @@ export default {
                 // username: 'a4m28dhy',
                 // password: 'a123'
 
-                // username: 'a4m3huiyuan1',
-                // password: 'a123'
+                username: 'a4m3huiyuan1',
+                password: 'a123'
 
                 // username: 'xianjinzs2',
                 // password: '123456'
@@ -134,7 +134,7 @@ export default {
       }
     },
     async login(formName) {
-      let that = this;
+      let that = this; 
 
           this.$refs[formName].validate(async (valid) => {
 

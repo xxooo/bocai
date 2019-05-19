@@ -146,7 +146,7 @@ export default {
     this.getBocai();
     this.openPrizeTime = this.$timestampToTimeRi(new Date());
 
-    //this.getPrizeResult();
+    this.getPrizeResult();
 
     this.myTimer();
 
@@ -186,61 +186,6 @@ export default {
       if(res.code===200){
         //store.commit('updatecashBalance',res.data.cashBalance);
         this.userInfo = res.data;
-
-
-
-        // "currentPage": 0,
-        // "pageSize": 10,
-        // "startDate": null,
-        // "endDate": null,
-        // "id": "51",//用户ID
-        // "username": "aydwhuiyuan1",//用户注册名称
-        // "nickname": "ydwhuiyuan1",//用户昵称
-        // "password": "",
-        // "cashBalance": 20421200,//可用金额
-        // "lockBalance": 0,//锁定金额
-        // "alreadyBalance": 800,//已下注金额
-        // "ruleId": 13,
-        // "bankName": "1111",
-        // "bankNum": "1111",
-        // "bankUserName": "1111",
-        // "phone": "1111",
-        // "weixin": "1111",
-        // "zhifubao": "1111",
-        // "putForwardPassword": "1234",
-        // "cashCredit": 0,
-        // "creditType": null,
-        // "quota": 0,
-        // "handicap": "a",//用户盘口：a,b,c,d
-        // "companyid": "159",
-        // "pid": "164",
-        // "userClass": "1-2-159-160-163-164-51",
-        // "isFrozen": 0,
-        // "tingyaShouya": 0,
-        // "userType": 1,
-        // "status": 1,
-        // "createDate": 1532001115000,
-        // "updateDate": 1534748779000,
-        // "lockingQuota": null,
-        // "isOnline": 1,
-        // "quotaInfo": null,
-        // "aUserOccupied": null,
-        // "isHide": 1,
-        // "bindingIp": "192.168.1.75",
-        // "loginIp": "0:0:0:0:0:0:0:1",
-        // "loginWebsite": null,
-        // "teamId": 1,
-        // "loginTime": 1533883022000,
-        // "systemStr": null,
-        // "phandicapA": null,
-        // "phandicapB": null,
-        // "phandicapC": null,
-        // "phandicapD": null,
-        // "pAllotOccupied": null,
-        // "pCashCredit": null,
-        // "pnickname": null,
-        // "pusername": null,
-        // "pquota": null
 
       }
     },
@@ -290,7 +235,7 @@ export default {
                 
                 this.hasResult = false;
 
-                console.log('等待开奖中this.preResult',this.preResult);
+                //console.log('等待开奖中this.preResult',this.preResult);
 
                 this.refreshTime();
               } else {
@@ -324,7 +269,7 @@ export default {
                 } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
                   this.preResult = '等待中';
                 } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
+                  this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中中';
                 } else {
                   this.preResult = '等待开奖中';
                 }
@@ -387,7 +332,7 @@ export default {
     },
     async refreshTimeFast() {
 
-      console.log('refreshTimeFast');
+      //console.log('refreshTimeFast');
 
       //bus.$emit('hasFast', true);
 
@@ -488,7 +433,7 @@ export default {
 
       //console.log('!!!!!this.hasResult',!this.hasResult);
 
-      if(!this.hasResult) {
+      // if(!this.hasResult) {
 
 
        // console.log('!!!!!this.hasResult',!this.hasResult);
@@ -502,7 +447,7 @@ export default {
             }
           }
 
-      }
+      // }
 
         this.t2 = setTimeout(this.getPrizeResult, window.refreshTime);
     },
@@ -574,7 +519,7 @@ export default {
     },
     async getnotice() {
 
-      console.log('yy---getnotice');
+      //console.log('yy---getnotice');
 
       let res = await this.$get(`${window.url}/api/notice`);
 
@@ -587,8 +532,8 @@ export default {
     },
     async getOdds(item,index) {
 
-      console.log('item---getnotice',item);
-      console.log('item---index',index);
+      //console.log('item---getnotice',item);
+      //console.log('item---index',index);
 
       if(['重庆时时彩','幸运飞艇','北京PK拾','山东11选5','广东11选5','江西11选5','PC蛋蛋','江苏快3','北京快乐8','极速赛车','极速时时彩'].findIndex((n) => n==item.bocaiName)>-1) {
 
@@ -597,7 +542,7 @@ export default {
         this.getnotice();
 
         if(index*1 > 7) {
-          console.log(item); 
+         // console.log(item); 
           this.submenu = item.bocaiName;
         } else {
           this.submenu = '更多';
@@ -657,7 +602,7 @@ export default {
 
         this.$router.push({name: path});
 
-        this.getPrizeResult();
+        //this.getPrizeResult();
 
         bus.$emit('getcUserInfo', '');
 
@@ -669,11 +614,11 @@ export default {
     }
   },
   mounted() {
-    bus.$on('getRefreshTime', (data) => {
-        this.getRefreshTime();
-    });
+    // bus.$on('getRefreshTime', (data) => {
+    //     this.getRefreshTime();
+    // });
     bus.$on('getRefreshTimeFast', (data) => {
-        console.log('getRefreshTimeFast');
+        //console.log('getRefreshTimeFast');
         this.getRefreshTimeFast();
     });
     bus.$on('curactiveIndex', (data) => {
@@ -819,11 +764,18 @@ export default {
     margin: 0px 3px;
   }
   .bjpk-ran.sizeNum20 {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
     margin: 0px 3px;
-    font-size: 18px !important;
+    font-size: 16px !important;
+  }
+  .bjpk-ran.sizeNum21 {
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    margin: 0px 3px;
+    font-size: 16px !important;
   }
   .bjpk-ran, .bjpk-ran-s {
     display: inline-block;

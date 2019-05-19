@@ -200,7 +200,42 @@
               </table>
 
 
-              <!-- 快乐10 -->
+              <!-- 北京快乐8 -->
+              <table v-if="[8266].findIndex((n) => n==bocaiType)>-1">
+                <thead>
+                  <tr>
+                    <th>期数</th> 
+                    <th width="100px">开奖时间</th> 
+                    <th>开出号码</th> 
+                    <th colspan="4">总和</th> 
+                    <th colspan="2">比数量</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in resultList">
+                    <td>{{item.periods}}</td> 
+                    <td>{{$timestampToTime(item.openPrizetime)}}</td>
+                    <template v-if="!item.result || item.result == ''">
+                      <td colspan="7">
+                        <span>暂未开奖</span>
+                      </td>
+                    </template>
+                    <template v-else>
+                      <td width="360px">
+                        <div v-for="(itemsub,index) in item.result.slice(0,11)" :class="itemsub*1 > 40 ? 'ballda' : 'ballxiao'">{{itemsub}}</div>
+                        <br>
+                        <div v-for="(itemsub,index) in item.result.slice(11)" :class="itemsub*1 > 40 ? 'ballda' : 'ballxiao'">{{itemsub}}</div>
+                      </td> 
+                      <td>{{item.zonghe}}</td> 
+                      <td><span :class="item.zonghedaxiao == '大' ? 'red' : ''">{{item.zonghedaxiao}}</span></td> 
+                      <td><span :class="item.zonghedanshuang == '双' ? 'red' : ''">{{item.zonghedanshuang}}</span></td> 
+                      <td>{{item.wuxing}}</td>
+                      <td><span :class="item.bishulianghouqianhe == '前(多)' ? 'red' : item.bishulianghouqianhe == '后(多)' ? 'blue' : ''">{{item.bishulianghouqianhe}}</span></td>
+                      <td><span :class="item.bishuliangdanshuanghe == '双(多)' ? 'red' : item.bishuliangdanshuanghe == '单(多)' ? 'blue' : ''">{{item.bishuliangdanshuanghe}}</span></td>
+                    </template>
+                  </tr>
+                </tbody>
+              </table>
 
             </div>
           </div>
@@ -249,15 +284,40 @@ export default {
     },
     async getPrizeResult() { 
 
-      console.log('openPrizeTime',this.openPrizeTime);
+      //console.log('openPrizeTime',this.openPrizeTime);
 
       let res = await this.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+this.bocaiType+`&currentPage=1&pageSize=100&dayStr=`+this.openPrizeTime);
           if(res.code===200){
 
-            for(let n in res.list) {
+            
 
+            if(this.bocaiType == '8266') {
+              for(let n in res.list) {
+
+                
+
+                if(res.list[n].result) {
+                  console.log('res.list[n].result',res.list[n].result);
+
+                  res.list[n].result = res.list[n].result.split(','); 
+                }
+              }
             }
+
             this.resultList = res.list;
+
+            console.log('this.resultList',this.resultList);
+
+            
+
+            // this.resultList = res.list.slice(0,5);
+            // for(let n in this.resultList) {
+            //   if(this.resultList[n].result) {
+            //     this.resultList[n].result = this.resultList[n].result.replace(/,/g,'');   
+            //   }
+            // }
+
+
           }
     }
 
