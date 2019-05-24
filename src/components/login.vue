@@ -1,4 +1,4 @@
-<template>
+<template v-if="window.versions == 'fenghuangjin'">
   <div id="loginDiv">
 
   <section id="login" data-htmltype="pc" class="section-wrap scroll-section-0" section_index="0">
@@ -6,6 +6,47 @@
     <div class="section dis_txt_high" name="scroll-section-0">
         <div class="login-main" id="login-content">
           <div class="fenghuang">凤凰</div>
+            <div id="login_form" name="section-content" class="dis_txt_high login-form animated animate-bounceInDown">
+                <div class="login-form-bg rel">
+                    <div class="input-area dis_txt_high">
+                      <p class="title">会员登录</p>
+                      <div class="info">
+                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                          <el-form-item label="帐　号：" prop="username">
+                            <el-input v-model="ruleForm.username" size="mini" placeholder="请输入帐号"></el-input>
+                          </el-form-item>
+                            <el-form-item label="密　码：" prop="password">
+                            <el-input v-model="ruleForm.password" type="password" size="mini" placeholder="请输入密码"></el-input>
+                          </el-form-item>
+                          <el-form-item label="验证码：" prop="yanzhengma">
+                            <el-input v-model="ruleForm.yanzhengma" maxlength="5" size="mini" placeholder="验证码"></el-input>
+                            <img class="yanzhengimg"  @click="getyanzheng" :src="'data:image/png;base64,'+tupian">
+                          </el-form-item>
+                          <el-form-item>
+                            <el-button size="mini" @click="login('ruleForm')">登录</el-button>
+                          </el-form-item>
+                        </el-form>
+                      </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  </div>
+</template>
+
+
+<template v-if="window.versions == 'beihaifen'">
+  <div id="loginDiv">
+
+  <section id="login" data-htmltype="pc" class="section-wrap scroll-section-0" section_index="0">
+
+    <div class="section dis_txt_high" name="scroll-section-0">
+        <div class="login-main" id="login-content">
+          <div class="fenghuang">北海</div>
             <div id="login_form" name="section-content" class="dis_txt_high login-form animated animate-bounceInDown">
                 <div class="login-form-bg rel">
                     <div class="input-area dis_txt_high">

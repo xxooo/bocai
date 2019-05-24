@@ -1,4 +1,4 @@
-<template>
+<template v-if="window.versions == 'fenghuangjin'">
   <div id="main">
     <div id="header">
       <el-header height="216">
@@ -94,6 +94,146 @@
   </div>
 </template>
 
+<template v-if="window.versions == 'beihaifen'">
+  <div id="main" class="beihaifen">
+    <div id="header">
+      <el-header height="216">
+        <div class="headerFather">
+          <div class="fenghuangimg"></div>
+          <div class="head-div">
+            <div class="centerDiv">
+              <div class="headImg">
+                <img :src="icons[imgUrl]">
+                <div class="preBocaiPeriods"><p class="qicip">-第 <span>{{preBocaiPeriods}}</span> 期-</p></div>
+              </div>
+              <div class="headLabel" :class="'headLabel'+preResult.length">
+                <div class="activeIndex"><h3>{{activeIndex}}</h3></div>
+                <div class="preResult">
+                  <!-- <ul v-if="hasResult" class="result-list">
+                    <li v-for="(item,index) in preResult" :class="'loadanimot'+index" class="bjpk-ran bjpk-ranNo-5 orangeShishiC bounce animated"></li>
+                  </ul> -->
+                  <ul class="result-list">
+                    <li v-for="(item,index) in preResult" :class="['loadanimot'+index,'sizeNum'+preResult.length]" class="bjpk-ran bjpk-ranNo-5 orangeShishiC"></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="history_num">
+                <div class="btn-group">
+                  <a id="show_history" class="active"><span>近期开奖</span></a>
+                </div>
+                <div class="history_run_num">
+                  <ul>
+                    <li v-for="item in resultList" :title="item.result">{{item.periods}}<span>{{item.result ? item.result : '暂未开奖'}}</span></li>
+                  </ul>
+                </div>                                 
+              </div>
+            </div>
+          </div>
+          <div class="rightMenu">
+            <ul>
+              <li @click="goRightMenu('instantorder')">即时注单</li>
+              <li @click="goRightMenu('bettingHistory')">下注历史</li>
+              <li @click="goRightMenu('personalinfo')">个人资讯</li>
+              <li v-if="userInfo.cashCredit == 0" @click="goRightMenu('caiwumanager')">财务管理</li>
+              <li @click="goRightMenu('lotteryResults')">开奖结果</li>
+              <li @click="goRightMenu('gameRule')">游戏规则</li>
+            </ul>
+          </div>
+        </div>
+      </el-header>
+      <el-menu
+          :default-active="activeIndex"
+          class="el-menu-demo"
+          mode="horizontal"
+          @select="handleSelect"
+          background-color="#1e140d"
+          text-color="#ebcb80"
+          active-text-color="#f6e9c7">
+
+          <el-submenu key="submenu" index="submenu">
+            <template slot="title">{{submenu}}</template>
+            <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item,index)">{{item.bocaiName}}</el-menu-item>
+          </el-submenu>
+          <el-menu-item index="2" @click="goRightMenu('personalinfo')">信用资料</el-menu-item>
+          <el-menu-item index="3" @click="goRightMenu('caiwumanager')" v-if="userInfo.cashCredit == 0">帐务查询</el-menu-item>
+          <el-menu-item index="4" @click="goRightMenu('instantorder')">下注明细</el-menu-item>
+          <el-menu-item index="5" @click="goRightMenu('bettingHistory')">结算报表</el-menu-item>
+          <el-menu-item index="6" @click="goRightMenu('lotteryResults')">历史开奖</el-menu-item>
+          <el-menu-item index="7" @click="goRightMenu('gameRule')">规则</el-menu-item>
+          <el-menu-item index="8" @click="$router.push({name:''})">修改密码</el-menu-item>
+          <el-menu-item index="9" @click="$router.push({name:''})">退出</el-menu-item>
+
+
+          <!-- <el-submenu index="1">
+            <template slot="title">账号管理</template>
+            <el-menu-item index="3-1" @click="$router.push({name:'subuser'})">子帐号</el-menu-item>
+            <el-menu-item index="3-2" @click="$router.push({name:'gudong'})">股东</el-menu-item>
+            <el-menu-item index="3-3" @click="$router.push({name:'zongdaili'})">总代理</el-menu-item>
+            <el-menu-item index="3-4" @click="$router.push({name:'daili'})">代理</el-menu-item>
+            <el-menu-item index="3-5" @click="$router.push({name:'huiyuan'})">会员</el-menu-item>
+            <el-menu-item index="3-6" @click="$router.push({name:'hidemember'})">隐单账号</el-menu-item>
+          </el-submenu>
+
+          <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item,index)" v-if="index*1 < 8">{{item.bocaiName}}</el-menu-item>
+          <el-submenu v-if="bocaiTypeList.length*1 > 8" key="submenu" index="submenu">
+            <template slot="title">{{submenu}}</template>
+            <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item,index)" v-if="index*1 > 7">{{item.bocaiName}}</el-menu-item>
+          </el-submenu> -->
+
+      </el-menu>
+
+      <!-- <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+      
+        <template v-if="[3,9].findIndex((n) => n==ruleId)>-1">
+          <el-menu-item index="1" @click="$router.push({name:'home'})">我的首页</el-menu-item>
+          <el-submenu index="2">
+            <template slot="title">盘势管理</template>
+            <el-menu-item v-for="(item,index) in bocaiMenu" :index="'2-'+index" @click="gotokaipan(item)" :key="index">{{item.name}}</el-menu-item>
+          </el-submenu>
+          <el-submenu index="3">
+            <template slot="title">账号管理</template>
+            <el-menu-item index="3-1" @click="$router.push({name:'subuser'})">子帐号</el-menu-item>
+            <el-menu-item index="3-2" @click="$router.push({name:'gudong'})">股东</el-menu-item>
+            <el-menu-item index="3-3" @click="$router.push({name:'zongdaili'})">总代理</el-menu-item>
+            <el-menu-item index="3-4" @click="$router.push({name:'daili'})">代理</el-menu-item>
+            <el-menu-item index="3-5" @click="$router.push({name:'huiyuan'})">会员</el-menu-item>
+            <el-menu-item index="3-6" @click="$router.push({name:'hidemember'})">隐单账号</el-menu-item>
+          </el-submenu> -->
+
+
+    </div>
+    
+    <el-main>
+      <div id="content">
+      <left-panel></left-panel>
+      <div id="routerMain" v-if="bocaiTypeList.length != 0">
+        <router-view></router-view>
+      </div>
+      </div>
+    </el-main>
+
+    <el-footer height="97">
+      <div>
+        <p>
+          <a href="javascript:;">游戏规则</a>
+          <a href="javascript:;">关于我们</a>
+          <a href="javascript:;">联络我们</a>
+          <a href="javascript:;">合作伙伴</a>
+          <a href="javascript:;">存款帮助</a>
+          <a href="javascript:;">取款帮助</a>
+          <a href="javascript:;">常见问题</a>
+          <a href="javascript:;">责任博彩</a>
+        </p> 
+        <p class="golden">比特娱乐城所提供的产品和服务，是由澳门政府 Macau,China Special Economic Zone. 授权和监管</p>
+        <p class="golden">Copyright © 比特娱乐城 Reserved</p>
+      </div>
+    </el-footer>
+
+    <message-dialog></message-dialog>
+
+  </div>
+</template>
+
 <script>
 
 import LeftPanel from '@/components/common/leftpanel';
@@ -115,7 +255,7 @@ export default {
       t2: null, //轮询  开奖结果
       t3: null, //轮询  动画
       t4: null, //轮询  开奖结果 快速
-      activeIndex: '重庆时时彩',
+      activeIndex: '',
       resultList: [],
       preBocaiPeriods: '',
       preResult: '',
@@ -541,12 +681,16 @@ export default {
 
         this.getnotice();
 
-        if(index*1 > 7) {
-         // console.log(item); 
-          this.submenu = item.bocaiName;
+        if(window.versions == 'fenghuangjin') {
+          if(index*1 > 7) {
+            this.submenu = item.bocaiName;
+          } else {
+            this.submenu = '更多';
+          }
         } else {
-          this.submenu = '更多';
+          this.submenu = item.bocaiName;
         }
+
 
         let path = '';
           switch (item.bocaiName) {

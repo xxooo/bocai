@@ -19,6 +19,12 @@ export default {
   margin-top: 60px;*/
 }
 </style>
+<!-- 凤凰土豪金 -->
+<!-- <style lang="less">
+	@import "assets/less/common-fenghuangjin.less";
+</style> -->
+
+<!-- 北海粉 -->
 <style lang="less">
-	@import "assets/less/common.less";
+  @import "assets/less/common-beihaifen.less";
 </style>
