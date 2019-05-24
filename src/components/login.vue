@@ -1,4 +1,4 @@
-<template v-if="window.versions == 'fenghuangjin'">
+<template v-if="curVersions == 'fenghuangjin'">
   <div id="loginDiv">
 
   <section id="login" data-htmltype="pc" class="section-wrap scroll-section-0" section_index="0">
@@ -39,7 +39,7 @@
 </template>
 
 
-<template v-if="window.versions == 'beihaifen'">
+<template v-if="curVersions == 'beihaifen'">
   <div id="loginDiv">
 
   <section id="login" data-htmltype="pc" class="section-wrap scroll-section-0" section_index="0">
@@ -86,6 +86,7 @@ export default {
   data () {
     let vm = this;
     return {
+      curVersions: '',
       password: '',
       username: '',
       securitycode: '',
@@ -122,12 +123,16 @@ export default {
     }
   },
   created() {
+    this.curVersions = window.versions;
+
+    console.log('this.curVersions',this.curVersions);
+
     this.getyanzheng();
     
     if (window.ENV == 'dev') {
       //console.log('研发自动登录');
 
-      this.logindev();
+      //this.logindev();
 
     } else {
       //普通用户登录

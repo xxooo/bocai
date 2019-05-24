@@ -17,9 +17,9 @@ window.url = 'http://47.106.13.12:8008';		//部署
 window.refreshTime = 20000;
 window.refreshTimeFast = 5000;
 
-//window.versions = 'fenghuangjin';
+window.versions = 'fenghuangjin';
 
-window.versions = 'beihaifen';
+//window.versions = 'beihaifen';
 
 
 
