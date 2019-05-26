@@ -20,11 +20,7 @@ export default {
 }
 </style>
 <!-- 凤凰土豪金 -->
-<!-- <style lang="less">
-	@import "assets/less/common-fenghuangjin.less";
-</style> -->
-
-<!-- 北海粉 -->
 <style lang="less">
-  @import "assets/less/common-beihaifen.less";
+	@import "assets/less/common.less";
 </style>
+
