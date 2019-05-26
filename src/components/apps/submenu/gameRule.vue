@@ -78,23 +78,14 @@
 
         <div v-if="cbocai == 'PC蛋蛋'"><div><h2>PC蛋蛋规则说明</h2> <p>「PC蛋蛋（幸运28）」按北京快乐8的开奖结果为基础</p> <p>北京快乐8开奖结果，每日179期，每天9:00 - 23:55，每5分钟公布一次北京快乐8开奖结果。</p> <p>排序后,分别按号码第 1~6 , 7~12 , 13~18 分为【1】【2】【3】三个区；</p> <p>「把每个区的数字分别相加：三个数值相加求余即为幸运28最终的开奖结果。</p> <p>例如北京快乐8开奖结果为：01,02,04,08,15,16, 25,31,40,41,43,47, 55,56,59,66,69,74, 78,79</p> <p>开奖结果即为：6,7,9;</p> <p>每个号码详细计算步骤：</p> <p>第一个号码：1+2+4+8+15+16 = 46%10 = 6</p> <p>第二个号码：25+31+40+41+43+47 = 227%10 = 7</p> <p>第三个号码： 55+56+59+66+69+74 = 379%10 = 9</p></div> <div><h3>具体游戏规则如下：</h3> <div class="red"><p>大：三个位置的数值相加和大于等于14,15,16,17,18,19,20,21,22,23,24,25,26,27为大。</p> <p>小：三个位置的数值相加和小于等于00,01,02,03,04,05,06,07,08,09,10,11,12,13为小。</p> <p>单：三个位置的数值相加和为单就为单。</p> <p>双：三个位置的数值相加和为双就为双。</p> <p>大单（三个数值和）：15,17,19,21,23,25,27为大单。</p> <p>小单（三个数值和）：01,03,05,07,09,11,13为小单。</p> <p>大双（三个数值和）：14,16,18,20,22,24,26为大双。</p> <p>小双（三个数值和）：00,02,04,06,08,10,12为小双。</p> <p>极大（三个数值和）：23,24,25,26,27为极大。</p> <p>极小（三个数值和）：00,01,02,03,04为极小。</p> <p>红波（三个数值和）：03,06,09,12,15,18,21,24为红波。</p> <p>绿波（三个数值和）：01,04,07,10,16,19,22,25为绿波。</p> <p>蓝波（三个数值和）：02,05,08,11,17,20,23,26为蓝波。</p> <p>注:当开奖结果为：0,13,14,27(所有买的波色皆输)视为全部不中奖！</p> <p>豹子：当期开出三個数字相同即为豹子</p> <p>特码（三个数值和）：单选取一個数字投注。</p></div></div></div>
 
+        <div v-if="cbocai == '广东快乐十分'"><div><h2>广东快乐十分规则说明</h2> <p>每期广东快乐十分开奖球数共八粒。每粒球除了总和玩法，其它都有单独的投注页面。投注时间为8分钟，等待开奖时间为2分钟，北京时间（GMT+8）从每天上午09:00:00开到晚上23:00:00；每隔 20 分钟开一次奖，每天开奖42期。</p></div> <div><h3>具体游戏规则如下：</h3> <div><p><span class="red">1.两面：</span>指单、双；大、小、尾大、尾小。</p> <p class="text-indent">单、双：号码为双数叫双，如8、16；号码为单数叫单，如19、5。</p> <p class="text-indent">大、小：开出之号码大于或等于11为大，小于或等于10为小。</p> <p class="text-indent">尾大、尾小：开出之尾数大于或等于5为尾大，小于或等于4为尾小。</p> <p class="text-indent">每一个号码为一投注组合，假如投注号码为开奖号码并在所投的球位置，视为中奖，其余情形视为不中奖。</p> <p><span class="red">2.中发白</span></p> <p class="text-indent">中：开出之号码为01、02、03、04、05、06、07</p> <p class="text-indent">发：开出之号码为08、09、10、11、12、13、14</p> <p class="text-indent">白：开出之号码为15、16、17、18、19、20</p> <p class="text-indent">3.方位</p> <p class="text-indent">东：开出之号码为01、05、09、13、17</p> <p class="text-indent">南：开出之号码为02、06、10、14、18</p> <p class="text-indent">西：开出之号码为03、07、11、15、19</p> <p class="text-indent">北：开出之号码为04、08、12、16、20</p> <p><span class="red">4.龙虎:</span>以第一球的中奖号码和第八球的中奖号码做为对奖号码。</p> <p class="text-indent">龙：开出之号码第一球的中奖号码大于第八球的中奖号码。如 第一球开出14 第八球开出09；第一球开出17 第八球开出08；第一球开出05 第八球开出01...中奖为龙。</p> <p class="text-indent">虎：开出之号码第一球的中奖号码小于第八球的中奖号码。如 第一球开出14 第八球开出16；第一球开出13 第八球开出18；第一球开出05 第八球开出08...中奖为虎。</p> <p class="red">5.正码</p> <p class="text-indent">从01至20中任意选择1个号码进行投注， 投注号码与开奖号码中任意1个位置的号码相符，即中奖。</p> <p><span class="red">6.总和单双：</span>所有8个开奖号码的数字总和值是单数为总和单，如数字总和值是31、51；所有8个开奖号码的数字总和值是双数为总和双，如数字总和是42、80；假如投注组合符合中奖结果，视为中奖，其余情形视为不中奖。</p> <p><span class="red">7.总和大小：</span>所有8个开奖号码的数字总和值85到132为总大；所有8个开奖号码的数字总和值36到83为总分小；所有8个开奖号码的数字总和值为84打和；如开奖号码为01、20、02、08、17、09、11，数字总和是68，则总分小。假如投注组合符合中奖结果，视为中奖，其余情形视为不中奖，打和不计算结果。</p> <p><span class="red">8.总尾大小：</span>所有8个开奖号码的数字总和数值的个位数大于或等于5为总尾大，小于或等于4为总尾小；假如投注组合符合中奖结果，视为中奖，其余情形视为不中奖。</p> <p><span class="red">9.选二任选：</span>指从01至20中任意选择2个号码对开奖号码中任意2个位置的投注。 投注号码与开奖号码中任意2个位置的号码相符，即中奖。</p> <p><span class="red">10.选二连组：</span>指从01至20中任意选择2个号码对开奖号码中按开奖顺序出现的2个连续位置的投注。 投注号码与开奖号码中按开奖顺序出现的2个连续位置的号码相符（顺序不限），即中奖。</p> <p><span class="red">11.选三任选：</span>指从01至20中任意选择3个号码对开奖号码中任意3个位置的投注。 投注号码与开奖号码中任意3个位置的号码相符，即中奖。</p> <p><span class="red">12.选三前组：</span>指从01至20中任意选择3个号码对开奖号码中按开奖顺序出现的前3个连续位置的投注。 投注号码与开奖号码中按开奖顺序出现的前3个位置的号码相符（顺序不限），即中奖。</p> <p><span class="red">13.选四任选：</span>指从01至20中任意选择4个号码，对开奖号码中任意4个位置的投注。 投注号码与开奖号码中任意4个位置的号码相符，即中奖。</p> <p><span class="red">14.选五任选：</span>指从01至20中任意选择5个号码，对开奖号码中任意5个位置的投注。 投注号码与开奖号码中任意5个位置的号码相符，即中奖。</p></div></div></div>
 
 
+        <div v-if="cbocai == '安徽快3'"><div><h2>安徽快3规则说明</h2> <p>该游戏的投注时间、开奖时间和开奖号码与“安徽快3”完全同步，北京时间（GMT+8）从每天上午 08:40:00开到晚上 22:00:00；每隔20分钟开一次奖,每天开奖40期。</p></div> <div><h3>具体游戏规则如下：</h3> <div><p>骰宝</p> <p class="red" style="line-height: 20px;">一、博彩者可在下列各瓣下注：</p> <p class="text-indent"><span class="red">1.小：</span>三粒骰子之点数总和由4点至10点；</p> <p class="text-indent"><span class="red">2.大：</span>三粒骰子之点数总和由11点至17点；注：若三粒骰子平面点数相同，通吃「大」、「小」各注。</p> <p class="text-indent"><span class="red">3.三军/鱼虾蟹：</span>任何一粒骰子出现选定之平面点数；</p> <p class="text-indent"><span class="red">4.围骰：</span>三粒骰子平面与选定点数相同；</p> <p class="text-indent"><span class="red">5.全骰：</span>在一点至六点内，三粒骰子平面点数相同；</p> <p class="text-indent"><span class="red">6.点数：</span>由4点至17点，三粒骰子平面点数之总和；</p> <p class="text-indent"><span class="red">7.长牌：</span>任两粒骰子之平面点数；</p> <p class="text-indent"><span class="red">8.短牌：</span>选定两粒骰子之平面点数；</p></div></div></div>
 
-<!-- 0: {id: null, userId: 5, bocaiId: 1, bocaiName: "重庆时时彩", minimumBet: null, highestPayout: null,…}
-1: {id: null, userId: 5, bocaiId: 8223, bocaiName: "PC蛋蛋", minimumBet: null, highestPayout: null,…}
-2: {id: null, userId: 5, bocaiId: 8266, bocaiName: "北京快乐8", minimumBet: null, highestPayout: null,…}
-3: {id: null, userId: 5, bocaiId: 8374, bocaiName: "广东11选5", minimumBet: null, highestPayout: null,…}
-4: {id: null, userId: 5, bocaiId: 8498, bocaiName: "江苏快3", minimumBet: null, highestPayout: null,…}
-5: {id: null, userId: 5, bocaiId: 8555, bocaiName: "幸运飞艇", minimumBet: null, highestPayout: null,…}
-6: {id: null, userId: 5, bocaiId: 8806, bocaiName: "北京PK拾", minimumBet: null, highestPayout: null,…}
-7: {id: null, userId: 5, bocaiId: 8808, bocaiName: "六合彩", minimumBet: null, highestPayout: null,…}
-8: {id: null, userId: 5, bocaiId: 8809, bocaiName: "广东快乐十分", minimumBet: null, highestPayout: null,…}
-9: {id: null, userId: 5, bocaiId: 8810, bocaiName: "安徽快3", minimumBet: null, highestPayout: null,…}
-10: {id: null, userId: 5, bocaiId: 8811, bocaiName: "山东11选5", minimumBet: null, highestPayout: null,…}
-11: {id: null, userId: 5, bocaiId: 8813, bocaiName: "江西11选5", minimumBet: null, highestPayout: null,…}
-12: {id: null, userId: 5, bocaiId: 8815, bocaiName: "极速时时彩", minimumBet: null, highestPayout: null,…}
-13: {id: null, userId: 5, bocaiId: 9057, bocaiName: "极速赛车", minimumBet: null, highestPayout: null,…} -->
+        <div v-if="cbocai == '极速赛车'"><div><h2>极速赛车规则说明</h2> <p>该游戏每天24小时开奖，每1分钟开一次奖,每天开奖1440期。</p></div> <div><h3>具体游戏规则如下：</h3> <div><p><span class="red">1～10 两面：</span>指 单、双；大、小。</p> <p class="text-indent"><span class="red">单、双：</span>号码为双数叫双，如4、8；号码为单数叫单，如5、9。</p> <p class="text-indent"><span class="red">大、小：</span>开出之号码大于或等于6为大，小于或等于5为小。</p> <p class="text-indent"><span class="red">第一名～第十名 车号指定：</span>每一个车号为一投注组合，开奖结果“投注车号”对应所投名次视为中奖，其余情形视为不中奖。</p> <p><span class="red">1～5龙虎</span></p> <p class="text-indent"><span class="red">冠  军 龙/虎：</span>“第一名”车号大于“第十名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p class="text-indent"><span class="red">亚  军 龙/虎：</span>“第二名”车号大于“第九名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p class="text-indent"><span class="red">第三名 龙/虎：</span>“第三名”车号大于“第八名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p class="text-indent"><span class="red">第四名 龙/虎：</span>“第四名”车号大于“第七名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p class="text-indent"><span class="red">第五名 龙/虎：</span>“第五名”车号大于“第六名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p><span class="red">冠军车号＋亚军车号＝冠亚和值（为3~19)</span></p><p class="text-indent"><span class="red">冠亚和单双：</span>“冠亚和值”为单视为投注“单”的注单视为中奖，为双视为投注“双”的注单视为中奖，其余视为不中奖。</p> <p class="text-indent"><span class="red">冠亚和大小：</span>“冠亚和值”大于11时投注“大”的注单视为中奖，小于或等于11时投注“小”的注单视为中奖，其余视为不中奖。</p> <p class="text-indent"><span class="red">冠亚和指定：</span>“冠亚和值”可能出现的结果为3～19， 投中对应“冠亚和值”数字的视为中奖，其余视为不中奖。</p></div></div></div>
+
+<!-- 13: {id: null, userId: 5, bocaiId: 9057, bocaiName: "极速赛车", minimumBet: null, highestPayout: null,…} -->
 
             
 
@@ -114,8 +105,8 @@ export default {
   data() {
     return {
       bocaiTypeList: [],
-      bocaiTypeId: '1',
-      cbocai: '重庆时时彩',
+      bocaiTypeId: '',
+      cbocai: '',
       cUserdeList: []
     }
   },
@@ -134,6 +125,9 @@ export default {
 
           if(res.code===200){
             this.bocaiTypeList = res.bocaiTypeList;
+            this.bocaiTypeId = this.bocaiTypeList[0].bocaiId;
+            this.cbocai = this.bocaiTypeList[0].bocaiName;
+
           }
     }
   },
