@@ -135,7 +135,7 @@
         this.bocaiTypeId = data;
       });
       bus.$on('getbocaiCategoryId', (data) => {
-        console.log('gevie ?',data)
+        //console.log('gevie ?',data)
         this.bocaiCategoryId = data;
       });
       bus.$on('getbocaiTypeName', (data) => {

@@ -143,14 +143,14 @@
 
           if(this.noneResult) {
 
-            console.log('this.noneResult');
+            //console.log('this.noneResult');
             this.timeLeft = '--' + ":" + '--' + ":" + '--';
 
             bus.$emit('isOpenOdds', false);
 
             $('#clock').addClass('gray');
           } else {
-            console.log('!!!!this.noneResult');
+            //console.log('!!!!this.noneResult');
             this.timeLeft = '00' + ":" + '00' + ":" + '00';
 
             bus.$emit('isOpenOdds', false);

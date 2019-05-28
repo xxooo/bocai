@@ -115,12 +115,12 @@ export default {
       t2: null, //轮询  开奖结果
       t3: null, //轮询  动画
       t4: null, //轮询  开奖结果 快速
-      activeIndex: '重庆时时彩',
+      activeIndex: '',
       resultList: [],
       preBocaiPeriods: '',
       preResult: '',
       hasResult: false,
-      bocaiTypeId: '1',
+      bocaiTypeId: '',
       bocaiTypeList: [],
       submenu: '更多',
       icons:[
@@ -134,7 +134,8 @@ export default {
             require('@/assets/img/jiangsukuaisan.png'),
             require('@/assets/img/beijingkuaile8.png'),
             require('@/assets/img/jisusaiche.png'),
-            require('@/assets/img/jisudubo.png')
+            require('@/assets/img/jisudubo.png'),
+            require('@/assets/img/marksix.png')
           ],
       messageinfo: '',
       centerDialogVisible: false,
@@ -423,7 +424,11 @@ export default {
 
           if(res.code===200){
             this.bocaiTypeList = res.bocaiTypeList;
+
+            this.activeIndex = res.bocaiTypeList[0].bocaiName;
+            this.bocaiTypeId = res.bocaiTypeList[0].bocaiId;
           }
+
     },
     async getPrizeResult() { 
 
@@ -510,6 +515,12 @@ export default {
             this.imgUrl = 10;
             this.submenu = '极速时时彩';
             break;
+          case 'marksix':
+            this.bocaiTypeId = '8808';
+            this.imgUrl = 11;
+            this.submenu = '六合彩';
+            break;
+            marksix
         }
 
 
@@ -532,10 +543,10 @@ export default {
     },
     async getOdds(item,index) {
 
-      //console.log('item---getnotice',item);
+      console.log('item---getnotice',item);
       //console.log('item---index',index);
 
-      if(['重庆时时彩','幸运飞艇','北京PK拾','山东11选5','广东11选5','江西11选5','PC蛋蛋','江苏快3','北京快乐8','极速赛车','极速时时彩'].findIndex((n) => n==item.bocaiName)>-1) {
+      if(['重庆时时彩','幸运飞艇','北京PK拾','山东11选5','广东11选5','江西11选5','PC蛋蛋','江苏快3','北京快乐8','极速赛车','极速时时彩','六合彩'].findIndex((n) => n==item.bocaiName)>-1) {
 
         this.activeIndex = item.bocaiName;
 
@@ -593,6 +604,10 @@ export default {
             case '极速时时彩':
               path = 'jisudubo';
               this.imgUrl = 10;
+              break;
+            case '六合彩':
+              path = 'marksix';
+              this.imgUrl = 11;
               break;
           }
         this.bocaiTypeId = item.bocaiId;
