@@ -99,6 +99,7 @@
 import LeftPanel from '@/components/common/leftpanel';
 import PageFooter from '@/components/common/pagefooter';
 import MessageDialog from '@/components/common/messagedialog';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -121,7 +122,6 @@ export default {
       preResult: '',
       hasResult: false,
       bocaiTypeId: '',
-      bocaiTypeList: [],
       submenu: '更多',
       icons:[
             require('@/assets/img/chongqindubo.png'),
@@ -144,10 +144,12 @@ export default {
     }
   },
   async created() {
-    this.getBocai();
-    this.openPrizeTime = this.$timestampToTimeRi(new Date());
+    if(this.bocaiTypeList.length == 0) {
+      console.log(6543);
+      this.getbocai();
+    }
 
-    this.getPrizeResult();
+    this.openPrizeTime = this.$timestampToTimeRi(new Date());
 
     this.myTimer();
 
@@ -155,10 +157,15 @@ export default {
 
     this.getbocaoName();
 
+    this.getPrizeResult();
+
     this.getcUserInfo();
 
   },
   computed: {
+    ...mapGetters({
+      bocaiTypeList:'getbocaiTypeList'
+    }),
     bocaiName: function() {
       return this.$route.name
     }
@@ -167,6 +174,13 @@ export default {
       this.clearTime();
   },
   methods: {
+    async getbocai() {
+      let res = await this.$get(`${window.url}/api/getBocai`);
+
+      if(res.code===200){
+        store.commit('updatebocaiTypeList',res.bocaiTypeList);
+      }
+    },
     clearTime() {
       if (this.t1) {
         clearTimeout(this.t1)
@@ -230,6 +244,8 @@ export default {
                   this.preResult = '等待中';
                 } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
                   this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
+                } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待';
                 } else {
                   this.preResult = '等待开奖中';
                 }
@@ -271,6 +287,8 @@ export default {
                   this.preResult = '等待中';
                 } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
                   this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中中';
+                } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待';
                 } else {
                   this.preResult = '等待开奖中';
                 }
@@ -310,6 +328,8 @@ export default {
                   this.preResult = '等待中';
                 } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
                   this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
+                } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待';
                 } else {
                   this.preResult = '等待开奖中';
                 }
@@ -356,6 +376,8 @@ export default {
                   this.preResult = '等待中';
                 } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
                   this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
+                } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待';
                 } else {
                   this.preResult = '等待开奖中';
                 }
@@ -400,6 +422,8 @@ export default {
                   this.preResult = '等待中';
                 } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
                   this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
+                } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                  this.preResult = '等待开奖中等待';
                 } else {
                   this.preResult = '等待开奖中';
                 }
@@ -418,17 +442,6 @@ export default {
     },
     handleSelect(key, keyPath) {
       //this.activeIndex = key;
-    },
-    async getBocai() {
-      let res = await this.$get(`${window.url}/api/getBocai`);
-
-          if(res.code===200){
-            this.bocaiTypeList = res.bocaiTypeList;
-
-            this.activeIndex = res.bocaiTypeList[0].bocaiName;
-            this.bocaiTypeId = res.bocaiTypeList[0].bocaiId;
-          }
-
     },
     async getPrizeResult() { 
 
@@ -463,64 +476,63 @@ export default {
           case 'chongqindubo':
             this.bocaiTypeId = '1';
             this.imgUrl = 0;
-            this.submenu = '重庆时时彩';
+            //this.submenu = '重庆时时彩';
             break;
           case 'luckyairship':
             this.bocaiTypeId = '8555';
             this.imgUrl = 1;
-            this.submenu = '幸运飞艇';
+            //this.submenu = '幸运飞艇';
             break;
           case 'beijingpk10':
             this.bocaiTypeId = '8806';
             this.imgUrl = 2;
-            this.submenu = '北京PK拾';
+            //this.submenu = '北京PK拾';
             break;
           case 'shandong11xuan5':
             this.bocaiTypeId = '8811';
             this.imgUrl = 3;
-            this.submenu = '山东11选5';
+            //this.submenu = '山东11选5';
             break;
           case 'guangdong11xuan5':
             this.bocaiTypeId = '8374';
             this.imgUrl = 4;
-            this.submenu = '广东11选5';
+            //this.submenu = '广东11选5';
             break;
           case 'jiangxi11xuan5':
             this.bocaiTypeId = '8813';
             this.imgUrl = 5;
-            this.submenu = '极速时时彩';
+            //this.submenu = '极速时时彩';
             break;
           case 'pcdandan':
             this.bocaiTypeId = '8223';
             this.imgUrl = 6;
-            this.submenu = 'PC蛋蛋';
+            //this.submenu = 'PC蛋蛋';
             break;
           case 'jiangsukuaisan':
             this.bocaiTypeId = '8498';
             this.imgUrl = 7;
-            this.submenu = '江苏快3';
+            //this.submenu = '江苏快3';
             break;
           case 'beijingkuaile8':
             this.bocaiTypeId = '8266';
             this.imgUrl = 8;
-            this.submenu = '北京快乐8';
+            //this.submenu = '北京快乐8';
             break;
           case 'jisusaiche':
             this.bocaiTypeId = '9057';
             this.imgUrl = 9;
-            this.submenu = '极速赛车';
+            //this.submenu = '极速赛车';
             break;
           case 'jisudubo':
             this.bocaiTypeId = '8815';
             this.imgUrl = 10;
-            this.submenu = '极速时时彩';
+            //this.submenu = '极速时时彩';
             break;
           case 'marksix':
             this.bocaiTypeId = '8808';
             this.imgUrl = 11;
-            this.submenu = '六合彩';
+            //this.submenu = '六合彩';
             break;
-            marksix
         }
 
 
@@ -638,6 +650,15 @@ export default {
     });
     bus.$on('curactiveIndex', (data) => {
         this.activeIndex = data;
+
+        for(let n in this.bocaiTypeList) {
+          if(this.bocaiTypeList[n].bocaiName == data) {
+            if(+n > 7) {
+              this.submenu = data;
+            }
+          }
+        }
+
     });
 
   },

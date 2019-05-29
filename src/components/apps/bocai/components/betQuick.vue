@@ -276,7 +276,7 @@
                   }
                 }
 
-                bus.$emit('getnormalPay', false); 
+                //bus.$emit('getnormalPay', false); 
 
                 this.orderOddsTo();
 
@@ -291,6 +291,7 @@
 
         let reg = /^[\u2E80-\u9FFF]+$/;
         if(reg.test(this.moneyOrder)){
+          console.log('this.moneyOrder111',this.moneyOrder);
           this.$alertMessage('请确认注单!', '温馨提示');
         } else if(!this.disableBtn) {
           this.$alertMessage('请确认注单!', '温馨提示');
@@ -329,7 +330,9 @@
             //console.log('this.orderList',this.orderList);
 
           } else {
-            //console.log('快捷');
+            console.log('快捷');
+
+            console.log('this.moneyOrder222',this.moneyOrder);
 
             if(this.orderDataList.length == 0) {
               this.$alertMessage('请确认注单!', '温馨提示');

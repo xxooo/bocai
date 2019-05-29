@@ -34,10 +34,10 @@
                 <div>
                   <div class="order-table">
                       <p class="te_btn">
-                        <button class="active" @click="">特码A</button> 
-                        <button class="">特码B</button>
+                        <button class="temaAclass active" @click="showtemaAtoB('temaAclass',true)">特码A</button> 
+                        <button class="temaBclass" @click="showtemaAtoB('temaBclass',false)">特码B</button>
                       </p>
-                      <table>
+                      <table v-if="showtemaAorB">
                         <tr>
                           <th colspan="10">{{temaAData.name}}</th>
                         </tr>
@@ -54,8 +54,8 @@
                           <th>赔率</th>
                         </tr>
 
-                          <tr>
-                            <template v-for="(item,index) in temaAData.list.slice(0,5)" >
+                          <tr v-for="(itemPa,index) in temaAData.list">
+                            <template v-for="(item,index) in itemPa" >
                               <td class="tdLeft ordersTdOver" width="8%" :class="'temaAData'+item.oddsId" @click="orderTd(temaAData,item,'temaAData')" @mouseenter="overShow(item,'temaAData')" @mouseleave="outHide(item,'temaAData')"><div class="ball-icon" >{{item.oddsName}}</div></td>
 
                               <td class="tdRight" :class="'temaAData'+item.oddsId" @click="orderTd(temaAData,item,'temaAData')" @mouseenter="overShow(item,'temaAData')" @mouseleave="outHide(item,'temaAData')">
@@ -66,21 +66,81 @@
                               </td>
                             </template>
                           </tr>
-                          <!-- <tr>
-                            <template v-for="(item,index) in temaAData.list" v-if="index*1 > 3">
-                              <td class="tdLeft" width="8%" :class="'temaAData'+item.oddsId" @click="orderTd(temaAData,item,'temaAData')" @mouseenter="overShow(item,'temaAData')" @mouseleave="outHide(item,'temaAData')">{{item.oddsName}}</td>
-                              <td class="tdRight" :class="'temaAData'+item.oddsId" @click="orderTd(temaAData,item,'temaAData')" @mouseenter="overShow(item,'temaAData')" @mouseleave="outHide(item,'temaAData')"> 
+                      </table>
+                      <table v-else>
+                        <tr>
+                          <th colspan="10">{{temaBData.name}}</th>
+                        </tr>
+                        <tr>
+                          <th>号码</th> 
+                          <th>赔率</th> 
+                          <th>号码</th> 
+                          <th>赔率</th> 
+                          <th>号码</th> 
+                          <th>赔率</th> 
+                          <th>号码</th> 
+                          <th>赔率</th> 
+                          <th>号码</th> 
+                          <th>赔率</th>
+                        </tr>
+
+                          <tr v-for="(itemPa,index) in temaBData.list">
+                            <template v-for="(item,index) in itemPa">
+                              <td class="tdLeft ordersTdOver" width="8%" :class="'temaBData'+item.oddsId" @click="orderTd(temaBData,item,'temaBData')" @mouseenter="overShow(item,'temaBData')" @mouseleave="outHide(item,'temaBData')"><div class="ball-icon" >{{item.oddsName}}</div></td>
+
+                              <td class="tdRight" :class="'temaBData'+item.oddsId" @click="orderTd(temaBData,item,'temaBData')" @mouseenter="overShow(item,'temaBData')" @mouseleave="outHide(item,'temaBData')">
                                 <ul>
-                                  <li>
-                                    <span class="odds-font">{{item.odds}}</span>
-                                  </li>
-                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(temaAData,item,'temaAData',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
+                                  <li><span class="odds-font">{{item.odds}}</span></li>
+                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(temaBData,item,'temaBData',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
                                 </ul>
                               </td>
                             </template>
-                          </tr> -->
+                          </tr>
                       </table>
 
+                      <table>
+                        <tr>
+                          <th>号码</th> 
+                          <th>赔率</th> 
+                          <th>号码</th> 
+                          <th>赔率</th> 
+                          <th>号码</th> 
+                          <th>赔率</th> 
+                          <th>号码</th> 
+                          <th>赔率</th> 
+                        </tr>
+
+                          <tr v-for="(itemPa,index) in temaABallData.list.slice(0,4)">
+                            <template v-for="(item,index) in itemPa" >
+                              <td  class="tdLeft ordersTdOver" :class="'temaABallData'+item.oddsId" @click="orderTd(temaABallData,item,'temaABallData')" @mouseenter="overShow(item,'temaABallData')" @mouseleave="outHide(item,'temaABallData')">{{item.oddsName}}</td>
+
+                              <td class="tdRight" :class="'temaABallData'+item.oddsId" @click="orderTd(temaABallData,item,'temaABallData')" @mouseenter="overShow(item,'temaABallData')" @mouseleave="outHide(item,'temaABallData')">
+                                <ul>
+                                  <li><span class="odds-font">{{item.odds}}</span></li>
+                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(temaABallData,item,'temaABallData',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
+                                </ul>
+                              </td>
+                            </template>
+                          </tr>
+                          <tr>
+                            <template v-for="(item,index) in temaABallData.list[4]">
+                              <td  class="tdLeft ordersTdOver"></td>
+                              <td class="tdRight"></td>                   
+                              <td  class="tdLeft ordersTdOver"></td>
+                              <td class="tdRight"></td>  
+                              <td  class="tdLeft ordersTdOver"></td>
+                              <td class="tdRight"></td>  
+                              <td  class="tdLeft ordersTdOver" width="8%" :class="'temaABallData'+item.oddsId" @click="orderTd(temaABallData,item,'temaABallData')" @mouseenter="overShow(item,'temaABallData')" @mouseleave="outHide(item,'temaABallData')">{{item.oddsName}}</td>
+
+                              <td class="tdRight" :class="'temaABallData'+item.oddsId" @click="orderTd(temaABallData,item,'temaABallData')" @mouseenter="overShow(item,'temaABallData')" @mouseleave="outHide(item,'temaABallData')">
+                                <ul>
+                                  <li><span class="odds-font">{{item.odds}}</span></li>
+                                  <li v-if="normalPay"><input type="text" v-model="item.normalMoney" v-on:input ="inputFunc(temaABallData,item,'temaABallData',item.normalMoney)" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/"></li>
+                                </ul>
+                              </td>
+                            </template>
+                          </tr>
+                      </table>
 
                   </div>
                 </div>
@@ -139,7 +199,8 @@ export default {
 
       temaAData: {},
       temaBData: {},
-      temaABallData: {}
+      temaABallData: {},
+      showtemaAorB: true
     }
   },
   computed: {
@@ -158,6 +219,11 @@ export default {
       });
   },
   methods: {
+    showtemaAtoB(classa,ifture) {
+      $('.'+classa).addClass('active').siblings().removeClass('active');
+      this.showtemaAorB = ifture;
+      this.allQingkong();
+    },
     qingkong() {
       $('.bet_box .orders td').removeClass('selected');
       this.orderDataList = [];
@@ -370,7 +436,6 @@ export default {
     shuaiXuanDatas(dataList) {
 
 
-//       bocaiCategoryList: [{name: "特码", id: 8816}, {name: "特肖", id: 8935}, {name: "特码头尾数", id: 8948}, {name: "两面", id: 8965},…]
 // 0: {name: "特码", id: 8816}
 // 1: {name: "特肖", id: 8935}
 // 2: {name: "特码头尾数", id: 8948}
@@ -391,25 +456,45 @@ export default {
 // 17: {name: "连码", id: 9021}
 // 18: {name: "过关", id: 9023}
 // 19: {name: "生肖两面", id: 9030}
-// code: 200
-// msg: "success"
-// oddsList: [{name: "特码A",…}, {name: "特码B",…}, {name: "特码A特码B共有",…}]
-// 0: {name: "特码A",…}
-// 1: {name: "特码B",…}
-// 2: {name: "特码A特码B共有",…}
-
 
       if(this.showOdds == '特码') {
 
         for(let m in dataList) {
           if(dataList[m].name == '特码A') {
+            dataList[m].list = _.chunk(dataList[m].list,5);
             this.temaAData = dataList[m];
           }
           if(dataList[m].name == '特码B') {
+            dataList[m].list = _.chunk(dataList[m].list,5);
             this.temaBData = dataList[m];
           }
           if(dataList[m].name == '特码A特码B共有') {
-            this.temaABallData = dataList[m];
+
+            dataList[m].list = _.chunk(dataList[m].list,4);
+
+            let arr1 = [];
+            let arr2 = [];
+            let arr3 = [];
+            let arr4 = [];
+
+            for(let n in dataList[m].list) {
+              if(+n < 4) {
+                arr1.push(dataList[m].list[n][0]);
+                arr2.push(dataList[m].list[n][1]);
+                arr3.push(dataList[m].list[n][2]);
+                arr4.push(dataList[m].list[n][3]);
+              }
+            }
+
+
+            this.temaABallData.id = dataList[m].id;
+            this.temaABallData.name = dataList[m].name;
+            this.temaABallData.list = [];
+            this.temaABallData.list.push(arr1);
+            this.temaABallData.list.push(arr2);
+            this.temaABallData.list.push(arr3);
+            this.temaABallData.list.push(arr4);
+            this.temaABallData.list.push(dataList[m].list[4]);
           }
         }
       }

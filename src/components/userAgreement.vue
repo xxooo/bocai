@@ -37,9 +37,57 @@ export default {
   },
   methods: {
     async gotobocai() {
+      let res = await this.$get(`${window.url}/api/getBocai`);
 
-      this.$router.push({name: 'chongqindubo'}); //判断获取列表的第一个 ，跳第一个博彩，另外，不同意，要重新登录
+          if(res.code===200){
+
+            store.commit('updatebocaiTypeList',res.bocaiTypeList);
+
+            let path = '';
+            switch (res.bocaiTypeList[0].bocaiName) {
+              case '重庆时时彩':
+              path = 'chongqindubo';
+              break;
+              case '幸运飞艇':
+              path = 'luckyairship';
+              break;
+              case '北京PK拾':
+              path = 'beijingpk10';
+              break;
+              case '山东11选5':
+              path = 'shandong11xuan5';
+              break;
+              case '广东11选5':
+              path = 'guangdong11xuan5';
+              break;
+              case '江西11选5':
+              path = 'jiangxi11xuan5';
+              break;
+              case 'PC蛋蛋':
+              path = 'pcdandan';
+              break;
+              case '江苏快3':
+              path = 'jiangsukuaisan';
+              break;
+              case '北京快乐8':
+              path = 'beijingkuaile8';
+              break;
+              case '极速赛车':
+              path = 'jisusaiche';
+              break;
+              case '极速时时彩':
+              path = 'jisudubo';
+              break;
+              case '六合彩':
+              path = 'marksix';
+              break;
+            }
+
+            this.$router.push({name: path});
+          }
+      
     }
+
   }
 }
 </script>
