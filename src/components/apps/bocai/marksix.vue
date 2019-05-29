@@ -29,7 +29,7 @@
             </div>
 
 
-            <template v-if="showOdds == 'PC蛋蛋'">
+            <template v-if="showOdds == '特码'">
 
                 <div>
                   <div class="order-table">
@@ -489,7 +489,7 @@ export default {
           if(dataList[m].name == '特码B') {
             this.temaBData = dataList[m];
           }
-          if(dataList[m].name == '特码') {
+          if(dataList[m].name == '特码A特码B共有') {
             this.temaABallData = dataList[m];
           }
         }
