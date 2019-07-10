@@ -280,59 +280,6 @@ export default {
         bus.$emit('getcashBalance', res.data.cashBalance);
         bus.$emit('getcuserId', res.data.id);
 
-        // "currentPage": 0,
-        // "pageSize": 10,
-        // "startDate": null,
-        // "endDate": null,
-        // "id": "51",//用户ID
-        // "username": "aydwhuiyuan1",//用户注册名称
-        // "nickname": "ydwhuiyuan1",//用户昵称
-        // "password": "",
-        // "cashBalance": 20421200,//可用金额
-        // "lockBalance": 0,//锁定金额
-        // "alreadyBalance": 800,//已下注金额
-        // "ruleId": 13,
-        // "bankName": "1111",
-        // "bankNum": "1111",
-        // "bankUserName": "1111",
-        // "phone": "1111",
-        // "weixin": "1111",
-        // "zhifubao": "1111",
-        // "putForwardPassword": "1234",
-        // "cashCredit": 0,
-        // "creditType": null,
-        // "quota": 0,
-        // "handicap": "a",//用户盘口：a,b,c,d
-        // "companyid": "159",
-        // "pid": "164",
-        // "userClass": "1-2-159-160-163-164-51",
-        // "isFrozen": 0,
-        // "tingyaShouya": 0,
-        // "userType": 1,
-        // "status": 1,
-        // "createDate": 1532001115000,
-        // "updateDate": 1534748779000,
-        // "lockingQuota": null,
-        // "isOnline": 1,
-        // "quotaInfo": null,
-        // "aUserOccupied": null,
-        // "isHide": 1,
-        // "bindingIp": "192.168.1.75",
-        // "loginIp": "0:0:0:0:0:0:0:1",
-        // "loginWebsite": null,
-        // "teamId": 1,
-        // "loginTime": 1533883022000,
-        // "systemStr": null,
-        // "phandicapA": null,
-        // "phandicapB": null,
-        // "phandicapC": null,
-        // "phandicapD": null,
-        // "pAllotOccupied": null,
-        // "pCashCredit": null,
-        // "pnickname": null,
-        // "pusername": null,
-        // "pquota": null
-
       }
     }
   }
