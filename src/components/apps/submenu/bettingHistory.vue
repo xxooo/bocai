@@ -69,7 +69,7 @@
                   </tr>
                   <tr v-else v-for="item in afterWeekPage">
                     <!-- <td style="line-height: 26px;"><span>{{item.createDateStr}}</span></td>  -->
-                    <td style="line-height: 26px;"><a title="历史详情" class="link" @click="getbetInfo(item.createDateStr)">{{item.createDateStr}}</a></td>
+                    <td style="line-height: 26px;"><a title="历史详情" class="link" @click="goBetInfo(item.createDateStr)">{{item.createDateStr}}</a></td>
                     <td style="line-height: 26px;">{{item.betsMoneySum}}</td> 
                     <td style="line-height: 26px;">{{item.winnerMoneySum}}</td> 
                     <td style="line-height: 26px;">{{item.orderCount}}</td>
@@ -107,7 +107,7 @@
                     <td><p><span class="odds-font">{{item.bocaiCategory2Name}} {{item.bocaiOddName}}</span>@<span class="odds-font">{{item.bocaiOdds}}</span></p></td> 
                     <td>{{item.betsMoney}}</td> 
                     <td>{{item.winnerMoney}}</td> 
-                    <td class="red">{{item.paicai}}</td> 
+                    <td class="red">{{+item.paicai+item.userDewater}}</td> 
                     <td><span>{{item.status=='1'?'已结算' : '未结算'}}</span></td>
                   </tr>
 
@@ -187,13 +187,16 @@ export default {
       this.getbetInfo();
     },
     goBetInfo(daytime) {
+
+      console.log('daytime',daytime);
+
       this.dayStr = daytime;
 
       this.getbetInfo();
     },
     async getbetInfo() {
 
-      let res = await this.$get(`${window.url}/api/hisOrderInfo?currentPage=`+this.currentPage+`&pageSize=10&dayStr=`+this.dayStr);
+      let res = await this.$get(`${window.url}/api/hisOrderInfo?currentPage=`+this.currentPage+`&pageSize=25&dayStr=`+this.dayStr);
       if(res.code===200){
         this.betInfo = res.page;
         this.sumData = res.sumData[0];

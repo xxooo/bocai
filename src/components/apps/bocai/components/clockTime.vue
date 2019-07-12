@@ -8,9 +8,8 @@
       <span>当前彩种输赢:</span>
       <span class="red">{{bocaiInfoData.winnerMoneySum}}</span>
     </div>
-    <div class="kaipangTime">
       <div class="qiciDiv">
-        <!-- <p>第 <span class="qiciSpan">{{bocaiInfoData.bocaiPeriods}}</span> 期</p> -->
+        <p>第 <span class="period_yellow">{{bocaiInfoData.bocaiPeriods}}</span> 期</p>
         <p>距离下期开盘</p>              
       </div>
       <div id="clockTimes">
@@ -18,7 +17,6 @@
           <span id="clock">{{timeLeft}}</span>
         </center>
       </div>
-    </div>    
   </div>
 </template>
 
@@ -393,8 +391,23 @@ button.btn-delete {
     background-color: #9b7547;
 }
 .qiciDiv {
-  height: 42px;
-  line-height: 42px;
+    padding: 0 16px;
+     margin-top: 5px; 
+    line-height: 60px;
+    border-left: 1px solid #a58966;
+}
+.qiciDiv p {
+    line-height: 24px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff1cf;
+    text-align: center;
+}
+.qiciDiv p .period_yellow {
+    color: #ffc886;
+}
+#clockTimes {
+  vertical-align: middle;
 }
 </style>
 
