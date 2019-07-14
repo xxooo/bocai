@@ -10,7 +10,7 @@
 
           <div class="default-list">
             <ul class="game-list">
-              <li v-for="item in bocaiTypeList" class="gameNav" :class="['bocai'+item.bocaiId,item.bocaiId == '1' ? 'active' : '']" @click="getcuserInfo(item)">{{item.bocaiName}}</li>
+              <li v-for="item in bocaiTypeList" class="gameNav" :class="['bocai'+item.bocaiId,item.bocaiId == bocaiTypeId ? 'active' : '']" @click="getcuserInfo(item)">{{item.bocaiName}}</li>
             </ul> 
 
             <div class="statement">
@@ -46,36 +46,35 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
   },
   data() {
     return {
-      bocaiTypeList: [],
-      bocaiTypeId: '1',
-      cbocai: '重庆时时彩',
+      cbocai: '',
       cUserdeList: []
     }
   },
   created() {
     this.cUserdewater(this.bocaiTypeId);
-    this.getBocai();
+    this.cbocai = this.bocaiName;
+
+    console.log('cbocai',this.cbocai);
   },
   computed: {
+    ...mapGetters({
+      bocaiTypeList: 'getbocaiTypeList',
+      bocaiTypeId: 'getbocaiTypeId',
+      bocaiName: 'getbocaiName'
+    }) 
   },
   methods: {
     getcuserInfo(item) {
       this.cbocai = item.bocaiName;
       this.cUserdewater(item.bocaiId);
       $('.bocai'+item.bocaiId).addClass('active').siblings().removeClass('active');
-    },
-    async getBocai() {
-      let res = await this.$get(`${window.url}/api/getBocai`);
-
-          if(res.code===200){
-            this.bocaiTypeList = res.bocaiTypeList;
-          }
     },
     changeboType(data) {
       this.cUserdewater(data);

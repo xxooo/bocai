@@ -474,7 +474,7 @@ export default {
                 that.activeIndex = that.bocaiCategoryList[0].name;
                 that.shuaiXuanDatas(result.oddsList);
 
-                bus.$emit('getbocaiTypeId', that.curBocaiTypeId); 
+                store.commit('updatebocaiTypeId',that.curBocaiTypeId);
                 bus.$emit('getbocaiTypeName', that.curactiveIndex); 
 
               }
@@ -504,7 +504,7 @@ export default {
                 that.activeIndex = that.bocaiCategoryList[0].name;
                 that.shuaiXuanDatas(result.oddsList);
 
-                bus.$emit('getbocaiTypeId', that.curBocaiTypeId); 
+                store.commit('updatebocaiTypeId',that.curBocaiTypeId);
                 bus.$emit('getbocaiTypeName', that.curactiveIndex); 
 
               }

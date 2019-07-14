@@ -11,7 +11,7 @@
         <div class="info">
           <div class="info-box">
             <p><label>账户：</label><span>{{userInfo.username}}</span>({{userInfo.handicap}}盘)</p> 
-            <p><label>现金余额：</label>{{userInfo.cashBalance}}</p> 
+            <p><label>{{userInfo.cashCredit == 0?'现金':'信用'}}余额：</label>{{userInfo.cashBalance}}</p> 
             <p><label>锁定金额：</label><span style="color: #f42222;">{{userInfo.lockBalance}}</span></p> 
             <p><label>已下金额：</label><span style="color: #f42222;">{{userInfo.alreadyBalance}}</span></p>
           </div> 
@@ -28,8 +28,17 @@
         </div>
         <div class="cont">
           <div class="gonggaocont">
-            <p v-if="userInfo.notice">{{userInfo.notice}}</p>
-            <p v-else>暂无公告</p>
+            <marquee v-if="userInfo.notice && userInfo.notice.length != 0" id="showMynews" scrollamount="5" scrolldelay="220" onmouseover="this.stop()" onmouseout="this.start()" height="100%" behavior="scroll" direction="up">
+              <!-- {{userInfo.notice[0]}} -->
+              <template v-for="(item,index) in userInfo.notice">
+                <br>
+                <p>{{item}}</p>
+              </template>
+            </marquee> 
+            <p v-else>暂无公告</p> 
+
+            <!-- <p v-if="userInfo.notice">{{userInfo.notice}}</p>
+            <p v-else>暂无公告</p> -->
           </div>
         </div>
       </div>
@@ -101,17 +110,15 @@
   </div>
 </template>
 <script>
-//import {mapGetters} from 'vuex';
+import {mapGetters} from 'vuex';
 
 export default {
   data() {
     let vm = this;
     return {
-      bocaiTypeId: '',
       showOpen: true,
       noOpenPrizeList: [],
       openPrizeList: [],
-      userInfo: {},
       orderOddsVisible: false,
       ruleForm: {
           oldPassWrod: '',
@@ -167,18 +174,15 @@ export default {
     };
   },
   computed: {
-    // ...mapGetters({
-    // })
+    ...mapGetters({
+      userInfo: 'getuserInfo',
+      bocaiTypeId: 'getbocaiTypeId'
+    })
   },
   async created() {
-    this.getcUserInfo();
   },
   mounted(){
-      bus.$on('getcUserInfo', (data) => {
-        this.getcUserInfo();
-      });
-      bus.$on('getbocaiTypeId', (data) => {
-        this.bocaiTypeId = data;
+      bus.$on('getchanglong', (data) => {
         this.getchanglong();
       });
   },
@@ -264,23 +268,6 @@ export default {
     },
     toUpdatePass() {
       this.orderOddsVisible = true;
-    },
-    handleClick(tab, event) {
-      //console.log(tab, event);  notice
-    },
-    async getcUserInfo() {
-      let res = await this.$get(`${window.url}/api/cUserInfo`);
-
-      if(res.code===200){
-        //store.commit('updatecashBalance',res.data.cashBalance);
-        this.userInfo = res.data;
-
-        //console.log('要给现金了',res.data.cashBalance);
-
-        bus.$emit('getcashBalance', res.data.cashBalance);
-        bus.$emit('getcuserId', res.data.id);
-
-      }
     }
   }
 };

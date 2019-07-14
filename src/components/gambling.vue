@@ -121,7 +121,6 @@ export default {
       preBocaiPeriods: '',
       preResult: '',
       hasResult: false,
-      bocaiTypeId: '',
       submenu: '更多',
       icons:[
             require('@/assets/img/chongqindubo.png'),
@@ -138,35 +137,46 @@ export default {
             require('@/assets/img/marksix.png')
           ],
       messageinfo: '',
-      centerDialogVisible: false,
-      userInfo: {}
+      centerDialogVisible: false
 
     }
   },
   async created() {
-    if(this.bocaiTypeList.length == 0) {
-      console.log(6543);
-      this.getbocai();
-    }
+    // if(this.bocaiTypeList.length == 0) {
+    //   console.log(6543);
+    //   this.getbocai();
+    // }
 
-    this.openPrizeTime = this.$timestampToTimeRi(new Date());
+    if(this.bocaiTypeList.length == 0) {
+      //console.log('????111111?');
+      this.getbocai();
+    } else {
+      //console.log('????2222?');
+      this.bocaiInfo();
+    }
 
     this.myTimer();
 
-    //console.log('bocaiName',this.bocaiName);
+    this.getPrizeResult();
+
+    this.openPrizeTime = this.$timestampToTimeRi(new Date());
 
     this.getbocaoName();
 
-    this.getPrizeResult();
-
     this.getcUserInfo();
+
+    //只循环一个
+    this.getBocaiInfo5sOnce();
 
   },
   computed: {
     ...mapGetters({
-      bocaiTypeList:'getbocaiTypeList'
+      userInfo: 'getuserInfo',
+      bocaiTypeList: 'getbocaiTypeList',
+      bocaiTypeId: 'getbocaiTypeId',
+      bocaiName: 'getbocaiName'
     }),
-    bocaiName: function() {
+    bocaiPathName: function() {
       return this.$route.name
     }
   },
@@ -179,6 +189,10 @@ export default {
 
       if(res.code===200){
         store.commit('updatebocaiTypeList',res.bocaiTypeList);
+
+        store.commit('updatebocaiTypeId',res.bocaiTypeList[0].bocaiId);
+
+        this.bocaiInfo();
       }
     },
     clearTime() {
@@ -196,12 +210,10 @@ export default {
       }
     },
     async getcUserInfo() {
-      let res = await this.$get(`${window.url}/api/cUserInfo`);
+      let res = await this.$get(`${window.url}/api/cUserInfo?num=10`);
 
       if(res.code===200){
-        //store.commit('updatecashBalance',res.data.cashBalance);
-        this.userInfo = res.data;
-
+        store.commit('updateuserInfo',res.data);
       }
     },
     goRightMenu(path) {
@@ -267,7 +279,6 @@ export default {
             //console.log('getRefreshTime',window.refreshTime);
     },
     async getRefreshTimeFast() {
-
 
       let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
 
@@ -437,6 +448,10 @@ export default {
 
               this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
 
+              bus.$emit('getchanglong', '');
+
+              this.getPrizeResultNew();
+
             }
 
     },
@@ -455,6 +470,7 @@ export default {
 
 
        // console.log('!!!!!this.hasResult',!this.hasResult);
+       if(this.bocaiTypeId != '') {
         let res = await this.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+this.bocaiTypeId+`&currentPage=1&pageSize=5&dayStr=`+this.openPrizeTime);
           if(res.code===200){
             this.resultList = res.list.slice(0,5);
@@ -464,77 +480,148 @@ export default {
               }
             }
           }
-
+        }
       // }
 
         this.t2 = setTimeout(this.getPrizeResult, window.refreshTime);
     },
+    async getPrizeResultNew() { 
+
+      console.log('getPrizeResultNew');
+
+      if(this.bocaiTypeId != '') {
+        let res = await this.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+this.bocaiTypeId+`&currentPage=1&pageSize=5&dayStr=`+this.openPrizeTime);
+          if(res.code===200){
+            this.resultList = res.list.slice(0,5);
+            for(let n in this.resultList) {
+              if(this.resultList[n].result) {
+                this.resultList[n].result = this.resultList[n].result.replace(/,/g,'');   
+              }
+            }
+          }
+      }
+
+
+    },
+    async getBocaiInfo5sOnce() { 
+      //console.log('5秒调一次','this.preResult',this.preResult,'this.iskaipaning',this.iskaipaning);
+
+       if(this.preResult == '' || !this.iskaipaning) {
+
+        if(this.bocaiTypeId != '') {
+          let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
+
+            if(res.code===200){
+
+              //if("companyIsOpenSet": "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。)   未做
+               //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
+
+              if(res.data.companyIsOpenSet == 2) {
+                if(res.data.isOpenSet == 1) {
+                  bus.$emit('iskaipaning', true);
+
+                  bus.$emit('getbocaiInfoData', res.data);
+
+                  store.commit('updatebocaiInfoData',res.data);
+
+                  store.commit('updatepreResult',res.data.preResult);
+
+
+                  if(res.data.preResult != '') {
+
+                    //开奖了
+                    bus.$emit('kaijianglaaa', '');
+                  }
+
+                  console.log('this.preResult',this.preResult);
+                } else {
+                  bus.$emit('iskaipaning', false);
+                }
+              } else {
+                bus.$emit('iskaipaning', false);
+              }
+
+            }
+        }
+
+        
+
+       }
+
+        this.t2 = setTimeout(this.getBocaiInfo5sOnce, window.refreshTimeFast);
+    },
     getbocaoName() {
 
+      let typeid = '';
+      let name = '';
+
       let path = '';
-        switch (this.bocaiName) {
+        switch (this.bocaiPathName) {
           case 'chongqindubo':
-            this.bocaiTypeId = '1';
+            typeid = '1';
             this.imgUrl = 0;
-            //this.submenu = '重庆时时彩';
+            name = '重庆时时彩';
             break;
           case 'luckyairship':
-            this.bocaiTypeId = '8555';
+            typeid = '8555';
             this.imgUrl = 1;
-            //this.submenu = '幸运飞艇';
+            name = '幸运飞艇';
             break;
           case 'beijingpk10':
-            this.bocaiTypeId = '8806';
+            typeid = '8806';
             this.imgUrl = 2;
-            //this.submenu = '北京PK拾';
+            name = '北京PK拾';
             break;
           case 'shandong11xuan5':
-            this.bocaiTypeId = '8811';
+            typeid = '8811';
             this.imgUrl = 3;
-            //this.submenu = '山东11选5';
+            name = '山东11选5';
             break;
           case 'guangdong11xuan5':
-            this.bocaiTypeId = '8374';
+            typeid = '8374';
             this.imgUrl = 4;
-            //this.submenu = '广东11选5';
+            name = '广东11选5';
             break;
           case 'jiangxi11xuan5':
-            this.bocaiTypeId = '8813';
+            typeid = '8813';
             this.imgUrl = 5;
-            //this.submenu = '极速时时彩';
+            name = '极速时时彩';
             break;
           case 'pcdandan':
-            this.bocaiTypeId = '8223';
+            typeid = '8223';
             this.imgUrl = 6;
-            //this.submenu = 'PC蛋蛋';
+            name = 'PC蛋蛋';
             break;
           case 'jiangsukuaisan':
-            this.bocaiTypeId = '8498';
+            typeid = '8498';
             this.imgUrl = 7;
-            //this.submenu = '江苏快3';
+            name = '江苏快3';
             break;
           case 'beijingkuaile8':
-            this.bocaiTypeId = '8266';
+            typeid = '8266';
             this.imgUrl = 8;
-            //this.submenu = '北京快乐8';
+            name = '北京快乐8';
             break;
           case 'jisusaiche':
-            this.bocaiTypeId = '9057';
+            typeid = '9057';
             this.imgUrl = 9;
-            //this.submenu = '极速赛车';
+            name = '极速赛车';
             break;
           case 'jisudubo':
-            this.bocaiTypeId = '8815';
+            typeid = '8815';
             this.imgUrl = 10;
-            //this.submenu = '极速时时彩';
+            name = '极速时时彩';
             break;
           case 'marksix':
-            this.bocaiTypeId = '8808';
+            typeid = '8808';
             this.imgUrl = 11;
-            //this.submenu = '六合彩';
+            name = '六合彩';
             break;
         }
 
+        store.commit('updatebocaiName',name);
+
+        store.commit('updatebocaiTypeId', typeid);
 
         //this.getPrizeResult();
         //this.refreshTime();
@@ -559,6 +646,8 @@ export default {
       //console.log('item---index',index);
 
       if(['重庆时时彩','幸运飞艇','北京PK拾','山东11选5','广东11选5','江西11选5','PC蛋蛋','江苏快3','北京快乐8','极速赛车','极速时时彩','六合彩'].findIndex((n) => n==item.bocaiName)>-1) {
+
+        store.commit('updatebocaiName',item.bocaiName);
 
         this.activeIndex = item.bocaiName;
 
@@ -622,28 +711,63 @@ export default {
               this.imgUrl = 11;
               break;
           }
-        this.bocaiTypeId = item.bocaiId;
+
+        store.commit('updatebocaiTypeId',item.bocaiId);
+
         this.bocaiInfo();
 
         //this.clearTime();
 
         this.$router.push({name: path});
 
-        //this.getPrizeResult();
-
-        bus.$emit('getcUserInfo', '');
-
       } else {
         this.$warning('此博彩还未完成,请耐心等待! 谢谢');
       }
 
       
+    },
+    //切换菠菜获取菠菜二级菜单并调数据接口
+    async getOddsInfo() {
+
+      let that = this;
+
+          // const loading = this.$loading({
+          //       lock: true,
+          //       background: 'rgba(0, 0, 0, 0.7)'
+          //     });
+
+          if(this.bocaiTypeId!='') {
+            await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+this.bocaiTypeId).then((res) => {
+            that.$handelResponse(res, (result) => {
+
+              // loading.close();
+              if(result.code===200){
+
+                that.bocaiCategoryList = result.bocaiCategoryList;
+
+
+                store.commit('updatebocaiCategory',result.bocaiCategoryList[0]);
+
+                //获取菠菜数据
+                this.getOddsCategory(result.bocaiCategoryList[0]);
+
+                //获取菠菜信息
+                this.bocaiInfo();
+
+              }
+            })
+          });
+          }
+
+          
+
     }
+
   },
   mounted() {
-    // bus.$on('getRefreshTime', (data) => {
-    //     this.getRefreshTime();
-    // });
+    bus.$on('getcUserInfo', (data) => {
+      this.getcUserInfo();
+    });
     bus.$on('getRefreshTimeFast', (data) => {
         //console.log('getRefreshTimeFast');
         this.getRefreshTimeFast();

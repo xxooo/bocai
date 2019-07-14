@@ -107,17 +107,20 @@
         //console.log('new Date()',new Date());
         //console.log('this.differTime',this.differTime);
         var now = new Date();
-        var leftTime = this.openPrizeTime - now.getTime() + this.differTime;
+        var leftTime = this.openPrizeTime*1000 - now.getTime() + this.differTime;
         //console.log('leftTime',leftTime);
         var closeTime = leftTime - this.closeTimeSet*1000;
 
-        var closeTimeSet = this.openPrizeTime - this.closeTimeSet*1000;
+        var closeTimeSet = this.openPrizeTime*1000 - this.closeTimeSet*1000;
 
 
         //console.log('当前时间',this.timestampToTime(now.getTime()));
 
         //console.log('this.closeTimeSet',this.closeTimeSet);
         //console.log('封盘时间',this.timestampToTime(closeTimeSet));
+
+        console.log('leftTime',leftTime);
+        console.log('closeTime',closeTime);
 
         if(closeTime<=0 && leftTime<=0) {
 

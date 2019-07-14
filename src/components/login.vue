@@ -51,33 +51,33 @@ export default {
       tupian: '',
       yanzhengma: '',
       ruleForm: {
-          username: '',
-          password: '',
-          yanzhengma: ''
-        },
-        rules: {
-          username: [
-            { required: true, message: '必填', trigger: 'blur' }
-          ],
-          password: [
-            { required: true, message: '必填', trigger: 'blur' }
-          ],
-          yanzhengma: [
-            { required: true, message: '必填', trigger: 'blur' },
-            {
-              validator:function(rule, value, callback){
+        username: '',
+        password: '',
+        yanzhengma: ''
+      },
+      rules: {
+        username: [
+        { required: true, message: '必填', trigger: 'blur' }
+        ],
+        password: [
+        { required: true, message: '必填', trigger: 'blur' }
+        ],
+        yanzhengma: [
+        { required: true, message: '必填', trigger: 'blur' },
+        {
+          validator:function(rule, value, callback){
 
-                console.log('value',value);
-                console.log('this.yanzhengma',vm.yanzhengma);
-                if(value != vm.yanzhengma){
-                  callback('验证码输入不正确!');
-                }
-                callback();
-              },
-              trigger: 'blur'
+            console.log('value',value);
+            console.log('this.yanzhengma',vm.yanzhengma);
+            if(value != vm.yanzhengma){
+              callback('验证码输入不正确!');
             }
-          ]
+            callback();
+          },
+          trigger: 'blur'
         }
+        ]
+      }
     }
   },
   created() {
@@ -107,8 +107,8 @@ export default {
                 // username: 'a4m28dhy',
                 // password: 'a123'
                 // atestHYXJ001
-                username: 'cabb1',
-                password: 'a111111'
+                // username: 'cabb1',
+                // password: 'a111111'
 
                 // username: 'xianjinzs2',
                 // password: '123456'
@@ -116,6 +116,11 @@ export default {
 
                 // username: 'hih0759',
                 // password: 'aaa888'
+
+
+
+                username: 'atestHYXJ001',
+                password: 'a111111'
               };
 
               let ret = await this.$post(`${window.url}/api/login`, obj);

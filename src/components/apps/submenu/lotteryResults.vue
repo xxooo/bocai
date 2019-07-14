@@ -11,7 +11,7 @@
             <div class="">
               游戏类型：
               <el-select v-model="bocaiType" placeholder="请选择" size="mini" @change="changeboType">
-                    <el-option label="全部" :value="''"></el-option>
+                    <el-option label="未选" :value="0"></el-option>
                     <el-option
                       v-for="item in bocaiTypeList"
                       :key="item.value"
@@ -247,40 +247,44 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
   },
   data() {
     return {
-      bocaiType: 1,
-      bocaiTypeList: [],
+      bocaiType: '',
       openPrizeTime: '',
       currentPage: 1,
       resultList: []
     }
   },
   created() {
-    this.getBocai();
     this.openPrizeTime = this.$timestampToTimeRi(new Date());
+
+    this.bocaiType = +this.bocaiTypeId;
+
+    console.log('bocaiTypeId111',this.bocaiType);
+
     this.getPrizeResult();
   },
   computed: {
+    ...mapGetters({
+      bocaiTypeList: 'getbocaiTypeList',
+      bocaiTypeId: 'getbocaiTypeId',
+      bocaiName: 'getbocaiName'
+    }) 
   },
   methods: {
     changeboType(data) {
       this.bocaiType = data;
+
+      console.log('bocaiTypeId222',this.bocaiType);
       this.getPrizeResult();
     },
     gettime(data) {
       this.getPrizeResult();
-    },
-    async getBocai() {
-      let res = await this.$get(`${window.url}/api/getBocai`);
-
-          if(res.code===200){
-            this.bocaiTypeList = res.bocaiTypeList;
-          }
     },
     async getPrizeResult() { 
 

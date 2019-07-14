@@ -64,7 +64,7 @@
 
 
 <script>
-  //import { mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
 
   $(document).ready(function(){
     $(".beishuBtn").mousedown(function(){
@@ -92,7 +92,6 @@
         orderOddsVisible: false,
         orderList: [],
         hahahaid: '',
-        bocaiTypeId: '',
         bocaiCategoryId: '',
         bocaiTypeName: '',
         cuserId: '',
@@ -118,10 +117,12 @@
     components: {
 		},
 		created() {
-
-      this.getcashmoney();
     },
     computed:{
+      ...mapGetters({
+        userInfo: 'getuserInfo',
+        bocaiTypeId: 'getbocaiTypeId'
+      }),
       totalMoney() {
         let totalMoney = 0;
         for(let n in this.orderList) {
@@ -131,18 +132,12 @@
       }
     },
     mounted(){
-      bus.$on('getbocaiTypeId', (data) => {
-        this.bocaiTypeId = data;
-      });
       bus.$on('getbocaiCategoryId', (data) => {
         //console.log('gevie ?',data)
         this.bocaiCategoryId = data;
       });
       bus.$on('getbocaiTypeName', (data) => {
         this.bocaiTypeName = data;
-      });
-      bus.$on('getcuserId', (data) => {
-        this.cuserId = data;
       });
       bus.$on('getbocaiInfoData', (data) => {
         this.bocaiInfoData = data;
@@ -153,11 +148,6 @@
       bus.$on('getnormalPay', (data) => {
         this.normalPay = data;
       });
-      bus.$on('getcashBalance', (data) => {
-
-        //console.log('getcashBalance',data);
-        this.cashBalance = data;
-      });
       bus.$on('getcanOrder', (data) => {
         this.canOrder = data;
 
@@ -165,13 +155,6 @@
       });
     },
 		methods: {
-      async getcashmoney() {
-        let res = await this.$get(`${window.url}/api/cUserInfo`);
-
-        if(res.code===200){
-          this.cashBalance = res.data.cashBalance;
-        }
-      },
       changePay(data) {
         this.$emit('childByChangePay', data);
         this.moneyOrder = '';
@@ -188,7 +171,7 @@
       },
       async orderSub() {
 
-        if(this.totalMoney > this.cashBalance) {
+        if(this.totalMoney > this.userInfo.cashBalance) {
           this.$alertMessage('您的余额不足!', '温馨提示');
         } else {
 
@@ -202,7 +185,7 @@
           this.orderDatas.bocaiCategory1Id = this.bocaiCategory.id;
           this.orderDatas.bocaiCategory1Name = this.bocaiCategory.name;
           this.orderDatas.orderBetMoneySum = this.totalMoney;
-          this.orderDatas.cuserId = this.cuserId;
+          this.orderDatas.cuserId = this.userInfo.id;
 
           for(let n in this.orderList) {
             let obj = {
