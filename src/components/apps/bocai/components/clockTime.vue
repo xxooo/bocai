@@ -124,23 +124,6 @@
 
         if(closeTime<=0 && leftTime<=0) {
 
-          // this.$alert('这是一段内容', '标题名称', {
-          //   confirmButtonText: '确定',
-          //   callback: action => {
-          //     this.$message({
-          //       type: 'info',
-          //       message: `action: ${ action }`
-          //     });
-          //   }
-          // });
-
-          //this.$alert('closeTime<=0 && leftTime<=0'+'closeTime:'+this.timestampToTime(closeTime)+'leftTime:'+this.timestampToTime(leftTime));
-
-          //console.log('closeTime111',closeTime);
-          //console.log('leftTime111',this.timestampToTime(leftTime));
-
-          //console.log('未开盘',this.timestampToTime(this.openPrizeTime));
-          //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
 
           if(this.noneResult) {
 

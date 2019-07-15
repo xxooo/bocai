@@ -180,7 +180,7 @@
           this.orderDatas.list = [];
 
           this.orderDatas.periodsId = this.bocaiInfoData.bocaiPeriodsId;
-          this.orderDatas.bocaiTypeId = this.bocaiTypeId;
+          this.orderDatas.bocaiTypeId = +this.bocaiTypeId;
           this.orderDatas.bocaiTypeName = this.bocaiTypeName;
           this.orderDatas.bocaiCategory1Id = this.bocaiCategory.id;
           this.orderDatas.bocaiCategory1Name = this.bocaiCategory.name;
