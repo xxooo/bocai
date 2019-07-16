@@ -95,7 +95,6 @@
         bocaiCategoryId: '',
         bocaiTypeName: '',
         cuserId: '',
-        bocaiInfoData: {},
         normalPay: false,
         isOpenOdds: true,
         canOrder: true,
@@ -121,7 +120,8 @@
     computed:{
       ...mapGetters({
         userInfo: 'getuserInfo',
-        bocaiTypeId: 'getbocaiTypeId'
+        bocaiTypeId: 'getbocaiTypeId',
+        bocaiInfoData: 'getbocaiInfoData'
       }),
       totalMoney() {
         let totalMoney = 0;
@@ -138,9 +138,6 @@
       });
       bus.$on('getbocaiTypeName', (data) => {
         this.bocaiTypeName = data;
-      });
-      bus.$on('getbocaiInfoData', (data) => {
-        this.bocaiInfoData = data;
       });
       bus.$on('isOpenOdds', (data) => {
         this.isOpenOdds = data;

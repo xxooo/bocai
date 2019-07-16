@@ -7,7 +7,7 @@ const state = {
   userInfo: {},
   bocaiTypeId: '',
   curPeriods: '',
-  isOdding: false,
+  isOpenOdds: true,
   oddsList: [],
   bocaiTypeList: [],
   orderDatasShow: [],
@@ -15,7 +15,8 @@ const state = {
   focusIndex: 1,
   orderList: [],
   orderOddsVisible: false,
-  moneyOrder: ''
+  moneyOrder: '',
+  hasResult: false
 }
 
 export default state

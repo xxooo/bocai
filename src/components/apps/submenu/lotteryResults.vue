@@ -237,6 +237,46 @@
                 </tbody>
               </table>
 
+
+
+              <!-- PC蛋蛋 -->
+              <table v-if="[8223].findIndex((n) => n==bocaiType)>-1">
+                <thead>
+                  <tr>
+                    <th>期数</th> 
+                    <th>开奖时间</th> 
+                    <th colspan="3">开出号码</th> 
+                    <th>总和</th> 
+                    <th>大小</th> 
+                    <th>单双</th> 
+                    <th>极值</th> 
+                    <th>色波</th>
+                  </tr>
+                </thead> 
+                <tbody>
+                  <tr v-for="item in resultList">
+                    <td>{{item.periods}}</td> 
+                    <td>{{$timestampToTime(item.openPrizetime)}}</td>
+                    <template v-if="!item.result || item.result == ''">
+                      <td colspan="8">
+                        <span>暂未开奖</span>
+                      </td>
+                    </template>
+                    <template v-else>
+                      <td><div class="ball-icon">{{item.num1}}</div></td>
+                      <td><div class="ball-icon">{{item.num2}}</div></td>
+                      <td><div class="ball-icon">{{item.num3}}</div></td>
+                      <td>{{item.zonghe}}</td> 
+                      <td><span :class="item.daxiao == '大' ? 'red' : ''">{{item.daxiao}}</span></td> 
+                      <td><span :class="item.danshuang == '双' ? 'red' : ''">{{item.danshuang}}</span></td> 
+                      <td>{{item.jizhi}}</td>
+                      <td><span :class="item.sebo == '红波' ? 'red' : item.sebo == '绿波' ? 'green' : 'blue'">{{item.sebo}}</span></td>
+                    </template>
+                  </tr>
+
+                </tbody>
+              </table>
+
             </div>
           </div>
 

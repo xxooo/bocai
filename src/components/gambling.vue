@@ -8,10 +8,10 @@
             <div class="centerDiv">
               <div class="headImg">
                 <img :src="icons[imgUrl]">
-                <div class="preBocaiPeriods"><p class="qicip">-第 <span>{{preBocaiPeriods}}</span> 期-</p></div>
+                <div class="preBocaiPeriods"><p class="qicip">-第 <span>{{bocaiInfoData.preBocaiPeriods}}</span> 期-</p></div>
               </div>
               <div class="headLabel" :class="'headLabel'+preResult.length">
-                <div class="activeIndex"><h3>{{activeIndex}}</h3></div>
+                <div class="activeIndex"><h3>{{bocaiName}}</h3></div>
                 <div class="preResult">
                   <!-- <ul v-if="hasResult" class="result-list">
                     <li v-for="(item,index) in preResult" :class="'loadanimot'+index" class="bjpk-ran bjpk-ranNo-5 orangeShishiC bounce animated"></li>
@@ -46,17 +46,16 @@
         </div>
       </el-header>
       <el-menu
-          :default-active="activeIndex"
+          :default-active="bocaiName"
           class="el-menu-demo"
           mode="horizontal"
-          @select="handleSelect"
           background-color="#1e140d"
           text-color="#ebcb80"
           active-text-color="#f6e9c7">
 
           <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item,index)" v-if="index*1 < 8">{{item.bocaiName}}</el-menu-item>
           <el-submenu v-if="bocaiTypeList.length*1 > 8" key="submenu" index="submenu">
-            <template slot="title">{{submenu}}</template>
+            <template slot="title">{{subbocaiName}}</template>
             <el-menu-item v-for="(item,index) in bocaiTypeList" :key="index" :index="item.bocaiName"  @click="getOdds(item,index)" v-if="index*1 > 7">{{item.bocaiName}}</el-menu-item>
           </el-submenu>
 
@@ -113,15 +112,10 @@ export default {
       max : 9, //生成的最大的数字，比如500
       imgUrl: 0,
       t1: null, //轮询  博彩信息
-      t2: null, //轮询  开奖结果
-      t3: null, //轮询  动画
-      t4: null, //轮询  开奖结果 快速
-      activeIndex: '',
+      t2: null, //轮询  动画
       resultList: [],
-      preBocaiPeriods: '',
       preResult: '',
-      hasResult: false,
-      submenu: '更多',
+      submenu: '',
       icons:[
             require('@/assets/img/chongqindubo.png'),
             require('@/assets/img/luckyairship.png'),
@@ -142,10 +136,8 @@ export default {
     }
   },
   async created() {
-    // if(this.bocaiTypeList.length == 0) {
-    //   console.log(6543);
-    //   this.getbocai();
-    // }
+
+    this.getbocaoName();
 
     if(this.bocaiTypeList.length == 0) {
       //console.log('????111111?');
@@ -157,11 +149,7 @@ export default {
 
     this.myTimer();
 
-    this.getPrizeResult();
-
     this.openPrizeTime = this.$timestampToTimeRi(new Date());
-
-    this.getbocaoName();
 
     this.getcUserInfo();
 
@@ -174,10 +162,24 @@ export default {
       userInfo: 'getuserInfo',
       bocaiTypeList: 'getbocaiTypeList',
       bocaiTypeId: 'getbocaiTypeId',
-      bocaiName: 'getbocaiName'
+      bocaiName: 'getbocaiName',
+      hasResult: 'gethasResult',
+      bocaiInfoData: 'getbocaiInfoData',
+      bocaiCategory: 'getbocaiCategory'
     }),
     bocaiPathName: function() {
       return this.$route.name
+    },
+    subbocaiName() {
+      let num = 0;
+
+      for(let n in this.bocaiTypeList) {
+        if(this.bocaiName == this.bocaiTypeList[n].bocaiName) {
+          num = n;
+        }
+      }
+
+      return +num > 7 ? this.bocaiName : '更多';
     }
   },
   beforeDestroy: function() {
@@ -190,8 +192,6 @@ export default {
       if(res.code===200){
         store.commit('updatebocaiTypeList',res.bocaiTypeList);
 
-        store.commit('updatebocaiTypeId',res.bocaiTypeList[0].bocaiId);
-
         this.bocaiInfo();
       }
     },
@@ -201,12 +201,6 @@ export default {
       }
       if (this.t2) {
         clearTimeout(this.t2)
-      }
-      if (this.t3) {
-        clearTimeout(this.t3)
-      }
-      if (this.t4) {
-        clearTimeout(this.t4)
       }
     },
     async getcUserInfo() {
@@ -229,7 +223,7 @@ export default {
           $('.loadanimot'+n).removeClass('bounce animated');
         }
       } else {
-        //这里无限循环，不合适
+        //这里无限循环...
 
         for(let n in this.preResult) {
           let kk = this.preResult[n];
@@ -237,253 +231,60 @@ export default {
           $('.loadanimot'+n).addClass('bounce animated');
         }
       }
-      this.t3 = setTimeout(this.myTimer, 100);
-    },
-    async getRefreshTime() {
-      let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
-
-      if(res.code===200){
-
-              //if("companyIsOpenSet": "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。)
-               //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
-
-              bus.$emit('getbocaiInfoData', res.data);
-
-              if(res.data.preResult == '') {
-                if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待开奖中';
-                } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待中';
-                } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
-                } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待';
-                } else {
-                  this.preResult = '等待开奖中';
-                }
-                
-                this.hasResult = false;
-
-                //console.log('等待开奖中this.preResult',this.preResult);
-
-                this.refreshTime();
-              } else {
-                this.preResult = res.data.preResult.split(',');
-                this.hasResult = true;
-              }
-
-              this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
-
-            }
-
-            //console.log('getRefreshTime',window.refreshTime);
-    },
-    async getRefreshTimeFast() {
-
-      let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
-
-      if(res.code===200){
-
-              //if("companyIsOpenSet": "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。)
-               //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
-
-              bus.$emit('getbocaiInfoData', res.data);
-
-              //res.data.preResult == '';
-
-              if(res.data.preResult == '') {
-                if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待开奖中';
-                } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待中';
-                } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中中';
-                } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待';
-                } else {
-                  this.preResult = '等待开奖中';
-                }
-                
-                this.hasResult = false;
-
-                //console.log('等待开奖中this.preResult',this.preResult);
-
-                this.refreshTimeFast();
-              } else {
-                this.preResult = res.data.preResult.split(',');
-                this.hasResult = true;
-              }
-
-              this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
-
-            }
-
-            //console.log('refreshTimeFast',window.refreshTimeFast);
-    },
-    async refreshTime() {
-
-      if(!this.hasResult) {
-        let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
-
-            if(res.code===200){
-
-              //if("companyIsOpenSet": "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。)
-               //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
-
-              bus.$emit('getbocaiInfoData', res.data);
-
-              if(res.data.preResult == '') {
-                if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待开奖中';
-                } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待中';
-                } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
-                } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待';
-                } else {
-                  this.preResult = '等待开奖中';
-                }
-                this.hasResult = false;
-
-              } else {
-
-                this.preResult = res.data.preResult.split(',');
-                this.hasResult = true;
-
-              }
-
-              //this.preResult = res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(',');   //"preResult": 
-              this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
-
-            }
-      }
-
-          //console.log('refreshbocaiInfo',window.refreshTime);
-          this.t1 = setTimeout(this.refreshTime, window.refreshTime);
-    },
-    async refreshTimeFast() {
-
-      //console.log('refreshTimeFast');
-
-      //bus.$emit('hasFast', true);
-
-      if(!this.hasResult) {
-        let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
-
-            if(res.code===200){
-
-              //if("companyIsOpenSet": "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。)
-               //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
-
-              bus.$emit('getbocaiInfoData', res.data);
-
-              //res.data.preResult == '';
-
-              if(res.data.preResult == '') {
-                if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待开奖中';
-                } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待中';
-                } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
-                } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待';
-                } else {
-                  this.preResult = '等待开奖中';
-                }
-                this.hasResult = false;
-
-                bus.$emit('hasFast', true);
-
-              } else {
-
-                this.preResult = res.data.preResult.split(',');
-                this.hasResult = true;
-
-                bus.$emit('hasFast', false);
-
-              }
-
-              //this.preResult = res.data.preResult == '' ? '等待开奖中' : res.data.preResult.split(',');   //"preResult": 
-              this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
-
-            }
-      }
-
-          //console.log('refreshTimeFast',window.refreshTimeFast);
-          this.t4 = setTimeout(this.refreshTimeFast, window.refreshTimeFast);
+      this.t2 = setTimeout(this.myTimer, 100);
     },
     async bocaiInfo() {
 
+      if(this.bocaiTypeId != '') {
         let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
 
             if(res.code===200){
 
-              //if("companyIsOpenSet": "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。)
-               //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
+               store.commit('updatebocaiInfoData',res.data);
 
-              bus.$emit('getbocaiInfoData', res.data);
+               if(res.data.companyIsOpenSet == 2) {
+                if(res.data.isOpenSet == 1) {
 
-              if(res.data.preResult == '') {
 
-                if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待开奖中';
-                } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待中';
-                } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
-                } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  this.preResult = '等待开奖中等待';
+                  if(res.data.preResult == '') {
+
+                    if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                      this.preResult = '等待开奖中等待开奖中';
+                    } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                      this.preResult = '等待中';
+                    } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                      this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
+                    } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                      this.preResult = '等待开奖中等待';
+                    } else {
+                      this.preResult = '等待开奖中';
+                    }
+
+                    store.commit('updatehasResult',false);
+
+                  } else {
+
+                    this.preResult = res.data.preResult.split(',');
+
+                    store.commit('updatehasResult',true);
+
+                  }
+
+                  this.getPrizeResultNew();
+                  bus.$emit('getchanglong', '');
+                  store.commit('updateisOpenOdds',true);
+
                 } else {
-                  this.preResult = '等待开奖中';
+                  store.commit('updateisOpenOdds',false);
                 }
-                this.hasResult = false;
 
               } else {
-
-                this.preResult = res.data.preResult.split(',');
-                this.hasResult = true;
+                store.commit('updateisOpenOdds',false);
               }
 
-              this.preBocaiPeriods = res.data.preBocaiPeriods;  //"preBocaiPeriods": "30763817",//上期博彩期数    
-
-              bus.$emit('getchanglong', '');
-
-              this.getPrizeResultNew();
-
-            }
-
-    },
-    handleSelect(key, keyPath) {
-      //this.activeIndex = key;
-    },
-    async getPrizeResult() { 
-
-      //console.log('openPrizeTime',this.openPrizeTime);
-
-      //console.log('this.hasResult',this.hasResult);
-
-      //console.log('!!!!!this.hasResult',!this.hasResult);
-
-      // if(!this.hasResult) {
-
-
-       // console.log('!!!!!this.hasResult',!this.hasResult);
-       if(this.bocaiTypeId != '') {
-        let res = await this.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+this.bocaiTypeId+`&currentPage=1&pageSize=5&dayStr=`+this.openPrizeTime);
-          if(res.code===200){
-            this.resultList = res.list.slice(0,5);
-            for(let n in this.resultList) {
-              if(this.resultList[n].result) {
-                this.resultList[n].result = this.resultList[n].result.replace(/,/g,'');   
-              }
-            }
-          }
         }
-      // }
+      }
 
-        this.t2 = setTimeout(this.getPrizeResult, window.refreshTime);
     },
     async getPrizeResultNew() { 
 
@@ -506,49 +307,63 @@ export default {
     async getBocaiInfo5sOnce() { 
       //console.log('5秒调一次','this.preResult',this.preResult,'this.iskaipaning',this.iskaipaning);
 
-       if(this.preResult == '' || !this.iskaipaning) {
+       if(!this.hasResult && this.isOpenOdds) {
 
         if(this.bocaiTypeId != '') {
           let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
 
             if(res.code===200){
 
-              //if("companyIsOpenSet": "",//该会员上级公司对该期博彩的封盘状态。状态：0删除，1封盘，2开盘。只有开盘才能投注。)   未做
-               //if("isOpenSet": "",//管理员对于当期博彩的开关设置) 
+              store.commit('updatebocaiInfoData',res.data);
 
-              if(res.data.companyIsOpenSet == 2) {
+               if(res.data.companyIsOpenSet == 2) {
                 if(res.data.isOpenSet == 1) {
-                  bus.$emit('iskaipaning', true);
-
-                  bus.$emit('getbocaiInfoData', res.data);
-
-                  store.commit('updatebocaiInfoData',res.data);
-
-                  store.commit('updatepreResult',res.data.preResult);
 
 
-                  if(res.data.preResult != '') {
+                  if(res.data.preResult == '') {
 
-                    //开奖了
-                    bus.$emit('kaijianglaaa', '');
+                    if([8555,8806,9057].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                      this.preResult = '等待开奖中等待开奖中';
+                    } else if([8223,8498].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                      this.preResult = '等待中';
+                    } else if([8266].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                      this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
+                    } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                      this.preResult = '等待开奖中等待';
+                    } else {
+                      this.preResult = '等待开奖中';
+                    }
+
+                    store.commit('updatehasResult',false);
+
+                  } else {
+
+                    this.preResult = res.data.preResult.split(',');
+
+                    store.commit('updatehasResult',true);
+
+                    this.getPrizeResultNew();
+                    bus.$emit('getchanglong', '');
+
+
                   }
 
-                  console.log('this.preResult',this.preResult);
+                  store.commit('updateisOpenOdds',true);
+
                 } else {
-                  bus.$emit('iskaipaning', false);
+                  store.commit('updateisOpenOdds',false);
                 }
+
               } else {
-                bus.$emit('iskaipaning', false);
+                store.commit('updateisOpenOdds',false);
               }
 
             }
         }
 
-        
+      }
 
-       }
-
-        this.t2 = setTimeout(this.getBocaiInfo5sOnce, window.refreshTimeFast);
+        this.t1 = setTimeout(this.getBocaiInfo5sOnce, window.refreshTimeFast);
     },
     getbocaoName() {
 
@@ -648,8 +463,6 @@ export default {
       if(['重庆时时彩','幸运飞艇','北京PK拾','山东11选5','广东11选5','江西11选5','PC蛋蛋','江苏快3','北京快乐8','极速赛车','极速时时彩','六合彩'].findIndex((n) => n==item.bocaiName)>-1) {
 
         store.commit('updatebocaiName',item.bocaiName);
-
-        this.activeIndex = item.bocaiName;
 
         this.getnotice();
 
@@ -765,26 +578,15 @@ export default {
 
   },
   mounted() {
+    bus.$on('getbocaiInfo', (data) => {
+        this.bocaiInfo();
+    });
     bus.$on('getcUserInfo', (data) => {
       this.getcUserInfo();
     });
-    bus.$on('getRefreshTimeFast', (data) => {
-        //console.log('getRefreshTimeFast');
-        this.getRefreshTimeFast();
+    bus.$on('isOpenOdds', (data) => {
+        this.isOpenOdds = data;
     });
-    bus.$on('curactiveIndex', (data) => {
-        this.activeIndex = data;
-
-        for(let n in this.bocaiTypeList) {
-          if(this.bocaiTypeList[n].bocaiName == data) {
-            if(+n > 7) {
-              this.submenu = data;
-            }
-          }
-        }
-
-    });
-
   },
   updated() {
   }

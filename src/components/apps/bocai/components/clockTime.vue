@@ -22,71 +22,36 @@
 
 
 <script>
-  //import { mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
 
 	export default {
 		props: {
-      orderDataList: {
-        type: Array
-      },
-      bocaiCategory: {
-        type: Object
-      }
 		},
 		data() {
 			return {
         timeLeft:'',
         t: null, //轮询
-        bocaiInfoData: {},
         openPrizeTime: 0,
-        closeTimeSet: 0,
-        //hasFast: false,
-        differTime: 0,
-        temdata: {},
-        noneResult: false
+        closeTimeSet: 0
 			}
 		},
     components: {
 		},
 		created() {
-      //this.refreshBocaiInfo();
       this.gettimeLeft();
     },
     computed:{
-      totalMoney() {
-        let totalMoney = 0;
-        for(let n in this.orderList) {
-          totalMoney += this.orderList[n].betsMoney*1;
-        }
-        return totalMoney;
+      ...mapGetters({
+        bocaiInfoData: 'getbocaiInfoData',
+        bocaiName: 'getbocaiName',
+        hasResult: 'gethasResult'
+      }),
+      differTime() {
+        let now = new Date();
+        return this.bocaiInfoData.nowTime ? now.getTime() - this.bocaiInfoData.nowTime*1000 : 0;
       }
     },
     mounted(){
-      bus.$on('getbocaiInfoData', (data) => {
-        this.bocaiInfoData = data;
-        this.openPrizeTime = data.openPrizeTime;
-        this.closeTimeSet = data.closeTimeSet;
-
-
-        // console.log('getbocaiInfoData--获取传来博彩数据',data,
-        //   '当期开奖时间：'+this.timestampToTime(data.openPrizeTime),
-        //   '当期开盘时间：'+this.timestampToTime(data.openTime),
-        //   '提前多少秒封盘:'+data.closeTimeSet,
-        //   '服务器时间:'+this.timestampToTime(data.nowTime*1000));
-        // console.log('new Date()',new Date());
-
-        let now = new Date();
-
-        this.differTime = now.getTime() - data.nowTime*1000;
-
-        this.temdata = data;
-
-
-        //this.gettimeLeft();
-      });
-      bus.$on('hasFast', (data) => {
-        this.noneResult = data;
-      });
     },
     beforeDestroy: function() {
       if (this.t) {
@@ -99,75 +64,42 @@
       },
       gettimeLeft() {
 
-        // if() {
-
-        // }
 
         //console.log('this.getServerDate()',this.getServerDate());
         //console.log('new Date()',new Date());
         //console.log('this.differTime',this.differTime);
         var now = new Date();
-        var leftTime = this.openPrizeTime*1000 - now.getTime() + this.differTime;
+        var leftTime = this.bocaiInfoData.openPrizeTime*1000 - now.getTime() + this.differTime;
         //console.log('leftTime',leftTime);
-        var closeTime = leftTime - this.closeTimeSet*1000;
+        var closeTime = leftTime - this.bocaiInfoData.closeTimeSet*1000;
 
-        var closeTimeSet = this.openPrizeTime*1000 - this.closeTimeSet*1000;
+        var closeTimeSet = this.bocaiInfoData.openPrizeTime*1000 - this.bocaiInfoData.closeTimeSet*1000;
 
 
-        //console.log('当前时间',this.timestampToTime(now.getTime()));
-
-        //console.log('this.closeTimeSet',this.closeTimeSet);
-        //console.log('封盘时间',this.timestampToTime(closeTimeSet));
 
         console.log('leftTime',leftTime);
         console.log('closeTime',closeTime);
 
         if(closeTime<=0 && leftTime<=0) {
+          //当期结束，开下一期,还没开之前，都是封盘状态
 
-
-          if(this.noneResult) {
-
-            //console.log('this.noneResult');
+          if(this.bocaiInfoData.openPrizeTime == '') {
+            //没开盘信息
             this.timeLeft = '--' + ":" + '--' + ":" + '--';
-
-            bus.$emit('isOpenOdds', false);
-
             $('#clock').addClass('gray');
           } else {
-            console.log('!!!!this.noneResult');
             this.timeLeft = '00' + ":" + '00' + ":" + '00';
-
-            bus.$emit('isOpenOdds', false);
-
             $('#clock').addClass('red');
-
-            bus.$emit('getRefreshTimeFast', '');
           }
 
-          // this.timeLeft = '00' + ":" + '00' + ":" + '00';
+          store.commit('updateisOpenOdds',false);
 
-          // bus.$emit('isOpenOdds', false);
-
-          // $('#clock').addClass('red');
-
-          //$('.bet_box .orders td').removeClass('selected');
-
-          //if(!this.hasFast) {
-            
-
-            //bus.$emit('getRefreshTimeFast', '');
-
-
-          //}
+          bus.$emit('getbocaiInfo', '');
 
         } 
 
         if(closeTime<=0 && leftTime>0) {
-
-          //this.$alert('closeTime<=0 && leftTime>0'+'closeTime:'+this.timestampToTime(closeTime)+'leftTime:'+this.timestampToTime(leftTime));
-
-          //console.log('closeTime2222',closeTime);
-          //console.log('leftTime2222',this.timestampToTime(leftTime));
+          //封盘未开盘
 
           var ms = parseInt(leftTime % 1000).toString();
           leftTime = parseInt(leftTime / 1000); 
@@ -179,16 +111,11 @@
           this.timeLeft = (o*1> 9 ? o : '0'+ o) + ":" + (m*1> 9 ? m : '0'+ m) + ":" + (s*1 > 9 ? s : '0'+ s);
           //console.log('未开盘',this.timestampToTime(this.openPrizeTime));
           //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
-          bus.$emit('isOpenOdds', false);
+          store.commit('updateisOpenOdds',false);
 
           $('#clock').addClass('red');
         }
         if(closeTime>0) {
-
-          //console.log('closeTime3333',closeTime);
-          //console.log('leftTime333',this.timestampToTime(leftTime));
-
-          //this.$alert('closeTime>0'+'closeTime:'+this.timestampToTime(closeTime));
 
           var ms = parseInt(leftTime % 1000).toString();
           leftTime = parseInt(leftTime / 1000); 
@@ -200,14 +127,12 @@
           this.timeLeft = (o*1> 9 ? o : '0'+ o) + ":" + (m*1> 9 ? m : '0'+ m) + ":" + (s*1 > 9 ? s : '0'+ s);
           //console.log('开盘时间',this.timestampToTime(this.openPrizeTime));
           //console.log('this.bocaiInfoData.openPrizeTime',this.bocaiInfoData.openPrizeTime);
-          bus.$emit('isOpenOdds', true);
+          store.commit('updateisOpenOdds',true);
 
           $('#clock').removeClass('red');
-
+          $('#clock').removeClass('gray');
           //alert('closeTime>0');
         }
-
-        //bus.$emit('getRefreshTimeFast', '');
 
         this.t = setTimeout(this.gettimeLeft, 1000);
 

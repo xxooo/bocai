@@ -234,6 +234,7 @@
 import BetQuick from '@/components/apps/bocai/components/betQuick';
 import ClockTime from '@/components/apps/bocai/components/clockTime';
 import FooterBocai from '@/components/apps/bocai/components/footerBocai';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -250,7 +251,6 @@ export default {
       activeIndex: '',
       showOdds: '',
       submenu: '更多',
-      isOpenOdds: true,
       longhuhe_lmp: {},
       yiwuqiu_lmp: [],
       qianhousan_lmp: [],
@@ -268,14 +268,15 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+        userInfo: 'getuserInfo',
+        isOpenOdds: 'getisOpenOdds'
+      })
   },
   created() {
     this.getOdds(this.curBocaiTypeId);
   },
   mounted(){
-      bus.$on('isOpenOdds', (data) => {
-        this.isOpenOdds = data;
-      });
       bus.$on('setNewOddsList', (data) => {
         this.normalPay = false;
         this.oddsList = data;
@@ -438,6 +439,8 @@ export default {
     },
     inputFunc(oddsObj,item,ids,pay) {
 
+      if(this.isOpenOdds) {
+
       let reg = /^[\u2E80-\u9FFF]+$/;
       if(reg.test(this.moneyOrder)){
         this.$alertMessage('请确认注单!', '温馨提示');
@@ -490,7 +493,7 @@ export default {
         }
       }
 
-      
+      }
       
     },
     orderTdYiZi(item,ids) {

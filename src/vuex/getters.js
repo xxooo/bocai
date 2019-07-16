@@ -7,7 +7,7 @@ const getters = {
   getuserInfo: state => state.userInfo,
   getbocaiTypeId: state => state.bocaiTypeId,
   getcurPeriods: state => state.curPeriods,
-  getisOdding: state => state.isOdding,
+  getisOpenOdds: state => state.isOpenOdds,
   getoddsList: state => state.oddsList,
   getbocaiTypeList: state => state.bocaiTypeList,
   getorderDatasShow: state => state.orderDatasShow,
@@ -15,7 +15,8 @@ const getters = {
   getfocusIndex: state => state.focusIndex,
   getorderList: state => state.orderList,
   getorderOddsVisible: state => state.orderOddsVisible,
-  getmoneyOrder: state => state.moneyOrder
+  getmoneyOrder: state => state.moneyOrder,
+  gethasResult: state => state.hasResult
 }
 
 export default getters

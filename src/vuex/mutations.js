@@ -23,8 +23,8 @@ const mutations = {
   updatecurPeriods(state,v) {
     state.curPeriods = v;
   },
-  updateisOdding(state,v) {
-    state.isOdding = v;
+  updateisOpenOdds(state,v) {
+    state.isOpenOdds = v;
   },
   updateoddsList(state,v) {
     state.oddsList = v;
@@ -49,6 +49,9 @@ const mutations = {
   },
   updatemoneyOrder(state,v) {
     state.moneyOrder = v;
+  },
+  updatehasResult(state,v) {
+    state.hasResult = v;
   }
 }
 
