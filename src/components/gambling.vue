@@ -165,7 +165,8 @@ export default {
       bocaiName: 'getbocaiName',
       hasResult: 'gethasResult',
       bocaiInfoData: 'getbocaiInfoData',
-      bocaiCategory: 'getbocaiCategory'
+      bocaiCategory: 'getbocaiCategory',
+      isOpenOdds: 'getisOpenOdds'
     }),
     bocaiPathName: function() {
       return this.$route.name
@@ -305,7 +306,7 @@ export default {
 
     },
     async getBocaiInfo5sOnce() { 
-      //console.log('5秒调一次','this.preResult',this.preResult,'this.iskaipaning',this.iskaipaning);
+      console.log('5秒调一次','this.hasResult',this.hasResult,'this.isOpenOdds',this.isOpenOdds);
 
        if(!this.hasResult && this.isOpenOdds) {
 

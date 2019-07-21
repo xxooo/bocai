@@ -95,6 +95,7 @@
                     <th>内容</th> 
                     <th>投注额</th> 
                     <th>可赢金额</th> 
+                    <th>退水</th> 
                     <th>派彩</th> 
                     <th>注单状态</th>
                   </tr>
@@ -106,24 +107,27 @@
                     <td><p>{{item.bocaiTypeName}}</p> <p>{{item.periods}} 期</p></td> 
                     <td><p><span class="odds-font">{{item.bocaiCategory2Name}} {{item.bocaiOddName}}</span>@<span class="odds-font">{{item.bocaiOdds}}</span></p></td> 
                     <td>{{item.betsMoney}}</td> 
-                    <td>{{item.winnerMoney}}</td> 
-                    <td class="red">{{+item.paicai+item.userDewater}}</td> 
+                    <td>{{(+item.winnerMoney-item.betsMoney*1).toFixed(2)}}</td> 
+                    <td>{{item.userDewater}}</td> 
+                    <td class="red">{{(+item.paicai+item.userDewater).toFixed(2)}}</td> 
                     <td><span>{{item.status=='1'?'已结算' : '未结算'}}</span></td>
                   </tr>
 
                 </tbody> 
                 <tr class="tab-footer">
                   <td colspan="4" class="tar">此页面统计：</td> 
-                  <td>{{totalbetsMoney}}</td> 
-                  <td>{{totalwinMoney}}</td> 
-                  <td>{{totalpaicai}}</td> 
+                  <td>{{totalbetsMoney.toFixed(2)}}</td> 
+                  <td>{{totalwinMoney.toFixed(2)}}</td> 
+                  <td>&nbsp;</td> 
+                  <td>{{totalpaicai.toFixed(2)}}</td> 
                   <td>&nbsp;</td>
                 </tr> 
                 <tr class="tab-footer">
                   <td colspan="4" class="tar">总计：</td> 
-                  <td>{{sumData.betsMoneySum}}</td> 
-                  <td>{{sumData.winnerMoneySum}}</td> 
-                  <td>{{sumData.winnerMoneyResultSum}}</td> 
+                  <td>{{sumData.betsMoneySum.toFixed(2)}}</td> 
+                  <td>{{sumData.winnerMoneySum.toFixed(2)}}</td> 
+                  <td>&nbsp;</td> 
+                  <td>{{sumData.winnerMoneyResultSum.toFixed(2)}}</td> 
                   <td>&nbsp;</td>
                 </tr>
               </table> 
@@ -248,7 +252,11 @@ export default {
               this.betsAllNow += res.page.nowWeekPage[n].betsMoneySum*1;
               this.winnerAllNow += res.page.nowWeekPage[n].winnerMoneySum*1;
               this.orderAllNow += res.page.nowWeekPage[n].orderCount*1;
-            }
+            }  
+
+            // this.betsAllNow = this.betsAllNow==''?'':this.betsAllNow.toFixed(2);
+            // this.winnerAllNow = this.winnerAllNow.toFixed(2);
+            // this.orderAllNow = this.orderAllNow.toFixed(2);
 
             this.afterWeekPage = res.page.afterWeekPage;
 
@@ -257,6 +265,10 @@ export default {
               this.winnerAllAfter += res.page.afterWeekPage[n].winnerMoneySum*1;
               this.orderAllAfter += res.page.afterWeekPage[n].orderCount*1;
             }
+
+            // this.betsAllAfter = this.betsAllAfter.toFixed(2);
+            // this.winnerAllAfter = this.winnerAllAfter.toFixed(2);
+            // this.orderAllAfter = this.orderAllAfter.toFixed(2);
 
             console.log('afterWeekPage.length*1',this.afterWeekPage.length*1);
             console.log('nowWeekPage.length*1',this.nowWeekPage.length*1);

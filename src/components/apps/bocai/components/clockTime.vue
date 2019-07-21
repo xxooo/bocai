@@ -77,8 +77,8 @@
 
 
 
-        console.log('leftTime',leftTime);
-        console.log('closeTime',closeTime);
+        //console.log('leftTime',leftTime);
+        //console.log('closeTime',closeTime);
 
         if(closeTime<=0 && leftTime<=0) {
           //当期结束，开下一期,还没开之前，都是封盘状态
