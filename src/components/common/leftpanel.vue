@@ -215,19 +215,25 @@ export default {
             that.$handelResponse(res, (result) => {
               if(result.code===200){
 
+                let openList = [];
+                let noOpenList = [];
+
                 for(let n in result.openPrizeMap) {
                   let obj = {};
                   obj.content = n;
                   obj.num = result.openPrizeMap[n];
-                  this.openPrizeList.push(obj);
+                  openList.push(obj);
                 }
 
                 for(let n in result.noOpenPrizeMap) {
                   let obj = {};
                   obj.content = n;
                   obj.num = result.noOpenPrizeMap[n];
-                  this.noOpenPrizeList.push(obj);
+                  noOpenList.push(obj);
                 }
+
+                this.openPrizeList = openList;
+                this.noOpenPrizeList = noOpenList;
 
                 //console.log('this.openPrizeMap',this.openPrizeMap);
                 //更新用户信息

@@ -46,8 +46,8 @@
     },
 		methods: {
       async closeNotice() {
-        let res = await this.$get(`${window.url}/api/closeNotice?id=`+this.messageid);
         this.centerDialogVisible = false;
+        let res = await this.$get(`${window.url}/api/closeNotice?id=`+this.messageid);
       }
 		}
 	}
