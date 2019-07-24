@@ -401,7 +401,7 @@ export default {
           case 'jiangxi11xuan5':
             typeid = '8813';
             this.imgUrl = 5;
-            name = '极速时时彩';
+            name = '江西11选5';
             break;
           case 'pcdandan':
             typeid = '8223';
