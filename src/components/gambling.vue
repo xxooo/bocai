@@ -273,14 +273,18 @@ export default {
 
                   this.getPrizeResultNew();
                   bus.$emit('getchanglong', '');
-                  store.commit('updateisOpenOdds',true);
+                  store.commit('updateiskaipaning',true);
 
                 } else {
                   store.commit('updateisOpenOdds',false);
+                  store.commit('updateiskaipaning',false);
+                  store.commit('updatehasResult',false);
                 }
 
               } else {
                 store.commit('updateisOpenOdds',false);
+                  store.commit('updateiskaipaning',false);
+                  store.commit('updatehasResult',false);
               }
 
         }
@@ -308,9 +312,12 @@ export default {
     async getBocaiInfo5sOnce() { 
       console.log('5秒调一次','this.hasResult',this.hasResult,'this.isOpenOdds',this.isOpenOdds);
 
-       if(!this.hasResult && this.isOpenOdds) {
+       if(!this.hasResult) {
 
         if(this.bocaiTypeId != '') {
+
+          store.commit('updateisLunXuning',true);
+          
           let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
 
             if(res.code===200){
@@ -349,20 +356,28 @@ export default {
 
                   }
 
-                  store.commit('updateisOpenOdds',true);
+                  store.commit('updateiskaipaning',true);
 
                 } else {
                   store.commit('updateisOpenOdds',false);
+                  store.commit('updateiskaipaning',false);
+                  store.commit('updatehasResult',false);
                 }
 
               } else {
                 store.commit('updateisOpenOdds',false);
+                  store.commit('updateiskaipaning',false);
+                  store.commit('updatehasResult',false);
               }
 
             }
+        }else {
+          store.commit('updateisLunXuning', false);
         }
 
-      }
+      }else {
+          store.commit('updateisLunXuning', false);
+        }
 
         this.t1 = setTimeout(this.getBocaiInfo5sOnce, window.refreshTimeFast);
     },

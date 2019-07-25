@@ -44,7 +44,8 @@
       ...mapGetters({
         bocaiInfoData: 'getbocaiInfoData',
         bocaiName: 'getbocaiName',
-        hasResult: 'gethasResult'
+        hasResult: 'gethasResult',
+        isLunXuning: 'getisLunXuning'
       }),
       differTime() {
         let now = new Date();
@@ -92,9 +93,10 @@
             $('#clock').addClass('red');
           }
 
-          store.commit('updateisOpenOdds',false);
-
-          bus.$emit('getbocaiInfo', '');
+          if(!this.isLunXuning) {
+            store.commit('updateisOpenOdds',false);
+            bus.$emit('getbocaiInfo', '');
+          }
 
         } 
 

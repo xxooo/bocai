@@ -16,7 +16,9 @@ const state = {
   orderList: [],
   orderOddsVisible: false,
   moneyOrder: '',
-  hasResult: false
+  hasResult: false,
+  isLunXuning: false,
+  iskaipaning: true
 }
 
 export default state

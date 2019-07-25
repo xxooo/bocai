@@ -52,6 +52,12 @@ const mutations = {
   },
   updatehasResult(state,v) {
     state.hasResult = v;
+  },
+  updateisLunXuning(state,v) {
+    state.isLunXuning = v;
+  },
+  updateiskaipaning(state,v) {
+    state.iskaipaning = v;
   }
 }
 
