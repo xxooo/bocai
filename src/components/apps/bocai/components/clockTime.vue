@@ -76,7 +76,7 @@
 
         var closeTimeSet = this.bocaiInfoData.openPrizeTime*1000 - this.bocaiInfoData.closeTimeSet*1000;
 
-
+        
 
         //console.log('leftTime',leftTime);
         //console.log('closeTime',closeTime);
