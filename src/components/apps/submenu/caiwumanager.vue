@@ -147,7 +147,7 @@
                       </div>
                     </td>
                     <td v-else>
-                      <img :src="chongzhiImgSrc" alt="" width="120" height="120" title="充值" >
+                      <img :src="chongzhiImgSrc" alt="" width="120" height="120" title="充值">
                     </td>
                   </tr> 
                   <tr>
