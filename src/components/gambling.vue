@@ -128,7 +128,9 @@ export default {
             require('@/assets/img/beijingkuaile8.png'),
             require('@/assets/img/jisusaiche.png'),
             require('@/assets/img/jisudubo.png'),
-            require('@/assets/img/marksix.png')
+            require('@/assets/img/marksix.png'),
+            require('@/assets/img/anhuikuaisan.png'),
+            require('@/assets/img/guangdongkuaileshifen.png')
           ],
       messageinfo: '',
       centerDialogVisible: false
@@ -257,6 +259,8 @@ export default {
                       this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
                     } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
                       this.preResult = '等待开奖中等待';
+                    } else if([8809].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                      this.preResult = '等待开奖中等待开';
                     } else {
                       this.preResult = '等待开奖中';
                     }
@@ -338,6 +342,8 @@ export default {
                       this.preResult = '等待开奖中等待开奖中等待开奖中等待开奖中';
                     } else if([8808].findIndex((n) => n==this.bocaiTypeId)>-1) {
                       this.preResult = '等待开奖中等待';
+                    } else if([8809].findIndex((n) => n==this.bocaiTypeId)>-1) {
+                      this.preResult = '等待开奖中等待开';
                     } else {
                       this.preResult = '等待开奖中';
                     }
@@ -448,7 +454,18 @@ export default {
             this.imgUrl = 11;
             name = '六合彩';
             break;
+          case 'anhuikuaisan':
+            typeid = '8810';
+            this.imgUrl = 12;
+            name = '安徽快3';
+            break;
+          case 'guangdongkuaileshifen':
+            typeid = '8809';
+            this.imgUrl = 13;
+            name = '广东快乐十分';
+            break;
         }
+
 
         store.commit('updatebocaiName',name);
 
@@ -476,7 +493,7 @@ export default {
       console.log('item---getnotice',item);
       //console.log('item---index',index);
 
-      if(['重庆时时彩','幸运飞艇','北京PK拾','山东11选5','广东11选5','江西11选5','PC蛋蛋','江苏快3','北京快乐8','极速赛车','极速时时彩','六合彩'].findIndex((n) => n==item.bocaiName)>-1) {
+      if(['重庆时时彩','幸运飞艇','北京PK拾','山东11选5','广东11选5','江西11选5','PC蛋蛋','江苏快3','北京快乐8','极速赛车','极速时时彩','六合彩','安徽快3','广东快乐十分'].findIndex((n) => n==item.bocaiName)>-1) {
 
         store.commit('updatebocaiName',item.bocaiName);
 
@@ -538,6 +555,14 @@ export default {
             case '六合彩':
               path = 'marksix';
               this.imgUrl = 11;
+              break;
+            case '安徽快3':
+              path = 'anhuikuaisan';
+              this.imgUrl = 12;
+              break;
+            case '广东快乐十分':
+              path = 'guangdongkuaileshifen';
+              this.imgUrl = 13;
               break;
           }
 
@@ -733,6 +758,12 @@ export default {
     width: 45px;
     height: 45px;
     line-height: 45px;
+    margin: 0px 3px;
+  }
+  .bjpk-ran.sizeNum8 {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
     margin: 0px 3px;
   }
   .bjpk-ran.sizeNum3 {
