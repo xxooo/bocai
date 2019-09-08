@@ -15,6 +15,9 @@ const router = new Router({
       path: '/login', name: 'login', component: r => require.ensure([], () => r(require('@/components/login')), 'login')
     },
     {
+      path: '/register', name: 'register', component: r => require.ensure([], () => r(require('@/components/register')), 'register')
+    },
+    {
       path: '/togambling', 
       name: 'userAgreement',
       meta: {
