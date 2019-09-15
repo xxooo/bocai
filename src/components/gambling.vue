@@ -90,6 +90,8 @@
 
     <message-dialog></message-dialog>
 
+    <float-menu></float-menu>
+
   </div>
 </template>
 
@@ -98,12 +100,14 @@
 import LeftPanel from '@/components/common/leftpanel';
 import PageFooter from '@/components/common/pagefooter';
 import MessageDialog from '@/components/common/messagedialog';
+import FloatMenu from '@/components/common/floatmenu';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
     LeftPanel,
     PageFooter,
+    FloatMenu,
     MessageDialog
   },
   data() {
