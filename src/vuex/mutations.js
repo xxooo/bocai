@@ -58,6 +58,9 @@ const mutations = {
   },
   updateiskaipaning(state,v) {
     state.iskaipaning = v;
+  },
+  updatewebInfo(state,v) {
+    state.webInfo = v;
   }
 }
 

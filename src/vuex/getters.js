@@ -18,7 +18,8 @@ const getters = {
   getmoneyOrder: state => state.moneyOrder,
   gethasResult: state => state.hasResult,
   getisLunXuning: state => state.isLunXuning,
-  getiskaipaning: state => state.iskaipaning
+  getiskaipaning: state => state.iskaipaning,
+  getwebInfo: state => state.webInfo
 }
 
 export default getters

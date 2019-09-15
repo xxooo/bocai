@@ -18,7 +18,8 @@ const state = {
   moneyOrder: '',
   hasResult: false,
   isLunXuning: false,
-  iskaipaning: true
+  iskaipaning: true,
+  webInfo: {}
 }
 
 export default state

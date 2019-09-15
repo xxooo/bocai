@@ -117,16 +117,20 @@ export default {
                 // username: 'hih0759',
                 // password: 'aaa888'
 
+                username: 'bvvg6',
+                password: 'aaa888'
 
 
-                username: 'atestHYXJ001',
-                password: 'a111111'
+                // username: 'atestHYXJ001',
+                // password: 'a111111'
               };
 
               let ret = await this.$post(`${window.url}/api/login`, obj);
               if(ret.code === 200) {
                 cookieParser.setCookie("accesstoken", ret.token);
+                cookieParser.setCookie("webInfo", ret);
                 this.$router.push({name: 'userAgreement'});
+                store.commit('updatewebInfo', ret);
               }
 
     },
@@ -153,7 +157,9 @@ export default {
               let ret = await this.$post(`${window.url}/api/login`, obj);
               if(ret.code === 200) {
                 cookieParser.setCookie("accesstoken", ret.token);
+                cookieParser.setCookie("webInfo", ret);
                 this.$router.push({name: 'userAgreement'});
+                store.commit('updatewebInfo', ret);
               }
 
           } else {
