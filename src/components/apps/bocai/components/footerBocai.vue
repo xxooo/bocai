@@ -279,6 +279,12 @@
               //loading.close();
                 if(result.code===200){
 
+                  console.log('result.data',result.data);
+
+                    result.data = JSON.parse(result.data);
+
+                    console.log('result.data',result.data);
+
                   if(result.data.counts) {
                     this.counts = result.data.counts;
 

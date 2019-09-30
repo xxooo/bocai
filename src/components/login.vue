@@ -104,8 +104,8 @@ export default {
                 // password: 'aaa888'
                 // username: 'aydwhuiyuan1',
                 // password: 'a111111'
-                username: 'a4m28dhy',
-                password: 'a123'
+                // username: 'a4m28dhy',
+                // password: 'a123'
                 // atestHYXJ001
                 // username: 'cabb1',
                 // password: 'a111111'
@@ -121,8 +121,8 @@ export default {
                 // password: 'aaa888'
 
 
-                // username: 'atestHYXJ001',
-                // password: 'a111111'
+                username: 'atestHYXJ001',
+                password: 'a111111'
               };
 
               let ret = await this.$post(`${window.url}/api/login`, obj);
